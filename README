@@ -2,7 +2,7 @@
 Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----
 
-$Id: README,v 1.4 2000/08/11 13:15:28 swix Exp $ 
+$Id: README,v 1.5 2000/09/16 16:14:22 swix Exp $ 
 $Source: /cvsroot/omail/admin2/README,v $
 
 
@@ -11,6 +11,11 @@ Welcome to oMail-admin!
 
 more to come later... :-)  Everything you are probably looking for is in the INSTALL file.
 
+To discuss or get support about this program, please subscribe to the mailing list 
+(see below), but please don't send private mail. 
+
+For vmailmgr specific questions, please use the vmailmgr mailing list... (www.vmailmgr.org)
+
 
 
 * Project homepage : http://omail.omnis.ch
@@ -18,12 +23,14 @@ more to come later... :-)  Everything you are probably looking for is in the INS
 * CVS repository : 
 
 	cvs -d:pserver:anonymous@cvs.oMail.sourceforge.net:/cvsroot/oMail login 
-	cvs -z3 -d:pserver:anonymous@cvs.oMail.sourceforge.net:/cvsroot/oMail co omail2 
+	cvs -z3 -d:pserver:anonymous@cvs.oMail.sourceforge.net:/cvsroot/oMail co admin2 
 
 	Or via CVS-web : http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi/admin2/?cvsroot=oMail
 
-* Mailing list : currently using the vmailmgr ML, but creating an own ML for this package
-  would take a minute.
+* Mailing list :   http://sourceforge.net/mail/?group_id=3658   (low trafic)
+  To subscribe :   http://lists.sourceforge.net/mailman/listinfo/omail-admin-dev
+  Archives     :   http://www.geocrawler.com/redir-sf.php3?list=/omail-admin-dev/
+
 
 * Work in progress... please report any bugs!  Thanks!
 
