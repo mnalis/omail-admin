@@ -1,12 +1,12 @@
 <?php
 /* 
-	-----
-	Omail  -  A PHP4 based Vmailmgrd Web interface
-	-----
+	-----------
+	oMail-admin  -  A PHP4 based Vmailmgrd Web interface
+	-----------
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.21 2000/10/12 20:55:19 swix Exp $
+        $Id: strings.php,v 1.22 2000/10/15 21:43:44 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -1573,6 +1573,60 @@ $txt_settings = array(
  "es" => "Config",
  "it" =>"Config");
 
+$txt_catchall = array(
+ "ru" => "Catchall",
+ "en" => "Catchall",
+ "fr" => "Catchall",
+ "de" => "Catchall",
+ "da" => "Catchall",
+ "es" => "Catchall",
+ "it" => "Catchall");
+
+$txt_setup_catchall = array(
+ "ru" => "Setup catchall",
+ "en" => "Setup catchall",
+ "fr" => "Setup catchall",
+ "de" => "Setup catchall",
+ "da" => "Setup catchall",
+ "es" => "Setup catchall",
+ "it" => "Setup catchall");
+
+$txt_remove_catchall = array(
+ "ru" => "Remove catchall",
+ "en" => "Remove catchall",
+ "fr" => "Remove catchall",
+ "de" => "Remove catchall",
+ "da" => "Remove catchall",
+ "es" => "Remove catchall",
+ "it" => "Remove catchall");
+
+$txt_catchall_confirm = array(
+ "ru" => "Catchall confirmation",
+ "en" => "Catchall confirmation",
+ "fr" => "Catchall confirmation",
+ "de" => "Catchall confirmation",
+ "da" => "Catchall confirmation",
+ "es" => "Catchall confirmation",
+ "it" => "Catchall confirmation");
+
+$txt_system_account = array(
+ "ru" => "System account",
+ "en" => "System account",
+ "fr" => "Compte systeme",
+ "de" => "System Konto",
+ "da" => "System account",
+ "es" => "System account",
+ "it" => "System account");
+
+$txt_current_catchall_account_is = array(
+ "ru" => "current_catchall_account_is",
+ "en" => "Current catchall account is",
+ "fr" => "Le compte receptionant tous les emails non definis est",
+ "de" => "current_catchall_account_is",
+ "da" => "current_catchall_account_is",
+ "es" => "current_catchall_account_is",
+ "it" => "current_catchall_account_is");
+
 $txt_ = array(
  "ru" => "",
  "en" => "",
@@ -1580,7 +1634,33 @@ $txt_ = array(
  "de" => "",
  "da" => "",
  "es" => "",
- "it" =>"");
+ "it" => "");
 
+$txt_ = array(
+ "ru" => "",
+ "en" => "",
+ "fr" => "",
+ "de" => "",
+ "da" => "",
+ "es" => "",
+ "it" => "");
+
+$txt_ = array(
+ "ru" => "",
+ "en" => "",
+ "fr" => "",
+ "de" => "",
+ "da" => "",
+ "es" => "",
+ "it" => "");
+
+$txt_ = array(
+ "ru" => "",
+ "en" => "",
+ "fr" => "",
+ "de" => "",
+ "da" => "",
+ "es" => "",
+ "it" => "");
 
 ?>

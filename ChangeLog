@@ -1,16 +1,28 @@
------
-Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
------
+-----------
+oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
+-----------
 
-$Id: ChangeLog,v 1.24 2000/10/13 11:15:40 swix Exp $ 
+$Id: ChangeLog,v 1.25 2000/10/15 21:43:44 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
+
+2000-10-15  Olivier Mueller  <om@omnis.ch>
+	
+	* Catchall account support ("+") : now working 100%
+	* added catchall support to vmailmgrquotas (user allowed to edit/change the catchall account y/n)
+	* if an account is deleted, and that the "+" alias was pointing on it, the "+" account will also
+	  automaticaly be removed.
+	* templates: removed the "fwd3" column from mailbox listings (to give enough place for the catchall button)
+	* config.php: support for hidding system accounts like root, postmaster, mailmaster, etc.
+	  If set, it will be impossible to see, edit, create and delete accounts with the definied names.
+	  There are system accounts (hidden) and read only accounts (visible, but read only).
 
 2000-10-13  Olivier Mueller  <om@omnis.ch>
 	
 	* templates/login.temp: language selection is now done using a <SELECT> menu
 	  (too many languages to keep the old design :)
-	* htmlstuff.php: fixes to allow select-based language setup
+	* htmlstuff.php: fixes to allow select-based language setup (too many languages to be
+	  listed on one line :)
 	* TRANSLATION: added information about new translations
 
 2000-10-12  Olivier Mueller  <om@omnis.ch>

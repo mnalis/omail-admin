@@ -1,12 +1,12 @@
 <?
 
-/* 	-----
-	Omail  -  A PHP4 based Vmailmgrd Web interface
-	-----
+/* 	-----------
+	oMail-admin  -  A PHP4 based Vmailmgrd Web interface
+	-----------
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.39 2000/10/13 11:15:40 swix Exp $
+        $Id: htmlstuff.php,v 1.40 2000/10/15 21:43:44 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -243,7 +243,7 @@ function html_quotaform($userinfo, $action) {
 	global $quota_on, $quota_data, $session, $script, $lang, $domain, $type;
 	include("strings.php");
 
-	list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled)= $userinfo;
+	list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible)= $userinfo;
 
 	// template = quotaform.temp - 23sep2k [om]
 
@@ -344,6 +344,52 @@ function html_delete_confirm($userinfo) {
 }
 
 
+
+function html_catchall_confirm($userinfo, $msg) {
+
+	global $session, $script, $lang, $domain;
+	include("strings.php");
+
+        $templdata["script"]=$script;
+        $templdata["SID"]=SID;
+        $templdata["txt_username"]=$txt_username[$lang];
+        $templdata["userinfo0"]=$userinfo[0];
+        $templdata["domain"]=$domain;
+
+        $templdata["txt_submit"]=$txt_submit[$lang];
+        $templdata["txt_cancel"]=$txt_cancel[$lang];
+        $templdata["txt_action"]=$txt_action[$lang];
+        $templdata["txt_catchall"]=$txt_catchall[$lang];
+        $templdata["txt_setup_catchall"]=$txt_setup_catchall[$lang];
+
+        $templdata["msg"]=$msg;
+
+        print parseTemplate($templdata, "templates/catchall_confirm.temp");
+}
+
+
+function html_catchall_remove_confirm($msg) {
+
+	global $session, $script, $lang, $domain;
+	include("strings.php");
+
+        $templdata["script"]=$script;
+        $templdata["SID"]=SID;
+        $templdata["txt_username"]=$txt_username[$lang];
+        $templdata["domain"]=$domain;
+
+        $templdata["txt_domain"]=$txt_domain[$lang];
+        $templdata["txt_submit"]=$txt_submit[$lang];
+        $templdata["txt_cancel"]=$txt_cancel[$lang];
+        $templdata["txt_action"]=$txt_action[$lang];
+        $templdata["txt_remove_catchall"]=$txt_remove_catchall[$lang];
+
+        $templdata["msg"]=$msg;
+
+        print parseTemplate($templdata, "templates/catchall_remove_confirm.temp");
+}
+
+
 function html_error($title, $msg) {
 
         global $script, $lang, $domain;
@@ -362,7 +408,7 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 
 
 
-	global $quota_on, $quota_data, $session, $script, $lang, $domain;
+	global $quota_on, $quota_data, $session, $script, $lang, $domain, $catchall_active, $system_accounts_list, $readonly_accounts_list;
 	include("strings.php");
 
 	switch ($arg_action) {
@@ -404,16 +450,23 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 	$inactived = "<font color=\"red\">" . $txt_inactived[$lang] . "</font>";
 
 	$total_size = 0;
+	$hidden = 0;
 
 	for ($i = 0; $i <= sizeof($mboxlist); $i++) {
-	
-		$ii = $i+1;  // neded for the <template>
-	
-		list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled)=$mboxlist[$i];
+		
+		list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible)=$mboxlist[$i];
+
+		while ($username && (!$Visible || in_array($username, $system_accounts_list))) {
+    		    $hidden++; 
+		    $i++; 
+		    list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible)=$mboxlist[$i];
+		}
+
+		$ii = ($i-$hidden)+1;  // neded for the <template>
 
 		$templdata[obj][$ii]["nb"] = ($i + 1);
 
-		if ($i/2 == floor($i/2)) { 
+		if (($i-$hidden)/2 == floor(($i-$hidden)/2)) { 
 			$templdata[obj][$ii]["rowcolor"] = "#DDDDDD"; 
 		} else { 
 			$templdata[obj][$ii]["rowcolor"] = "#CCCCCC";
@@ -427,6 +480,12 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 		
 		$templdata[obj][$ii]["username"] = $username;
 		$templdata[obj][$ii]["PersonalInfo"] = $PersonalInfo;
+
+		if (in_array($username, $readonly_accounts_list)) {
+		     $templdata[obj][$ii]["PersonalInfo"] = "<I>" . $txt_system_account[$lang] . "</I>"; 
+		}
+
+
 		$templdata[obj][$ii]["alias0"] = $alias[0];
 		$templdata[obj][$ii]["alias1"] = $alias[1];
 		$templdata[obj][$ii]["alias2"] = $alias[2];
@@ -451,6 +510,12 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 
 		$username = urlencode($username);
 
+		if (in_array($username, $readonly_accounts_list)) {
+
+		$templdata[obj][$ii]["actions"] = "&nbsp;&nbsp;-";
+	        
+		} else {
+
 		$templdata[obj][$ii]["actions"] .= "&nbsp;&nbsp;<A HREF=\"$script?A=edit&U=" . $username . "&" . SID . "\" onClick=\"oW(this,'pop')\">"  .
 				$txt_edit[$lang]  . "</a>&nbsp;"; // action
 
@@ -467,7 +532,23 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 		if ($arg_action) {
 			$templdata[obj][$ii]["actions"] .=  "&nbsp;&nbsp;<A HREF=\"$script?A=delete&U=" . $username . "&" . SID . "\" onClick=\"oW(this,'pop')\">"  . 
 				$txt_delete[$lang]  . "</a>&nbsp;"; // action
+
+		    
+			if ($quota_data["catchall_use_allowed"]) {
+
+			    // check status : catchall or not ?
+			
+			    if ($username == $catchall_active) {
+			        $templdata[obj][$ii]["actions"] .=  "&nbsp;&nbsp;<A HREF=\"$script?A=remove_catchall&U=" . $username . "&" . SID . "\" onClick=\"oW(this,'pop')\"><font color=\"red\">"  . 
+    				    $txt_remove_catchall[$lang]  . "</font></a>&nbsp;"; // action
+			    } else {
+				$templdata[obj][$ii]["actions"] .=  "&nbsp;&nbsp;<A HREF=\"$script?A=catchall&U=" . $username . "&" . SID . "\" onClick=\"oW(this,'pop')\">"  . 
+    				    $txt_catchall[$lang]  . "</a>&nbsp;"; // action
+			    }
+			}
 		}
+	    }
+
 	}
 			
 
@@ -518,9 +599,9 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 		} // if quota_on
 	
 		if ($arg_action != 2 && !($quota_on && !$quota_data["autoresp_support"])) {
-			$templdata["nbcols"] .= "8";
+			$templdata["nbcols"] .= "7";
 		} else { 
-			$templdata["nbcols"] .= "7"; 
+			$templdata["nbcols"] .= "6"; 
 		}
 		
 		$templdata["quota_string"] .= $quota_string;

@@ -5,7 +5,7 @@ Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Muell
 
 oMail-admin TODO
 ================
-$Id: TODO,v 1.16 2000/09/26 23:34:52 swix Exp $ 
+$Id: TODO,v 1.17 2000/10/15 21:43:44 swix Exp $ 
 $Source: /cvsroot/omail/admin2/TODO,v $ 
 
 
@@ -16,6 +16,7 @@ High priority
 [X] support for non cookies enabled browsers  (om, 14aug2k)
 [X] remove autoresponder info and button for aliases  (om, 03aug2k)
 [X] make the enabled/disabled feature work (om, 18aug2k)
+[ ] update strings for other languages
 
 Normal priority
 ---------------
@@ -25,24 +26,25 @@ Normal priority
 [ ] use <select> to setup expiry date on quota edition
 [.] add help screen / buttons
 [ ] create a logo for the project
-[X] support for HTML templates
-[ ] better support for the + alias
-[ ] support for specific mail accounts limitation (root, abuse, mailer-daemon, postmaster, etc.)
+[X] support for HTML templates        (om, oct2k)
+[X] better support for the + alias    (om, 15oct2k)
+[.] support for specific mail accounts limitation (root, abuse, mailer-daemon, postmaster, etc.)
     -> hide, read only, or read/write
 [ ] case of popup screens & session timeout : close popup on session timeout
+[ ] display N accounts per page, better design
 
 Low priority
 ------------
-[ ] display mailbox listing (also need changes in daemon)
+[ ] display mailbox contents listing  (also need changes in daemon)
 [ ] webmail support  (would need vmailmgr daemon support)
 [X] add "GPL" standard headers in all source files    (om, 14aug2k)
+[ ] analyse error/ok message, and give a translated version
+[X] replace "Omail" by "oMail-admin" in every file
+[ ] eventually secure the query strings with an md5 checksum
+[ ] accounting stuff ($i++ somewhere on account creation, for a billing system for example)
 
-
-
-
-
-----------------------------------------------
-[ ]  Todo       [X]  Done      [.]  On the way
-----------------------------------------------
+--------------------------------------------------------------------------
+[ ]  Todo       [X]  Done      [.]  On the way/currently thinking about it
+--------------------------------------------------------------------------
 
 

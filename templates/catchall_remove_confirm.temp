@@ -1,0 +1,22 @@
+<br><table border=0>
+
+<tr><th align=right>%txt_domain%&nbsp;</th>
+<td colspan="2" bgcolor="#DDDDDD" align=left>%domain%</td></tr>
+
+<tr><th align=right>%txt_action%&nbsp;</th>
+<td bgcolor="#CCCCCC" align="center" valign="center">
+<small><font color="red">
+
+<form action="%script%?%SID%" method="post">
+<input type="hidden" name="A" value="parse">
+<input type="hidden" name="action" value="catchall_remove_ok">
+<input type="hidden" name="U" value="+">
+<br><input type="submit" name="submit" value="%txt_remove_catchall%"></font>
+</form></small></td><td bgcolor="#CCCCCC" align="center" valign="center"><small>
+
+<form action="%script%?%SID" method="post">
+<input type="hidden" name="A" value="menu">
+<br><input type="reset" name="submit" onClick="return gO(this,true,true)" value="%txt_cancel%">
+</form></small></td></tr>
+</table>
+

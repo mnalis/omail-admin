@@ -1,13 +1,13 @@
 <?
 
 /*
-        -----
-        Omail  -  A PHP4 based Vmailmgrd Web interface
-        -----
+        -----------
+        oMail-admin  -  A PHP4 based Vmailmgrd Web interface
+        -----------
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.23 2000/10/12 22:17:47 swix Exp $
+        $Id: index.php,v 1.24 2000/10/15 21:43:44 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -44,7 +44,7 @@ include("htmlstuff.php");
 
 session_start();
 session_register("username","domain","passwd","type","ip","expire","lang","active");
-session_register("quota_on","quota_data");
+session_register("quota_on","quota_data","catchall_active");
 
 if (!$lang) { 
 
@@ -195,6 +195,10 @@ if ($active == 1) {    // active=1 -> user logged in
 
 		if ($type == "domain") {
 
+			if ($catchall_active) {
+			    $txt_menu_add = "<br>" . $txt_current_catchall_account_is[$lang] . ": <b>$catchall_active@$domain</b>";
+			}
+
 			html_titlebar($txt_menu[$lang] . " - $domain", $txt_menu_domain_descr[$lang] . $txt_menu_add, 0);
 
 			if (!$quota_on || ($quota_on && $quota_data["users_support"])) {
@@ -241,7 +245,7 @@ if ($active == 1) {    // active=1 -> user logged in
 	// Check arguments
 	// 
 
-	if ($A == "resp" || $A == "edit" || $A == "read" || $A == "delete" || $A == "parse" || $A == "quota") {
+	if ($A == "resp" || $A == "edit" || $A == "read" || $A == "delete" || $A == "parse" || $A == "quota" || $A == "catchall" || $A == "catchall_remove") {
 
 	        // check if $U ok
 		
@@ -255,8 +259,6 @@ if ($active == 1) {    // active=1 -> user logged in
                         html_end();
                         exit();
 	        }
-
-
 	}
 
 
@@ -302,12 +304,15 @@ if ($active == 1) {    // active=1 -> user logged in
 	if ($A == "newuser") {
 	
 		if ($type == "domain" && (!$quota_on || ($quota_on && ($quota_data["users_support"]  && $quota_data["nb_users"] < $quota_data["max_users"])))) {
+
 	        	html_titlebar($txt_newuser[$lang], $txt,1);
 	        	$userinfo[2] = "-";
 	        	html_userform($userinfo, "newuser");
 	        	html_end();
 	        	exit();
+
 		} else {
+
 			if ($type != "domain") { 
 				$msg = $txt_error_not_allowed[$lang];
 			} else {
@@ -330,27 +335,129 @@ if ($active == 1) {    // active=1 -> user logged in
 
 	if ($A == "edit") {
 	                
-        	html_titlebar($txt_edit_account[$lang], $txt,1);
-	
-	        $userinfo = get_accounts(0,$U);
-	        html_userform($userinfo[0], "edit");
-	        html_end();
-	        exit();
+
+	    if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
+
+		$msg = $txt_error_not_allowed[$lang];
+                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
+    	        html_titlebar($txt_error[$lang], $msg ,0);
+                html_end();
+		exit();
+
+	    } 
+	    
+    	    html_titlebar($txt_edit_account[$lang], $txt,1);
+	    $userinfo = get_accounts(0,$U);
+	    html_userform($userinfo[0], "edit");
+	    html_end();
+	    exit();
+
 	}
 
 
 	//
-	// DELETE ACCOUNT 
+	// DELETE ACCOUNT   (ask for confirmation)
 	// 
 	
 	if ($A == "delete") {
 
-	        html_titlebar($txt_delete_account[$lang], $txt_delete_account_confirm[$lang],1);
+	    if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
 
+		$msg = $txt_error_not_allowed[$lang];
+                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
+    	        html_titlebar($txt_error[$lang], $msg ,0);
+                html_end();
+		exit();
+
+	    } 
+
+	    html_titlebar($txt_delete_account[$lang], $txt_delete_account_confirm[$lang],1);
+
+	    $userinfo = get_accounts(0,$U);
+	    html_delete_confirm($userinfo[0]);
+	    html_end();
+	    exit();
+	    
+	}
+
+
+
+	//
+	// SETUP/REMOVE CATCHALL ACCOUNT   (ask for confirmation)
+	// 
+	
+	if ($A == "catchall" || $A == "remove_catchall") {
+
+
+	    if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
+
+		$msg = $txt_error_not_allowed[$lang];
+                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
+    	        html_titlebar($txt_error[$lang], $msg ,0);
+                html_end();
+		exit();
+
+	    } 
+
+	    if ($A == "catchall") {
+	        html_titlebar($txt_catchall[$lang], $txt_catchall_confirm[$lang],1);
+	    } else {
+	        html_titlebar($txt_catchall[$lang],"",1);	
+	    }
+    
+	    $tmpinfo = get_accounts(3);
+
+	    // check if there is a "+" account
+		
+	    $tmpsize = count($tmpinfo);
+		
+	    for ($i=0; $i<=$tmpsize; $i++) {
+
+	        $catchallinfo = $tmpinfo[$i];
+		
+	        if ($catchallinfo[0] == "+") { 
+		    
+		    $aliases = $catchallinfo[3];
+		    $nb_fwd = count($aliases);
+
+	    	    if (!($catchallinfo[2])) { 
+		        $msg .= "The Catchal account is an alias with $nb_fwd forwarders."; 
+		    } else { 
+		        $msg .= "The Catchall account is a real mailbox with $nb_fwd forwarders."; 
+		        $msg .= "<br>If you replace it, all the mails of account \"+\" will be deleted"; 
+		    }
+		    	
+		    if ($aliases[0])  { 
+		        $msg .= "<br>It's currently pointing to : " . $aliases[0]; 
+	    	    	if (!(preg_match("/@/i", $aliases[0]))) {
+    			    $msg .= "@" . $domain;
+			}	
+		        if ($nb_fwd > 1) { 
+			    $msg .= " (and " . ($nb_fwd-1) . " other addresses)";
+			}
+		    }
+		    
+		    break;
+		} 
+	    } 
+		
+	    if (!$msg) {		
+	        $msg = "There is currently no active Catchall account.";
+	    }
+
+
+	    if ($A == "catchall") {
 	        $userinfo = get_accounts(0,$U);
-	        html_delete_confirm($userinfo[0]);
-	        html_end();
-	        exit();
+    	        html_catchall_confirm($userinfo[0], $msg);
+	    } else {    
+	        html_catchall_remove_confirm($msg);
+	    }
+
+	    html_end();
+	    exit();
 	}
 
 
@@ -360,7 +467,7 @@ if ($active == 1) {    // active=1 -> user logged in
 
 	if ($A == "resp") {
                 
-		if (!$quota_on || ($quota_on && $quota_data["autoresp_support"])) {
+		if (!$quota_on || ($quota_on && $quota_data["autoresp_support"]) && !in_array($U, $readonly_accounts_list) && !in_array($U, $system_accounts_list)) {
 	
 		        html_titlebar($txt_edit_account[$lang], $txt,1);
 		        $user = get_accounts(0, $U);
@@ -405,7 +512,7 @@ if ($active == 1) {    // active=1 -> user logged in
 
 	if ($A == "quota") {
                 
-		if (!$quota_on || ($quota_on && $quota_data["user_quota_support"]) || ($type != "domain")) {
+		if ((!$quota_on || ($quota_on && $quota_data["user_quota_support"]) || ($type != "domain")) && !in_array($U, $readonly_accounts_list) && !in_array($U, $system_accounts_list)) {
 	
 		        html_titlebar($txt_edit_account[$lang], $txt,1);
 
@@ -456,6 +563,20 @@ if ($active == 1) {    // active=1 -> user logged in
 	        if ($action == "edit") {
 	
 	                // check args format... addslashed everywhere, etc...
+
+
+			if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
+    
+    			    $msg = $txt_error_not_allowed[$lang];
+            		    $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+            		    $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
+    	    		    html_titlebar($txt_error[$lang], $msg ,0);
+            		    html_end();
+			    exit();
+
+			} 
+
+
 	
 	                // if passwd -> change password  
 	
@@ -485,6 +606,9 @@ if ($active == 1) {    // active=1 -> user logged in
 			}
 	        
 		
+			// update catchall_account status if necessary
+			get_catchall_account();
+
 	                html_head("$program_name Administration");
 	                $msg = "<b>" . $results . "</b><br><br>";
 	                $msg .= "<ul>";
@@ -501,11 +625,22 @@ if ($active == 1) {    // active=1 -> user logged in
 	        if ($action == "newuser" || $action == "newalias") {
 
 
+			if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
+    
+    			    $msg = $txt_error_not_allowed[$lang];
+            		    $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+            		    $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
+    	    		    html_titlebar($txt_error[$lang], $msg ,0);
+            		    html_end();
+			    exit();
+
+			} 
+
 			// check if domain admin is logged in and if quota are ok		
 	
 			if (($type != "domain") ||
 			($quota_on && $action == "newuser" && (!$quota_data["users_support"] || ($quota_data["nb_users"] >= $quota_data["max_users"]))) ||
-			($quota_on && $action == "newalias" && (!$quota_data["alias_support"] || ($quota_data["nb_alias"] >= $quota_data["max_alias"])))) {
+			($quota_on && $action == "newalias" && (!$quota_data["alias_support"] || ($quota_data["nb_alias"] >= $quota_data["max_alias"])))) { //xx?
 
 				if ($type != "domain") { 
 					$msg = $txt_error_not_allowed[$lang];
@@ -577,7 +712,8 @@ if ($active == 1) {    // active=1 -> user logged in
 	                }
 
 
-
+			// update catchall_account status if necessary
+			get_catchall_account();
 
 	                html_head("$program_name Administration");
 	                $msg = "<b>" . $results . "</b><br><br>";
@@ -592,25 +728,37 @@ if ($active == 1) {    // active=1 -> user logged in
 	        // "delete_ok"
 
 	        if ($action == "delete_ok") {
+
+
+			if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
+    
+    			    $msg = $txt_error_not_allowed[$lang];
+            		    $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+            		    $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
+    	    		    html_titlebar($txt_error[$lang], $msg ,0);
+            		    html_end();
+			    exit();
+
+			} 
 		        
 	                // check args format... addslashed everywhere, etc...
 	                // update forwarders
                 
-	                // delete autoresponder if any
-
-
-	            //    $temp_resp_file = $temp_directory . "/vtemp_del_" . $U . "_" . $session;
-	            //    $results1 = update_responder("0", $U, "", "", "", $temp_resp_file);
-	
 	                // let vwrap copy the current resp file to a temp file, readable by all
 	
-	                $results2 = delete_account($U);  // T = type : alias, mailbox 
-	                                                           // needed to know if it is necessary to backup or not
+	                $results1 = delete_account($U); 
 
+			// check if we deleted the account on which the checkall (+) account was pointing on.
+			// if yes, also remove the "+" 
+			
+			if ($U == $catchall_active) {
+			    $results1 .= "<br>" . delete_account("+");
+			}
+
+			get_catchall_account();
 
         	        html_head("$program_name Administration");
         	        $msg = "<b>" . $results1 . "</b><br>";
-        	        $msg .= "<b>" . $results2 . "</b><br><br>";
         	        $msg .= "<ul>";
         	        $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$lang]  .  "</a>\n";
         	        html_titlebar($txt_delete[$lang], "$msg",0);
@@ -621,7 +769,6 @@ if ($active == 1) {    // active=1 -> user logged in
 	       // "responder"
 
 	        if ($action == "responder") {
-
 
 			// if autoresp support is off, show error
 
@@ -643,7 +790,6 @@ if ($active == 1) {    // active=1 -> user logged in
 
 	                $results = save_resp_file($U, "Subject: $subject\nFrom: $from\n\n$body", $responder);
 
-
 	                html_head("$program_name Administration");
 	                $msg = "<b>" . $results . "</b><br><br>";
 	                $msg .= "<ul>";
@@ -658,10 +804,9 @@ if ($active == 1) {    // active=1 -> user logged in
 
 	        if ($action == "quota") {
 
-
 			// if quota support is off, show error
 
-			if ($quota_on && !$quota_data["user_quota_support"]) {
+			if (($quota_on && !$quota_data["user_quota_support"]) || in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
 
 				$msg = $txt_error_not_allowed[$lang];
 		                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
@@ -690,10 +835,80 @@ if ($active == 1) {    // active=1 -> user logged in
 	        }
 
 
+		// "catchall_ok"
+
+	        if ($action == "catchall_ok") {
+
+			if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
+    
+    			    $msg = $txt_error_not_allowed[$lang];
+            		    $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+            		    $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
+    	    		    html_titlebar($txt_error[$lang], $msg ,0);
+            		    html_end();
+			    exit();
+
+			} 
+
+		        
+			// 1. delete "+" if any, 2. create catchall "+" account
+			
+	                $results1 = delete_account("+");              // todo: only if exists! 
+
+			$fwd[0] = $U;
+                        $results2 = create_alias("+", "", $fwd);
+	        	$results3 = update_userdetail("+", "Catchall Alias -> $U");
+			get_catchall_account();
+
+        	        html_head("$program_name Administration");
+        	        $msg = "<b>" . $results1 . "</b><br>";
+        	        $msg .= "<b>" . $results2 . "</b><br>";
+        	        $msg .= "<b>" . $results3 . "</b><br><br>";
+        	        $msg .= "<ul>";
+        	        $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+        	        html_titlebar($txt_catchall[$lang], "$msg",0);
+        	        html_end();
+        	        exit();
+	       	}
+
+
+
+	        // "catchall_remove_ok"
+
+	        if ($action == "catchall_remove_ok") {
+		        
+
+			if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
+    
+    			    $msg = $txt_error_not_allowed[$lang];
+            		    $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+            		    $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
+    	    		    html_titlebar($txt_error[$lang], $msg ,0);
+            		    html_end();
+			    exit();
+
+			} 
+
+	                // check args format... addslashed everywhere, etc...
+	                // update forwarders
+                
+	                // let vwrap copy the current resp file to a temp file, readable by all
+	
+	                $results1 = delete_account("+"); 
+			get_catchall_account();
+
+        	        html_head("$program_name Administration");
+        	        $msg = "<b>" . $results1 . "</b><br>";
+        	        $msg .= "<ul>";
+        	        $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+        	        html_titlebar($txt_remove_catchall[$lang], "$msg",0);
+        	        html_end();
+        	        exit();
+	       	}
 
 
 	}
-
+	
 
 	//
 	// LOGOUT 

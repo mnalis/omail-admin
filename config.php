@@ -1,13 +1,13 @@
 <?
 
 /* 
-	-----
-	Omail  -  A PHP4 based Vmailmgrd Web interface
-	-----
+	-----------
+	oMail-admin  -  A PHP4 based Vmailmgrd Web interface
+	-----------
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.29 2000/10/13 11:15:40 swix Exp $ 
+	$Id: config.php,v 1.30 2000/10/15 21:43:44 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -29,7 +29,7 @@
 // domains list  (keep empty to show a textfield)
 // ------------
 
-$domains_list = array();
+$domains_list = array();   // empty : login for all.
 //$domains_list = array( 'omail-test.com', 'omnis.ch', '8304.ch', 'test.com');
 
 // expire session after 
@@ -43,7 +43,7 @@ $expire_after = "20"; // minutes
 // -------------
 // will be displayed on screens with error messages
 
-$sysadmin_mail = "sysadmin@notdefined.yext";
+$sysadmin_mail = "sysadmin@notdefined.yet";
 
 
 // default language
@@ -52,6 +52,20 @@ $sysadmin_mail = "sysadmin@notdefined.yext";
 
 $default_language = "en";
 
+
+// system accounts
+// ---------------
+// accounts which will be hidden and not usable anywhere (no edit, create, delete, login)
+
+$system_accounts_list = array( );
+//$system_accounts_list = array( 'abuse', 'root', 'hostmaster');
+
+// readonly accounts
+// ----------------
+// accounts which will be shown, but will remain uneditable (no edit, create, delete or login)
+
+$readonly_accounts_list = array( );
+//$readonly_accounts_list = array( 'postmaster', 'mailer-daemon' );
 
 // program_name
 // ------------
@@ -107,8 +121,8 @@ $hide_about_button = 0;
 
 // version
 
-$version = "0.96pre2";
-$cvs_version = '$Id: config.php,v 1.29 2000/10/13 11:15:40 swix Exp $';
+$version = "0.96pre3";
+$cvs_version = '$Id: config.php,v 1.30 2000/10/15 21:43:44 swix Exp $';
 
 // script URL
 
@@ -123,6 +137,6 @@ if (!$default_lang) { $default_lang = $default_language; }       // default lang
 
 // yes, it's here:  Thanks for using oMail-admin! Enjoy :)
 
-$splash_screen = 0;
+$splash_screen = 1;
 
 ?>

@@ -1,14 +1,14 @@
 <?
 
 /*
-        -----
-        Omail  -  A PHP4 based Vmailmgrd Web interface
-        -----
+        -----------
+        oMail-admin  -  A PHP4 based Vmailmgrd Web interface
+        -----------
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 	* Copyright (C) 2000  Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 
-        $Id: func.php,v 1.17 2000/09/26 23:34:52 swix Exp $
+        $Id: func.php,v 1.18 2000/10/15 21:43:44 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -70,7 +70,7 @@ function check_session($arg_ip) {
 
 function authenticate($arg_login, $arg_passwd, $arg_ip) {
 
-	global $type, $domain, $username, $passwd, $lang, $expire, $ip, $expire_after;
+	global $type, $domain, $username, $passwd, $lang, $expire, $ip, $expire_after, $catchall_active;
 
 	// 1. admin or user login ?
 
@@ -112,6 +112,7 @@ function authenticate($arg_login, $arg_passwd, $arg_ip) {
 			$ip = $arg_ip;
 
 			load_quota_info($domain);
+			get_catchall_account();
 
 			return 1;
 
@@ -134,6 +135,7 @@ function authenticate($arg_login, $arg_passwd, $arg_ip) {
 			$ip = $arg_ip;
 
 			load_quota_info($domain);
+			get_catchall_account();
 
 			return 1;
 
@@ -179,6 +181,7 @@ function load_quota_info($domain) {
 					$quota_data["user_login_allowed"] = $entry[5];
 					$quota_data["autoresp_support"] = $entry[6];
 					$quota_data["user_quota_support"] = $entry[7];
+					$quota_data["catchall_use_allowed"] = $entry[8];
 
 				
 					// dirty hack, but should be ok for the moment :]  (index.php will be updated soon)
@@ -200,7 +203,8 @@ function load_quota_info($domain) {
 					$quota_data["user_login_allowed"] = $entry[5];
 					$quota_data["autoresp_support"] = $entry[6];
 					$quota_data["user_quota_support"] = $entry[7];
-
+					$quota_data["catchall_use_allowed"] = $entry[8];
+					
 				
 					// dirty hack, but should be ok for the moment :]  (index.php will be updated later)
 					if (!$quota_data["max_users"]) { $quota_data["max_users"] = 99999999; } 
@@ -224,8 +228,13 @@ function get_accounts_sort_by_name($a, $b) {
 
 function get_accounts($arg_action, $arg_username = "") {
 
-	global $quota_on, $quota_data, $type, $domain, $passwd;
+	global $quota_on, $quota_data, $type, $domain, $passwd, $catchall_active;
 	$new_list = array ();
+
+	// action = 0 : only one mailbox (user mode)
+	// action = 1 : all mailboxes, with resp (admin mode) but not "+" if created by omail-admin
+	// action = 2 : all aliases, no resp yet (admin mode) but not "+" if created by omail-admin
+	// action = 3 : all accounts, without anything else (admin mode)  [for catchall detection]
 
 	if ($arg_action) {
 
@@ -236,26 +245,30 @@ function get_accounts($arg_action, $arg_username = "") {
 			if ($arg_action == 1) { $quota_data["nb_users"] = 0; } 
 			if ($arg_action == 2) { $quota_data["nb_alias"] = 0; } 
 		}
-
+		
 
 	        for ($i = 0; $i <  sizeof($list); $i++) {
 
-	                list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $data11)=$list[$i];
+	                list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $data11)=$list[$i];			
+
+
+			// set if visible or not (for catchall or "admin" accounts like postmaster, etc...)
+			if ($username == "+") { $Visible = 0; } else { $Visible = 1; }
 
 			// get enabled/disabled status
 			if (ord($data11[8]) == 49) { $Enabled = 1; } else { $Enabled = 0; }
 
 			// findout autoresp status
-			if ($mbox) { $resp = load_resp_status($username); }  else { $resp = 0; }   // only lookup for mailboxes
+			if ($mbox && $action != 3) { $resp = load_resp_status($username); }  else { $resp = 0; }   // only lookup for mailboxes
 
-	                $list[$i] = array($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled);
+	                $list[$i] = array($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible);
 			
-			if ($mbox && ($arg_action == 1)) { 
+			if ($mbox && ($arg_action == 1 || $arg_action == 3)) { 
 				$new_list[$j++] = $list[$i];  
 				if ($quota_on) { $quota_data["nb_users"]++; }
 			}	
 
-			if (!$mbox && ($arg_action == 2)) { 
+			if (!$mbox && ($arg_action == 2) || $arg_action == 3) { 
 				$new_list[$j++] = $list[$i]; 
 				if ($quota_on) { $quota_data["nb_alias"]++; }
 			}
@@ -459,6 +472,39 @@ function save_resp_file($arg_username, $arg_resptext, $arg_status) {
 
 	return $return_msg;
 
+}
+
+function get_catchall_account() {
+
+	global $catchall_active
+
+	$catchall_active = "";   // reset
+
+	// will return the name of the actual catchall account, but only if it is an "official"
+	// one (created by omail-admin, only one forwarder pointing to an existing account)
+	// if it exists and is "official", the "+" account won't be shown as a normal account, but
+	// the target account will be highlighted
+	
+	$tmpinfo = get_accounts(3);
+	$tmpsize = count($tmpinfo);
+	
+	for ($i=0; $i<=$tmpsize; $i++) {
+
+	    $catchallinfo = $tmpinfo[$i];
+		
+	    if ($catchallinfo[0] == "+") { 
+
+    	        if (!($catchallinfo[2])) { 
+		    $aliases = $catchallinfo[3];
+		    $nb_fwd = count($aliases);
+
+		    if ($nb_fwd == 1 && $aliases[0] && (!(preg_match("/@/i", $aliases[0]))))  {
+			$catchall_active = $aliases[0];
+			break;
+		    }
+		}
+	    }
+	}
 }
 
 
