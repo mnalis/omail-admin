@@ -8,8 +8,15 @@
 
 %ifdef_txt_responder%
 
-<TH>%txt_action%</TH></TR>
-
+<TH>
+[ <a href="%url_first%">%txt_first%</a><font color="888888">%txt_first_off%</font> ] &nbsp;
+[ <a href="%url_prev%">%txt_prev%</a><font color="888888">%txt_prev_off%</font> ] &nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%txt_action%
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; [ <a href="%url_next%">%txt_next%</a><font color="888888">%txt_next_off%</font> ]
+&nbsp;[ <a href="%url_last%">%txt_last%</a><font color="888888">%txt_last_off%</font> ]
+</TH></TR>
 
 <obj>
 

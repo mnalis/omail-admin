@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.29 2000/10/21 23:21:18 swix Exp $
+        $Id: index.php,v 1.30 2000/11/13 20:20:07 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -45,6 +45,7 @@ include("htmlstuff.php");
 session_start();
 session_register("username","domain","passwd","type","ip","expire","lang","active");
 session_register("quota_on","quota_data","catchall_active", "sort_order");
+session_register("mb_start","al_start");
 
 if (!$lang) { 
 
@@ -231,8 +232,10 @@ if ($active == 1) {    // active=1 -> user logged in
 			if (!$quota_on || ($quota_on && $quota_data["users_support"])) {
 				$mboxes = get_accounts(1);	
 
-				if (isset($show_start) && isset($show_howmany)) {
-				    html_display_mailboxes($mboxes,1,$show_start,$show_howmany);
+				if (isset($new_mb_start)) { $mb_start = $new_mb_start; }				
+
+				if (isset($mb_start) && $show_how_many_accounts) {
+				    html_display_mailboxes($mboxes,1,$mb_start,$show_how_many_accounts);
 				} else {
 				    html_display_mailboxes($mboxes,1);
 				}
@@ -242,8 +245,10 @@ if ($active == 1) {    // active=1 -> user logged in
 			if (!$quota_on || ($quota_on && $quota_data["alias_support"])) {
 				$aliases = get_accounts(2);
 
-				if (isset($show_start) && isset($show_howmany)) {
-				    html_display_mailboxes($aliases,2,$show_start,$show_howmany);
+				if (isset($new_al_start)) { $al_start = $new_al_start; }
+
+				if (isset($al_start) && $show_how_many_accounts) {
+				    html_display_mailboxes($aliases,2,$al_start,$show_how_many_accounts);
 				} else {
 				    html_display_mailboxes($aliases,2);
 				}
@@ -310,7 +315,8 @@ if ($active == 1) {    // active=1 -> user logged in
 		if ($type == "domain" && (!$quota_on || ($quota_on && ($quota_data["alias_support"]  && $quota_data["nb_alias"] < $quota_data["max_alias"])))) {
 		        html_titlebar($txt_newalias[$lang], $txt,1);
 		        $userinfo[2] = "-";
-		        html_userform($userinfo, "newalias");
+			$mboxlist = get_accounts(3);
+		        html_userform($userinfo, "newalias", $mboxlist);
 		        html_end();
 		        exit();
 
@@ -345,7 +351,8 @@ if ($active == 1) {    // active=1 -> user logged in
 
 	        	html_titlebar($txt_newuser[$lang], $txt,1);
 	        	$userinfo[2] = "-";
-	        	html_userform($userinfo, "newuser");
+			$mboxlist = get_accounts(3);
+	        	html_userform($userinfo, "newuser", $mboxlist);
 	        	html_end();
 	        	exit();
 
@@ -387,7 +394,8 @@ if ($active == 1) {    // active=1 -> user logged in
 	    
     	    html_titlebar($txt_edit_account[$lang], $txt,1);
 	    $userinfo = get_accounts(0,$U);
-	    html_userform($userinfo[0], "edit");
+	    $mboxlist = get_accounts(3);
+	    html_userform($userinfo[0], "edit", $mboxlist);
 	    html_end();
 	    exit();
 

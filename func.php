@@ -8,7 +8,7 @@
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 	* Copyright (C) 2000  Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 
-        $Id: func.php,v 1.22 2000/10/21 23:21:18 swix Exp $
+        $Id: func.php,v 1.23 2000/11/13 20:20:07 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -70,7 +70,7 @@ function check_session($arg_ip) {
 
 function authenticate($arg_login, $arg_passwd, $arg_ip) {
 
-	global $type, $domain, $username, $passwd, $lang, $expire, $ip, $expire_after, $catchall_active;
+	global $type, $domain, $username, $passwd, $lang, $expire, $ip, $expire_after, $catchall_active, $mb_start, $al_start;
 
 	// 1. admin or user login ?
 
@@ -97,7 +97,12 @@ function authenticate($arg_login, $arg_passwd, $arg_ip) {
 	// 3. check if domain exists (in rcpthosts/virtualdomains)
 
 
-	// 4. authenticate
+	// 4. initalize some variables
+	
+	$mb_start = 0;
+	$al_start = 0;
+
+	// 5. authenticate
 
 	if ($type == "domain") {
 
@@ -275,7 +280,7 @@ function get_accounts($arg_action, $arg_username = "") {
 				}
 			}	
 
-			if (!$mbox && ($arg_action == 2) || $arg_action == 3) { 
+			if (!$mbox && ($arg_action == 2 || $arg_action == 3)) { 
 				$new_list[$j++] = $list[$i]; 
 				if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) { 
 					$quota_data["nb_alias"]++; 

@@ -5,7 +5,7 @@ Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Muell
 
 oMail-admin TODO
 ================
-$Id: TODO,v 1.21 2000/10/18 08:25:00 swix Exp $ 
+$Id: TODO,v 1.22 2000/11/13 20:20:07 swix Exp $ 
 $Source: /cvsroot/omail/admin2/TODO,v $ 
 
 
@@ -22,7 +22,7 @@ High priority
 Normal priority
 ---------------
 [.] more translations  (chineese, swedish, japanese... would be great!)
-[ ] display mailbox size : unread mails, saved mails (waiting for changes in vmailmgrd)
+[ ] display mailbox size : unread mails, saved mails (waiting for changes in vmailmgrd, comming soon!)
 [X] support for info field           (om, 11aug2k)
 [X] use <select> to setup expiry date on quota edition   (om, 16oct2k)
 [.] add help screen / buttons
@@ -30,14 +30,16 @@ Normal priority
 [X] support for HTML templates        (om, oct2k)
 [X] better support for the + alias    (om, 15oct2k)
 [X] support for specific mail accounts limitation (root, abuse, mailer-daemon, postmaster, etc.)
-    -> hide, read only, or read/write
+    -> hide, read only, or read/write   (om, 18oct2k)
 [ ] case of popup screens & session timeout : close popup on session timeout
-[ ] display N accounts per page, better design
+[X] display N accounts per page, better design  (om, 13nov2k)
+[ ] catchall -> settings menu ? maybe... or not ? 
+[X] add a <select> with list of current mailboxes for forwaders addition  (om, 13nov2k)
 
 Low priority
 ------------
-[ ] display mailbox contents listing  (also need changes in daemon)
 [ ] webmail support  (would need vmailmgr daemon support)
+[ ] display mailbox contents listing  (also need changes in daemon)
 [X] add "GPL" standard headers in all source files    (om, 14aug2k)
 [ ] analyse error/ok message, and give a translated version
 [X] replace "Omail" by "oMail-admin" in every file

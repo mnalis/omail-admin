@@ -2,12 +2,23 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: ChangeLog,v 1.32 2000/10/21 23:21:18 swix Exp $ 
+$Id: ChangeLog,v 1.33 2000/11/13 20:20:06 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
 
+2000-11-13  Olivier Mueller  <om@omnis.ch>
+
+	* released oMail-admin version 0.96pre7
+	* "N accounts per screen" support added, with a new variable in the config file
+          (turned off by default).
+	* show a list of existing accounts when creating/editing an account (forwarders)
+	* fixed some html and design issues
+	* TODO before 0.96-final release: updates translations for the new features, and
+	  verify the hidden/system accounts stuff
+
 2000-10-21  Olivier Mueller  <om@omnis.ch>
 
+	* released oMail-admi version 0.96pre5
 	* started preliminary support for showing N accounts per screen:
           You can try it by using this kind of url query-string: ?show_start=4&show_howmany=5
 	  Still thinking about how it could be shown on the interface	  

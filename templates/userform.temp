@@ -4,16 +4,21 @@
 <td bgcolor="#DDDDDD" align=left>%usernamefield%@%domain%&nbsp;</td></tr>
 
 <tr><th align=right>%txt_details%&nbsp;</th>
-<td bgcolor="#DDDDDD" align=left>%userdetailfield%&nbsp;</td></tr>
+<td bgcolor="#CCCCCC" align=left>%userdetailfield%&nbsp;</td></tr>
 
 <tr><th align=right>%txt_directory%&nbsp;</th>
-<td bgcolor="#CCCCCC" align=left>%userinfo2%&nbsp;</td></tr>
+<td bgcolor="#DDDDDD" align=left>%userinfo2%&nbsp;</td></tr>
 
 <tr><th align=right>%txt_passwd%&nbsp;</th>
-<td bgcolor="#DDDDDD" align=left><input type="password" name="passwd1" value="" size="9">&nbsp;%txt_facultatif%&nbsp;</td></tr>
+<td bgcolor="#CCCCCC" align=left><input type="password" name="passwd1" value="" size="9">&nbsp;%txt_facultatif%&nbsp;</td></tr>
 
 <tr><th align=right>%txt_passwd%&nbsp;</th>
-<td bgcolor="#CCCCCC" align=left><input type="password" name="passwd2" value="" size="9">&nbsp;%txt_facultatif%&nbsp;</td></tr>
+<td bgcolor="#DDDDDD" align=left><input type="password" name="passwd2" value="" size="9">&nbsp;%txt_facultatif%&nbsp;</td></tr>
+
+<tr><th align=right>%txt_fwd1%&nbsp;</th>
+<td bgcolor="#CCCCCC" align=left>
+<select name="fwd[]">%select_account_contents%</select>@%domain% &nbsp;
+</td></tr>
 
 <alias1>
 <tr><th align=right>%txt_fwd%&nbsp;</th>

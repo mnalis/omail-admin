@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.45 2000/10/21 23:21:18 swix Exp $
+        $Id: htmlstuff.php,v 1.46 2000/11/13 20:20:07 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -184,7 +184,7 @@ function html_end() {
 }
 
 
-function html_userform($userinfo, $action) {
+function html_userform($userinfo, $action, $mboxlist) {
 
 	global $quota_on, $quota_data, $session, $script, $lang, $domain, $type;
 	include("strings.php");
@@ -228,7 +228,7 @@ function html_userform($userinfo, $action) {
 
 	for ($i = 0; $i < ($nb_fwd + 5); $i++) {
 	
-		$templdata[alias1][$i][txt_fwd] = $txt_fwd[$lang] . " " . ($i + 1);	
+		$templdata[alias1][$i][txt_fwd] = $txt_fwd[$lang] . " " . ($i + 2);	
 		$templdata[alias1][$i][aliases] = $aliases[$i];	
 
 		if ($i/2 == floor($i/2)) { $templdata[alias1][$i][fwdcolor] = "#DDDDDD"; }
@@ -241,6 +241,13 @@ function html_userform($userinfo, $action) {
 
 	if ($i/2 == floor($i/2)) { $templdata["sub_color"]="#DDDDDD"; }
 		else { $templdata["sub_color"]="#CCCCCC"; }
+
+	$templdata["txt_fwd1"] =  $txt_fwd[$lang];
+	$templdata["select_account_contents"] = '<option value=""> - </option>';
+	for ($i=0; $i<sizeof($mboxlist);$i++) {
+                $tmp_account = $mboxlist[$i];
+		$templdata["select_account_contents"] .= '<option>' . $tmp_account[0] . '</option>';		
+	}
 
 	print parseTemplate($templdata, "templates/userform.temp");
 }
@@ -429,7 +436,7 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 
 
 
-	global $quota_on, $quota_data, $session, $script, $lang, $domain, $catchall_active, $system_accounts_list, $readonly_accounts_list;
+	global $quota_on, $quota_data, $session, $script, $lang, $domain, $catchall_active, $system_accounts_list, $readonly_accounts_list, $show_how_many_accounts, $mb_start, $al_start;
 	include("strings.php");
 
 	switch ($arg_action) {
@@ -497,6 +504,68 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 	    $offset = $arg_start-1;
 	}
 	
+
+	if ($show_how_many_accounts) {
+
+		// define <<<  <-   ->  and >>> links
+
+		if ($mb_start == 0) { $mb_start = 1; }
+		if ($al_start == 0) { $al_start = 1; }
+
+		if ($arg_action == 1) {
+			$cur_start = $mb_start;
+			$cur_letter = "mb";
+		} else {
+			$cur_start = $al_start;
+			$cur_letter = "al";
+		}
+
+		$cur_next = $cur_start+$show_how_many_accounts;
+		$cur_prev = $cur_start-$show_how_many_accounts;
+		$cur_last = sizeof($mboxlist)-$show_how_many_accounts+1;
+
+		if ($cur_next > $cur_last) { $cur_next = $cur_last; }
+		if ($cur_prev <= 0) { $cur_prev = 1; }
+
+		$templdata["txt_first"] = "<<<";
+		$templdata["txt_prev"] = "<--";
+		$templdata["txt_next"] = "-->";	
+		$templdata["txt_last"] = ">>>>";
+
+		$templdata["txt_first_off"] = "<<<";
+		$templdata["txt_prev_off"] = "<--";
+		$templdata["txt_next_off"] = "-->";
+		$templdata["txt_last_off"] = ">>>>";
+	
+		$templdata["url_first"] = $script . "?A=menu&new_" . $cur_letter . "_start=1&" . SID; 
+		$templdata["url_prev"] = $script . "?A=menu&new_" . $cur_etter . "_start=$cur_prev&" . SID;
+		$templdata["url_next"] = $script . "?A=menu&new_" . $cur_letter . "_start=$cur_next&" . SID;
+		$templdata["url_last"] = $script . "?A=menu&new_" . $cur_letter . "_start=$cur_last&" . SID;
+
+		// hide buttons if necessary
+
+		$all_hidden = 0;
+
+		if ($cur_start == 0 || $cur_start == 1) { 
+			$templdata["txt_first"] = ""; 
+			$templdata["txt_prev"] = "";
+			$all_hidden++;
+		} else {
+			$templdata["txt_first_off"] = ""; 
+			$templdata["txt_prev_off"] = "";
+		}
+
+		if ($cur_start >= $cur_last) { 
+			$templdata["txt_next"] = ""; 
+			$templdata["txt_last"] = "";
+			$all_hidden++;
+		} else {
+			$templdata["txt_next_off"] = ""; 
+			$templdata["txt_last_off"] = "";
+		}
+
+	}	
+
     
 	// print "Start: $loop_start - End: $loop_end - Offset: $offset <br>\n";   //debug
         
@@ -589,10 +658,6 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 				$txt_settings[$lang] . "</a>&nbsp;"; // action
 		}
 
-		if ($arg_action) {
-			$templdata[obj][$ii]["actions"] .=  "&nbsp;&nbsp;<A HREF=\"$script?A=delete&U=" . $username . "&" . SID . "\" onClick=\"oW(this,'pop')\">"  . 
-				$txt_delete[$lang]  . "</a>&nbsp;"; // action
-
 		    
 			if ($quota_data["catchall_use_allowed"]) {
 
@@ -606,6 +671,13 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
     				    $txt_catchall[$lang]  . "</a>&nbsp;"; // action
 			    }
 			}
+
+
+		if ($arg_action) {
+			$templdata[obj][$ii]["actions"] .=  "&nbsp;&nbsp;<A HREF=\"$script?A=delete&U=" . $username . "&" . SID . "\" onClick=\"oW(this,'pop')\">"  . 
+				$txt_delete[$lang]  . "</a>&nbsp;"; // action
+
+
 		}
 	    }
 
@@ -669,8 +741,14 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 		$templdata["global_action_and_url"] .= "<A HREF=\"$script?A=$tmp_action&" . SID . "\" onClick=\"oW(this,'pop')\">"  . $tmp_label  . "</a>&nbsp;</TH></TR>";
 	}
 
+	
+	if ($show_how_many_accounts && $all_hidden != 2) {
+		$template_name = "templates/display_$listtype.temp";
+	} else {
+		$template_name = "templates/display_" . $listtype . "_nolimit.temp";
+	}
 
-        print parseTemplate($templdata, "templates/display_$listtype.temp");
+        print parseTemplate($templdata, $template_name);
 }
 
 

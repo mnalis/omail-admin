@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.35 2000/10/21 23:21:18 swix Exp $ 
+	$Id: config.php,v 1.36 2000/11/13 20:20:07 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -38,12 +38,18 @@ $domains_list = array();   // empty : login for all.
 
 $expire_after = "20"; // minutes
 
+// show how many accounts per page _
+// -------------------- 
+// ignore = 0
+
+$show_how_many_accounts = 5;
+
 
 // sysadmin mail
 // -------------
 // will be displayed on screens with error messages
 
-$sysadmin_mail = "sysadmin@notdefined.ye";
+$sysadmin_mail = "sysadmin@notdefined.yext";
 
 
 // default language
@@ -58,14 +64,14 @@ $default_language = "en";
 // accounts which will be hidden and not usable anywhere (no edit, create, delete, login)
 
 $system_accounts_list = array( );
-$system_accounts_list = array( 'abuse', 'root', 'hostmaster');
+//$system_accounts_list = array( 'abuse', 'root', 'hostmaster');
 
 // readonly accounts
 // ----------------
 // accounts which will be shown, but will remain uneditable (no edit, create, delete or login)
 
 $readonly_accounts_list = array( );
-$readonly_accounts_list = array( 'postmaster', 'mailer-daemon' );
+//$readonly_accounts_list = array( 'postmaster', 'mailer-daemon' );
 
 // program_name
 // ------------
@@ -122,7 +128,7 @@ $hide_about_button = 0;
 // version
 
 $version = "0.96pre5";
-$cvs_version = '$Id: config.php,v 1.35 2000/10/21 23:21:18 swix Exp $';
+$cvs_version = '$Id: config.php,v 1.36 2000/11/13 20:20:07 swix Exp $';
 
 // script URL
 

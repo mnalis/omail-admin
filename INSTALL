@@ -2,7 +2,7 @@
 oMail-admin -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: INSTALL,v 1.12 2000/10/17 00:00:57 swix Exp $
+$Id: INSTALL,v 1.13 2000/11/13 20:20:07 swix Exp $
 $Source: /cvsroot/omail/admin2/INSTALL,v $
 
 
@@ -50,9 +50,11 @@ oMail - INSTALL
   5. make sure you have installed the autoresponder correctely (look at the
      vautoresponder file in the qmail-autoresponder distribution...)
 
-  6. if necessary, setup domain-based quotas (look next section in INSTALL file)
+  6. same thing for vmailmgr-user-based quotas (cf. vmailmgr docs)
 
-  7. Well, then it should work correctely. If it's the case, you can jump to step 99.  
+  7. if necessary, setup domain-based quotas (look next section in INSTALL file)
+
+  8. Well, then it should work correctely. If it's the case, you can jump to step 99.  
 
   ...
 
@@ -89,5 +91,5 @@ oMail - INSTALL
 
 
 
---Olivier, 16.sep.2k
+--Olivier, 13.nov.2k
 

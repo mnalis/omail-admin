@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.25 2000/10/18 22:06:09 swix Exp $
+        $Id: strings.php,v 1.26 2000/11/13 20:20:07 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -1815,8 +1815,8 @@ $txt_system_account = array(
 
 $txt_current_catchall_account_is = array(
  "ru" => "current_catchall_account_is",
- "en" => "Current catchall account is",
- "fr" => "Le compte réceptionant tous les emails non définis est",
+ "en" => "Current 'catch all emails' account is",
+ "fr" => "Le compte réceptionant tous les emails non définis (<i>catchall</i>) est",
  "de" => "Das aktuelle Catchall-Konto is",
  "da" => "current_catchall_account_is",
  "es" => "current_catchall_account_is",
