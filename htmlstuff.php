@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.32 2000/09/24 11:19:46 swix Exp $
+        $Id: htmlstuff.php,v 1.33 2000/09/24 13:47:10 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -172,8 +172,16 @@ function html_userform($userinfo, $action) {
 
 	global $quota_on, $quota_data, $session, $script, $lang, $domain, $type;
 	include("strings.php");
-
 	$fwd = 0;
+
+        $templdata["script"]=$script;
+        $templdata["SID"]=SID;
+        $templdata["txt_username"]=$txt_username[$lang];
+        $templdata["userinfo0"]=$userinfo[0];
+        $templdata["domain"]=$domain;
+        $templdata["txt_details"]=$txt_details[$lang];
+        $templdata["userinfo4"]=$userinfo[4];
+        $templdata["txt_date_of_creation"]=$txt_date_of_creation[$lang];
 
 	if ($action == "edit") {
 		// find how many forwarders there are
@@ -181,62 +189,44 @@ function html_userform($userinfo, $action) {
 		$nb_fwd = count($aliases);
 	}
 
-	print "<form action=\"" . $script . "?" . SID . "\" method=\"post\">";
-	print "<table border=0>";	
-	print "<tr><th align=right>" . $txt_username[$lang] . "&nbsp;</th>";	
-
 	if ($action == "edit") {
-	print "<td bgcolor=\"#DDDDDD\" align=left>" . $userinfo[0]. "@$domain&nbsp;</td></tr>";
-	print "<input type=\"hidden\" name=\"U\" value=\"" . $userinfo[0] . "\">";
+		$templdata["usernamefield"] = $userinfo[0] . "<input type=\"hidden\" name=\"U\" value=\"" . $userinfo[0] . "\">";
 	} else {
-	print "<td bgcolor=\"#DDDDDD\" align=left><input type=\"text\" name=\"U\" value=\"" . $userinfo[0]. "\" size=\"15\">@$domain&nbsp;</td></tr>";
+		$templdata["usernamefield"] = "<input type=\"text\" name=\"U\" value=\"" . $userinfo[0]. "\" size=\"15\">";
 	}
 
-
-	print "<tr><th align=right>" . $txt_details[$lang] . "&nbsp;</th>";	
 	if ($type == "user") {
-	print "<td bgcolor=\"#DDDDDD\" align=left>" . $userinfo[4]. "&nbsp;</td></tr>";
+	  $templdata["userdetailfield"] = $userinfo[4];
 	} else {
-	print "<td bgcolor=\"#DDDDDD\" align=left><input type=\"text\" name=\"userdetail\" value=\"" . $userinfo[4]. "\" size=\"23\">&nbsp;</td></tr>";
+	  $templdata["userdetailfield"] = "<input type=\"text\" name=\"userdetail\" value=\"" . $userinfo[4]. "\" size=\"23\">";
 	}
 
-	print "<tr><th align=right>" . $txt_directory[$lang] . "&nbsp;</th>";	
-	print "<td bgcolor=\"#CCCCCC\" align=left>" . $userinfo[2]. "&nbsp;</td></tr>";
-	
-	print "<tr><th align=right>" . $txt_passwd[$lang] . "&nbsp;</th>";	
-	print "<td bgcolor=\"#DDDDDD\" align=left><input type=\"password\" name=\"passwd1\" value=\"\" size=\"9\">";
-	if ($action == "newalias") { print "&nbsp;&nbsp;(" . $txt_facultatif[$lang] . ")"; }
-	print "&nbsp;</td></tr>";
+        $templdata["userinfo2"]=$userinfo[2]; if (!($templdata["userinfo2"])) { $templdata["userinfo2"]= "-"; }
+        $templdata["userinfo0"]=$userinfo[0];
 
-	print "<tr><th align=right>" . $txt_passwd[$lang] . "&nbsp;</th>";	
-	print "<td bgcolor=\"#CCCCCC\" align=left><input type=\"password\" name=\"passwd2\" value=\"\" size=\"9\">";
-	if ($action == "newalias") { print "&nbsp;&nbsp;(" . $txt_facultatif[$lang] . ")"; }
-	print "&nbsp;</td></tr>";
+        $templdata["txt_directory"]=$txt_directory[$lang];
+        $templdata["txt_passwd"]=$txt_passwd[$lang];
+
+	if ($action == "newalias") { $templdata["txt_facultatif"]= " (" . $txt_facultatif[$lang] . ") "; }
+	else {  $templdata["txt_facultatif"] = " "; }
 
 	for ($i = 0; $i < ($nb_fwd + 5); $i++) {
-		
-		print "<tr><th align=right>" . $txt_fwd[$lang] . " " . ($i + 1) . "&nbsp;</th>";	
+	
+		$templdata[alias1][$i][txt_fwd] = $txt_fwd[$lang] . " " . ($i + 1);	
+		$templdata[alias1][$i][aliases] = $aliases[$i];	
 
-	if ($i/2 == floor($i/2)) { print "<td bgcolor=\"#DDDDDD\" align=left>"; }
-					else { print "<td bgcolor=\"#CCCCCC\" align=left>"; }
-
-		print "<input type=\"text\" name=\"fwd[]\" value=\"" . $aliases[$i]. "\" size=\"25\">&nbsp;</td></tr>";
-
+		if ($i/2 == floor($i/2)) { $templdata[alias1][$i][fwdcolor] = "#DDDDDD"; }
+				else { $templdata[alias1][$i][fwdcolor] = "#CCCCCC"; }
 	}	
 
-	print "<tr><th align=right>" . $txt_submit[$lang] . "&nbsp;</th>";	
+        $templdata["txt_submit"]=$txt_submit[$lang];
+        $templdata["txt_cancel"]=$txt_cancel[$lang];
+        $templdata["action"]=$action;
 
-	if ($i/2 == floor($i/2)) { print "<td bgcolor=\"#DDDDDD\" align=left>"; }
-					else { print "<td bgcolor=\"#CCCCCC\" align=left>"; }
+	if ($i/2 == floor($i/2)) { $templdata["sub_color"]="#DDDDDD"; }
+		else { $templdata["sub_color"]="#CCCCCC"; }
 
-	print "<input type=\"hidden\" name=\"A\" value=\"parse\">";
-	print "<input type=\"hidden\" name=\"action\" value=\"" . $action . "\">";
-	print "<input type=\"submit\" value=\"" . $txt_submit[$lang]. "\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-	print "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-	print "<input type=\"reset\" value=\"" . $txt_cancel[$lang]. "\" onClick=\"return gO(this,true,true)\">&nbsp;</td></tr>";
-	
-	print "</table>";	
-	print "</form>";	
+	print parseTemplate($templdata, "templates/userform.temp");
 }
 
 
