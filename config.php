@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.19 2000/09/23 14:42:13 swix Exp $ 
+	$Id: config.php,v 1.20 2000/09/24 00:29:06 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -29,8 +29,8 @@
 // domains list  (keep empty to show a textfield)
 // ------------
 
-// $domains_list = array( 'omail-test.com', 'omnis.ch', '8304.ch', 'test.com');
-$domains_list = array();
+$domains_list = array( 'omail-test.com', 'omnis.ch', '8304.ch', 'test.com');
+//$domains_list = array();
 
 // expire session after 
 // -------------------- 
@@ -83,7 +83,7 @@ $config_use_settings_with_quota = 0;
 // version
 
 $version = "0.96.1";
-$cvs_version = '$Id: config.php,v 1.19 2000/09/23 14:42:13 swix Exp $';
+$cvs_version = '$Id: config.php,v 1.20 2000/09/24 00:29:06 swix Exp $';
 
 // script URL
 

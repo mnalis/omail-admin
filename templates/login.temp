@@ -1,0 +1,41 @@
+<FORM METHOD="post" ACTION="%script%?%SID%">
+<CENTER>
+<TABLE CELLPADDING=0 CELLSPACING=0 BORDER=0 BGCOLOR="#EEEEEE">
+<TR VALIGN="TOP">
+<TD COLSPAN=3>
+<TABLE WIDTH="100%" CELLPADDING=10 CELLSPACING=0 BORDER=0>
+<TR ALIGN="LEFT">
+<TD VALIGN="MIDDLE" BGCOLOR="#CCCCCC">
+<b>%txt_dom_ident%</b>
+</TD>
+<TD VALIGN="MIDDLE" ALIGN="RIGHT" BGCOLOR="#CCCCCC">
+
+<bla>
+<nobr>[ <A HREF="%url%">%txt%</A> ]</nobr>
+</bla>
+</TD></TR></TABLE></TD>
+
+<TD ROWSPAN="4" width=8 bgcolor="#ffffff">
+<IMG SRC="images/srs.gif" width=16 height=250 alt=""></TD></TR>  
+<TR><TD ALIGN="RIGHT">%txt_domain_or_email% &nbsp;</TD>
+<TD><input name="form_login" VALUE="%domain_value%" size="20"> %domain_select%
+
+</TD>
+<TD>&nbsp;</TD></TR><TR>
+<TD ALIGN="RIGHT">%txt_password_str% &nbsp;</TD>
+<TD><input name="form_passwd" type="password" size="20"></TD>
+<TD>&nbsp;</TD>
+</TR><TR>
+<TD ALIGN="CENTER" COLSPAN="4">
+<INPUT TYPE="hidden" name="A" value="checkin">
+<INPUT TYPE="hidden" name="setlang" value="%lang%">
+<INPUT TYPE="SUBMIT" VALUE="%txt_login%">
+</TD></TR>
+<TR VALIGN="TOP">
+<TD COLSPAN=3><img src="images/sbs.gif" width=620 height=16 alt=""></TD>
+<TD ALIGN="LEFT" BGCOLOR="#ffffff"><img src="images/sbc.gif" width=12 alt="" height=16></TD>
+</TR>
+</TABLE>
+</CENTER>
+</FORM>
+

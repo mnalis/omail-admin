@@ -5,7 +5,7 @@ Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Muell
 
 oMail-admin TODO
 ================
-$Id: TODO,v 1.14 2000/09/22 15:05:56 swix Exp $ 
+$Id: TODO,v 1.15 2000/09/24 00:29:06 swix Exp $ 
 $Source: /cvsroot/omail/admin2/TODO,v $ 
 
 
@@ -27,6 +27,8 @@ Normal priority
 [ ] create a logo for the project
 [.] support for HTML templates
 [ ] better support for the + alias
+[ ] support for specific mail accounts limitation (root, abuse, mailer-daemon, postmaster, etc.)
+    -> hide, read only, or read/write
 
 Low priority
 ------------

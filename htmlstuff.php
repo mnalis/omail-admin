@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.27 2000/09/23 15:31:01 swix Exp $
+        $Id: htmlstuff.php,v 1.28 2000/09/24 00:29:06 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -39,85 +39,57 @@ function html_login() {
 	global $script_url, $A, $lang, $version, $cookie_omail_last_login, $cookie_omail_last_domain, $domains_list;
 	include("strings.php");
 
-  ?>
+        $templdata["script"]=$script;
+        $templdata["SID"]=SID;
+	$templdata["txt_dom_ident"]=$txt_dom_ident[$lang];
+	$templdata["txt_domain_or_email"]=$txt_domain_or_email[$lang];
+	$templdata["txt_password_str"]=$txt_password_str[$lang];
+	$templdata["txt_login"]=$txt_login[$lang];
+	$templdata["lang"]=$lang;
 
-<FORM METHOD="post" ACTION="<?php echo($script_url); ?>?<?=SID?>">
-<CENTER>
-<TABLE CELLPADDING=0 CELLSPACING=0 BORDER=0 BGCOLOR="#EEEEEE">
-<TR VALIGN="TOP">
-<TD COLSPAN=3>
-<TABLE WIDTH="100%" CELLPADDING=10 CELLSPACING=0 BORDER=0>
-<TR ALIGN="LEFT">
-<TD VALIGN="MIDDLE" BGCOLOR="#CCCCCC">
-<b><?php echo($txt_dom_ident[$lang]); ?></b>
-</TD>
-<TD VALIGN="MIDDLE" ALIGN="RIGHT" BGCOLOR="#CCCCCC">
-
-<?php
+	$ii = 0;
         reset($txt_langname);
         while(list ($id,$tmplang) = each ($txt_langname) ) {
                 if ($id != $lang) {
-                        ?>
-<nobr>[ <a href="<?php echo($script_url); ?>?setlang=<?php echo($id); ?>&<?=SID?>">
-<?php echo($tmplang); ?></a> ]</nobr>
-                        <?php
+			$templdata[bla][$ii][url] = $script . "?setlang=$id&" . SID;
+			$templdata[bla][$ii][txt] = $tmplang;
                 } else {
-                                ?>
-<nobr>[ <font color="red"><?php echo($tmplang); ?></font> ]</nobr>
-                                <?php
-                        }
+			$templdata[bla][$ii][url] = $script . "?setlang=$id&" . SID;
+			$templdata[bla][$ii][txt] = "<font color=\"red\">$tmplang</font>";
+                }
+		$ii++;
         }
-?>
-</TD></TR></TABLE></TD>
 
-<TD ROWSPAN="4" width=8 bgcolor="#ffffff">
-<IMG SRC="images/srs.gif" width=16 height=250 alt=""></TD></TR>  
-<TR><TD ALIGN="RIGHT"><?php echo($txt_domain_or_email[$lang]); ?>:&nbsp;</TD>
-<TD><input name="form_login" VALUE="<?php
-if (!count($domains_list) && $cookie_omail_last_domain && !$cookie_omail_last_login) { print htmlentities($cookie_omail_last_domain); }
-elseif (!count($domains_list) && $cookie_omail_last_login && $cookie_omail_last_domain) { 
-	print htmlentities($cookie_omail_last_login) . "@" . htmlentities($cookie_omail_last_domain); 
-} elseif (count($domains_list) && $cookie_omail_last_login) { print htmlentities($cookie_omail_last_login); }
-
-?>" size="20">
-
-<?php
-	if (count($domains_list)) {
-		echo "@ <select name=\"login_domain\">";
-	        reset($domains_list);
-	        while(list ($id,$tmp) = each ($domains_list) ) {
-
-			if ($cookie_omail_last_domain == $tmp) {
-				echo "<option selected>$tmp</option>";
-			} else {
-				echo "<option>$tmp</option>";
-			}
-
-	        }
-		echo "</select>";
+	$templdata["domain_value"]= "";
+	if (!count($domains_list) && $cookie_omail_last_domain && !$cookie_omail_last_login) { 
+		$templdata["domain_value"]=htmlentities($cookie_omail_last_domain); 
+	} elseif (!count($domains_list) && $cookie_omail_last_login && $cookie_omail_last_domain) { 
+	        $templdata["domain_value"]= htmlentities($cookie_omail_last_login) . "@" . htmlentities($cookie_omail_last_domain); 
+	} elseif (count($domains_list) && $cookie_omail_last_login) { 
+		$templdata["domain_value"] = htmlentities($cookie_omail_last_login); 
 	}
-?>
 
-</TD>
-<TD>&nbsp;</TD></TR><TR>
-<TD ALIGN="RIGHT"><?php echo($txt_password_str[$lang]); ?>:&nbsp;</TD>
-<TD><input name="form_passwd" type="password" size="20"></TD>
-<TD>&nbsp;</TD>
-</TR><TR>
-<TD ALIGN="CENTER" COLSPAN="4">
-<INPUT TYPE="hidden" name="A" value="checkin">
-<INPUT TYPE="hidden" name="setlang" value="<?php echo($lang); ?>">
-<INPUT TYPE="SUBMIT" VALUE="<?php echo($txt_login[$lang]); ?>">
-</TD></TR>
-<TR VALIGN="TOP">
-<TD COLSPAN=3><img src="images/sbs.gif" width=620 height=16 alt=""></TD>
-<TD ALIGN="LEFT" BGCOLOR="#ffffff"><img src="images/sbc.gif" width=12 alt="" height=16></TD>
-</TR>
-</TABLE>
-</CENTER>
-</FORM>
-        <?php
+	$templdata["domain_select"]="";
 
+
+        if (count($domains_list)) {
+                $templdata["domain_select"] .= "@ <select name=\"login_domain\">";
+                reset($domains_list);
+                while(list ($id,$tmp) = each ($domains_list) ) {
+
+                        if ($cookie_omail_last_domain == $tmp) {
+                                $templdata["domain_select"] .= "<option selected>$tmp</option>";
+                        } else {
+                                $templdata["domain_select"] .= "<option>$tmp</option>";
+                        }
+
+                }
+                $templdata["domain_select"] .= "</select>";
+        }
+
+
+
+        print parseTemplate($templdata, "templates/login.temp");
 
 }
 

@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.19 2000/09/22 15:05:57 swix Exp $
+        $Id: strings.php,v 1.20 2000/09/24 00:29:06 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -255,9 +255,9 @@ $txt_domain=array(	"ru"=>"äÏÍÅÎ",
 			"it"=>"Dominio");
 
 $txt_domain_or_email=array(	"ru"=>"áÄÒÅÓ Email",
-                        "fr"=>"Adresse mail",
-			"de"=>"E-Mail Adresse",
-			"en"=>"Email Address",
+                        "fr"=>"Adresse mail ou Domaine",
+			"de"=>"E-Mail Adresse oder Domain-Name",
+			"en"=>"Email Address or Domain Name",
 			"es"=>"E-mail o Dominio",
 			"it"=>"Indirizzo E-mail o Dominio");
 
@@ -1156,7 +1156,7 @@ $txt_no = array(
 
 $txt_activated = array(
 "ru"=>"÷ËÌÀÞÅÎ", 
- "en" => "Actived",
+ "en" => "On",
  "fr" => "Activé",
  "de" => "Eingeschaltet",
  "es" => "Activado",
@@ -1164,7 +1164,7 @@ $txt_activated = array(
 
 $txt_inactived = array(
  "ru"=>"÷ÙËÌÀÞÅÎ", 
- "en" => "Inactived",
+ "en" => "Off",
  "fr" => "Declenche",
  "de" => "Ausgeschaltet",
  "es" => "Desactivado",
