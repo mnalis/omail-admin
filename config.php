@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.17 2000/09/23 11:13:47 swix Exp $ 
+	$Id: config.php,v 1.18 2000/09/23 11:41:38 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -41,9 +41,7 @@ $expire_after = "20"; // minutes
 // sysadmin mail
 // -------------
 
-//$sysadmin_mail = "sysadmin@notdefined.yet";
-
-$sysadmin_mail = "om@omnis.ch";
+$sysadmin_mail = "sysadmin@notdefined.yet";
 
 
 // default language
@@ -84,8 +82,8 @@ $config_use_settings_with_quota = 0;
 
 // version
 
-$version = "0.96";
-$cvs_version = '$Id: config.php,v 1.17 2000/09/23 11:13:47 swix Exp $';
+$version = "0.96.1";
+$cvs_version = '$Id: config.php,v 1.18 2000/09/23 11:41:38 swix Exp $';
 
 // script URL
 
@@ -100,6 +98,6 @@ if (!$default_lang) { $default_lang = $default_language; }       // default lang
 
 // yes, it's here:  Thanks for using oMail-admin! Enjoy :)
 
-$splash_screen = 0;
+$splash_screen = 1;
 
 ?>
