@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.22 2000/09/17 00:04:43 swix Exp $
+        $Id: htmlstuff.php,v 1.23 2000/09/22 15:05:57 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -36,9 +36,8 @@
 
 function html_login() {
 
-	global $script_url, $A, $lang, $version, $cookie_omail_last_domain;
+	global $script_url, $A, $lang, $version, $cookie_omail_last_login, $cookie_omail_last_domain, $domains_list;
 	include("strings.php");
-
 
   ?>
 
@@ -59,12 +58,12 @@ function html_login() {
         while(list ($id,$tmplang) = each ($txt_langname) ) {
                 if ($id != $lang) {
                         ?>
-[ <a href="<?php echo($script_url); ?>?setlang=<?php echo($id); ?>&<?=SID?>"> 
-<?php echo($tmplang); ?></a> ] &nbsp;
+<nobr>[ <a href="<?php echo($script_url); ?>?setlang=<?php echo($id); ?>&<?=SID?>">
+<?php echo($tmplang); ?></a> ]</nobr>
                         <?php
                 } else {
                                 ?>
-[ <font color="red"><?php echo($tmplang); ?></font> ] &nbsp;
+<nobr>[ <font color="red"><?php echo($tmplang); ?></font> ]</nobr>
                                 <?php
                         }
         }
@@ -74,9 +73,29 @@ function html_login() {
 <TD ROWSPAN="4" width=8 bgcolor="#ffffff">
 <IMG SRC="srs.gif" width=16 height=250 alt=""></TD></TR>  
 <TR><TD ALIGN="RIGHT"><?php echo($txt_domain_or_email[$lang]); ?>:&nbsp;</TD>
-<TD ><input name="form_login" VALUE="<?php
-if ($cookie_omail_last_domain) { print htmlentities($cookie_omail_last_domain); }
-?>" size="20"></TD>
+<TD><input name="form_login" VALUE="<?php
+if (!count($domains_list) && $cookie_omail_last_domain) { print htmlentities($cookie_omail_last_domain); }
+elseif (count($domains_list) && $cookie_omail_last_login) { print htmlentities($cookie_omail_last_login); }
+?>" size="20">
+
+<?php
+	if (count($domains_list)) {
+		echo "@ <select name=\"login_domain\">";
+	        reset($domains_list);
+	        while(list ($id,$tmp) = each ($domains_list) ) {
+
+			if ($cookie_omail_last_domain == $tmp) {
+				echo "<option selected>$tmp</option>";
+			} else {
+				echo "<option>$tmp</option>";
+			}
+
+	        }
+		echo "</select>";
+	}
+?>
+
+</TD>
 <TD>&nbsp;</TD></TR><TR>
 <TD ALIGN="RIGHT"><?php echo($txt_password_str[$lang]); ?>:&nbsp;</TD>
 <TD><input name="form_passwd" type="password" size="20"></TD>
@@ -88,7 +107,7 @@ if ($cookie_omail_last_domain) { print htmlentities($cookie_omail_last_domain); 
 <INPUT TYPE="SUBMIT" VALUE="<?php echo($txt_login[$lang]); ?>">
 </TD></TR>
 <TR VALIGN="TOP">
-<TD COLSPAN=3><img src="sbs.gif" width=520 height=16 alt=""></TD>
+<TD COLSPAN=3><img src="sbs.gif" width=620 height=16 alt=""></TD>
 <TD ALIGN="LEFT" BGCOLOR="#ffffff"><img src="sbc.gif" width=12 alt="" height=16></TD>
 </TR>
 </TABLE>
@@ -102,9 +121,18 @@ if ($cookie_omail_last_domain) { print htmlentities($cookie_omail_last_domain); 
 
 function html_head($title) {
 
-	global $quota_on, $quota_data, $A, $domain, $cvs_version, $version;
+	global $quota_on, $quota_data, $A, $domain, $cvs_version, $version, $lang, $setlang;
+	include("strings.php");
 
-	print "<HTML><HEAD><TITLE>$title</TITLE>\n";
+	// needed for 'ru' (at least with no-russian browsers)	
+	if ($txt_charset[$lang]) { 
+		Header("Content-Type: text/html; charset=" . $txt_charset[$lang] . "\n");
+	} elseif ($txt_charset[$setlang]) { 
+		Header("Content-Type: text/html; charset=" . $txt_charset[$setlang] . "\n");
+	}
+
+	print "<HTML><HEAD><TITLE>$title   [$lang]</TITLE>\n";
+
 	print "<!-- oMail-admin version $version - $cvs_version - " . session_id() . "-->\n";
 	?>
 <style type="text/css">
@@ -667,7 +695,6 @@ function html_about() {
 	include("strings.php");
 
 	?>
-
 <table bgcolor="#eeeeee" width="80%">
 <tr><td>
 <br>

@@ -2,8 +2,15 @@
 Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----
 
-$Id: ChangeLog,v 1.16 2000/09/17 00:04:43 swix Exp $ 
+$Id: ChangeLog,v 1.17 2000/09/22 15:05:56 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
+
+2000-09-19  Olivier Mueller  <om@omnis.ch>
+	
+	* strings.php: added russian translation : thanks to Andy Krasilnikov 
+	* htmlstuff.php: added support for different charsets (needs debugging)
+	* index.php, htmlstuff.php: added support an optional limited domains list 
+	  on logon page (idea: Andy, plus some personal changes). 
 
 2000-09-16  Olivier Mueller  <om@omnis.ch>
 

@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.16 2000/09/17 00:04:43 swix Exp $
+        $Id: index.php,v 1.17 2000/09/22 15:05:57 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -97,6 +97,14 @@ if (!$active) {
 		exit();
 
 	} else {
+	
+
+		if (count($domains_list)) { 
+			if (!$login_domain) { $form_login = ""; }   // -> failure : we need a domain!
+
+			if ($form_login) { $form_login .= "@"; }
+			$form_login .= $login_domain;
+		}
 
 		if ($form_passwd && $form_login && authenticate($form_login, $form_passwd, $REMOTE_ADDR)) {
 

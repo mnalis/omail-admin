@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: func.php,v 1.14 2000/08/18 09:20:19 swix Exp $
+        $Id: func.php,v 1.15 2000/09/22 15:05:57 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -104,6 +104,9 @@ function authenticate($arg_login, $arg_passwd, $arg_ip) {
 
 		if (is_array($test[0]) || ($test[0] != 2)) {
 
+			if ($username) {
+				SetCookie("cookie_omail_last_login",$username, Time()+993600);
+			}
 			SetCookie("cookie_omail_last_domain",$domain, Time()+993600);
 			SetCookie("cookie_omail_lang",$lang, Time()+993600);
 			$expire = time() + $expire_after*60;	
