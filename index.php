@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.33 2000/11/30 23:48:08 swix Exp $
+        $Id: index.php,v 1.34 2000/12/12 15:24:39 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -747,7 +747,7 @@ if ($active == 1) {    // active=1 -> user logged in
 	                
 	                // create empty list of forwarders if necessary
 
-	                if (!$fwd[0] && $action == "newalias") {  // alias needs at least one fwd
+	                if (!$fwd[0] && !$fwd[1] && $action == "newalias") {  // alias needs at least one fwd
 			                                
                                 html_head("$program_name Administration - Error");
                                 $msg = "<b>" . $txt_error_fwd_needed[$lang] . "</b><br><br>";

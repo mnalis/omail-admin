@@ -2,8 +2,13 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: ChangeLog,v 1.44 2000/11/30 23:48:08 swix Exp $ 
+$Id: ChangeLog,v 1.45 2000/12/12 15:24:39 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
+
+2000-12-12  Olivier Mueller  <om@omnis.ch>
+
+	* bugfix: user quotas fixes ("" = "-" != "0")
+	* bugfix: new alias creation working correctely  again 
 
 2000-11-30  Olivier Mueller  <om@omnis.ch>
 
