@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.5 2000/08/02 11:57:28 swix Exp $
+        $Id: htmlstuff.php,v 1.6 2000/08/02 13:48:18 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -300,18 +300,18 @@ function html_respform($userinfo, $respinfo) {
 	global $session, $script, $lang, $domain;
 	include("strings.php");
 
+
 	print "<form action=\"" . $script . "\" method=\"post\">";
 	print "<table border=0>";	
 	print "<form action=\"" . $script . "\" method=\"post\">";
 	print "<tr><th align=right>" . $txt_username[$lang] . "&nbsp;</th>";	
-	print "<td bgcolor=\"#DDDDDD\" align=left>" . $userinfo[1]. "@$domain&nbsp;</td></tr>";
-	print "<input type=\"hidden\" name=\"username\" value=\"" . $userinfo[1] . "\">";
+	print "<td bgcolor=\"#DDDDDD\" align=left>" . $userinfo[0]. "@$domain&nbsp;</td></tr>";
+	print "<input type=\"hidden\" name=\"U\" value=\"" . $userinfo[0] . "\">";
 
 	print "<tr><th align=right>" . $txt_responder[$lang] . "&nbsp;</th>";	
 	print "<td bgcolor=\"#CCCCCC\" align=left>";
 	
-
-	if ($userinfo[0]) { $checked_yes = "SELECTED"; $checked_no = ""; }
+	if ($respinfo[0] == 0) { $checked_yes = "SELECTED"; $checked_no = ""; }
 		else { $checked_yes = ""; $checked_no = "SELECTED"; }
 
 	print "<select name=\"responder\">";
@@ -344,6 +344,7 @@ function html_respform($userinfo, $respinfo) {
 	print "</table>";	
 	print "</form>";	
 }
+
 
 
 
@@ -427,11 +428,17 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 			
 	$yes = "<font color=\"green\">" . $txt_yes[$lang] . "</font>";
 	$no = "<font color=\"red\">" . $txt_no[$lang] . "</font>";
+
+
+	$activated = "<font color=\"green\">" . $txt_activated[$lang] . "</font>";
+	$inactived = "<font color=\"red\">" . $txt_inactived[$lang] . "</font>";
+
+
 	$total_size = 0;
 
 	for ($i = 0; $i <  sizeof($mboxlist); $i++) {
 
-		list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime)=$mboxlist[$i];
+		list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp)=$mboxlist[$i];
 
 		if ($i/2 == floor($i/2)) { 
 			print "<tr bgcolor=\"#DDDDDD\">"; 
@@ -452,7 +459,7 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 		print "&nbsp;</TD>"; // alias?
 
 		print "<TD>";
-		if (0) { print $yes; } else { print $no; } 
+		if ($resp) { print $activated; } else { print $inactived; } 
 		print "&nbsp;</TD>"; // responder?
 
 		// convert the username to an html escaped string (because of user "+") 

@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.5 2000/08/02 11:57:28 swix Exp $
+        $Id: strings.php,v 1.6 2000/08/02 13:48:18 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -916,16 +916,16 @@ $txt_facultatif = array(
  "de" => "nicht obligatorisch",
  "it"=>"");
 
-$txt_ = array( 
- "en" => "",
- "fr" => "",
- "de" => "",
+$txt_autoresp_subj = array( 
+ "en" => "Automatic Answer - Out of office",
+ "fr" => "Réponse automatique - Actuellement non atteignable",
+ "de" => "Automatische Antwort - Zur Zeit nicht erreichbar",
  "it"=>"");
 
-$txt_ = array( 
- "en" => "",
- "fr" => "",
- "de" => "",
+$txt_autoresp_body = array( 
+ "en" => "Just got your mail with subject %S\n\nI'm not there. I'll answer your mail when I'll be back.\n\n",
+ "fr" => "Je viens de recevoir votre mail à propos de %S\n\nJ'y répondrai à mon retour.\n\n",
+ "de" => "Habe Ihren mail betreffend %S erhalten.\n\nEine Antwort erhalten Sie wenn ich zurück bin.\n\n",
  "it"=>"");
 
 $txt_ = array( 

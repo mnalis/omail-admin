@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.5 2000/08/02 11:57:28 swix Exp $
+        $Id: index.php,v 1.6 2000/08/02 13:48:18 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -206,6 +206,33 @@ if ($active == 1) {
 	}
 
 
+	//
+	// AUTORESPOND EDIT
+	//
+
+	if ($A == "resp") {
+                
+	        html_titlebar($txt_edit_account[$lang], $txt,1);
+	        $userinfo = get_accounts(0,$U);
+
+	        $respinfo = load_resp_file($U, $userinfo[11]);  // userinfo[11] = responder yes/no  
+
+		if ($userinfo[11] || $respinfo[0] == 0) {
+			
+			list($respinfo["from"],$respinfo["subject"],$respinfo["body"]) = parse_resp_file($respinfo[1]);
+
+		} else {
+			$respinfo["from"] = $U . "@" . $domain;
+			$respinfo["subject"] = $txt_autoresp_subj[$lang];
+			$respinfo["body"] = $txt_autoresp_body[$lang];
+		}	
+
+	        html_respform($userinfo[0], $respinfo);
+	        html_end();
+	        exit();
+	}
+
+
 
 
 
@@ -228,7 +255,7 @@ if ($active == 1) {
 	                exit();
 	        }
 	
-	
+
 	        // "edit"
 	
 	        if ($action == "edit") {
@@ -338,8 +365,7 @@ if ($active == 1) {
 	                html_titlebar($txt_edit[$lang], "$msg",0);
 	                html_end();
 	                exit();
-	      }
-        
+		}
 
 
 	        // "delete_ok"
@@ -370,6 +396,28 @@ if ($active == 1) {
         	        html_end();
         	        exit();
 	       	}
+
+	       // "responder"
+
+	        if ($action == "responder") {
+        
+	                // check args format....
+
+	                // update responder. 
+
+	                $results = save_resp_file($U, "Subject: $subject\nFrom: $from\n\n$body", $responder);
+
+
+	                html_head("oMail Administration");
+	                $msg = "<b>" . $results . "</b><br><br>";
+	                $msg .= "<ul>";
+	                $msg .= "<li><a href=\"$script?A=menu\" onClick=\"return gO(this,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+	                html_titlebar($txt_delete[$lang], "$msg",0);
+	                html_end();
+	                exit();
+	        }
+
+
 	}
 
 

@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.2 2000/08/01 22:15:39 swix Exp $ 
+	$Id: config.php,v 1.3 2000/08/02 13:48:18 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -19,34 +19,63 @@
 
 */
 
-// version
 
-$version = "0.8";
-$cvs_version = '$Id: config.php,v 1.2 2000/08/01 22:15:39 swix Exp $';
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
 
-// script URL
+/* START OF USER CONFIGURATION */
 
-$script_url = "http://192.168.0.76/admin2/index.php";
-$script = $script_url;
 
-// temp directory (to save temporary files)
-
-$temp_directory = "/tmp";
-
-// number of lines to show in "select" mode
-$max_select_size = 20;
-
-// expire session after
+// expire session after 
+// -------------------- 
 
 $expire_after = "20"; // minutes
 
-// sysadmin mail
 
-$sysadmin_mail = "om@8304.ch";
+// sysadmin mail
+// -------------
+
+$sysadmin_mail = "sysadmin@notdefined.yet";
+
+
+// default language
+// ----------------
+
+$default_language = "en";
+
+
+
+/* END OF USER CONFIGURATION */
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+/* you shouldn't have to change the following lines */
+
+// version
+
+$version = "0.8";
+$cvs_version = '$Id: config.php,v 1.3 2000/08/02 13:48:18 swix Exp $';
+
+// script URL
+
+$script_url = "$SCRIPT_URL";
+$script = $script_url;
 
 // default lang
 
 if ($cookie_omail_lang && !$default_lang) { $default_lang = htmlentities($cookie_omail_lang); }
-if (!$default_lang) { $default_lang = "en"; }       // default language
+if (!$default_lang) { $default_lang = $default_language; }       // default language
+
 
 ?>

@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: func.php,v 1.5 2000/08/02 11:57:28 swix Exp $
+        $Id: func.php,v 1.6 2000/08/02 13:48:18 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -133,8 +133,8 @@ function authenticate($arg_login, $arg_passwd, $arg_ip) {
 
 function get_accounts_sort_by_name($a, $b) {
 
-	list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime)=$a;
-	list($username2, $password2, $mbox2, $alias2, $PersonalInfo2, $HardQuota2, $SoftQuota2, $SizeLimit2, $CountLimit2, $CreationTime2, $ExpiryTime2)=$b;
+	list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp)=$a;
+	list($username2, $password2, $mbox2, $alias2, $PersonalInfo2, $HardQuota2, $SoftQuota2, $SizeLimit2, $CountLimit2, $CreationTime2, $ExpiryTime2, $resp)=$b;
 	return ($username < $username2) ? -1 : 1; 
 }		
 
@@ -154,6 +154,18 @@ function get_accounts($arg_action, $arg_username = "") {
 
 	                list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime)=$list[$i];
 	
+
+			// findout autoresp status
+			
+			$tmp_autoresp = load_resp_file($username);
+			if ($tmp_autoresp[0] == 2) {
+				$resp = 0;
+			} else {	
+				$resp = 1;
+			}			
+
+	                $list[$i] = array($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp);
+			
 			if ($mbox && ($arg_action == 1)) { $new_list[$j++] = $list[$i];  }	
 			if (!$mbox && ($arg_action == 2)) { $new_list[$j++] = $list[$i]; }	
 			if (($username == $arg_username) && ($action == 0)) { $new_list[$j++] = $list[$i]; }	
@@ -183,7 +195,14 @@ function get_accounts($arg_action, $arg_username = "") {
 			}			
 		}
 
-		$tmp_array = array($arg_username, "", $mbox, $alias, "User", "", "", "", "", "", "");
+		$tmp_autoresp = load_resp_file($arg_username);
+		if ($tmp_autoresp[0] == 2) {
+			$resp = 0;
+		} else {	
+			$resp = 1;
+		}			
+
+		$tmp_array = array($arg_username, "", $mbox, $alias, "User", "", "", "", "", "", "", $resp);
 		$new_list[0] = $tmp_array;
 	}
 
@@ -262,6 +281,80 @@ function delete_account($arg_username) {
 }
 
 
+function load_resp_file($arg_username, $arg_status = -1) {
+
+        global $type, $domain, $passwd;
+
+	// if $arg_status = -1, don't do anything, just return status.
+	//
+	// problem : we get the current text only if the responder is enabled.
+	// so in this function, we will always enable the resp, and turn back
+	// to last status after having the data.
+
+	if ($arg_status != -1) {
+		venableautoresponse($domain, base64_decode($passwd), $arg_username);
+	}
+
+	// get the data 
+
+	$return_data = vreadautoresponse($domain, base64_decode($passwd), $arg_username);
+
+	// turn back to current status 
+	
+	if (!$arg_status && $arg_status != -1) {
+		vdisableautoresponse($domain, base64_decode($passwd), $arg_username);
+	}
+	
+	return $return_data;
+
+}
+
+function parse_resp_file($arg_text) {
+
+	$text = explode("\n", $arg_text);
+	$from = "";
+	$subject = "";
+	$body = "";	
+
+	for ($i = 0; $i < count($text); $i++) {
+
+		if (preg_match("/^From: (.*)$/i", $text[$i], $parts)) {
+			$from = $parts[1];
+		} elseif (preg_match("/^Subject: (.*)$/i", $text[$i], $parts)) {
+			$subject = $parts[1];
+		} else {
+			$body .= $text[$i] . "\n";
+		}
+	}
+
+        return array($from,$subject,$body);
+
+}
+
+
+function save_resp_file($arg_username, $arg_resptext, $arg_status) {
+
+        global $type, $domain, $passwd;
+	
+	$result = vwriteautoresponse($domain, base64_decode($passwd), $arg_username, $arg_resptext);
+
+        if (!$result[0]) { $return_msg = "AUTORESP_TXT ok :  " . $result[1] . "<br>"; }
+                else { $return_msg = "AUTORESP_TXT error : " . $result[1] . "<br>"; }
+
+	if ($arg_status) { 
+		$stat = "ON";
+		$result2 = venableautoresponse($domain, base64_decode($passwd), $arg_username);
+	} else {
+		$stat = "OFF";
+		$result2 = vdisableautoresponse($domain, base64_decode($passwd), $arg_username);
+	}			
+
+	if (!$result2[0]) { $return_msg .= "AUTORESP $stat ok :  " . $result2[1] ; }
+        else { $return_msg .= "AUTORESP $stat error : " . $result2[1] ; }
+
+	return $return_msg;
+
+}
 
 
 ?>
