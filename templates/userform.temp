@@ -23,7 +23,7 @@
 %fwd_part%
 
 <tr><th align=right>%txt_fwd1%&nbsp;</th>
-<td bgcolor="#CCCCCC" align=left><textarea cols="25" wrap="virtual" rows="5" name="newfwd"></textarea>&nbsp;
+<td bgcolor="#CCCCCC" align=left><textarea cols="35" wrap="virtual" rows="5" name="newfwd"></textarea>&nbsp;
 <br><font size="-1">%txt_one_per_line%</font>
 </td></tr>
 
