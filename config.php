@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.43 2001/01/08 00:25:42 swix Exp $ 
+	$Id: config.php,v 1.44 2001/01/10 12:17:59 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -49,7 +49,7 @@ $show_how_many_accounts = 10;
 // -------------
 // will be displayed on screens with error messages
 
-$sysadmin_mail = "sysadmin@notdefined.yets";
+$sysadmin_mail = "sysadmin@notdefined.yetx";
 
 
 // default language
@@ -128,7 +128,7 @@ $hide_about_button = 0;
 // version
 
 $version = "0.96pre10";
-$cvs_version = '$Id: config.php,v 1.43 2001/01/08 00:25:42 swix Exp $';
+$cvs_version = '$Id: config.php,v 1.44 2001/01/10 12:17:59 swix Exp $';
 
 // script URL
 

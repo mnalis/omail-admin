@@ -2,9 +2,15 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: ChangeLog,v 1.48 2001/01/09 23:09:03 swix Exp $ 
+$Id: ChangeLog,v 1.49 2001/01/10 12:17:59 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
+
+2001-01-09  Olivier Mueller  <om@omnis.ch>
+
+	* re-released 0.96pre10
+	* fixed a little bug preventing username to be saved on new account
+	  creation (thx Clemens).
 
 2001-01-09  Olivier Mueller  <om@omnis.ch>
 

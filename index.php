@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.35 2001/01/09 22:42:11 swix Exp $
+        $Id: index.php,v 1.36 2001/01/10 12:17:59 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -769,7 +769,7 @@ if ($active == 1) {    // active=1 -> user logged in
 	                
 	                if ($action == "newuser") {
 	                        $results = "<br>" . create_account($U, $passwd1, $fwd);
-				if (strpos($results,"NEWUSER ok")) {
+				if (strpos($results,"ok")) {
 		                       	update_userdetail($U, $userdetail);
 				}
 	                }
@@ -777,7 +777,7 @@ if ($active == 1) {    // active=1 -> user logged in
 
 	                if ($action == "newalias") {
 	                        $results = create_alias($U, $passwd1, $fwd);
-				if (strpos($results,"NEWALIAS ok")) {
+				if (strpos($results,"ok")) {
 		                       	update_userdetail($U, $userdetail);
 				}
 	                }
