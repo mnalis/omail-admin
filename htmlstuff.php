@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.14 2000/08/12 22:53:13 swix Exp $
+        $Id: htmlstuff.php,v 1.15 2000/08/12 23:00:20 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -550,8 +550,8 @@ function html_about() {
 <tr><td>
 <br>
 <ul>
-<li>oMail-admin <?php echo($version); ?> is a PHP4-based Web-administration solution for mail servers based on Dan Bernstein's <a href="http://www.qmail.org">qmail</a>
-and Bruce Guenter's <a href="http://www.em.ca/~bruceg/vmailmgr/">vmailmgr</a> (version 0.96.8 and higher).<br><br></li>
+<li>oMail-admin <?php echo($version); ?> is a PHP4-based Web-administration solution for mail servers based on<br> 
+Dan Bernstein's <a href="http://www.qmail.org">qmail</a> and Bruce Guenter's <a href="http://www.em.ca/~bruceg/vmailmgr/">vmailmgr</a> (version 0.96.8 and higher).<br><br></li>
 
 <li>Features:
 <ul>
@@ -565,7 +565,7 @@ and Bruce Guenter's <a href="http://www.em.ca/~bruceg/vmailmgr/">vmailmgr</a> (v
 </ul>
 <br></li>
 
-<li>This a <a href="http://www.gnu.org/copyleft/gpl.html">GPL</a> project, maintained by 
+<li>This a <a href="http://www.gnu.org/copyleft/gpl.html">GPL</a> project, currently maintained by 
 <a href="mailto:om@omnis.ch">Olivier M&uuml;ller</a>, Z&uuml;rich, Switzerland. <br><br></li>
 
 <li>Supported languages:<font color="blue">
@@ -597,7 +597,7 @@ and of course the <a href="CREDITS">Credits</a></li>
 </ul>
 </td></tr></table>
 <br></li>
-<li>CVS Version: $Id: htmlstuff.php,v 1.14 2000/08/12 22:53:13 swix Exp $ <br><br></li>
+<li>CVS Version: $Id: htmlstuff.php,v 1.15 2000/08/12 23:00:20 swix Exp $ <br><br></li>
 
 <li>
 Feel free to use this form for your suggestions, requests and bugfixes:
@@ -606,7 +606,7 @@ Feel free to use this form for your suggestions, requests and bugfixes:
 <input type="hidden" name="subject" value="oMail-admin <?php echo($version); ?> comment form">
 <input type="hidden" name="redirect" value="http://<?php echo($HTTP_HOST); ?><?php echo($REQUEST_URI); ?>">
 <input type="hidden" name="sender" value="<?php echo($REMOTE_ADDR); ?>">
-<input type="hidden" name="sender" value="Version: $Id: htmlstuff.php,v 1.14 2000/08/12 22:53:13 swix Exp $ ">
+<input type="hidden" name="sender" value="Version: $Id: htmlstuff.php,v 1.15 2000/08/12 23:00:20 swix Exp $ ">
 <table border="0">
 <tr><td align="right">Email</td><td><small>
 <input type="text" size="30" name="from_email"></small></td></tr>
