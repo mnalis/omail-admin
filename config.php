@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.47 2001/02/24 20:30:11 swix Exp $ 
+	$Id: config.php,v 1.48 2001/02/24 22:41:12 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -36,20 +36,20 @@ $domains_list = array();   // empty : login for all.
 // -------------------- 
 // automatic logout after N minutes of inactivity
 
-$expire_after = "20"; // minutes
+$expire_after = "25"; // minutes
 
 // show how many accounts at a time
 // --------------------------------
 // ignore = 0
 
-$show_how_many_accounts = 10;
+$show_how_many_accounts = 20;
 
 // sysadmin mail
 // -------------
 // will be displayed on screens with error messages
 // must be set to something else than the default value
 
-$sysadmin_mail = "sysadmin@notdefined.yetx";
+$sysadmin_mail = "sysadmin@notdefined.yet";
 
 
 // default language
@@ -150,8 +150,8 @@ $vmailmgrd_tcp_host_method = 2;
 
 $vmailmgrd_tcp_hosts_list=array(
                         "Localhost"=>"127.0.0.1",
-                        "Omega"=>"195.134.143.43",
-                        "Pegasus"=>"195.134.143.40"
+                        "Omega"=>"10.0.0.1",
+                        "Pegasus"=>"192.168.0.99"
 			);
 
 // vmailmgrd_tcp_hosts_dir  [2]
@@ -230,7 +230,7 @@ $ldap_passwd = "very_secret";
 
 // version
 $version = "0.97";
-$cvs_version = '$Id: config.php,v 1.47 2001/02/24 20:30:11 swix Exp $';
+$cvs_version = '$Id: config.php,v 1.48 2001/02/24 22:41:12 swix Exp $';
 
 // script URL
 
@@ -245,6 +245,6 @@ if (!$default_lang) { $default_lang = $default_language; }       // default lang
 
 // yes, it's here:  Thanks for using oMail-admin! & Enjoy :)
 
-$splash_screen = 0;
+$splash_screen = 1;
 
 ?>

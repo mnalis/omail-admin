@@ -19,6 +19,11 @@ help me improve the scripts, and see how many and which kind of people are using
 Thanks in advance for your support!  
 <br><br>All fields are of course completely optional. It's up to you :) I will keep these infos private in any case (no spam).
 
+<br><br>Please don't fill this form again, if you already done that before. <br>
+And if you don't want to fill it, please don't submit it with junk informations :<br>
+to remove it please simply read the two steps a few lines higher. Merci :)
+
+
 <form action="http://www.8304.ch/cgi-bin/formmail.pl" method="post">
 <table border="0">
 
@@ -77,6 +82,18 @@ Thanks in advance for your support!
 <option>Less than 10 mailboxes/alias per domain</option>
 <option>Between 10 and 50 mailboxes/alias per domain</option>
 <option>More than 50 mailboxes/alias per domain</option>
+</select>
+</small></td></tr>
+
+
+<tr><td align="right">Nb of domains on the server:</td><td><small>
+<select name="nb_of_domains">
+<option value=""> - </option>
+<option>Just one</option>
+<option>Between 2 and 10</option>
+<option>Between 10 and 50</option>
+<option>Between 50 and 100</option>
+<option>More than 100</option>
 </select>
 </small></td></tr>
 
