@@ -1,11 +1,11 @@
 -----------
-oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
+oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2001  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: ChangeLog,v 1.69 2001/11/12 00:17:25 swix Exp $ 
+$Id: ChangeLog,v 1.70 2001/11/12 01:22:29 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
-2001-11-11  Olivier Mueller  <om@omnis.ch>
+2001-11-12  Olivier Mueller  <om@omnis.ch>
 
 	* fixed bug 466528 (trailing space in fwd)
 	* redesigned login screen a little bit
@@ -13,6 +13,11 @@ $Source: /cvsroot/omail/admin2/ChangeLog,v $
 	* replaced the input fields with a textfield to add new forwarders
 	* from now, if you remove all forwarders of an account with mail_delivery=disabled
 	  a warning will be shown, telling that the account will ignore all incoming mails
+	* added the $turn_off_delivery_on_fwd_setup configuration variable:
+		if set to '1', the local delivery will be turned off by default when a user
+		setup a forwarder to his account. It's then still possible to turn delivery
+		on afterwards, but most people won't -> good for disk usage :)  
+	* release of version 0.98.1
 
 2001-04-17  Olivier Mueller  <om@omnis.ch>
 

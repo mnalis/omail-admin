@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.48 2001/11/12 00:17:25 swix Exp $
+        $Id: index.php,v 1.49 2001/11/12 01:22:29 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -748,7 +748,15 @@ if ($active == 1) {    // active=1 -> user logged in
 				if (!$userinfo[0][12]) {
 					$results .= "<br><br><b><font color=red>" . $txt_forwarding_off_warning[$lang] . "</font></b><br>";
 				}	
-			} 
+			} else {
+		
+				// yes, we have forwarders!  
+				if ($turn_off_delivery_on_fwd_setup) {
+					$enabled_status = "0"; 
+					$enabled_msg = $txt_turn_off_delivery_expl[$lang];
+					$results .= "<br>" . update_userstatus($U, $enabled_status); 
+				}
+			}
 
 
 	                // update user detail
@@ -764,6 +772,7 @@ if ($active == 1) {    // active=1 -> user logged in
 
 	                html_head("$program_name Administration");
 	                $msg = "<b>" . $results . "</b><br><br>";
+			$msg .= "$enabled_msg<br>";
 	                $msg .= "<ul>";
 	                $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 	                html_titlebar($txt_edit[$lang], "$msg",0);
@@ -1088,7 +1097,7 @@ if ($active == 1) {    // active=1 -> user logged in
 			    $enabled_msg = $txt_turn_on_delivery_expl[$lang];
 			}
 
-	                $results = update_userstatus($U, $enabled_status);
+	                $results = update_userstatus($U, $enabled_status); 
 
 	                html_head("$program_name Administration");
 	                $msg = "<b>" . $results . "</b><br><br>";

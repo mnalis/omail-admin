@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.58 2001/11/12 00:17:25 swix Exp $ 
+	$Id: config.php,v 1.59 2001/11/12 01:22:29 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -80,6 +80,15 @@ $readonly_accounts_list = array( 'postmaster', 'mailer-daemon', 'abuse');
 // if you want to display something else as "omail-admin" as program name
 
 $program_name = "oMail-admin";
+
+
+// turn_off_delivery_on_fwd_setup
+// ------------------------------
+// if set to '1', the local delivery will be turned off by default when a user 
+// setup a forwarder to his account. It's then still possible to turn delivery
+// on afterwards, but most people won't -> good for disk usage :)  
+
+$turn_off_delivery_on_fwd_setup = 0;
 
 
 // powered_by
@@ -237,7 +246,7 @@ $ldap_passwd = "SECRET";
 
 // version
 $version = "0.98.1";
-$cvs_version = '$Id: config.php,v 1.58 2001/11/12 00:17:25 swix Exp $';
+$cvs_version = '$Id: config.php,v 1.59 2001/11/12 01:22:29 swix Exp $';
 
 // script URL
 
