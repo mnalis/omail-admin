@@ -39,7 +39,7 @@ highly recommended.
 <ul>
 <li><a href="http://sourceforge.net/project/filelist.php?group_id=3658">oMail-admin download page</a></li>
 <li><a href="http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi/admin2/?cvsroot=oMail">oMail-admin public CVS tree</a></li>
-<li><a href="http://sourceforge.net/mail/?group_id=3658">Mailing list (subscribe/archives). Please use omail-admin-dev!</a></li> 
+<li><a href="http://sourceforge.net/mail/?group_id=3658">Mailing list (subscribe/archives). Please use omail-admin-devel and omail-admin-news!</a></li> 
 <li><a href="http://omail.omnis.ch">The oMail-admin project homepage</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
 <li><a href="http://admin.omnis.ch/admin2">Live Demo : login: <I>test.com</I>, and password: <I>test</I></a></li>
 <li><a href="TODO">Todo List</a>, <a href="ChangeLog">ChangeLog</a>, <a href="README">README</a>, <a href="INSTALL">INSTALL</a>, 

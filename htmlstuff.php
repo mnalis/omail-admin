@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.40 2000/10/15 21:43:44 swix Exp $
+        $Id: htmlstuff.php,v 1.41 2000/10/16 15:45:45 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -453,7 +453,7 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 	$hidden = 0;
 
 	for ($i = 0; $i <= sizeof($mboxlist); $i++) {
-		
+
 		list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible)=$mboxlist[$i];
 
 		while ($username && (!$Visible || in_array($username, $system_accounts_list))) {
@@ -483,6 +483,7 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 
 		if (in_array($username, $readonly_accounts_list)) {
 		     $templdata[obj][$ii]["PersonalInfo"] = "<I>" . $txt_system_account[$lang] . "</I>"; 
+			$templdata[obj][$ii]["colorUsername"] = "black";
 		}
 
 

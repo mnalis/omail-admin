@@ -8,7 +8,7 @@
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 	* Copyright (C) 2000  Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 
-        $Id: func.php,v 1.19 2000/10/15 23:13:33 swix Exp $
+        $Id: func.php,v 1.20 2000/10/16 15:45:45 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -228,7 +228,7 @@ function get_accounts_sort_by_name($a, $b) {
 
 function get_accounts($arg_action, $arg_username = "") {
 
-	global $quota_on, $quota_data, $type, $domain, $passwd, $catchall_active;
+	global $quota_on, $quota_data, $type, $domain, $passwd, $catchall_active, $readonly_accounts_list, $system_accounts_list;
 	$new_list = array ();
 
 	// action = 0 : only one mailbox (user mode)
@@ -265,12 +265,16 @@ function get_accounts($arg_action, $arg_username = "") {
 			
 			if ($mbox && ($arg_action == 1 || $arg_action == 3)) { 
 				$new_list[$j++] = $list[$i];  
-				if ($quota_on) { $quota_data["nb_users"]++; }
+				if ($quota_on && !(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) { 
+					$quota_data["nb_users"]++; 
+				}
 			}	
 
 			if (!$mbox && ($arg_action == 2) || $arg_action == 3) { 
 				$new_list[$j++] = $list[$i]; 
-				if ($quota_on) { $quota_data["nb_alias"]++; }
+				if ($quota_on && !(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) { 
+					$quota_data["nb_alias"]++; 
+				}
 			}
 	
 			if (($username == $arg_username) && ($action == 0)) { $new_list[$j++] = $list[$i]; }	
@@ -295,7 +299,7 @@ function get_accounts($arg_action, $arg_username = "") {
 	
 		if ($mbox) { $resp = load_resp_status($username); }  else { $resp = 0; } // only lookup for mailboxes
 
-                $new_list[0] = array($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled);
+                $new_list[0] = array($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, 1);
 	}
 
 	return $new_list;
