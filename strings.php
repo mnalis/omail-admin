@@ -6,20 +6,20 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.26 2000/11/13 20:20:07 swix Exp $
+        $Id: strings.php,v 1.27 2000/11/14 00:32:44 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
 	-----------
 	Strings file, to make translations in other languages easier.
 
-	16.jan.2k   om   Converted the strings from an older version of omail
-	23.jan.2k   om   Some updates 
-	06.aug.2k   jc   Added spanish
-	20.aug.2k   nv   Added italian
-	19.sep.2k   ak   Added russian
-	12.oct.2k   kg	 Added Danish
-	19.oct.2k   hn   Added Romanian
+	16.jan.2k   om      Converted the strings from an older version of omail
+	23.jan.2k   om      Some updates 
+	06.aug.2k   jc      Added spanish
+	20.aug.2k   nv      Added italian
+	19.sep.2k   ak      Added russian
+	12.oct.2k   kg	    Added Danish
+	19.oct.2k   hn+bt   Added Romanian
 
         This program is free software; you can redistribute it and/or modify
         it under the terms of the GNU General Public License as published by
