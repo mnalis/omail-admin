@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.28 2000/09/24 00:29:06 swix Exp $
+        $Id: htmlstuff.php,v 1.29 2000/09/24 00:41:04 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -87,8 +87,6 @@ function html_login() {
                 $templdata["domain_select"] .= "</select>";
         }
 
-
-
         print parseTemplate($templdata, "templates/login.temp");
 
 }
@@ -106,70 +104,16 @@ function html_head($title) {
 		Header("Content-Type: text/html; charset=" . $txt_charset[$setlang] . "\n");
 	}
 
-	print "<HTML><HEAD><TITLE>$title   [$lang]</TITLE>\n";
+	$templdata["version"]=$version;
+	$templdata["cvs_version"]=$cvs_version;
+	$templdata["lang"]=$lang;
+	$templdata["title"]=$title;
 
-	print "<!-- oMail-admin version $version - $cvs_version - " . session_id() . "-->\n";
-	?>
-<style type="text/css">
-//<!--
-body {  font-family: Arial, Helvetica, sans-serif; font-size: 10pt}
-th   {  font-family: Arial, Helvetica, sans-serif; font-size: 10pt; font-weight: bold; background-color: #D3DCE3;}
-td   {  font-family: Arial, Helvetica, sans-serif; font-size: 10pt;}
-test.td   {  font-family: Arial, Helvetica, sans-serif; font-size: 10pt;}
-form   {  font-family: Arial, Helvetica, sans-serif; font-size: 10pt}
-h1   {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12pt; font-weight: bold}
-A:link    {  font-family: Arial, Helvetica, sans-serif; font-size: 10pt; text-decoration: none; color: blue}
-A:visited {  font-family: Arial, Helvetica, sans-serif; font-size: 10pt; text-decoration: none; color: blue}
-A:hover   {  font-family: Arial, Helvetica, sans-serif; font-size: 10pt; text-decoration: underline; color: red}
-A:link.nav {  font-family: Verdana, Arial, Helvetica, sans-serif; color: #000000}
-A:visited.nav {  font-family: Verdana, Arial, Helvetica, sans-serif; color: #000000}
-A:hover.nav {  font-family: Verdana, Arial, Helvetica, sans-serif; color: red;}
-.nav {  font-family: Verdana, Arial, Helvetica, sans-serif; color: #000000}
-//-->
-</style>
-
-	<?php if ($A == "menu") {  ?>
-
-<SCRIPT LANGUAGE="JavaScript">
-  <!--
-  function oW(myLink,windowName)
-  {
-  if(! window.focus)return;
-  var myWin=window.open("",windowName,"height=550,width=500,dependent=yes,resizable=yes,scrollbars=yes");
-  myWin.focus();
-  myLink.target=windowName;
-  }
-  <!--
-  function oW2(myLink,windowName)
-  {
-  if(! window.focus)return;
-  var myWin=window.open("",windowName,"height=610,width=600,dependent=yes,resizable=yes,scrollbars=yes");
-  myWin.focus();
-  myLink.target=windowName;
-  }
-  //-->
-</SCRIPT>
-
-	<?php } else if ($A != "login" || $A != "" || $A != "checkin") { ?>
-
-<SCRIPT LANGUAGE="JavaScript">
-  <!--
-  function gO(myLink,closeme,closeonly)
-  {
-  if (! (window.focus && window.opener))return true;
-  window.opener.focus();
-  if (! closeonly)window.opener.location.href=myLink.href;
-  if (closeme)window.close();
-  return false;
-  }
-  //--> 
-</SCRIPT>
-
-	<?php } ?>
-
-</HEAD><BODY BGCOLOR=#FFFFFF TEXT=#000000 LINK=#000080 VLINK=#000080 ALINK=#000080>
-
-	<?php
+	if ($A == "menu") {  
+		print parseTemplate($templdata, "templates/html_header_menu.temp");
+	} else if ($A != "login" || $A != "" || $A != "checkin") {
+		print parseTemplate($templdata, "templates/html_header_standard.temp");
+	}
 }
 
 
