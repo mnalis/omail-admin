@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.23 2000/09/22 15:05:57 swix Exp $
+        $Id: htmlstuff.php,v 1.24 2000/09/23 11:13:47 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -71,11 +71,14 @@ function html_login() {
 </TD></TR></TABLE></TD>
 
 <TD ROWSPAN="4" width=8 bgcolor="#ffffff">
-<IMG SRC="srs.gif" width=16 height=250 alt=""></TD></TR>  
+<IMG SRC="images/srs.gif" width=16 height=250 alt=""></TD></TR>  
 <TR><TD ALIGN="RIGHT"><?php echo($txt_domain_or_email[$lang]); ?>:&nbsp;</TD>
 <TD><input name="form_login" VALUE="<?php
-if (!count($domains_list) && $cookie_omail_last_domain) { print htmlentities($cookie_omail_last_domain); }
-elseif (count($domains_list) && $cookie_omail_last_login) { print htmlentities($cookie_omail_last_login); }
+if (!count($domains_list) && $cookie_omail_last_domain && !$cookie_omail_last_login) { print htmlentities($cookie_omail_last_domain); }
+elseif (!count($domains_list) && $cookie_omail_last_login && $cookie_omail_last_domain) { 
+	print htmlentities($cookie_omail_last_login) . "@" . htmlentities($cookie_omail_last_domain); 
+} elseif (count($domains_list) && $cookie_omail_last_login) { print htmlentities($cookie_omail_last_login); }
+
 ?>" size="20">
 
 <?php
@@ -107,8 +110,8 @@ elseif (count($domains_list) && $cookie_omail_last_login) { print htmlentities($
 <INPUT TYPE="SUBMIT" VALUE="<?php echo($txt_login[$lang]); ?>">
 </TD></TR>
 <TR VALIGN="TOP">
-<TD COLSPAN=3><img src="sbs.gif" width=620 height=16 alt=""></TD>
-<TD ALIGN="LEFT" BGCOLOR="#ffffff"><img src="sbc.gif" width=12 alt="" height=16></TD>
+<TD COLSPAN=3><img src="images/sbs.gif" width=620 height=16 alt=""></TD>
+<TD ALIGN="LEFT" BGCOLOR="#ffffff"><img src="images/sbc.gif" width=12 alt="" height=16></TD>
 </TR>
 </TABLE>
 </CENTER>
@@ -203,33 +206,40 @@ function html_titlebar($title,$msg,$popup) {
 	global $quota_on, $quota_data, $script, $A, $lang, $version;
 	include("strings.php");
 
-	?>
-	
-<TABLE cellpadding=10 cellspacing=0 border=0 width="80%">
-<TR><TD BGCOLOR="#cccccc"><FONT SIZE="+1" COLOR="#000000"><b>oMail-Admin <?php echo($version); ?> - <?php echo($title); ?>
-</b></FONT></TD>
-<TD ALIGN="RIGHT" BGCOLOR="#cccccc"><nobr>
-<?php if ($popup) { ?>
-[ <A HREF="<?php echo($script); ?>?<?=SID?>" onClick="return gO(this,true,true)"><?php echo($txt_close[$lang]); ?></A> ]
-[ <A HREF="<?php echo($script); ?>?A=logout&<?=SID?>" onClick="return gO(this,true)"><?php echo($txt_logout[$lang]); ?></A> ]
-<?php } elseif ($A == "menu") { ?>
-[ <A HREF="<?php echo($script); ?>?A=logout&<?=SID?>"><?php echo($txt_logout[$lang]); ?></A> ]
-[ <A HREF="<?php echo($script); ?>?A=menu&<?=SID?>"><?php echo($txt_refresh_menu[$lang]); ?></A> ]
-[ <A HREF="<?php echo($script); ?>?A=about&<?=SID?>"><?php echo($txt_about[$lang]); ?></A> ]
-<?php } elseif ($A == "login" || $A == "") { ?>
-[ <A HREF="<?php echo($script); ?>?A=about&<?=SID?>"><?php echo($txt_about[$lang]); ?></A> ]
-<?php } elseif (($A == "about") || ($A == "splash")) { ?>
-[ <A HREF="<?php echo($script); ?>?<?=SID?>"><?php echo($txt_back[$lang]); ?></A> ]
-<?php } ?></nobr>&nbsp;
-</TD>
-</TR>
-<TR><TD COLSPAN="2" BGCOLOR="#eeeeee">
-<?php echo($msg); ?>
-</TD>
-</TR>
-</TABLE>
-	
-	<?php
+	$array["version"] = $version;
+	$array["title"] = $title;
+	$array["msg"] = $msg;
+
+	if ($popup) { 
+		$array[buttonlabels][0][url] = $script . "?" . SID;
+		$array[buttonlabels][0][txt] = $txt_close[$lang];
+		$array[buttonlabels][0][onClick] = 'onClick="return gO(this,true,true)"';
+		$array[buttonlabels][1][url] = $script . "?A=logout&" . SID;
+		$array[buttonlabels][1][txt] = $txt_logout[$lang];
+		$array[buttonlabels][1][onClick] = 'onClick="return gO(this,true,true)"';
+	} elseif ($A == "menu") { 	
+		$array[buttonlabels][0][url] = $script . "?" . SID;
+		$array[buttonlabels][0][txt] = $txt_refresh_menu[$lang];
+		$array[buttonlabels][0][onClick] = '';
+		$array[buttonlabels][1][url] = $script . "?A=logout&" . SID;
+		$array[buttonlabels][1][txt] = $txt_logout[$lang];
+		$array[buttonlabels][1][onClick] = '';
+		$array[buttonlabels][2][url] = $script . "?A=about&" . SID;
+		$array[buttonlabels][2][txt] = $txt_about[$lang];
+		$array[buttonlabels][2][onClick] = '';
+	} elseif ($A == "login" || $A == "") {
+		$array[buttonlabels][0][url] = $script . "?A=about&" . SID;
+		$array[buttonlabels][0][txt] = $txt_about[$lang];
+		$array[buttonlabels][0][onClick] = '';
+	} elseif ($A == "about") { 
+		$array[buttonlabels][0][url] = $script . "?" . SID;
+		$array[buttonlabels][0][txt] = $txt_back[$lang];
+		$array[buttonlabels][0][onClick] = '';
+	} else {
+		$array[buttonlabels][0]='';
+	}
+
+	print parseTemplate($array, "templates/titlebar.temp");
 }
 
 
@@ -694,109 +704,34 @@ function html_about() {
 	global $A, $domain, $cvs_version, $version, $lang, $HTTP_HOST, $REQUEST_URI, $REMOTE_ADDR, $HTTP_ACCEPT_LANGUAGE;
 	include("strings.php");
 
-	?>
-<table bgcolor="#eeeeee" width="80%">
-<tr><td>
-<br>
-<ul>
-<li>oMail-admin <?php echo($version); ?> is a PHP4-based Web-administration solution for mail servers based on<br> 
-Dan Bernstein's <a href="http://www.qmail.org">qmail</a> and Bruce Guenter's <a href="http://www.em.ca/~bruceg/vmailmgr/">vmailmgr</a> (version 0.96.8 and higher).<br><br></li>
+	$templdata["version"]=$version;
+	$templdata["cvs_version"]=$cvs_version;
 
-<li>Features:
-<ul>
-<li>complete support of all vmailmgr functions</li>
-<li>create/edit/delete/enable/disable mailboxes and aliases</li>
-<li>administrator (all rights) and single user (can only change his own account) access</li>
-<li>full autoresponder support (edit/enable/disable)</li>
-<li>can be used by non unix-gurus users</li>
-<li>session expiration after N minutes for security</li>
-<li>domain name based quotas (how many mailboxes/aliases, autoresponder y/n, etc.)
-<li>user based quotas (hard/soft disk quota, message size, expiry)
-<li>Lynx-browser support (and other cookie-free browsers)
-</ul>
-<br></li>
+	reset($txt_langname);
+	while(list ($id,$tmplang) = each ($txt_langname) ) {
+		$templdata["languages"] .= ($tmplang) . " ";
+	}
 
-<li>This a <a href="http://www.gnu.org/copyleft/gpl.html">GPL</a> project, currently maintained by 
-<a href="mailto:om@omnis.ch?SUBJECT=[omail-admin]">Olivier M&uuml;ller</a>, Z&uuml;rich, Switzerland. <br><br></li>
+	$templdata["HTTP_HOST"]=$HTTP_HOST;
+	$templdata["REQUEST_URI"]=$REQUEST_URI;
+	$templdata["REMOTE_ADDR"]=$REMOTE_ADDR;
+	$templdata["HTTP_ACCEPT_LANGUAGE"]=$HTTP_ACCEPT_LANGUAGE;
+	$templdata["domain"]=$domain;
 
-<li>Supported languages:<font color="blue">
-<?php
-        reset($txt_langname);
-        while(list ($id,$tmplang) = each ($txt_langname) ) {
-		echo ($tmplang) . " ";
-        }
-?>
-</font><br><br></li>
-
-<li>oMail-admin is programmed in <a href="http://www.php.net">PHP</a>, and rely on vmail.inc written
-by Mike Bell.<br><br></li>
-
-<li>If you are interested by this project, you will find more information on following webpages. <br>
-Subscribing to the <a href="http://sourceforge.net/mail/?group_id=3658">mailing list</a> is also
-highly recommended. 
-
-<table border="0"><tr><td>
-<ul>
-<li><a href="http://sourceforge.net/project/filelist.php?group_id=3658">oMail-admin download page</a></li>
-<li><a href="http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi/admin2/?cvsroot=oMail">oMail-admin public CVS tree</a></li>
-<li><a href="http://sourceforge.net/mail/?group_id=3658">Mailing list (subscribe/archives). Please use omail-admin-dev!</a></li> 
-<li><a href="http://omail.omnis.ch">The oMail-admin project homepage</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
-<li><a href="http://admin.omnis.ch/admin2">Live Demo : login: <I>test.com</I>, and password: <I>test</I></a></li>
-<li><a href="TODO">Todo List</a>, <a href="ChangeLog">ChangeLog</a>, <a href="README">README</a>, <a href="INSTALL">INSTALL</a>, 
-and of course the <a href="CREDITS">Credits</a></li>
-<li><A HREF="<?php echo($script); ?>?A=splash&<?=SID?>">Splash screen with comments form</A></li>
-</ul>
-</td></tr></table>
-<br></li>
-<li>CVS Version: <?php echo($cvs_version); ?> <br><br></li>
-
-<li>Sponsors:
-<ul>
-<li><a href="http://www.omnis.ch">Omnis Internet Services, Switzerland</a></li>
-<li><a href="http://www.webstyle.ch">Webstyle gmbh, Switzerland</a></li>
-<li><a href="http://www.insign.ch">insign gmbh, Switzerland</a></li>
-<li><a href="http://www.drakkar.ch">Drakkar Communication, Switzerland</a></li>
-<li><a href="http://www.bfk.ch">BfK, Switzerland</a></li>
-</ul>
-<br></li>
-
-
-<li>
-Feel free to use this form for your suggestions, requests and bugfixes:
-<form action="http://www.8304.ch/cgi-bin/formmail.pl" method="post">
-<input type="hidden" name="recipient" value="omail@omnis.ch">
-<input type="hidden" name="subject" value="omail-admin <?php echo($version); ?> comment form">
-<input type="hidden" name="redirect" value="http://<?php echo($HTTP_HOST); ?><?php echo($REQUEST_URI); ?>">
-<input type="hidden" name="sender" value="<?php echo($REMOTE_ADDR); ?>">
-<input type="hidden" name="language" value="<?php echo($HTTP_ACCEPT_LANGUAGE); ?>">
-<input type="hidden" name="version" value="<?php echo($cvs_version); ?>">
-<table border="0">
-<tr><td align="right">Email</td><td><small>
-<input type="text" size="30" name="from_email"></small></td></tr>
-<tr><td align="right">Comment</td><td>
-<small><textarea name="comment" cols="40" rows="5"></textarea></small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
-<tr><td colspan="2" align="center"><small><input type="submit" value="Send"></small></td></tr>
-</table>
-</form>
-</li>
-</ul></td></tr>
-</table>
-
-<br>
-</td></tr></table><!-- logo: to be created -->
-<p><img src="http://omail.omnis.ch/logo.gif?<?php echo(urlencode($version)); ?>" height="1" width="1"></p>
-	<?php
-
+	print parseTemplate($templdata, "templates/about.temp");
 }
-
-
 
 
 
 function html_splash() {
 
-	global $A, $domain, $cvs_version, $version, $lang, $HTTP_HOST, $REQUEST_URI, $REMOTE_ADDR, $HTTP_ACCEPT_LANGUAGE;
+	global $A, $domain, $cvs_version, $version, $lang, $sysadmin_mail, $splash_screen, $HTTP_HOST, $REQUEST_URI, $REMOTE_ADDR, $HTTP_ACCEPT_LANGUAGE;
 	include("strings.php");
+
+	if ($splash_screen) { $splash = '<font color="red">nok</font>'; } else { $splash = '<font color="green">ok</font>'; }
+	if ($sysadmin_mail == "sysadmin@notdefined.yet") { 
+		$smail = '<font color="red">nok</font>'; } else { $smail = '<font color="green">ok</font>'; 
+	}
 
 	?>
 
@@ -809,8 +744,9 @@ function html_splash() {
 <li>This is a kind of "splash screen". To turn it off, 2 little simple things : <br><br>
 <ul>
 <li>Make sure that the <b>$sysadmin_mail</b> variable in config.php is set to something else
-than <i>sysadmin@notdefined.yet</i></li>
-<li>And simply set the <b>$splash_screen</b> variable to <i>0</i> (at the very end of config.php).
+than <i>sysadmin@notdefined.yet</i> : <?php echo($smail); ?></li>
+<li>And simply set the <b>$splash_screen</b> variable to <i>0</i> (at the very end of config.php) : 
+<?php echo($splash); ?>.
 </li>
 </ul><br><br></li>
 

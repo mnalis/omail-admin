@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.16 2000/09/22 15:05:56 swix Exp $ 
+	$Id: config.php,v 1.17 2000/09/23 11:13:47 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -29,7 +29,8 @@
 // domains list  (keep empty to show a textfield)
 // ------------
 
-$domains_list = array( 'omail-test.com', 'omnis.ch', '8304.ch');
+// $domains_list = array( 'omail-test.com', 'omnis.ch', '8304.ch', 'test.com');
+$domains_list = array();
 
 // expire session after 
 // -------------------- 
@@ -40,7 +41,9 @@ $expire_after = "20"; // minutes
 // sysadmin mail
 // -------------
 
-$sysadmin_mail = "sysadmin@notdefined.yet";
+//$sysadmin_mail = "sysadmin@notdefined.yet";
+
+$sysadmin_mail = "om@omnis.ch";
 
 
 // default language
@@ -82,7 +85,7 @@ $config_use_settings_with_quota = 0;
 // version
 
 $version = "0.96";
-$cvs_version = '$Id: config.php,v 1.16 2000/09/22 15:05:56 swix Exp $';
+$cvs_version = '$Id: config.php,v 1.17 2000/09/23 11:13:47 swix Exp $';
 
 // script URL
 
@@ -95,7 +98,8 @@ if ($cookie_omail_lang && !$default_lang) { $default_lang = htmlentities($cookie
 if (!$default_lang) { $default_lang = $default_language; }       // default language
 
 
-// yes, it's here:  Enjoy :)
-$splash_screen = 1;
+// yes, it's here:  Thanks for using oMail-admin! Enjoy :)
+
+$splash_screen = 0;
 
 ?>

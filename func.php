@@ -6,8 +6,9 @@
         -----
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
+	* Copyright (C) 2000  Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 
-        $Id: func.php,v 1.15 2000/09/22 15:05:57 swix Exp $
+        $Id: func.php,v 1.16 2000/09/23 11:13:47 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -104,9 +105,7 @@ function authenticate($arg_login, $arg_passwd, $arg_ip) {
 
 		if (is_array($test[0]) || ($test[0] != 2)) {
 
-			if ($username) {
-				SetCookie("cookie_omail_last_login",$username, Time()+993600);
-			}
+			SetCookie("cookie_omail_last_login","", Time()+993600);
 			SetCookie("cookie_omail_last_domain",$domain, Time()+993600);
 			SetCookie("cookie_omail_lang",$lang, Time()+993600);
 			$expire = time() + $expire_after*60;	
@@ -127,7 +126,9 @@ function authenticate($arg_login, $arg_passwd, $arg_ip) {
 
 		if ($test[0] == 0) {
 	
-			SetCookie("cookie_omail_last_domain",$arg_login, Time()+993600);
+			SetCookie("cookie_omail_last_login",$username, Time()+993600);
+			SetCookie("cookie_omail_last_domain",$domain, Time()+993600);
+
 			SetCookie("cookie_omail_lang",$lang, Time()+993600);
 			$expire = time() + $expire_after*60;	
 			$ip = $arg_ip;
@@ -458,6 +459,223 @@ function save_resp_file($arg_username, $arg_resptext, $arg_status) {
 
 	return $return_msg;
 
+}
+
+
+// ---------------------------------------------------------------------------------
+// Dynamic Token Access
+// (c) insign gmbh - www.insign.ch
+// Programmiert:	Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
+// ---------------------------------------------------------------------------------
+
+function parseTemplate($parseArray, $template, $outputFile = "", $encoding="", $separator="%")
+{
+	return complexParsing($parseArray, $template, $outputFile, $encoding, $separator);
+}
+
+
+function parseContent($parseArray,$content,$encoding="",$separator="%")
+{
+    $ar = array();
+    while (list($key, $val) = each($parseArray))
+    {
+        if(is_array($val))
+        {
+            $tagStringArray = getContentStrings($content,$key);
+            for($j=0;$j<count($tagStringArray);$j++)
+            {
+               $ar[$tagStringArray[$j]] = complexHelper($tagStringArray[$j],$val,$encoding);
+            }
+        }
+        else
+        {
+            $ar[$key]=doEncoding($val,$encoding);
+        }
+    }
+    return parseC ($ar,$content, $encoding, $separator);
+}
+
+
+
+function parseC ($parseArray,$content, $encoding, $separator="%")
+{
+    global $SCRIPT_FILENAME;
+    while (list($key, $val) = @each($parseArray))
+    {
+        if (substr($key,0,1)!="<" || substr($key,-1,1)!=">")
+        {
+                $key = $separator.$key.$separator;
+        }
+        $content = str_replace($key, $val, $content);
+    }
+    return $content;
+}
+
+
+function parseT ($parseArray, $template, $outputFile = "",$encoding="", $separator="%")
+{
+	global $SCRIPT_FILENAME;
+        if($fp=fopen("$template","r"))
+    {
+        $content=fread( $fp, filesize($template) );
+        fclose($fp);
+        $content = parseC($parseArray,$content,$encoding, $separator);
+        if ($outputFile!="")
+        {
+                if($fp1=fopen("$outputFile","w"))
+                {
+                    if (!fwrite($fp1,$content))
+                    {
+                    echo("Konnte File ".$name." nicht beschreiben!<br> Tipp: &Uuml;berür&uuml;fen Sie die Schreibrechte des entsprechenden Verzeichnisses.");
+                    }
+                }
+                else
+                {
+                echo("Konnte File ".$name." nicht öffnen!<br>Tipp: &Uuml;berür&uuml;fen Sie die Schreibrechte des entsprechenden Verzeichnisses.");
+                }
+                fclose($fp1);
+        }
+    return "\n<!----- Template: $template ------>\n".$content;
+    }
+    else
+    {
+    echo("Konnte File ".$HTMLTemplate." nicht öffnen!");
+        return false;
+    }
+}
+
+
+
+function getTemplateStrings($template, $tag)
+{
+        if($fp=fopen("$template","r"))
+    {
+        $content=fread($fp, filesize($template));
+        fclose($fp);
+        return getContentStrings($content,$tag);
+    }
+    else
+    {
+        echo "Couldn't open template $template";
+        return false;
+    }
+}
+
+function getContentStrings($content, $tag)
+{
+        $startTag="<$tag>";
+            $endTag="</$tag>";
+        $pos=0;
+            $i=0;
+        $templateStrings = array();
+
+        while (is_int(strpos($content,$startTag, $pos)) && is_int(strpos($content,$endTag, $pos)))
+        {
+            $startPos = strpos($content,$startTag, $pos);
+            $endPos = strpos($content,$endTag, $pos);
+            $pos = $endPos + 1;
+            $templateStrings[$i] = substr($content, $startPos, ($endPos + strlen($endTag) - $startPos));
+            $i++;
+        }
+       return $templateStrings;
+}
+
+
+function complexHelper($tagContent,$parseSet,$encoding)
+{
+    $parseString="";
+    for($i=0;$i<count($parseSet);$i++)
+    {
+	    $ar = array();
+    	    $parseArray=$parseSet[$i];
+    	    if (is_array($parseArray))
+    	    {
+		    while (list($key, $val) = each($parseArray))
+		    {
+		        if(is_array($val))
+		        {
+		            $tagStringArray = getContentStrings($tagContent,$key);
+		            for($j=0;$j<count($tagStringArray);$j++)
+		            {
+	 	            	$ar[$tagStringArray[$j]]= complexHelper($tagStringArray[$j],$val,$encoding);
+	 	            }
+		        }
+		        else
+		        {
+				    $ar[$key]=doEncoding($val,$encoding);
+		        }
+		    }
+	    }
+	    else
+	    {
+	            $ar[$tagContent]=$parseArray;
+	    }
+	    $parseString .= parseC($ar,$tagContent,$encoding);
+    }
+    return $parseString;
+}
+
+
+function complexParsing($parseArray, $template, $outputFile = "",$encoding="", $separator="%")
+{
+    $ar = array();
+    while (list($key, $val) = each($parseArray))
+    {
+        if(is_array($val))
+        {
+            $tagStringArray = getTemplateStrings($template,$key);
+	        for($j=0;$j<count($tagStringArray);$j++)
+	        {
+	           $ar[$tagStringArray[$j]] = complexHelper($tagStringArray[$j],$val,$encoding);
+	        }
+        }
+        else
+        {
+            $ar[$key]= doEncoding($val,$encoding);
+        }
+    }
+    return parseT ($ar,$template,$outputFile,$encoding,$separator);
+
+}
+
+function complexContent($parseArray,$content, $encoding="", $separator="%")
+{
+    $ar = array();
+    while (list($key, $val) = each($parseArray))
+    {
+        if(is_array($val))
+        {
+            $tagStringArray = getContentStrings($content,$key);
+            for($j=0;$j<count($tagStringArray);$j++)
+            {
+               $ar[$tagStringArray[$j]] = complexHelper($tagStringArray[$j],$val);
+            }
+        }
+        else
+        {
+            $ar[$key]=$val;
+        }
+    }
+    return parseC ($ar,$content,$encoding,$separator);
+}
+
+function doEncoding ($val,$encoding="")
+{
+       switch($encoding)
+       {
+           case "html":
+               $val=htmlentities($val);
+               $val=ereg_replace('&lt;',"<",$val);
+               $val=ereg_replace('&gt;',">",$val);
+               $val=nl2br($val);
+           break;
+           case "html_strictly":
+               $val=htmlentities($val);
+               $val=nl2br($val);
+           break;
+           default:
+       }
+       return $val;
 }
 
 

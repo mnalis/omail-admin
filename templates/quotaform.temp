@@ -1,0 +1,51 @@
+<form action="%script%?%SID%" method="post">
+<table border=0>
+
+<tr><th align=right>%txt_username%&nbsp;</th>
+<td bgcolor="#DDDDDD" align=left>%userinfo0%@%domain%&nbsp;</td></tr>
+<tr><th align=right>%txt_details%&nbsp;</th>
+<td bgcolor="#CCCCCC" align=left>"%userinfo4%&nbsp;</td></tr>
+
+<tr><th align=right>%txt_date_of_creation%&nbsp;</th>
+<td bgcolor="#DDDDDD" align=left>%CreationTime%&nbsp;</td></tr>
+
+<tr><th align=right>%txt_status%&nbsp;</th>
+<td bgcolor="#CCCCCC" align=left>
+<select name="form_enabled">
+<option value="1" %checked_yes%>%txt_activated%</option>
+<option value="0" %checked_no%>%txt_inactived%</option>
+</select></td></tr>
+                                        
+<tr><th align=right>%txt_hardquota%&nbsp;</th>
+<td bgcolor="#DDDDDD" align=left><input type="text" name="form_hardquota" value="%HardQuota%" size="8">
+ kB &nbsp;</td></tr>
+
+<tr><th align=right>%txt_softquota%&nbsp;</th>
+<td bgcolor="#CCCCCC" align=left><input type="text" name="form_softquota" value="%SoftQuota%" size="8">
+ kB &nbsp;</td></tr>
+
+<tr><th align=right>%txt_msgcount%&nbsp;</th>
+<td bgcolor="#DDDDDD" align=left><input type="text" name="form_msgcount" value="%CountLimit%" size="8">
+&nbsp;</td></tr>
+
+<tr><th align=right>%txt_msgsize%&nbsp;</th>
+<td bgcolor="#CCCCCC" align=left><input type="text" name="form_msgsize" value="%SizeLimit%" size="8">
+ kB &nbsp;</td></tr>
+
+<tr><th align=right>%txt_expiry%&nbsp;</th>
+<td bgcolor="#DDDDDD" align=left>%ExpiryTimeString%
+<input type="text" name="form_expiry" value="%ExpiryTime%" size="10">
+ &nbsp;</td></tr>
+
+<tr><th align=right>%txt_submit%&nbsp;</th>
+<td bgcolor="#CCCCCC" align=left>
+
+<input type="hidden" name="A" value="parse">
+<input type="hidden" name="action" value="quota">
+<input type="hidden" name="U" value="%username%">
+<input type="submit" value="%txt_submit%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="reset" value="%txt_cancel%" onClick="return gO(this,true,true)">&nbsp;</td></tr>
+
+</table>
+</form>
+

@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.17 2000/09/22 15:05:57 swix Exp $
+        $Id: index.php,v 1.18 2000/09/23 11:13:47 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -15,7 +15,7 @@
 
         16.jan.2k   om   First version
         01.aug.2k   om   Rewrite for PHP4
-
+	13.sep.2k   om   Adding templates support
 
         This program is free software; you can redistribute it and/or modify
         it under the terms of the GNU General Public License as published by

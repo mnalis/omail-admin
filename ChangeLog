@@ -2,9 +2,17 @@
 Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----
 
-$Id: ChangeLog,v 1.17 2000/09/22 15:05:56 swix Exp $ 
+$Id: ChangeLog,v 1.18 2000/09/23 11:13:47 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
+
+2000-09-23  Olivier Mueller  <om@omnis.ch>
+	
+	* templates support now in main cvs. conversion of the htmlstuff -> templates
+	  in progress.
+	* updated cookie stuff (for username/domain/lang)
+	* moved .gifs to /images
+	
 2000-09-19  Olivier Mueller  <om@omnis.ch>
 	
 	* strings.php: added russian translation : thanks to Andy Krasilnikov 
@@ -20,6 +28,10 @@ $Source: /cvsroot/omail/admin2/ChangeLog,v $
 	* added "First use" splash-screen for statistic purpose.
 	* Templates support is in progress : should be included in next version
 	* A few fixes (html, typos)
+
+2000-09-13  Olivier Mueller  <om@omnis.ch>
+
+	* started conversion to templates support. Location of files is /templates
 
 2000-08-20  Olivier Mueller  <om@omnis.ch>
 
