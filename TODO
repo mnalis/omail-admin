@@ -5,7 +5,7 @@ Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Muell
 
 oMail-admin TODO
 ================
-$Id: TODO,v 1.11 2000/08/18 09:20:19 swix Exp $ 
+$Id: TODO,v 1.12 2000/08/21 05:01:40 swix Exp $ 
 $Source: /cvsroot/omail/admin2/TODO,v $ 
 
 
@@ -25,6 +25,7 @@ Normal priority
 [ ] use <select> to setup expiry date on quota edition
 [.] add help screen / buttons
 [ ] create a logo for the project
+[ ] support for HTML templates
 
 Low priority
 ------------

@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.19 2000/08/18 09:20:19 swix Exp $
+        $Id: htmlstuff.php,v 1.20 2000/08/21 05:01:40 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -721,7 +721,18 @@ and of course the <a href="CREDITS">Credits</a></li>
 </ul>
 </td></tr></table>
 <br></li>
-<li>CVS Version: $Id: htmlstuff.php,v 1.19 2000/08/18 09:20:19 swix Exp $ <br><br></li>
+<li>CVS Version: $Id: htmlstuff.php,v 1.20 2000/08/21 05:01:40 swix Exp $ <br><br></li>
+
+<li>Sponsors:
+<ul>
+<li><a href="http://www.omnis.ch">Omnis Internet Services, Switzerland</a></li>
+<li><a href="http://www.webstyle.ch">Webstyle gmbh, Switzerland</a></li>
+<li><a href="http://www.insign.ch">insign gmbh, Switzerland</a></li>
+<li><a href="http://www.drakkar.ch">Drakkar Communication, Switzerland</a></li>
+<li><a href="http://www.bfk.ch">BfK, Switzerland</a></li>
+</ul>
+<br></li>
+
 
 <li>
 Feel free to use this form for your suggestions, requests and bugfixes:
@@ -731,7 +742,7 @@ Feel free to use this form for your suggestions, requests and bugfixes:
 <input type="hidden" name="redirect" value="http://<?php echo($HTTP_HOST); ?><?php echo($REQUEST_URI); ?>">
 <input type="hidden" name="sender" value="<?php echo($REMOTE_ADDR); ?>">
 <input type="hidden" name="language" value="<?php echo($HTTP_ACCEPT_LANGUAGE); ?>">
-<input type="hidden" name="version" value="Version: $Id: htmlstuff.php,v 1.19 2000/08/18 09:20:19 swix Exp $ ">
+<input type="hidden" name="version" value="Version: $Id: htmlstuff.php,v 1.20 2000/08/21 05:01:40 swix Exp $ ">
 <table border="0">
 <tr><td align="right">Email</td><td><small>
 <input type="text" size="30" name="from_email"></small></td></tr>
