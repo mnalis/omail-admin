@@ -5,7 +5,7 @@ Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Muell
 
 oMail-admin TODO
 ================
-$Id: TODO,v 1.8 2000/08/14 19:40:24 swix Exp $ 
+$Id: TODO,v 1.9 2000/08/14 19:41:35 swix Exp $ 
 $Source: /cvsroot/omail/admin2/TODO,v $ 
 
 
@@ -13,8 +13,7 @@ High priority
 -------------
 [X] quota support   (om, 13aug2k)
 [X] correct autoresponder support    (om, 03aug2k)
-[ ] support for non cookies enabled browsers
-    -> how to use <?=SID?> in print "url?U=abc&..." ???
+[X] support for non cookies enabled browsers  (om, 14aug2k)
 [X] remove autoresponder info and button for aliases  (om, 03aug2k)
 
 Normal priority
