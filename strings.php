@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.27 2000/11/14 00:32:44 swix Exp $
+        $Id: strings.php,v 1.28 2000/11/16 00:07:31 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -682,7 +682,7 @@ $txt_dom_ident = array(
  "de" => "Authentifizierung",
  "da" => "E-Mail Administration",
  "es" => "Autentificación de dominio",
- "it"=>"Autentificazione",
+ "it"=>"Autenticazione",
  "ro"=>"Autentificarea Domeniului");
 
 $txt_secu_fail_dname = array(
@@ -1780,7 +1780,7 @@ $txt_setup_catchall = array(
  "de" => "Einrichtung Catchall",
  "da" => "Setup catchall",
  "es" => "Setup catchall",
- "it" => "Setup catchall",
+ "it" => "Imposta catchall",
  "ro" => "Setup catchall");
 
 $txt_remove_catchall = array(
@@ -1790,7 +1790,7 @@ $txt_remove_catchall = array(
  "de" => "Catchall entfernen",
  "da" => "Remove catchall",
  "es" => "Remove catchall",
- "it" => "Remove catchall",
+ "it" => "Rimuovi catchall",
  "ro" => "Dezactiveaza catchall");
 
 $txt_catchall_confirm = array(
@@ -1800,7 +1800,7 @@ $txt_catchall_confirm = array(
  "de" => "Catchall best&auml;tigen",
  "da" => "Catchall confirmation",
  "es" => "Catchall confirmation",
- "it" => "Catchall confirmation",
+ "it" => "Conferma Catchall",
  "ro" => "Confirma catchall");
 
 $txt_system_account = array(
@@ -1810,7 +1810,7 @@ $txt_system_account = array(
  "de" => "Systemkonto",
  "da" => "System account",
  "es" => "System account",
- "it" => "System account",
+ "it" => "Account di sistema",
  "ro" => "Contul sistemului");
 
 $txt_current_catchall_account_is = array(
@@ -1820,7 +1820,7 @@ $txt_current_catchall_account_is = array(
  "de" => "Das aktuelle Catchall-Konto is",
  "da" => "current_catchall_account_is",
  "es" => "current_catchall_account_is",
- "it" => "current_catchall_account_is",
+ "it" => "L'account che fa da catchall attualmente &egrave",
  "ro" => "Contul catchall curent este");
 
 $txt_help = array(
@@ -1830,7 +1830,7 @@ $txt_help = array(
  "de" => "Hilfe",
  "da" => "Help",
  "es" => "Help",
- "it" => "Help",
+ "it" => "Aiuto",
  "ro" => "Help");
 
 $txt_ = array(

@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.37 2000/11/13 20:30:21 swix Exp $ 
+	$Id: config.php,v 1.38 2000/11/16 00:07:31 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -49,7 +49,7 @@ $show_how_many_accounts = 10;
 // -------------
 // will be displayed on screens with error messages
 
-$sysadmin_mail = "sysadmin@notdefined.yet";
+$sysadmin_mail = "sysadmin@omnis.ch";
 
 
 // default language
@@ -70,7 +70,7 @@ $system_accounts_list = array( );
 // ----------------
 // accounts which will be shown, but will remain uneditable (no edit, create, delete or login)
 
-$readonly_accounts_list = array( );
+$readonly_accounts_list = array( 'olivier', 'root', 'postmaster');
 //$readonly_accounts_list = array( 'postmaster', 'mailer-daemon' );
 
 // program_name
@@ -128,7 +128,7 @@ $hide_about_button = 0;
 // version
 
 $version = "0.96pre7";
-$cvs_version = '$Id: config.php,v 1.37 2000/11/13 20:30:21 swix Exp $';
+$cvs_version = '$Id: config.php,v 1.38 2000/11/16 00:07:31 swix Exp $';
 
 // script URL
 
@@ -143,6 +143,6 @@ if (!$default_lang) { $default_lang = $default_language; }       // default lang
 
 // yes, it's here:  Thanks for using oMail-admin! Enjoy :)
 
-$splash_screen = 1;
+$splash_screen = 0;
 
 ?>
