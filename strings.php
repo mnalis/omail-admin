@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.32 2000/11/30 06:04:08 swix Exp $
+        $Id: strings.php,v 1.33 2000/11/30 21:49:17 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -667,7 +667,6 @@ $txt_menu_domain_descr = array(
  "ru" => "äÏÂÒÏ ÐÏÖÁÌÏ×ÁÔØ × ÇÌÁ×ÎÏÅ ÍÅÎÀ ÁÄÍÉÎÉÓÔÒÁÔÏÒÁ ÄÏÍÅÎÁ", 
  "en" => "Welcome in the domain administration main menu",
  "ja" => "¥É¥á¥¤¥ó´ÉÍý¥á¥Ë¥å¡¼",
- "en" => "Åwªï¶i¤JdomainºÞ²zªÌ¤§¥D¿ï³æ",
  "fr" => "Bienvenue dans le menu principal de l'administration de votre domaine",
  "de" => "Willkommen im Administrations-Hauptmenu Ihrer Maildomain",
  "da" => "Velkommen til Administrations menuen",
