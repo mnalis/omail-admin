@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.22 2000/09/26 23:34:52 swix Exp $
+        $Id: index.php,v 1.23 2000/10/12 22:17:47 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -153,7 +153,7 @@ if ($active == 1) {    // active=1 -> user logged in
 
 	if (!$A) { $A = "menu"; }  // default action
 	if ($A == "login") { $A = "menu"; }  // we're already logged in! So we show the menu instead.
-
+	if ($A == "checkin") { $A = "menu"; }  // we're already logged in! So we show the menu instead.
 
 	html_head("$program_name Administration");	
 
