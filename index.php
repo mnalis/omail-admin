@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.26 2000/10/16 21:19:35 swix Exp $
+        $Id: index.php,v 1.27 2000/10/16 23:21:55 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -786,9 +786,11 @@ if ($active == 1) {    // active=1 -> user logged in
         
 	                // check args format....
 
-			$body = stripslashes($body);
-			$subject = stripslashes($subject);
-			$from = stripslashes($from);
+		        if (get_magic_quotes_gpc() == 1) {
+                           $body = stripslashes($body); 
+                           $subject = stripslashes($subject);
+                           $from = stripslashes($from); 
+	                }
 
 	                // update responder. 
 
