@@ -18,6 +18,7 @@ Dan Bernstein's <a href="http://www.qmail.org" target="_new">qmail</a> and Bruce
 <li>user based quotas (hard/soft disk quota, message size, expiry)</li>
 <li>Lynx-browser support (and other cookie-free browsers)</li>
 <li>templates support, for easy customisation</li>
+<li>LDAP support</li>
 </ul>
 <br></li>
                  

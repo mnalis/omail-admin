@@ -2,9 +2,13 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: ChangeLog,v 1.50 2001/01/10 16:28:46 swix Exp $ 
+$Id: ChangeLog,v 1.51 2001/01/11 17:49:08 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
+
+2001-01-11  Olivier Mueller  <om@omnis.ch>
+
+	* bugfix to the show_mb_letter & page_nb problem [ri]
 
 2001-01-10  Olivier Mueller  <om@omnis.ch>
 

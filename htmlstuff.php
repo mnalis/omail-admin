@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.57 2001/01/10 16:28:46 swix Exp $
+        $Id: htmlstuff.php,v 1.58 2001/01/11 17:49:08 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -517,9 +517,8 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 
 	$templdata["url_email"] = $script . "?A=menu&form_sort=username&" . SID;
 	$templdata["url_info"] = $script . "?A=menu&form_sort=info&" . SID;
-        $templdata["url_show_mb_letter"] = $script . "?A=menu&" . SID . "&show_mb_letter=";
-        $templdata["url_show_al_letter"] = $script . "?A=menu&" . SID . "&show_al_letter=";
-
+	$templdata["url_show_mb_letter"] = $script . "?A=menu&" . SID . "&new_mb_start=1&show_mb_letter=";
+	$templdata["url_show_al_letter"] = $script . "?A=menu&" . SID . "&new_al_start=1&show_al_letter=";
 
 	if ($arg_action != 2 && !(!$arg_action && $mtype == "alias")  && !($quota_on && !$quota_data["autoresp_support"])) {
 		$templdata["ifdef_txt_responder"] = "<TH>" . $txt_responder[$lang] . "?</TH>"; 
