@@ -2,8 +2,18 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: ChangeLog,v 1.46 2001/01/08 00:25:42 swix Exp $ 
+$Id: ChangeLog,v 1.47 2001/01/09 22:42:11 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
+
+2001-01-09  Olivier Mueller  <om@omnis.ch>
+	
+	* applied patch from Peter, and corrected a few things:
+	 > I've attached a patch that does the following to omail-admin-0.96pre9:
+	 > * Adds the ability to display mailboxes and/or aliases starting with a
+	 >   certain letter.
+	 > * Fixes strings.php to use ``&lt;'' instead of ``<'' where appropriate.
+	 > * Alters the display_{mailboxes,aliases}{,_nolimit} templates to both use
+	 >   the show by letter feature and to clean them up a little. :-)
 
 2001-01-08  Olivier Mueller  <om@omnis.ch>
 

@@ -8,7 +8,7 @@
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 	* Copyright (C) 2000  Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 
-        $Id: func.php,v 1.26 2000/12/12 15:14:37 swix Exp $
+        $Id: func.php,v 1.27 2001/01/09 22:42:11 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -253,7 +253,7 @@ function get_accounts_sort_by_info($a, $b) {
 
 function get_accounts($arg_action, $arg_username = "") {
 
-	global $quota_on, $quota_data, $type, $domain, $passwd, $catchall_active, $readonly_accounts_list, $system_accounts_list, $sort_order;
+	global $quota_on, $quota_data, $type, $domain, $passwd, $catchall_active, $readonly_accounts_list, $system_accounts_list, $sort_order, $mb_letter, $al_letter;
 	$new_list = array ();
 
 	// action = 0 : only one mailbox (user mode)
@@ -283,6 +283,14 @@ function get_accounts($arg_action, $arg_username = "") {
 
 			// findout autoresp status (only lookup for mailboxes)
 			if ($mbox && $action != 3) { $resp = load_resp_status($username); }  else { $resp = 0; }
+
+                        if (($arg_action == 1 || $arg_action == 3) && $mb_letter && !eregi("^[$mb_letter]",$username)) {
+                                continue;
+                        }
+
+                        if ($arg_action == 2 && $al_letter && !eregi("^[$al_letter]",$username)) {
+                                continue;
+                        }
 
 	                $list[$i] = array($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible);
 			

@@ -1,18 +1,44 @@
 <h1>%title%</h1>
+<a href="%url_show_mb_letter%">%txt_any%</a> |
+<a href="%url_show_mb_letter%0-9">0-9</a> |
+<a href="%url_show_mb_letter%a">a</a> |
+<a href="%url_show_mb_letter%b">b</a> |
+<a href="%url_show_mb_letter%c">c</a> |
+<a href="%url_show_mb_letter%d">d</a> |
+<a href="%url_show_mb_letter%e">e</a> |
+<a href="%url_show_mb_letter%f">f</a> |
+<a href="%url_show_mb_letter%g">g</a> |
+<a href="%url_show_mb_letter%h">h</a> |
+<a href="%url_show_mb_letter%i">i</a> |
+<a href="%url_show_mb_letter%j">j</a> |
+<a href="%url_show_mb_letter%k">k</a> |
+<a href="%url_show_mb_letter%l">l</a> |
+<a href="%url_show_mb_letter%m">m</a> |
+<a href="%url_show_mb_letter%n">n</a> |
+<a href="%url_show_mb_letter%o">o</a> |
+<a href="%url_show_mb_letter%p">p</a> |
+<a href="%url_show_mb_letter%q">q</a> |
+<a href="%url_show_mb_letter%r">r</a> |
+<a href="%url_show_mb_letter%s">s</a> |
+<a href="%url_show_mb_letter%t">t</a> |
+<a href="%url_show_mb_letter%u">u</a> |
+<a href="%url_show_mb_letter%v">v</a> |
+<a href="%url_show_mb_letter%w">w</a> |
+<a href="%url_show_mb_letter%x">x</a> |
+<a href="%url_show_mb_letter%y">y</a> |
+<a href="%url_show_mb_letter%z">z</a>
 <table border=0><TR><TH>N°</TH>
 <TH><A HREF="%url_email%">%txt_email%</A></TH>
 <TH><A HREF="%url_info%">%txt_info%</A></TH>
-<TH>%txt_fwd% ?</TH>
+<TH>%txt_fwd%?</TH>
 
 %ifdef_txt_responder%
 
-<TH>
-[ <a href="%url_first%">%txt_first%</a><font color="888888">%txt_first_off%</font> ] &nbsp;
-[ <a href="%url_prev%">%txt_prev%</a><font color="888888">%txt_prev_off%</font> ] &nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<TH ALIGN="justify">
+[ <a href="%url_first%">%txt_first%</a><font color="888888">%txt_first_off%</font> ]&nbsp;
+[ <a href="%url_prev%">%txt_prev%</a><font color="888888">%txt_prev_off%</font> ]&nbsp;
 %txt_action%
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp; [ <a href="%url_next%">%txt_next%</a><font color="888888">%txt_next_off%</font> ]
+&nbsp;[ <a href="%url_next%">%txt_next%</a><font color="888888">%txt_next_off%</font> ]
 &nbsp;[ <a href="%url_last%">%txt_last%</a><font color="888888">%txt_last_off%</font> ]
 </TH></TR>
 
@@ -22,14 +48,12 @@
 <TD> %nb% &nbsp;</TD>
 <TD><B><FONT COLOR=%colorUsername%> %username%  </FONT></B>&nbsp;</TD> 
 
-<TD><nobr> %PersonalInfo%  </nobr>&nbsp;</TD> 
-<TD> %more_alias% &nbsp;</TD>
+<TD>%PersonalInfo%&nbsp;</TD> 
+<TD>%more_alias% &nbsp;</TD>
 
 %ifdef_autoresponder_status%
 
-<TD>&nbsp;
-%actions%
-</TD></TR>
+<TD ALIGN="center">%actions%</TD></TR>
 
 </obj>
 

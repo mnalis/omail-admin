@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.34 2000/12/12 15:24:39 swix Exp $
+        $Id: index.php,v 1.35 2001/01/09 22:42:11 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -46,6 +46,7 @@ session_start();
 session_register("username","domain","passwd","type","ip","expire","lang","active");
 session_register("quota_on","quota_data","catchall_active", "sort_order");
 session_register("mb_start","al_start");
+session_register("mb_letter","al_letter");
 
 if (!$lang) { 
 
@@ -230,6 +231,7 @@ if ($active == 1) {    // active=1 -> user logged in
 			html_titlebar($txt_menu[$lang] . " - $domain", $txt_menu_domain_descr[$lang] . $txt_menu_add, 0);
 
 			if (!$quota_on || ($quota_on && $quota_data["users_support"])) {
+                                if (isset($show_mb_letter)) { $mb_letter = $show_mb_letter; }
 				$mboxes = get_accounts(1);	
 
 				if (isset($new_mb_start)) { $mb_start = $new_mb_start; }				
@@ -243,6 +245,7 @@ if ($active == 1) {    // active=1 -> user logged in
 
 
 			if (!$quota_on || ($quota_on && $quota_data["alias_support"])) {
+                                if (isset($show_al_letter)) { $al_letter = $show_al_letter; }
 				$aliases = get_accounts(2);
 
 				if (isset($new_al_start)) { $al_start = $new_al_start; }
@@ -317,6 +320,7 @@ if ($active == 1) {    // active=1 -> user logged in
 		        html_titlebar($txt_newalias[$lang], $txt,1);
 		        $userinfo[2] = "-";
 			$quota_data["nb_alias"] = 0;
+                        if (isset($show_mb_letter)) { $mb_letter = $show_mb_letter; }
 			$mboxlist = get_accounts(3);
 		        html_userform($userinfo, "newalias", $mboxlist);
 		        html_end();
@@ -355,6 +359,7 @@ if ($active == 1) {    // active=1 -> user logged in
 	        	html_titlebar($txt_newuser[$lang], $txt,1);
 	        	$userinfo[2] = "-";
 			$quota_data["nb_users"] = 0;
+                        if (isset($show_mb_letter)) { $mb_letter = $show_mb_letter; }
 			$mboxlist = get_accounts(3);
 	        	html_userform($userinfo, "newuser", $mboxlist);
 	        	html_end();
@@ -400,6 +405,7 @@ if ($active == 1) {    // active=1 -> user logged in
             html_head("$program_name Administration - Edit");	
     	    html_titlebar($txt_edit_account[$lang], $txt,1);
 	    $userinfo = get_accounts(0,$U);
+            if (isset($show_mb_letter)) { $mb_letter = $show_mb_letter; }
 	    $mboxlist = get_accounts(3);
 	    html_userform($userinfo[0], "edit", $mboxlist);
 	    html_end();
