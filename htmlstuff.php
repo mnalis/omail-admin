@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.56 2001/01/09 22:42:11 swix Exp $
+        $Id: htmlstuff.php,v 1.57 2001/01/10 16:28:46 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -186,7 +186,7 @@ function html_end() {
 
 function html_userform($userinfo, $action, $mboxlist) {
 
-	global $quota_on, $quota_data, $session, $script, $lang, $domain, $type;
+	global $use_ldap, $quota_on, $quota_data, $session, $script, $lang, $domain, $type;
 	include("strings.php");
 	$fwd = 0;
 
@@ -198,11 +198,18 @@ function html_userform($userinfo, $action, $mboxlist) {
         $templdata["txt_details"]=$txt_details[$lang];
         $templdata["userinfo4"]=$userinfo[4];
         $templdata["txt_date_of_creation"]=$txt_date_of_creation[$lang];
+	$templdata["txt_firstname"]=$txt_firstname[$lang];
+	$templdata["txt_lastname"]=$txt_lastname[$lang];
 
 	if ($action == "edit") {
 		// find how many forwarders there are
 		$aliases = $userinfo[3];
 		$nb_fwd = count($aliases);
+		if ($use_ldap) {
+		    $ldap=ldap_entry("search",$userinfo[0],"","");
+		    $ldap_entry["firstname"]=$ldap[0];
+		    $ldap_entry["lastname"]=$ldap[1];
+		}
 	}
 
 	if ($action == "edit") {
@@ -212,9 +219,17 @@ function html_userform($userinfo, $action, $mboxlist) {
 	}
 
 	if ($type == "user") {
-	  $templdata["userdetailfield"] = $userinfo[4];
+	    $templdata["userdetailfield"] = $userinfo[4];
+	    if ($use_ldap) {
+		$templdata["firstname"] = $ldap_entry["firstname"];
+		$templdata["lastname"] = $ldap_entry["lastname"];
+	    }
 	} else {
-	  $templdata["userdetailfield"] = "<input type=\"text\" name=\"userdetail\" value=\"" . $userinfo[4]. "\" size=\"23\">";
+	    $templdata["userdetailfield"] = "<input type=\"text\" name=\"userdetail\" value=\"" . $userinfo[4]. "\" size=\"23\">";
+	    if ($use_ldap) {
+		$templdata["firstname"] = "<input type=\"text\" name=\"firstname\" value=\"" . $ldap_entry["firstname"] . "\" size= \"23\">";
+		$templdata["lastname"] = "<input type=\"text\" name=\"lastname\" value=\"" . $ldap_entry["lastname"] . "\" size= \"23\">";
+	    }
 	}
 
         $templdata["userinfo2"]=$userinfo[2]; if (!($templdata["userinfo2"])) { $templdata["userinfo2"]= "-"; }
@@ -255,10 +270,18 @@ function html_userform($userinfo, $action, $mboxlist) {
 		$templdata["select_account_contents"] .= '<option>' . $tmp_account[0] . '</option>';		
 	}
 
-	if ($type == "user") {
-		print parseTemplate($templdata, "templates/userform_userlogin.temp");
+	if ($use_ldap) {
+	    if ($type == "user") {
+		    print parseTemplate($templdata, "templates/userform_userlogin_ldap.temp");
+	    } else {
+		    print parseTemplate($templdata, "templates/userform_ldap.temp");
+	    }
 	} else {
-		print parseTemplate($templdata, "templates/userform.temp");
+	    if ($type == "user") {
+		    print parseTemplate($templdata, "templates/userform_userlogin.temp");
+	    } else {
+		    print parseTemplate($templdata, "templates/userform.temp");
+	    }
 	}
 }
 
@@ -450,6 +473,7 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 
 
 	global $quota_on, $quota_data, $session, $script, $lang, $domain, $catchall_active, $system_accounts_list, $readonly_accounts_list, $show_how_many_accounts, $mb_start, $al_start;
+	global $mb_letter, $al_letter;
 	include("strings.php");
 
 	switch ($arg_action) {
@@ -478,6 +502,18 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 	$templdata["txt_more_fwd"] = $txt_more_fwd[$lang];
 	$templdata["txt_action"] = $txt_action[$lang];
 	$templdata["txt_any"] = $txt_any[$lang];
+
+	if ( $mb_letter ) {
+	    $templdata["mb_letter"] = $mb_letter;
+	} else {
+	    $templdata["mb_letter"] = $txt_any[$lang];
+	}
+
+	if ( $al_letter ) {
+	    $templdata["al_letter"] = $al_letter;
+	} else {
+	    $templdata["al_letter"] = $txt_any[$lang];
+	}
 
 	$templdata["url_email"] = $script . "?A=menu&form_sort=username&" . SID;
 	$templdata["url_info"] = $script . "?A=menu&form_sort=info&" . SID;

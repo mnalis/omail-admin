@@ -8,7 +8,7 @@
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 	* Copyright (C) 2000  Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 
-        $Id: func.php,v 1.27 2001/01/09 22:42:11 swix Exp $
+        $Id: func.php,v 1.28 2001/01/10 16:28:46 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -285,10 +285,20 @@ function get_accounts($arg_action, $arg_username = "") {
 			if ($mbox && $action != 3) { $resp = load_resp_status($username); }  else { $resp = 0; }
 
                         if (($arg_action == 1 || $arg_action == 3) && $mb_letter && !eregi("^[$mb_letter]",$username)) {
+                               if ($mbox) {
+                                   if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
+                                           $quota_data["nb_users"]++;
+                                   }
+                               }
                                 continue;
                         }
 
                         if ($arg_action == 2 && $al_letter && !eregi("^[$al_letter]",$username)) {
+                               if (!$mbox) {
+                                   if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
+                                           $quota_data["nb_alias"]++;
+                                   }
+                               }
                                 continue;
                         }
 
@@ -612,8 +622,9 @@ function parseT ($parseArray, $template, $outputFile = "",$encoding="", $separat
 {
 	global $SCRIPT_FILENAME, $template_name;       
 
-        if (file_exists("$template.$template_name")) {    // [om] 25sep2k
-    	    $template = "$template.$template_name";
+	$file=substr($template, 0, strlen($template)-5).".$template_name.temp";
+        if (file_exists("$file")) {    // [om] 25sep2k
+    	    $template = "$file";
         }
 
 
@@ -654,8 +665,9 @@ function getTemplateStrings($template, $tag)
 
     global $template_name;       
 
-    if (file_exists("$template.$template_name")) {    // [om] 25sep2k
-	$template = "$template.$template_name";
+    $file=substr($template, 0, strlen($template)-5).".$template_name.temp";
+    if (file_exists("$file")) {    // [om] 25sep2k
+	$template = "$file";
     }
     
     if ($fp=fopen("$template","r")) 
@@ -788,5 +800,108 @@ function doEncoding ($val,$encoding="")
        return $val;
 }
 
+function get_ou ($domain)
+{
+    // Determine TLD
+    $tld = explode(".",$domain);
+    $tld_last = count($tld);
+    $tld = $tld[$tld_last-1];
+
+    // Now strip it of the domainname
+    return (substr("$domain",0,-strlen($tld)-1 ));
+}
+
+
+function ldap_entry ($action, $username, $firstname, $lastname)
+{
+    $err=error_reporting();
+    error_reporting(0);
+
+    global $domain, $ldap_base, $ldap_manager, $ldap_passwd, $ldap_host ;
+
+    // Connect with the server or return error if failed
+    $linkid=ldap_connect($ldap_host);
+    if (!$linkid) { 
+	error_reporting($err);
+	return "LDAP error : Can't connect to server " . $ldap_host ;
+    }
+
+    // Bind with directory or return error if failed
+    $bind = ldap_bind($linkid, $ldap_manager.",".$ldap_base ,$ldap_passwd);
+    if (!$bind) {
+	error_reporting($err);
+	return "LDAP error : Can't bind with ".$ldap_manager.", ".$ldap_base." on server ".$ldap_host;
+    }
+
+    // Setup organizationalunit. OU consists of domainname minus Top Level Domain.
+    // Then setup base distinguished name. Needed for search later
+    // Then make the distinguished name. It consists of the e-mail addres and
+    // base dn. I didn't want to combine the SN and GIVENNAME into the CN
+    // as it's always possible to have two people sharing the same name.
+    // But an e-mail address has to be unique in a domain so it's perfect
+    // to use as CN.
+    $ou = get_ou($domain);
+    $base_dn = "ou=".$ou.", ".$ldap_base;
+    $dn = "uid=".$username.", ".$base_dn;
+
+    // Fill info with the entries to be added or modified into the directory
+    if ( $username == "root" || $username == "postmaster" || $username == "mailer-daemon" ) {
+	$info["cn"]=$username;
+    } else {
+	$info["cn"]=$firstname." ".$lastname;
+    }
+    $info["objectclass"][0]="top";
+    $info["objectclass"][1]="person";
+    $info["objectclass"][2]="organizationalPerson";
+    $info["objectclass"][3]="mailrecipient";
+    $info["ou"]=$ou;
+    $info["sn"]=$lastname;
+    $info["givenname"]=$firstname;
+    $info["mail"]=$username."@".$domain;
+    $info["uid"]=$username;
+
+
+    switch ($action) {
+    case "add":
+	$add=ldap_add($linkid, $dn, $info );
+	if (!$add) {
+	    error_reporting($err);
+	    return "LDAP error : Can't add user entry";
+	}
+	break;
+    case "mod":
+	$result=ldap_modify($linkid, $dn, $info );
+	if (!$result) {
+	    error_reporting($err);
+	    return "LDAP error : Can't change user entry";
+	}
+	break;
+    case "del":
+	$result=ldap_delete($linkid, $dn);
+	if (!$result) {
+	    error_reporting($err);
+	    return "LDAP error : Can't delete user entry";
+	}
+	break;
+    case "search":
+	$filter = "uid=$username";
+	$attr = array("sn","givenname");
+	$search = ldap_search($linkid, $base_dn, $filter, $attr );
+	$entry = ldap_get_entries($linkid, $search);
+	if ($entry["count"] <> 1) {
+	    error_reporting($err);
+	    return "LDAP error : Search action failed";
+	}
+	$firstname = $entry[0]["givenname"][0];
+	$lastname = $entry[0]["sn"][0];
+	error_reporting($err);
+	return array($firstname, $lastname);
+	break;
+    default:
+	error_reporting($err);
+	return "LDAP error : no action given"; 
+    }
+    ldap_close($linkid);
+}
 
 ?>

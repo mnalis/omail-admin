@@ -2,11 +2,19 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: ChangeLog,v 1.49 2001/01/10 12:17:59 swix Exp $ 
+$Id: ChangeLog,v 1.50 2001/01/10 16:28:46 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
 
-2001-01-09  Olivier Mueller  <om@omnis.ch>
+2001-01-10  Olivier Mueller  <om@omnis.ch>
+
+        * huge patch sent by Rey, to add basic ldap support. As it doesn't seem
+          to break the rest (set ldap = 0 in the configuration), it comes in the
+          main branch. All the LDAP changes and documentation is in the README.LDAP
+	  file.
+	* userquota bugfix [ri]
+
+2001-01-10  Olivier Mueller  <om@omnis.ch>
 
 	* re-released 0.96pre10
 	* fixed a little bug preventing username to be saved on new account

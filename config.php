@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.44 2001/01/10 12:17:59 swix Exp $ 
+	$Id: config.php,v 1.45 2001/01/10 16:28:46 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -49,7 +49,7 @@ $show_how_many_accounts = 10;
 // -------------
 // will be displayed on screens with error messages
 
-$sysadmin_mail = "sysadmin@notdefined.yetx";
+$sysadmin_mail = "sysadmin@notdefined.yet";
 
 
 // default language
@@ -108,6 +108,47 @@ $config_use_settings_with_quota = 0;
 
 $hide_about_button = 0;
 
+// use_ldap
+// --------
+// define if you want to use an ldap server to store userinformation. 1 = yes, 0 = no
+// Note that this is new and not yet fully developed. It works but you have to know
+// what you're doing.
+
+$use_ldap = 0;
+
+// ldap_host
+// ---------
+// the ip address or hostname of the ldap server to use.
+
+$ldap_host = "xxx.xx.xx.xxx";
+
+// ldap_base and ldap_manager
+// --------------------------
+// these two together are the DN of the root user of the ldap server. These are
+// configured in /etc/openldap/slapd.conf as the rootdn. It's here for the time
+// being. As soon as I know more about ldap this setting will disappear as I
+// want to use the login account for the virtual domains as the manager for just
+// that domain. In that case only the ldap_base needs to be set and the manager
+// part will be something like "cn=manager, ou=$domain"
+
+$ldap_base = "o=ORGANISATION, c=COUNTRY";
+$ldap_manager = "cn=manager";
+
+
+// ldap_passwd
+// -----------
+// the password for the above rootdn. This is here also for the time being. As soon
+// as I know how the implement the stuff mentioned above the password is no longer
+// needed here as it will the same with which you login into the domain. Because the
+// password is here in plaintext this file should be only readable by the user
+// under which your webserver is running. On RedHat 7.0 this is the user apache so
+// do a:
+// chown apache apache config.php
+// chmod 640 config.php
+// so that normal users can't read what's in this file.
+
+$ldap_passwd = "very_secret";
+
 
 /* END OF USER CONFIGURATION */
 
@@ -127,8 +168,8 @@ $hide_about_button = 0;
 
 // version
 
-$version = "0.96pre10";
-$cvs_version = '$Id: config.php,v 1.44 2001/01/10 12:17:59 swix Exp $';
+$version = "0.96pre11";
+$cvs_version = '$Id: config.php,v 1.45 2001/01/10 16:28:46 swix Exp $';
 
 // script URL
 
@@ -143,6 +184,6 @@ if (!$default_lang) { $default_lang = $default_language; }       // default lang
 
 // yes, it's here:  Thanks for using oMail-admin! Enjoy :)
 
-$splash_screen = 0;
+$splash_screen = 1;
 
 ?>

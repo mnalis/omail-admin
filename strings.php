@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.37 2001/01/09 22:42:11 swix Exp $
+        $Id: strings.php,v 1.38 2001/01/10 16:28:46 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -2703,7 +2703,7 @@ $txt_last = array(
   "de" => "Alle",
   "da" => "Any",
   "es" => "Any",
-  "nl" => "Any",
+  "nl" => "Alles",
   "it" => "Any",
   "ro" => "Any",
   "sv" => "Allt");

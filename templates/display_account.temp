@@ -6,7 +6,7 @@
 
 %ifdef_txt_responder%
 
-<TH>%txt_action%</TH></TR>
+<TH><nobr>%txt_action%</TH></TR>
 
 
 <obj>
@@ -15,14 +15,14 @@
 <TD> %nb% &nbsp;</TD>
 <TD><B><FONT COLOR=%colorUsername%> %username%  </FONT></B>&nbsp;</TD> 
 
-<TD><nobr> %PersonalInfo%  </nobr>&nbsp;</TD> 
-<TD> %more_alias% &nbsp;</TD>
+<TD>%PersonalInfo%&nbsp;</TD> 
+<TD>%more_alias%&nbsp;</TD>
 
 %ifdef_autoresponder_status%
 
-<TD align=center>
+<TD align=center><nobr>
 %actions%
-</TD></TR>
+</nobr></TD></TR>
 
 </obj>
 

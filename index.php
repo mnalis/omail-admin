@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.36 2001/01/10 12:17:59 swix Exp $
+        $Id: index.php,v 1.37 2001/01/10 16:28:46 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -402,10 +402,22 @@ if ($active == 1) {    // active=1 -> user logged in
 
 	    }
 
+	    if ($use_ldap) {
+		if (!is_array($results=ldap_entry("search",$U,"",""))) {
+		    html_head("$program_name Administration - Error");
+		    $msg = "<b>" . $results . "</b><br><br>";
+		    $msg .= "<ul>";	
+		    $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+		    html_titlebar($txt_edit[$lang], "$msg",0);
+		    html_end();
+		    exit();
+		}
+	    }
+
             html_head("$program_name Administration - Edit");	
     	    html_titlebar($txt_edit_account[$lang], $txt,1);
 	    $userinfo = get_accounts(0,$U);
-            if (isset($show_mb_letter)) { $mb_letter = $show_mb_letter; }
+	     if (isset($show_mb_letter)) { $mb_letter = $show_mb_letter; }
 	    $mboxlist = get_accounts(3);
 	    html_userform($userinfo[0], "edit", $mboxlist);
 	    html_end();
@@ -657,7 +669,18 @@ if ($active == 1) {    // active=1 -> user logged in
 	                        exit();
 	                }
 		        
-	
+			if ($use_ldap) {
+			    if ($results=ldap_entry("mod", $U, $firstname, $lastname)) {
+				html_head("$program_name Administration - Error");
+				$msg = "<b>" . $results . "</b><br><br>";
+				$msg .= "<ul>";	
+				$msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+				html_titlebar($txt_edit[$lang], "$msg",0);
+				html_end();
+				exit();
+			    }
+			}
+			
 	                if ($passwd1 != "" && ($passwd1 == $passwd2)) { 
 		                        $results = update_passwd($U, $passwd1);
 	                } 
@@ -667,6 +690,9 @@ if ($active == 1) {    // active=1 -> user logged in
                         $results .= "<br>" . update_account($U, $fwd);
 
 	                // update user detail
+			if ($userdetail == "" && ($firstname != "" && $lastname != "")) {
+			    $userdetail = $lastname.", ".$firstname;
+			}
 			if ($type == "domain") {
                         	$results .= "<br>" . update_userdetail($U, $userdetail);
 			}
@@ -768,20 +794,42 @@ if ($active == 1) {    // active=1 -> user logged in
         
 	                
 	                if ($action == "newuser") {
-	                        $results = "<br>" . create_account($U, $passwd1, $fwd);
-				if (strpos($results,"ok")) {
-		                       	update_userdetail($U, $userdetail);
+				if ($use_ldap) {
+				    $results = ldap_entry ("add", $U, $firstname, $lastname);
+				} else {
+				    unset ($results) ;
 				}
-	                }
+ 				if (!$results) {
+				    $results = "<br>" . create_account($U, $passwd1, $fwd);
+ 				    if ( $userdetail == "" && ($firstname != "" && $lastname != "")) {
+ 					$userdetail=$lastname.", ".$firstname;
+ 				    }
+				    if (strpos($results,"ok")) {
+					    update_userdetail($U, $userdetail);
+				    }
+				}
+			}
 
 
 	                if ($action == "newalias") {
-	                        $results = create_alias($U, $passwd1, $fwd);
-				if (strpos($results,"ok")) {
-		                       	update_userdetail($U, $userdetail);
+				if ($use_ldap) {
+				    $results = ldap_entry ("add", $U, $firstname, $lastname);
+				} else {
+				    unset ($results) ;
 				}
-	                }
+ 				if (!$results) {
+				    $results = create_alias($U, $passwd1, $fwd);
+ 				    if ( $userdetail == "" && ($firstname != "" && $lastname != "")) {
+ 					$userdetail=$lastname.", ".$firstname;
+ 				    }
+				    if (strpos($results,"ok")) {
+					    update_userdetail($U, $userdetail);
+				    }
+				}
+			}
 
+  
+  
 
 			// update catchall_account status if necessary
 			get_catchall_account();
@@ -810,8 +858,19 @@ if ($active == 1) {    // active=1 -> user logged in
     	    		    html_titlebar($txt_error[$lang], $msg ,0);
             		    html_end();
 			    exit();
-
 			} 
+
+			if ($use_ldap ) {
+			    if ($results=ldap_entry("del", $U, "", "")) {
+				html_head("$program_name Administration - Error");
+				$msg = "<b>" . $results . "</b><br><br>";
+				$msg .= "<ul>";	
+				$msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+				html_titlebar($txt_edit[$lang], "$msg",0);
+				html_end();
+				exit();
+			    }
+			}
 		        
 	                // check args format... addslashed everywhere, etc...
 	                // update forwarders

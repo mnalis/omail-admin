@@ -1,4 +1,4 @@
-<h1>%title%</h1>
+<h1>%title% [%mb_letter%]</h1>
 <a href="%url_show_mb_letter%">%txt_any%</a> |
 <a href="%url_show_mb_letter%0-9">0-9</a> |
 <a href="%url_show_mb_letter%a">a</a> |
@@ -49,11 +49,11 @@
 <TD><B><FONT COLOR=%colorUsername%> %username%  </FONT></B>&nbsp;</TD> 
 
 <TD>%PersonalInfo%&nbsp;</TD> 
-<TD>%more_alias% &nbsp;</TD>
+<TD>%more_alias%&nbsp;</TD>
 
 %ifdef_autoresponder_status%
 
-<TD ALIGN="center">%actions%</TD></TR>
+<TD ALIGN="center"><nobr>%actions%</nobr></TD></TR>
 
 </obj>
 

@@ -1,0 +1,93 @@
+-----------
+oMail-admin -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
+-----------
+
+$Id: README.LDAP,v 1.1 2001/01/10 16:28:46 swix Exp $
+$Source: /cvsroot/omail/admin2/README.LDAP,v $
+
+oMail - LDAP Support informations 
+=================================
+
+ [currently contains the mail from Rey, should then maybe 
+  have more detailled informations about ldap installations
+  and support  -om]
+
+
+From: "Rey IJben" <rey@x-rey.cx>
+Subject: [Omail-admin] LDAP patch and some little stuff
+Date: Wed, 10 Jan 2001 15:22:27 +0100
+
+Hi there,
+
+Here I am again with another patch to add some more functionality to
+omail-admin. The patch is made against the latest 0.96pre10 release (the
+re-release ;-) ). It contains the LDAP functionality I was talking about
+last year and some minor corrections. All that you get with the LDAP support
+is the ability to enter a first- and lastname. If both these fields are used
+the userinfo field will be made up of the contents of those two fields. The
+organization unit is the domainname minus the top level domain. Entries
+entered in the LDAP server are:
+
+- firstname
+- lastname
+- e-mail address
+- organization unit
+
+With this you can lookup all addresses in a domain, or just some e-mail
+addresses, etc. All this is still experimental but it works. I tried it with
+outlook express and with IMP. More features might be added later as soon as
+I know some more about LDAP.
+
+Have fun with this stuff!!
+
+Changes:
+
+config.php
+----------
+- Added the needed configuration variables for the LDAP support. It's turned
+off by default. For people with experience with LDAP the comments should
+explain enough. The entries in the LDAP server will be made in ou=domain,
+o=something, c=something. Where domain is the part of the domain without the
+TLD part. The LDAP server has to be configured so that entries can be added
+under that tree for each domain.
+
+func.php
+---------
+- Changed behavour of template_name so that it works the way it is
+documented in the config file. According to that file about.custom.temp
+should be a valid template name when $template_name=custom. However in
+func.php it looks for about.temp.custom.
+- Added functions get_ou and ldap_entry for the LDAP support. If you look at
+ldap_entry you can see what is required from the LDAP server to correctly
+insert all the entries for each domain.
+
+htmlstuff.php
+-------------
+- Added support for LDAP.
+- Changed the letter selection stuff by Peter Green so that it will be
+displayed after the title bit.
+
+index.php
+----------
+- Added support for LDAP.
+
+strings.php
+-----------
+- Changed Dutch text for txt_any.
+
+display_*
+---------- 
+- Changed the action cell so that all the text will stay on one line. One of
+our users found it very confusing when the e-mail and userinfo part would be
+so long that all the actions would wrap.
+- Current letter selection will be shown after the title.
+
+userform_ldap.temp
+userform_userlogin_ldap.temp
+------------------------------
+- Two new files needed for the LDAP support.
+
+Greetings,
+
+Rey
+
