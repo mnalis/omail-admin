@@ -2,9 +2,14 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: ChangeLog,v 1.66 2001/04/18 09:08:40 swix Exp $ 
+$Id: ChangeLog,v 1.67 2001/11/11 21:32:09 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
+2001-11-11  Olivier Mueller  <om@omnis.ch>
+
+	* fixed bug 466528 (trailing space in fwd)
+	* redesigned login screen a little bit
+	* remove trailing blanks at several places just in case 
 
 2001-04-17  Olivier Mueller  <om@omnis.ch>
 

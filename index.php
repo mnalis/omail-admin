@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.45 2001/04/12 20:43:55 swix Exp $
+        $Id: index.php,v 1.46 2001/11/11 21:32:09 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -332,7 +332,9 @@ if ($active == 1) {    // active=1 -> user logged in
 	if ($A == "resp" || $A == "edit" || $A == "read" || $A == "delete" || $A == "parse" || $A == "quota" || $A == "catchall" || $A == "catchall_remove" || $A == "remove_catchall" || $A == "user_enable" || $A == "user_disable") {
 
 	        // check if $U ok
-		
+
+		$U = trim($U);  // remove blanks at the beginning and end, if any
+
 	        if (!(ereg("^[a-zA-Z0-9\_+\.\-]{0,}$", $U))) {
 
                         html_head("$program_name Administration - Error");
@@ -721,7 +723,7 @@ if ($active == 1) {    // active=1 -> user logged in
 			}
 			
 	                if ($passwd1 != "" && ($passwd1 == $passwd2)) { 
-		                        $results = update_passwd($U, $passwd1);
+	                        $results = update_passwd($U, $passwd1);
 	                } 
 	
 	
@@ -730,7 +732,7 @@ if ($active == 1) {    // active=1 -> user logged in
 
 	                // update user detail
 			if ($userdetail == "" && ($firstname != "" && $lastname != "")) {
-			    $userdetail = $lastname.", ".$firstname;
+			    $userdetail = trim($lastname.", ".$firstname);
 			}
 			if ($type == "domain") {
                         	$results .= "<br>" . update_userdetail($U, $userdetail);
@@ -759,7 +761,7 @@ if ($active == 1) {    // active=1 -> user logged in
 			get_catchall_account();
 
 			if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
-    
+
 	                    html_head("$program_name Administration - Error");
     			    $msg = $txt_error_not_allowed[$lang];
             		    $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
@@ -964,6 +966,11 @@ if ($active == 1) {    // active=1 -> user logged in
                            $subject = stripslashes($subject);
                            $from = stripslashes($from); 
 	                }
+
+			// remove blanks
+
+			$subject = trim($subject);
+			$from = trim($from);
 
 			// strip ^M from body text
 

@@ -8,7 +8,7 @@
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 	* Copyright (C) 2000  Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 
-        $Id: func.php,v 1.34 2001/04/12 20:43:55 swix Exp $
+        $Id: func.php,v 1.35 2001/11/11 21:32:09 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -438,7 +438,7 @@ function update_account($arg_username, $arg_fwd) {
         if ($nb_fwd) {
 		for($i = 0; $i<$nb_fwd; $i++) {   
 			if ($arg_fwd[$i]) {
-				$new_fwd[$j++] = $arg_fwd[$i];
+				$new_fwd[$j++] = trim($arg_fwd[$i]);
 			}
 		}
 	}   
