@@ -1,0 +1,14 @@
+CREDITS, in chronological order
+-------------------------------
+
+[om] - Olivier Mueller <om@omnis.ch>
+        * maintainer of this omail-admin package
+
+[bg] - Bruce Guenter <bruceg@em.ca>
+	* creator of the vmailmgr system
+	* lot's of support
+
+[mb] - Mike Bell <mike@mikebell.org>
+	* maintainer of the PHP interface for vmailmgr
+	* also a lots of good ideas and support
+

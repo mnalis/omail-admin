@@ -1,0 +1,55 @@
+-----
+Omail  -  A PHP/perl based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
+-----
+
+$Id: INSTALL,v 1.1 2000/08/01 01:53:45 swix Exp $
+$Source: /cvsroot/omail/admin2/INSTALL,v $
+
+
+oMail - INSTALL
+===============
+
+* Note 
+  ----
+  This is currently totally ALPHA-work. It works very nicely on my test server, but
+  it probably won't on your. I'll work on the INSTALL & README file later.
+  Comments are welcome! Don't start to translate the program into other languages
+  yet : I have to clean up strings.php first.
+
+
+
+* You will need:
+  --------------
+- qmail 1.03 (Dan Bernstein) 
+  http://www.qmail.org
+
+- vmailmgrd 0.96.7 (Bruce Guenter)    (didn't tried with any other versions)
+  http://www.em.ca/~bruceg/vmailmgr/
+
+- qmail-autoresponder (Bruce Guenter)   
+  http://www.em.ca/~bruceg/qmail-autoresponder/
+
+- php 4.0.x
+  http://www.php.net
+
+- apache 1.3.x
+  http://www.apache.org/httpd.html
+
+
+
+* Installation  (draft)
+  ------------
+
+  0. install qmail, autorespond and vmailmgr
+
+  1. check config.php
+
+  n. Well, then it should (could :) work...
+
+
+  If you make it work on your server, I would be glad to hear from you! 
+  Just send a little mail to: omail@omnis.ch.
+
+
+--Olivier, 06.feb.2k
+
