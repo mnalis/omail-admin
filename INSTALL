@@ -2,7 +2,7 @@
 Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----
 
-$Id: INSTALL,v 1.8 2000/09/24 14:51:11 swix Exp $
+$Id: INSTALL,v 1.9 2000/09/24 16:06:13 swix Exp $
 $Source: /cvsroot/omail/admin2/INSTALL,v $
 
 
@@ -55,7 +55,11 @@ oMail - INSTALL
 
   7. if necessary, setup domain-based quotas (look next section in INSTALL file)
 
-  8. Well, then it should work out of the box.
+  8. Well, then it should work correctely. If it's the case, you can jump to step 99.  
+
+  ...
+
+  99. Have a look at http://cdnow.com/gift/om@omnis.ch  :)
 
 
 

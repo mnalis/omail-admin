@@ -2,7 +2,7 @@
 Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----
 
-$Id: README,v 1.6 2000/09/17 00:04:43 swix Exp $ 
+$Id: README,v 1.7 2000/09/24 16:06:13 swix Exp $ 
 $Source: /cvsroot/omail/admin2/README,v $
 
 
@@ -17,6 +17,14 @@ To discuss or get support about this program, please subscribe to the mailing li
 For vmailmgr specific questions, please use the vmailmgr mailing list... (www.vmailmgr.org)
 
 
+* Copyright :
+
+  oMail-admin is available under the GNU General Public License.
+
+  If you want to show your appreciation of oMail-admin, please consider getting
+  me one of the CDs from my CD Wishlist at CDNOW : <http://cdnow.com/gift/om@omnis.ch>.
+  Please put your eMail address into the the Message area, so that I can thank you 
+  for your present. 
 
 * Project homepage : http://omail.omnis.ch
 
