@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.6 2000/08/02 13:48:18 swix Exp $
+        $Id: strings.php,v 1.7 2000/08/02 15:04:53 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -928,22 +928,22 @@ $txt_autoresp_body = array(
  "de" => "Habe Ihren mail betreffend %S erhalten.\n\nEine Antwort erhalten Sie wenn ich zurück bin.\n\n",
  "it"=>"");
 
-$txt_ = array( 
- "en" => "",
- "fr" => "",
- "de" => "",
+$txt_mail_sysadmin = array( 
+ "en" => "Mail System Administrator",
+ "fr" => "Enoyer un mail au responsable du système",
+ "de" => "Mail an Sysadmin",
  "it"=>"");
 
-$txt_ = array( 
- "en" => "",
- "fr" => "",
- "de" => "",
+$txt_back = array( 
+ "en" => "Back",
+ "fr" => "Retour",
+ "de" => "Zurück",
  "it"=>"");
 
-$txt_ = array( 
- "en" => "",
- "fr" => "",
- "de" => "",
+$txt_about = array( 
+ "en" => "About",
+ "fr" => "À propos",
+ "de" => "Info",
  "it"=>"");
 
 $txt_ = array( 

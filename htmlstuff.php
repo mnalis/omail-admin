@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.6 2000/08/02 13:48:18 swix Exp $
+        $Id: htmlstuff.php,v 1.7 2000/08/02 15:04:53 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -118,7 +118,7 @@ A:hover.nav {  font-family: Verdana, Arial, Helvetica, sans-serif; color: red;}
   function oW(myLink,windowName)
   {
   if(! window.focus)return;
-  var myWin=window.open("",windowName,"height=500,width=500,dependent=yes,scrollbars=yes");
+  var myWin=window.open("",windowName,"height=550,width=500,dependent=yes,scrollbars=yes");
   myWin.focus();
   myLink.target=windowName;
   }
@@ -173,6 +173,11 @@ function html_titlebar($title,$msg,$popup) {
 <?php } elseif ($A == "menu") { ?>
 [ <A HREF="<?php echo($script); ?>?A=logout&<?=SID?>"><?php echo($txt_logout[$lang]); ?></A> ]
 [ <A HREF="<?php echo($script); ?>?A=menu&<?=SID?>"><?php echo($txt_refresh_menu[$lang]); ?></A> ]
+[ <A HREF="<?php echo($script); ?>?A=about&<?=SID?>"><?php echo($txt_about[$lang]); ?></A> ]
+<?php } elseif ($A == "login" || $A == "") { ?>
+[ <A HREF="<?php echo($script); ?>?A=about&<?=SID?>"><?php echo($txt_about[$lang]); ?></A> ]
+<?php } elseif ($A == "about") { ?>
+[ <A HREF="<?php echo($script); ?>?<?=SID?>"><?php echo($txt_back[$lang]); ?></A> ]
 <?php } ?></nobr>&nbsp;
 </TD>
 </TR>
@@ -500,6 +505,91 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 	}
 
 	print "</table><br>"; 
+
+}
+
+
+
+function html_about() {
+
+	global $A, $domain, $cvs_version, $version, $lang;
+	include("strings.php");
+
+	?>
+
+<table bgcolor="#eeeeee" width="80%">
+<tr><td>
+<br>
+<ul>
+<li>oMail-admin <?php echo($version); ?> is a PHP4-based Web-administration solution for mail servers based on Dan Berstein's <a href="http://www.qmail.org">qmail</a>
+and Bruce Guenter's <a href="http://www.em.ca/~bruceg/vmailmgr/">vmailmgr</a>.<br><br></li>
+
+<li>Features:
+<ul>
+<li>complete support of all vmailmgr functions</li>
+<li>create/edit/delete mailboxes and aliases</li>
+<li>administrator (all rights) and single user (can only change his own account) access</li>
+<li>full autoresponder support (edit/enable/disable)</li>
+<li>can be used by non unix-gurus users</li>
+</ul>
+<br></li>
+
+<li>This a <a href="http://www.gnu.org/copyleft/gpl.html">GPL</a> project, maintained by 
+<a href="mailto:om@omnis.ch">Olivier M&uuml;ller</a>, Z&uuml;rich, Switzerland. <br><br></li>
+
+<li>Supported languages:<font color="blue">
+<?php
+        reset($txt_langname);
+        while(list ($id,$tmplang) = each ($txt_langname) ) {
+		echo ($tmplang) . " ";
+        }
+?>
+</font><br><br></li>
+
+<li>oMail-admin is programmed in <a href="http://www.php.net">PHP</a>, and rely on vmail.inc written
+by Mike Bell.<br><br></li>
+
+<li>If you are interested by this project, you will find more information on following webpages. 
+<!-- Subscribing
+to the <a href="http://sourceforge.net/mail/?group_id=3658">mailing lists</a> is also
+highly recommended. -->
+
+<table border="0"><tr><td>
+<ul>
+<li><a href="http://sourceforge.net/project/filelist.php?group_id=3658">oMail-admin download page</a></li>
+<li><a href="http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi/admin2/?cvsroot=oMail">oMail-adminl public CVS tree</a></li>
+<!-- <li><a href="http://sourceforge.net/mail/?group_id=3658">Mailing lists (subscribe/archives)</a></li> -->
+<li><a href="http://omail.omnis.ch">The oMail-admin project homepage</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li><a href="http://admin.omnis.ch/admin2">Live Demo : login: <I>test.com</I>, and password: <I>test</I></a></li>
+<li><a href="TODO">Todo List</a></li>
+</ul>
+</td></tr></table>
+<br></li>
+<li>CVS Version: $Id: htmlstuff.php,v 1.7 2000/08/02 15:04:53 swix Exp $ <br><br></li>
+
+<li>
+Feel free to use this form for your suggestions, requests and bugfixes:
+<form action="http://www.8304.ch/cgi-bin/formmail.pl" method="post">
+<input type="hidden" name="recipient" value="omail\@omnis.ch">
+<input type="hidden" name="subject" value="oMail-admin $version comment form">
+<input type="hidden" name="redirect" value="http://$ENV{'HTTP_HOST'}$ENV{'REQUEST_URI'}">
+<input type="hidden" name="sender" value="$ENV{'REMOTE_ADDR'}">
+<input type="hidden" name="sender" value="Version: $Id: htmlstuff.php,v 1.7 2000/08/02 15:04:53 swix Exp $ ">
+<table border="0">
+<tr><td align="right">Email</td><td><small>
+<input type="text" size="30" name="from_email"></small></td></tr>
+<tr><td align="right">Comment</td><td>
+<small><textarea name="comment" cols="40" rows="5"></textarea></small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+<tr><td colspan="2" align="center"><small><input type="submit" value="Send"></small></td></tr>
+</table>
+</form>
+</li>
+</ul></td></tr>
+</table>
+
+<br>
+</td></tr></table>
+	<?php
 
 }
 

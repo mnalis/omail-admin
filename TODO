@@ -1,0 +1,29 @@
+-----
+Omail  -  A PHP/perl based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
+-----
+
+
+oMail-admin TODO
+================
+$Id: TODO,v 1.1 2000/08/02 15:04:53 swix Exp $ 
+$Source: /cvsroot/omail/admin2/TODO,v $ 
+
+
+High priority
+-------------
+[ ] quota support
+[ ] correct autoresponder support
+[ ] support for info field
+[ ] support for non cookies enabled browsers
+    -> how to use <?=SID?> in print "url?U=abc&..." ???
+[ ] remove autoresponder info and button for aliases
+
+Normal priority
+---------------
+[ ] more translations
+[ ] display mailbox size (waiting for changes in vmailmgrd)
+
+Low priority
+------------
+[ ] display mailbox listing (also need changes in daemon)
+[ ] webmail support

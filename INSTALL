@@ -2,20 +2,12 @@
 Omail  -  A PHP/perl based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----
 
-$Id: INSTALL,v 1.1 2000/08/01 01:53:45 swix Exp $
+$Id: INSTALL,v 1.2 2000/08/02 15:04:53 swix Exp $
 $Source: /cvsroot/omail/admin2/INSTALL,v $
 
 
 oMail - INSTALL
 ===============
-
-* Note 
-  ----
-  This is currently totally ALPHA-work. It works very nicely on my test server, but
-  it probably won't on your. I'll work on the INSTALL & README file later.
-  Comments are welcome! Don't start to translate the program into other languages
-  yet : I have to clean up strings.php first.
-
 
 
 * You will need:
@@ -40,16 +32,20 @@ oMail - INSTALL
 * Installation  (draft)
   ------------
 
-  0. install qmail, autorespond and vmailmgr
+  1. install qmail, autorespond and vmailmgr
 
-  1. check config.php
+  2. make sure vmailmgrd (the vmailmgr daemon) is running. Don't forget it needs uscpi-unix to work.
+     ( /usr/local/bin/unixserver /tmp/.vmailmgrd vmailmgrd )
 
-  n. Well, then it should (could :) work...
+  3. check config.php  (optional)
+
+  4. Well, then it should work out of the box.
 
 
   If you make it work on your server, I would be glad to hear from you! 
   Just send a little mail to: omail@omnis.ch.
 
 
---Olivier, 06.feb.2k
+
+--Olivier, 02.aug.2k
 
