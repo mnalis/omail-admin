@@ -2,7 +2,7 @@
 oMail-admin -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: INSTALL,v 1.11 2000/10/16 23:21:55 swix Exp $
+$Id: INSTALL,v 1.12 2000/10/17 00:00:57 swix Exp $
 $Source: /cvsroot/omail/admin2/INSTALL,v $
 
 
@@ -19,7 +19,7 @@ oMail - INSTALL
 - vmailmgrd 0.96.8 or higher (Bruce Guenter)    (didn't tried with any other versions)
   http://www.em.ca/~bruceg/vmailmgr/
   
-- uscpi-unix 0.33 or higher (Bruce Guenter)  (needed to make the daemon works)
+- uscpi-unix 0.34 or higher (Bruce Guenter)  (needed to make the daemon works)
   http://em.ca/~bruceg/ucspi-unix/
 
 - qmail-autoresponder 0.93 or higher (Bruce Guenter)   
@@ -43,7 +43,7 @@ oMail - INSTALL
 
   3. check config.php  (optional)
 
-  4. if "index.php" is not defined as DirectoryIndex, replace the	
+  4. if "index.php" is not defined as DirectoryIndex in your Apache conf, replace the	
      $script_url = "$SCRIPT_URL"; line in config.php by 
      $script_url = "$SCRIPT_URL/index.php"; 
 

@@ -2,13 +2,15 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: ChangeLog,v 1.28 2000/10/16 23:21:55 swix Exp $ 
+$Id: ChangeLog,v 1.29 2000/10/17 00:00:57 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
-2000-10-15  Olivier Mueller  <om@omnis.ch>
 
+2000-10-17  Olivier Mueller  <om@omnis.ch>
+
+	* released oMail-admin version 0.96pre4
 	* strings.php: a few french fixes by Sebastien Guilbaud
-	* user login is working again
+	* bugfix: user login is working again
 	* templates/quotaform.temp: select menu for account expiration time (menu quota)
 	* addslashes fixes (thx David)
 	
