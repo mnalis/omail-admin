@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.54 2001/03/18 11:03:13 swix Exp $ 
+	$Id: config.php,v 1.55 2001/03/19 23:09:56 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -108,7 +108,7 @@ $config_use_settings_with_quota = 0;
 // -----------------
 // to hide the about-screen button : I think it is fair to keep it zero.
 
-$hide_about_button = 1;
+$hide_about_button = 0;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -230,7 +230,7 @@ $ldap_passwd = "SECRET";
 
 // version
 $version = "0.97.3";
-$cvs_version = '$Id: config.php,v 1.54 2001/03/18 11:03:13 swix Exp $';
+$cvs_version = '$Id: config.php,v 1.55 2001/03/19 23:09:56 swix Exp $';
 
 // script URL
 
