@@ -6,7 +6,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.51 2001/11/11 22:59:55 swix Exp $
+        $Id: strings.php,v 1.52 2001/11/12 00:17:25 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
         strings.php
@@ -3341,7 +3341,7 @@ $txt_current_catchall_not_defined = array(
 
  $txt_turn_on_delivery_expl = array(
   "ru" => "fixme_and_update_cvs",
-  "en" => "You have turned email \"save on\". Email will be delivered normally, unless you set email to forward to another account.",
+  "en" => "You have turned email \"save on\". Email sent to this account will now be delivered and saved on the server.",
   "cz" => "fixme_and_update_cvs",
   "ja" => "fixme_and_update_cvs",
   "tc" => "fixme_and_update_cvs",
@@ -3389,6 +3389,23 @@ $txt_current_catchall_not_defined = array(
   "ro" => "fixme_and_update_cvs",
   "sv" => "fixme_and_update_cvs",
   "id" => "Dari sekarang email tidak akan disimpan di mailbox lagi. <br><b>Awas:</b> isi mailbox ini akan hilang jika Anda tidak mempunyai forwarder!");
+
+ $txt_forwarding_off_warning = array(
+  "ru" => "fixme_and_update_cvs",
+  "en" => "Warning: Email delivery is turned OFF and there are no Forwarders : mails to this account will be ignored.",
+  "cz" => "fixme_and_update_cvs",
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "Attention: la réception d'emails sur ce compte est désactivée : comme il n'y a pas d'adresse de redirection, les mails seront ignorés!",
+  "de" => "Achtung: die Mails werden hier einfach ignoriert (Konto ausgeschaltet und keine Weiterleitungen)",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "pt-br" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs",
+  "id" => "fixme_and_update_cvs");
 
  $txt_local_delivery = array(
   "ru" => "fixme_and_update_cvs",

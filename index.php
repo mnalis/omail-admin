@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.47 2001/11/11 22:59:55 swix Exp $
+        $Id: index.php,v 1.48 2001/11/12 00:17:25 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -707,7 +707,6 @@ if ($active == 1) {    // active=1 -> user logged in
 
 			} 
 
-
 	
 	                // if passwd -> change password  
 	
@@ -742,6 +741,16 @@ if ($active == 1) {    // active=1 -> user logged in
 	                // update forwarders
                         $results .= "<br>" . update_account($U, $fwd);
 
+			// no forwarders ? check if the account is active, or warn
+
+			if (!$fwd[0] && !$fwd[1] && !$fwd[2] && !$fwd[3] && !$fwd[4] && !$fwd[5]) {
+				$userinfo = get_accounts(0,$U);
+				if (!$userinfo[0][12]) {
+					$results .= "<br><br><b><font color=red>" . $txt_forwarding_off_warning[$lang] . "</font></b><br>";
+				}	
+			} 
+
+
 	                // update user detail
 			if ($userdetail == "" && ($firstname != "" && $lastname != "")) {
 			    $userdetail = trim($lastname.", ".$firstname);
@@ -749,7 +758,6 @@ if ($active == 1) {    // active=1 -> user logged in
 			if ($type == "domain") {
                         	$results .= "<br>" . update_userdetail($U, $userdetail);
 			}
-	        
 		
 			// update catchall_account status if necessary
 			get_catchall_account();

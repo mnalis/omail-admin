@@ -2,7 +2,7 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: ChangeLog,v 1.68 2001/11/11 22:59:55 swix Exp $ 
+$Id: ChangeLog,v 1.69 2001/11/12 00:17:25 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
 2001-11-11  Olivier Mueller  <om@omnis.ch>
@@ -11,6 +11,8 @@ $Source: /cvsroot/omail/admin2/ChangeLog,v $
 	* redesigned login screen a little bit
 	* remove trailing blanks at several places just in case 
 	* replaced the input fields with a textfield to add new forwarders
+	* from now, if you remove all forwarders of an account with mail_delivery=disabled
+	  a warning will be shown, telling that the account will ignore all incoming mails
 
 2001-04-17  Olivier Mueller  <om@omnis.ch>
 
