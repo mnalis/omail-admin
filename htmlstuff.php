@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.25 2000/09/23 12:05:55 swix Exp $
+        $Id: htmlstuff.php,v 1.26 2000/09/23 14:42:13 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -227,7 +227,7 @@ function html_titlebar($title,$msg,$popup) {
 		$array[buttonlabels][2][url] = $script . "?A=about&" . SID;
 		$array[buttonlabels][2][txt] = $txt_about[$lang];
 		$array[buttonlabels][2][onClick] = '';
-	} elseif ($A == "login" || $A == "") {
+	} elseif ($A == "login" || $A == "" || $A == "splash") {
 		$array[buttonlabels][0][url] = $script . "?A=about&" . SID;
 		$array[buttonlabels][0][txt] = $txt_about[$lang];
 		$array[buttonlabels][0][onClick] = '';
@@ -331,62 +331,45 @@ function html_quotaform($userinfo, $action) {
 
 	list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled)= $userinfo;
 
-	print "<form action=\"" . $script . "?" . SID . "\" method=\"post\">";
-	print "<table border=0>";	
+	// template = quotaform.temp - 23sep2k [om]
 
-	print "<tr><th align=right>" . $txt_username[$lang] . "&nbsp;</th>";	
-	print "<td bgcolor=\"#DDDDDD\" align=left>$userinfo[0]@$domain&nbsp;</td></tr>";
-	print "<tr><th align=right>" . $txt_details[$lang] . "&nbsp;</th>";	
-	print "<td bgcolor=\"#CCCCCC\" align=left>" . $userinfo[4]. "&nbsp;</td></tr>";
+        $templdata["script"]=$script;
+        $templdata["SID"]=SID;
+        $templdata["txt_username"]=$txt_username[$lang];
+        $templdata["userinfo0"]=$userinfo[0];
+        $templdata["domain"]=$domain;
+        $templdata["txt_details"]=$txt_details[$lang];
+        $templdata["userinfo4"]=$userinfo[4];
+        $templdata["txt_date_of_creation"]=$txt_date_of_creation[$lang];
+        $templdata["CreationTime"]=date("d.m.Y H\hi",$CreationTime);
+        $templdata["txt_status"]=$txt_status[$lang];
 
-	print "<tr><th align=right>" . $txt_date_of_creation[$lang] . "&nbsp;</th>";	
-	print "<td bgcolor=\"#DDDDDD\" align=left>" . date("d.m.Y H\hi",$CreationTime) . "&nbsp;</td></tr>";
+	if ($Enabled == 1) { $templdata["checked_yes"] = "SELECTED"; $templdata["checked_no"] = ""; }
+		else { $templdata["checked_no"] = "SELECTED"; $templdata["checked_yes"] = ""; }
 
-	print "<tr><th align=right>" . $txt_status[$lang] . "&nbsp;</th>";	
-	print "<td bgcolor=\"#CCCCCC\" align=left>";
-	if ($Enabled == 1) { $checked_yes = "SELECTED"; $checked_no = ""; }
-		else { $checked_yes = ""; $checked_no = "SELECTED"; }
-	print "<select name=\"form_enabled\">";
-	print "<option value=\"1\" $checked_yes>" . $txt_activated[$lang] . "</option>";	
-	print "<option value=\"0\" $checked_no>" . $txt_inactived[$lang] . "</option>";	
-	print "</select></td></tr>";
+        $templdata["txt_activated"]=$txt_activated[$lang];
+        $templdata["txt_inactived"]=$txt_inactived[$lang];
+        $templdata["txt_hardquota"]=$txt_hardquota[$lang];
+        $templdata["HardQuota"]=$HardQuota;
+        $templdata["txt_softquota"]=$txt_softquota[$lang];
+        $templdata["SoftQuota"]=$SoftQuota;
+        $templdata["txt_msgcount"]=$txt_msgcount[$lang];
+        $templdata["CountLimit"]=$CountLimit;
+        $templdata["txt_msgsize"]=$txt_msgsize[$lang];
+        $templdata["SizeLimit"]=$SizeLimit;
+        $templdata["txt_expiry"]=$txt_expiry[$lang];
+        $templdata["ExpiryTimeString"]="";
 
-	print "<tr><th align=right>" . $txt_hardquota[$lang] . "&nbsp;</th>";	
-	print "<td bgcolor=\"#DDDDDD\" align=left><input type=\"text\" name=\"form_hardquota\" value=\"$HardQuota\" size=\"8\">";
-	print " kB &nbsp;</td></tr>";
+	if ($ExpiryTime && $ExpiryTime != "-") { $templdata["ExpiryTimeString"] = date("d.m.Y H\hi",$ExpiryTime) . "<br>"; }
 
-	print "<tr><th align=right>" . $txt_softquota[$lang] . "&nbsp;</th>";	
-	print "<td bgcolor=\"#CCCCCC\" align=left><input type=\"text\" name=\"form_softquota\" value=\"$SoftQuota\" size=\"8\">";
-	print " kB &nbsp;</td></tr>";
+        $templdata["ExpiryTime"]=$ExpiryTime;
+        $templdata["txt_submit"]=$txt_submit[$lang];
+        $templdata["username"]=$username;
+        $templdata["txt_submit"]=$txt_submit[$lang];
+        $templdata["txt_cancel"]=$txt_cancel[$lang];
 
-	print "<tr><th align=right>" . $txt_msgcount[$lang] . "&nbsp;</th>";	
-	print "<td bgcolor=\"#DDDDDD\" align=left><input type=\"text\" name=\"form_msgcount\" value=\"$CountLimit\" size=\"8\">";
-	print " &nbsp;</td></tr>";
+        print parseTemplate($templdata, "templates/quotaform.temp");
 
-	print "<tr><th align=right>" . $txt_msgsize[$lang] . "&nbsp;</th>";	
-	print "<td bgcolor=\"#CCCCCC\" align=left><input type=\"text\" name=\"form_msgsize\" value=\"$SizeLimit\" size=\"8\">";
-	print " kB &nbsp;</td></tr>";
-
-	print "<tr><th align=right>" . $txt_expiry[$lang] . "&nbsp;</th>";	
-	print "<td bgcolor=\"#DDDDDD\" align=left>";
-	if ($ExpiryTime && $ExpiryTime != "-") { print date("d.m.Y H\hi",$ExpiryTime) . "<br>"; }
-
-	print "<input type=\"text\" name=\"form_expiry\" value=\"$ExpiryTime\" size=\"10\">";
-	print " &nbsp;</td></tr>";
-
-	print "<tr><th align=right>" . $txt_submit[$lang] . "&nbsp;</th>";	
-
-	if ($i/2 == floor($i/2)) { print "<td bgcolor=\"#DDDDDD\" align=left>"; }
-					else { print "<td bgcolor=\"#CCCCCC\" align=left>"; }
-
-	print "<input type=\"hidden\" name=\"A\" value=\"parse\">";
-	print "<input type=\"hidden\" name=\"action\" value=\"quota\">";
-	print "<input type=\"hidden\" name=\"U\" value=\"$username\">";
-	print "<input type=\"submit\" value=\"" . $txt_submit[$lang]. "\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-	print "<input type=\"reset\" value=\"" . $txt_cancel[$lang]. "\" onClick=\"return gO(this,true,true)\">&nbsp;</td></tr>";
-	
-	print "</table>";	
-	print "</form>";	
 }
 
 
@@ -769,10 +752,10 @@ Thanks in advance for your support!
 <input type="text" size="40" name="company_url" value="http://"></small></td></tr>
  
 <tr><td align="right">Email:</td><td><small>
-<input type="text" size="40" name="from_email"></small></td></tr>
+<input type="text" size="40" name="email"></small></td></tr>
 
 <tr><td align="right">City, Country:</td><td><small>
-<input type="text" size="40" name="country">  (must be filled)</small></td></tr>
+<input type="text" size="40" name="country"> &nbsp; (must be filled with anything)</small></td></tr>
 
 <tr><td align="right">Splash screen:</td><td><small>
 <select name="splashScreen"><option>I find this splash screen ok, no problem</option>
@@ -792,7 +775,7 @@ Thanks in advance for your support!
 
 <tr><td align="right">How long are you using omail-admin?</td><td><small>
 <select name="howlong">
-<option> - </option>
+<option value=""> - </option>
 <option>it's my first try</option>
 <option>a few weeks</option>
 <option>a few months</option>
@@ -802,7 +785,7 @@ Thanks in advance for your support!
 
 <tr><td align="right">Use of omail-admin:</td><td><small>
 <select name="use">
-<option> - </option>
+<option value=""> - </option>
 <option>For a lots of different domains (ISP mail server)</option>
 <option>Just for one or a few domains (Company mail server)</option>
 </select>
@@ -810,7 +793,7 @@ Thanks in advance for your support!
 
 <tr><td align="right">Average nb of users:</td><td><small>
 <select name="nb_of_users">
-<option> - </option>
+<option value=""> - </option>
 <option>Less than 10 mailboxes/alias per domain</option>
 <option>Between 10 and 50 mailboxes/alias per domain</option>
 <option>More than 50 mailboxes/alias per domain (web interface should be improved...)</option>
@@ -818,16 +801,25 @@ Thanks in advance for your support!
 </small></td></tr>
 
 
-<tr><td align="right"><br>Currently supported languages are:</td><td><br><small>
+<tr><td align="right"><br>Currently supported languages are:</td><td><br><small><font color="blue">
 <?php
         reset($txt_langname);
         while(list ($id,$tmplang) = each ($txt_langname) ) {
                 echo ($tmplang) . " ";
         }
 ?>
-</small></td></tr>
+</font></small></td></tr>
 <tr><td align="right">Which other language would you need?</td><td><small>
-<input type="text" size="30" name="new_language"></small></td></tr>
+<input type="text" size="30" name="new_language">
+
+<select name="new_language_iMayHelp">
+<option value=""> - </option>
+<option>I could help</option>
+<option>Sorry, no time</option>
+</select>
+
+
+</small></td></tr>
 
 <tr><td align="right" valign="top"><br>Other comments and feature requests:</td><td>
 <small><textarea name="comment" cols="40" rows="5"></textarea></small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>

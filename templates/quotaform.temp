@@ -4,7 +4,7 @@
 <tr><th align=right>%txt_username%&nbsp;</th>
 <td bgcolor="#DDDDDD" align=left>%userinfo0%@%domain%&nbsp;</td></tr>
 <tr><th align=right>%txt_details%&nbsp;</th>
-<td bgcolor="#CCCCCC" align=left>"%userinfo4%&nbsp;</td></tr>
+<td bgcolor="#CCCCCC" align=left>%userinfo4%&nbsp;</td></tr>
 
 <tr><th align=right>%txt_date_of_creation%&nbsp;</th>
 <td bgcolor="#DDDDDD" align=left>%CreationTime%&nbsp;</td></tr>
