@@ -2,7 +2,7 @@
 oMail-admin -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: INSTALL,v 1.14 2001/02/24 20:30:10 swix Exp $
+$Id: INSTALL,v 1.15 2001/02/24 21:47:30 swix Exp $
 $Source: /cvsroot/omail/admin2/INSTALL,v $
 
 
@@ -16,10 +16,10 @@ oMail - INSTALL
 - qmail 1.03 (Dan Bernstein) 
   http://www.qmail.org
 
-- vmailmgrd 0.96.8 or higher (Bruce Guenter)    (didn't tried with any other versions)
+- vmailmgrd 0.96.8 or higher (Bruce Guenter)    (
   http://www.em.ca/~bruceg/vmailmgr/
   
-- uscpi-unix 0.34 or higher (Bruce Guenter)  (needed to make the daemon works)
+- uscpi-unix 0.34 or higher (Bruce Guenter) (needed to make the daemon works)
   http://em.ca/~bruceg/ucspi-unix/
 
   OR/AND (at least one!)
@@ -43,24 +43,27 @@ oMail - INSTALL
 
   1. install qmail, autorespond and vmailmgr
 
-  2. make sure that vmailmgrd (the vmailmgr daemon) is running. Don't forget it needs 
-     uscpi-unix or uscpi-tcp to work.  Check INSTALL.daemon for some real-life examples 
-     of working setups.
+  2. make sure that vmailmgrd (the vmailmgr daemon) is running.
+     Don't forget it needs uscpi-unix or uscpi-tcp to work.  Check
+     INSTALL.daemon for some real-life examples of working setups.
 
   3. check config.php and setup the configuration variables.
 
-  4. if "index.php" is not defined as DirectoryIndex in your Apache conf, replace the	
-     $script_url = "$SCRIPT_URL"; line in config.php by 
-     $script_url = "$SCRIPT_URL/index.php"; 
+  4. if "index.php" is not defined as DirectoryIndex in your Apache
+     conf, replace the $script_url = "$SCRIPT_URL"; line in
+     config.php by $script_url = "$SCRIPT_URL/index.php"; 
 
-  5. make sure you have installed the autoresponder correctely (look at the
-     vautoresponder file in the qmail-autoresponder distribution...)
+  5. make sure you have installed the autoresponder correctely (look
+     at the vautoresponder file in the qmail-autoresponder
+     distribution...)
 
   6. same thing for vmailmgr-user-based quotas (cf. vmailmgr docs)
 
-  7. if necessary, setup domain-based quotas (look next section in INSTALL file)
+  7. if necessary, setup domain-based quotas (look next section in
+     INSTALL file)
 
-  8. Well, then it should work correctely. If it's the case, you can jump to step 99.  
+  8. Well, then it should work correctely. If it's the case, you can
+     jump to step 99.
 
   ...
 
@@ -72,11 +75,12 @@ oMail - INSTALL
 
 * Quotas
   ------
-  check the vmailmgrquota file, and copy it in /var/qmail/control or /etc/vmailmgr
-  more doc to come later about that.
+  check the vmailmgrquota file, and copy it in /var/qmail/control or
+  /etc/vmailmgr more doc to come later about that.
 
-  You can use the quota's configuation file to disallow the use of autoresponders :
-  just activate the "default" configuration, and set "0" in the last field...
+  You can use the quota's configuation file to disallow the use of
+  autoresponders : just activate the "default" configuration, and
+  set "0" in the last field...
 
 
 
@@ -85,17 +89,17 @@ oMail - INSTALL
 
  [1] Error Message: Protocol version is 0, not the 2 as this script expects.
 
-     This seems to be a common deamon problem, and appears only with rpm installations.
-     Here the answer from Ambar Roy:
+     This seems to be a common deamon problem, and appears only with
+     rpm installations. Here the answer from Ambar Roy:
 
-	this seems to be the same 255,"" problem that everyone is getting when they
-	use rpms to install the vmailmgr daemon.... and the solution is quite   
-	simple... in the /etc/rc.d/init.d/vmailmgrd file change the line that reads:
-	svc start vmailmgrd
-	to something like:
+	this seems to be the same 255,"" problem that everyone is
+	getting when they use rpms to install the vmailmgr
+	daemon.... and the solution is quite simple... in the
+	/etc/rc.d/init.d/vmailmgrd file change the line that reads:
+	svc start vmailmgrd to something like:
 	nohup /var/service/vmailmgrd/run &
-	and things run fine.... now the only problem is that the stop function stops
-	working!!!
+	and things run fine.... now the only problem is that the
+	stop function stops working!!!
 
 
 

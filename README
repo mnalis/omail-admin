@@ -2,29 +2,38 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: README,v 1.9 2001/02/24 20:30:11 swix Exp $ 
+$Id: README,v 1.10 2001/02/24 21:47:30 swix Exp $ 
 $Source: /cvsroot/omail/admin2/README,v $
 
 
 Welcome to oMail-admin!
 -----------------------
 
-more to come later... :-)  Everything you are probably looking for is in the INSTALL file.
+more to come later... :-)  Everything you are probably looking for
+is in the INSTALL file.
 
-To discuss or get support about this program, please subscribe to the mailing list 
-(see below), but please don't send private mail. 
+To discuss or get support about this program, please subscribe to
+the mailing list (see below), but *please* don't send private mail,
+or you will probably only get the standard "please ask on the ML"
+answer.
 
-For vmailmgr specific questions, please use the vmailmgr mailing list... (www.vmailmgr.org)
+If you need specific features to match your needs (if you plan to
+use omail-admin on your ISP servers, or to integrate it to an
+existing interface), you can ask me privately to get commercial
+support.
+
+For vmailmgr specific questions, please use the vmailmgr mailing
+list... (www.vmailmgr.org)
 
 
 * Copyright :
 
   oMail-admin is available under the GNU General Public License.
 
-  If you want to show your appreciation of oMail-admin, please consider getting
-  me one of the CDs from my CD Wishlist at CDNOW : <http://cdnow.com/gift/om@omnis.ch>.
-  Please put your eMail address into the the Message area, so that I can thank you 
-  for your present. 
+  If you want to show your appreciation of oMail-admin, please
+  consider getting me one of the CDs from my CD Wishlist at CDNOW :
+  <http://cdnow.com/gift/om@omnis.ch>. Please put your eMail address
+  into the the Message area, so that I can thank you for your present :)
 
 
 * Project homepage : http://omail.omnis.ch
@@ -43,8 +52,8 @@ For vmailmgr specific questions, please use the vmailmgr mailing list... (www.vm
                    http://www.geocrawler.com/redir-sf.php3?list=/omail-admin-news/
 
 
-* If you really want to send me a personal mail, please use <omail@omnis.ch> and
-  specify [omail-admin] in the subject.
+* If you really want to send me a personal mail, please use
+  <om@omnis.ch> and specify [omail-admin] in the subject.
 
 * Work in progress... please report any bugs!  Thanks!
 

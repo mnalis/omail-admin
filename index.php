@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.38 2001/02/24 20:30:11 swix Exp $
+        $Id: index.php,v 1.39 2001/02/24 21:47:30 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -346,7 +346,7 @@ if ($active == 1) {    // active=1 -> user logged in
 	if ($A == "newalias") {
 
 
-		if ($type == "domain" && (!$quota_on || ($quota_on && ($quota_data["alias_support"]  && $quota_data["nb_alias"] < $quota_data["max_alias"])))) {
+		if ($type == "domain" && (!$quota_on || ($quota_on && ($quota_data["alias_support"]  && $quota_data["nb_alias"] < $quota_data["max_alias"]))) && !$quota_data["new_account_forbidden"]) {
 			html_head("$program_name Administration - New Alias");	
 		        html_titlebar($txt_newalias[$lang], $txt,1);
 		        $userinfo[2] = "-";
@@ -384,7 +384,7 @@ if ($active == 1) {    // active=1 -> user logged in
 
 	if ($A == "newuser") {
 	
-		if ($type == "domain" && (!$quota_on || ($quota_on && ($quota_data["users_support"]  && $quota_data["nb_users"] < $quota_data["max_users"])))) {
+		if ($type == "domain" && (!$quota_on || ($quota_on && ($quota_data["users_support"]  && $quota_data["nb_users"] < $quota_data["max_users"]))) && !$quota_data["new_account_forbidden"]) {
 
 			html_head("$program_name Administration - New User");	
 	        	html_titlebar($txt_newuser[$lang], $txt,1);
@@ -612,7 +612,6 @@ if ($active == 1) {    // active=1 -> user logged in
 
 
 
-
 	//
 	// QUOTAS EDIT
 	//
@@ -747,6 +746,8 @@ if ($active == 1) {    // active=1 -> user logged in
 	
 	        if ($action == "newuser" || $action == "newalias") {
 
+			// update catchall_account status if necessary
+			get_catchall_account();
 
 			if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
     
@@ -762,7 +763,7 @@ if ($active == 1) {    // active=1 -> user logged in
 
 			// check if domain admin is logged in and if quota are ok		
 	
-			if (($type != "domain") ||
+			if ($quota_data["new_account_forbidden"] || ($type != "domain") ||
 			($quota_on && $action == "newuser" && (!$quota_data["users_support"] || ($quota_data["nb_users"] >= $quota_data["max_users"]))) ||
 			($quota_on && $action == "newalias" && (!$quota_data["alias_support"] || ($quota_data["nb_alias"] >= $quota_data["max_alias"])))) { //xx?
 
@@ -861,7 +862,6 @@ if ($active == 1) {    // active=1 -> user logged in
 
   
   
-
 			// update catchall_account status if necessary
 			get_catchall_account();
 

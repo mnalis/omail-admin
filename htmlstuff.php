@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.59 2001/02/24 20:30:11 swix Exp $
+        $Id: htmlstuff.php,v 1.60 2001/02/24 21:47:30 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -809,6 +809,15 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 	}
 
 	
+	// new_account_forbidden's support
+
+        if ($arg_action != 0 && $quota_data["new_account_forbidden"]) {
+		$templdata["quota_string"] = "&nbsp;";
+		$templdata["global_action_and_url"] = "&nbsp;";
+		
+	}
+	
+
 	if (($show_how_many_accounts && $all_hidden != 2) || !$arg_action) {   // !$arg_action  -> type=user login
 		$template_name = "templates/display_$listtype.temp";
 	} else {

@@ -8,7 +8,7 @@
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 	* Copyright (C) 2000  Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 
-        $Id: func.php,v 1.29 2001/02/24 20:30:11 swix Exp $
+        $Id: func.php,v 1.30 2001/02/24 21:47:30 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -190,7 +190,7 @@ function load_quota_info($domain) {
 					$quota_data["softquota"] = $entry[9] * 1024;
 					$quota_data["hardquota"] = $entry[10] * 1024;
 					$quota_data["msgsize"] = $entry[11] * 1024;
-
+					$quota_data["new_account_forbidden"] = $entry[12];
 
 				
 					// dirty hack, but should be ok for the moment :]  (index.php will be updated soon)
@@ -219,6 +219,7 @@ function load_quota_info($domain) {
 					$quota_data["softquota"] = $entry[9] * 1024;
 					$quota_data["hardquota"] = $entry[10] * 1024;
 					$quota_data["msgsize"] = $entry[11] * 1024;
+					$quota_data["new_account_forbidden"] = $entry[12];
 					
 				
 					// dirty hack, but should be ok for the moment :]  (index.php will be updated later)

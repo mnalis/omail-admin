@@ -2,7 +2,7 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: TRANSLATION,v 1.2 2001/02/24 20:30:11 swix Exp $ 
+$Id: TRANSLATION,v 1.3 2001/02/24 21:47:30 swix Exp $ 
 $Source: /cvsroot/omail/admin2/TRANSLATION,v $
 
 
@@ -43,10 +43,11 @@ $txt_firstname=array(   "ru"=>"้อั",
                         "it"=>"Nome");
 
 
-And then, add your text. Please use the official 2-letters language name.
+And then, add your text. Please use the official 2-letters language
+name.
 
-After testing the file, please send it me directely by email (omail@omnis.ch),
-and I will merge it to the CVS.
+After testing the file, please send it me directely by email
+(omail@omnis.ch), and I will merge it to the CVS.
 
 
 -- om, 13oct2k
