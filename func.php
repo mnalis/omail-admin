@@ -8,7 +8,7 @@
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 	* Copyright (C) 2000  Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 
-        $Id: func.php,v 1.21 2000/10/18 08:25:00 swix Exp $
+        $Id: func.php,v 1.22 2000/10/21 23:21:18 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -219,19 +219,18 @@ function load_quota_info($domain) {
 
 function get_accounts_sort_by_name($a, $b) {
 
-	list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled)=$a;
-	list($username2, $password2, $mbox2, $alias2, $PersonalInfo2, $HardQuota2, $SoftQuota2, $SizeLimit2, $CountLimit2, $CreationTime2, $ExpiryTime2, $resp, $Enabled)=$b;
+	list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible)=$a;
+	list($username2, $password2, $mbox2, $alias2, $PersonalInfo2, $HardQuota2, $SoftQuota2, $SizeLimit2, $CountLimit2, $CreationTime2, $ExpiryTime2, $resp2, $Enabled2, $Visible2)=$b;
 	return (strtolower($username) < strtolower($username2)) ? -1 : 1; 
 }		
 
 
 function get_accounts_sort_by_info($a, $b) {
 
-	list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled)=$a;
-	list($username2, $password2, $mbox2, $alias2, $PersonalInfo2, $HardQuota2, $SoftQuota2, $SizeLimit2, $CountLimit2, $CreationTime2, $ExpiryTime2, $resp, $Enabled)=$b;
+	list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible)=$a;
+	list($username2, $password2, $mbox2, $alias2, $PersonalInfo2, $HardQuota2, $SoftQuota2, $SizeLimit2, $CountLimit2, $CreationTime2, $ExpiryTime2, $resp2, $Enabled2, $Visible2)=$b;
 	return (strtolower($PersonalInfo) < strtolower($PersonalInfo2)) ? -1 : 1; 
 }		
-
 
 
 function get_accounts($arg_action, $arg_username = "") {
@@ -254,11 +253,9 @@ function get_accounts($arg_action, $arg_username = "") {
 			if ($arg_action == 2) { $quota_data["nb_alias"] = 0; } 
 		}
 		
-
 	        for ($i = 0; $i <  sizeof($list); $i++) {
 
 	                list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $data11)=$list[$i];			
-
 
 			// set if visible or not (for catchall or "admin" accounts like postmaster, etc...)
 			if ($username == "+") { $Visible = 0; } else { $Visible = 1; }
@@ -266,21 +263,21 @@ function get_accounts($arg_action, $arg_username = "") {
 			// get enabled/disabled status
 			if (ord($data11[8]) == 49) { $Enabled = 1; } else { $Enabled = 0; }
 
-			// findout autoresp status
-			if ($mbox && $action != 3) { $resp = load_resp_status($username); }  else { $resp = 0; }   // only lookup for mailboxes
+			// findout autoresp status (only lookup for mailboxes)
+			if ($mbox && $action != 3) { $resp = load_resp_status($username); }  else { $resp = 0; }
 
 	                $list[$i] = array($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible);
 			
 			if ($mbox && ($arg_action == 1 || $arg_action == 3)) { 
 				$new_list[$j++] = $list[$i];  
-				if ($quota_on && !(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) { 
+				if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) { 
 					$quota_data["nb_users"]++; 
 				}
 			}	
 
 			if (!$mbox && ($arg_action == 2) || $arg_action == 3) { 
 				$new_list[$j++] = $list[$i]; 
-				if ($quota_on && !(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) { 
+				if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) { 
 					$quota_data["nb_alias"]++; 
 				}
 			}
@@ -296,6 +293,7 @@ function get_accounts($arg_action, $arg_username = "") {
 		} else {
 			usort($new_list, get_accounts_sort_by_name);
 		}
+
 
 	} else {  // user
 

@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.34 2000/10/18 22:06:09 swix Exp $ 
+	$Id: config.php,v 1.35 2000/10/21 23:21:18 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -58,14 +58,14 @@ $default_language = "en";
 // accounts which will be hidden and not usable anywhere (no edit, create, delete, login)
 
 $system_accounts_list = array( );
-//$system_accounts_list = array( 'abuse', 'root', 'hostmaster');
+$system_accounts_list = array( 'abuse', 'root', 'hostmaster');
 
 // readonly accounts
 // ----------------
 // accounts which will be shown, but will remain uneditable (no edit, create, delete or login)
 
 $readonly_accounts_list = array( );
-//$readonly_accounts_list = array( 'postmaster', 'mailer-daemon' );
+$readonly_accounts_list = array( 'postmaster', 'mailer-daemon' );
 
 // program_name
 // ------------
@@ -122,7 +122,7 @@ $hide_about_button = 0;
 // version
 
 $version = "0.96pre5";
-$cvs_version = '$Id: config.php,v 1.34 2000/10/18 22:06:09 swix Exp $';
+$cvs_version = '$Id: config.php,v 1.35 2000/10/21 23:21:18 swix Exp $';
 
 // script URL
 

@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.28 2000/10/18 08:25:00 swix Exp $
+        $Id: index.php,v 1.29 2000/10/21 23:21:18 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -48,6 +48,7 @@ session_register("quota_on","quota_data","catchall_active", "sort_order");
 
 if (!$lang) { 
 
+	// if no language defined yet (cookie or session):
 	// try to findout users language by checking it's HTTP_ACCEPT_LANGUAGE variable
     
     if ($HTTP_ACCEPT_LANGUAGE) {
@@ -218,7 +219,8 @@ if ($active == 1) {    // active=1 -> user logged in
 
 		if ($type == "domain") {
 
-			if ($form_sort == "info") { $sort_order = "info"; } else { $sort_order = "username"; }
+			if ($form_sort == "info") { $sort_order = "info"; } 
+			if ($form_sort == "username") { $sort_order = "username"; }
 
 			if ($catchall_active) {
 			    $txt_menu_add = "<br>" . $txt_current_catchall_account_is[$lang] . ": <b>$catchall_active@$domain</b>";
@@ -228,12 +230,23 @@ if ($active == 1) {    // active=1 -> user logged in
 
 			if (!$quota_on || ($quota_on && $quota_data["users_support"])) {
 				$mboxes = get_accounts(1);	
-				html_display_mailboxes($mboxes,1);
+
+				if (isset($show_start) && isset($show_howmany)) {
+				    html_display_mailboxes($mboxes,1,$show_start,$show_howmany);
+				} else {
+				    html_display_mailboxes($mboxes,1);
+				}
 			}
+
 
 			if (!$quota_on || ($quota_on && $quota_data["alias_support"])) {
 				$aliases = get_accounts(2);
-				html_display_mailboxes($aliases,2);
+
+				if (isset($show_start) && isset($show_howmany)) {
+				    html_display_mailboxes($aliases,2,$show_start,$show_howmany);
+				} else {
+				    html_display_mailboxes($aliases,2);
+				}
 			}
 
 		} else {

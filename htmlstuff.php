@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.44 2000/10/18 08:25:00 swix Exp $
+        $Id: htmlstuff.php,v 1.45 2000/10/21 23:21:18 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -419,7 +419,7 @@ function html_error($title, $msg) {
 }
 
 
-function html_display_mailboxes($mboxlist, $arg_action) {
+function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howmany=-1) {
 
 	// action :  	1 = mailbox
 	//		2 = alias
@@ -477,19 +477,47 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 	$total_size = 0;
 	$hidden = 0;
 
-	for ($i = 0; $i <= sizeof($mboxlist); $i++) {
+	// loop init : if we have start and end data, use them :)
+	// defaults:
+	$loop_start = 0;
+	$loop_end = sizeof($mboxlist);
+	$offset = 0;
+    
+	// otherwise
+	if ($arg_start != -1) { 
+	    if ($arg_start <= 0) { $arg_start = 1; }
+            $loop_start = ($arg_start-1); 
+        }
+
+	if ($arg_howmany != -1) { 
+	    $loop_end = $loop_start + $arg_howmany ; 
+	    if ($loop_end > sizeof($mboxlist)) {
+		$loop_end = sizeof($mboxlist);
+	    }
+	    $offset = $arg_start-1;
+	}
+	
+    
+	// print "Start: $loop_start - End: $loop_end - Offset: $offset <br>\n";   //debug
+        
+	for ($i = $loop_start; $i <= $loop_end; $i++) {
 
 		list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible)=$mboxlist[$i];
+
+		// print "$i $username<br>";  //debug
 
 		while ($username && (!$Visible || in_array($username, $system_accounts_list))) {
     		    $hidden++; 
 		    $i++; 
 		    list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible)=$mboxlist[$i];
+
+		//	print "   $i $username<br>"; //debug
+
 		}
 
-		$ii = ($i-$hidden)+1;  // neded for the <template>
+		$ii = (($i-$hidden)-$offset)+1;  // neded for the <template>
 
-		$templdata[obj][$ii]["nb"] = ($i + 1);
+		$templdata[obj][$ii]["nb"] = ($ii + $offset);
 
 		if (($i-$hidden)/2 == floor(($i-$hidden)/2)) { 
 			$templdata[obj][$ii]["rowcolor"] = "#DDDDDD"; 
@@ -643,7 +671,6 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 
 
         print parseTemplate($templdata, "templates/display_$listtype.temp");
-
 }
 
 

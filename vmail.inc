@@ -1,7 +1,7 @@
 <?
 // Copyright (C) 2000 Mike Bell <mike@mikebell.org>
 // 
-//      $Id: vmail.inc,v 1.5 2000/08/11 13:15:28 swix Exp $
+//      $Id: vmail.inc,v 1.6 2000/10/21 23:21:18 swix Exp $
 //      $Source: /cvsroot/omail/admin2/vmail.inc,v $
 //
 //  [om]  added lookup command on 03aug2k
@@ -72,7 +72,7 @@ function vm_daemon_raw($arg)
 
 	if ($length == 0) {
 		while (!feof($vmailsock))
-			$out=fread($vmailsock, 65535);
+			$out.=fread($vmailsock, 65535);
 		fclose($vmailsock);
 		return $out;
 	}

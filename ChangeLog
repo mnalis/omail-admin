@@ -2,10 +2,18 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: ChangeLog,v 1.31 2000/10/18 22:06:09 swix Exp $ 
+$Id: ChangeLog,v 1.32 2000/10/21 23:21:18 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
 
+2000-10-21  Olivier Mueller  <om@omnis.ch>
+
+	* started preliminary support for showing N accounts per screen:
+          You can try it by using this kind of url query-string: ?show_start=4&show_howmany=5
+	  Still thinking about how it could be shown on the interface	  
+	* vmail.inc: fixed the $out.=fread($vmailsock, 65535); bug (thx Mike)
+	* fixed sorting choice
+	     
 2000-10-19  Olivier Mueller  <om@omnis.ch>
 	
 	* translation to romanian (thx Harald!)
