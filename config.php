@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.59 2001/11/12 01:22:29 swix Exp $ 
+	$Id: config.php,v 1.60 2001/11/15 17:58:49 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -32,17 +32,20 @@
 $domains_list = array();   // empty : login for all.
 //$domains_list = array( 'test.com', 'omnis.ch', '8304.ch', 'omnis-test.com');
 
+
 // expire session after 
 // -------------------- 
 // automatic logout after N minutes of inactivity
 
 $expire_after = "25"; // minutes
 
+
 // show how many accounts at a time
 // --------------------------------
 // ignore = 0
 
 $show_how_many_accounts = 20;
+
 
 // sysadmin mail
 // -------------
@@ -67,6 +70,7 @@ $default_language = "en";
 $system_accounts_list = array( );
 //$system_accounts_list = array( 'abuse', 'root', 'hostmaster');
 
+
 // readonly accounts
 // ----------------
 // accounts which will be shown, but will remain uneditable 
@@ -74,6 +78,7 @@ $system_accounts_list = array( );
 
 $readonly_accounts_list = array( 'postmaster', 'mailer-daemon', 'abuse');
 //$readonly_accounts_list = array( 'postmaster', 'mailer-daemon' );
+
 
 // program_name
 // ------------
@@ -95,7 +100,7 @@ $turn_off_delivery_on_fwd_setup = 0;
 // ----------
 // you can replace that by a link to your homepage or anything... :)
 
-$powered_by = 'Powered by <a href="http://omail.omnis.ch/"><font color="#CCCCCC">omail-Admin</font></a>';
+$powered_by = 'Powered by <a href="http://omail.omnis.ch/"><font color="#CCCCCC">oMail-Admin</font></a>';
 
 
 // vmailmgrquota file location
@@ -114,11 +119,13 @@ $vmailmgrquota_file = "vmailmgrquotas";  // in current directory
 
 $template_name = "";
 
+
 // config_use_settings_with_quota
 // ------------------------------
 // experimental stuff : show [settings] button for aliases too ? 1 = yes, 0 = no
 
 $config_use_settings_with_quota = 0;
+
 
 // hide_about_button
 // -----------------
@@ -246,7 +253,7 @@ $ldap_passwd = "SECRET";
 
 // version
 $version = "0.98.1";
-$cvs_version = '$Id: config.php,v 1.59 2001/11/12 01:22:29 swix Exp $';
+$cvs_version = '$Id: config.php,v 1.60 2001/11/15 17:58:49 swix Exp $';
 
 // script URL
 

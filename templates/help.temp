@@ -1,1 +1,245 @@
-<table border=0 bgcolor="#EEEEEE" width="90%">   <tr>       <td>          <p><b><a name=top></a>Help:</b></p>                    <ul>             <li><a name=help1></a>In order to use this control panel,             your domain must be fully established on your web server             account. &#91;<a href="#top">top</a>&#93;</li>                          <li><a name=help2></a><b>Terms:</b>                         <ul>                <li><b>Email Address</b> - example:                you@your_domain.com</li>                               <li><b>Domain Name</b> - example: your_domain.com</li>                               <li><b>Mailserver</b> - your web host's web server               name or server number.</li>                                <li><b>Catchall</b> - the default email account                "mail." All email sent to your_domain.com goes to this               account by default (excluding aliases or additional                email accounts you have set up). &#91;<a href="#top">top</a>&#93;</li>            </ul>                         <p>&nbsp;</p></li>                         <li><a name=help3></a><b>Menu subjects:</b>                         <ul>                <li><b>No.</b> - line number.</li>                                <li><b>Email</b> - email account name.</li>                                <li><b>Note or Info </b>- notes regarding the account                name, editable in the action "Edit".</li>                               <li><b>Fwd?</b> - identifies whether forwarding is               "on" or "off." Set forwarding in the action                "Edit."</li>                               <li><b>Autoreply or Autoresponder</b> - identifies                whether an automatic reply upon email receipt is                turned "on" or "off."</li>                               <li><b>Action</b> - an action is a user editable                option or setting. See below for details.                &#91;<a href="#top">top</a>&#93;</li>            </ul>                         <p>&nbsp;</p></li>                         <li><a name=help4></a><b>Action</b>:                          <ul>                <li><b>Edit</b> - the edit option allows you to add a                note about the email account name, change password,                and set forwarding. See below for details.                               <ul>                  <li><b>Password</b> - to change password, enter the                   new password twice, in the boxes provided.</li>                                      <li><b>Fwd</b> - forward to an internal account                   with the pull down menu, and/or forward to a                   combination of accounts in the boxes provided.                                      <ul>                      <li>Note: If you turn forwarding "on" email will                      continue to be saved in the account. If you do                      not wish to save forwarded email, see action                      "Settings" and turn account status to                     "off."</li>                  </ul>                  </li>               </ul>               </li>                               <li><b>Autoreply or Autoresponder</b> - by default,                autoreply is set to "off." To set your autoreply               message, choose "on" in the pull down menu; enter your                from address, for example, you@your_domain.com or               "Your Name &lt;you@your_domain.com&gt;"; enter                subject, text and submit to save.                               <ul>                  <li>Special characters available:                                      <ul>                      <li>'%S' will enter the subject in the                      autoreply.</li>                   </ul>                   </li>                                     <li>Note: If you turn autoresponder "on" email will                   continue to be saved in the account. If you do not                   wish to save autoreplied email, see action                   "Settings" and turn account status to "off."</li>                </ul>                </li>                                <li><b>Settings</b> - by default, email account status               is set to "on." If you turn account status to "off,"                email will not be saved locally, nor will it bounce.                This feature is helpful if for example you are               receiving large volumes of email from a spammer and                wish to permanently or temporarily disable the               account.</li>                               <li><b>Delete</b> - this action is not reversible. All                email saved in the deleted account will be deleted as                well. &#91;<a href="#top">top</a>&#93;</li>            </ul>            </li>         </ul>                   <p>&nbsp;</p>                   <ul>            <li><a name=help5></a><b>Alias</b> - Why alias?                         <ul>               <li>An alias is a simple email redirect option. Email               is not saved, and an alias has no special settings               (e.g., autoreply, quotas or password).</li>                               <li>System account: an account used by the server for               special purposes; normally cannot be edited.               &#91;<a href="#top">top</a>&#93;</li>             </ul>                         <p>&nbsp;</p></li>          </ul>                    <p><b>Features:</b></p>                   <ul>             <li>Create/edit/delete/enable/disable mailboxes and            aliases</li>                          <li>Administrator (all rights) and single user (can only             change his own account) access</li>                         <li>Full autoresponder support (edit/enable/disable)                         <ul>                <li>Session expiration set for security</li>             </ul>             </li>                         <li>Domain name based quotas (how many mailboxes/aliases,             autoresponder y/n, etc.)</li>                          <li>User based quotas (hard/soft disk quota, message             size, expiry)</li>                         <li>Lynx-browser support (and other cookie-free            browsers). &#91;<a href="#top">top</a>&#93;</li>          </ul>                    <p>                   <hr size=1 noshade>                   If you'd like to help improve oMail, please see the          <a href="http://omail.omnis.ch" target="_new">project          homepage</a> and subscribe to the mailing lists.</p>       </td>    </tr></table>
+<table border=0 width="100%">
+   <tr>
+      <td>
+         <p><b><a name=top></a>Help:</b></p>
+         
+         <ul>
+            <li><a name=help1></a>In order to use this control panel,
+            your domain must be fully established on your web server
+            account. &#91;<a href="#top">top</a>&#93;</li>
+            
+            <li><a name=help2></a><b>Terms:</b>
+            
+            <ul>
+               <li><b>Email Address</b> - example:
+               you@your_domain.com</li>
+               
+               <li><b>Domain Name</b> - example: your_domain.com</li>
+               
+               <li><b>Mailserver</b> - your web host's web server
+               name or server number.</li>
+               
+               <li><b>Catchall</b> - the default email account
+               "mail." All email sent to your_domain.com goes to this
+               account by default (excluding aliases or additional
+               email accounts you have set up).</li>
+               
+               <li><b>Spam</b> - unsolicited broadcast or commercial
+               email. &#91;<a href="#top">top</a>&#93;</li>
+            </ul>
+            
+            <p>&nbsp;</p></li>
+            
+            <li><a name=help3></a><b>Menu subjects:</b>
+            
+            <ul>
+               <li><b>No.</b> - line number.</li>
+               
+               <li><b>Email</b> - email account name (accounts in
+               <font color="#FF0000">red</font> have settings status
+               or save turned "off").</li>
+               
+               <li><b>Note or Info </b>- notes regarding the account
+               name, editable in the action "Edit".</li>
+               
+               <li><b>Fwd?</b> - identifies whether <b>forwarding</b>
+               is "on" or "off." Set forwarding in the action
+               "Edit."</li>
+               
+               <li><b>Autoreply or Autoresponder</b> - identifies
+               whether an automatic reply upon email receipt is
+               turned "on" or "off."</li>
+               
+               <li><b>Action</b> - an action is a user editable
+               option or setting. See below for details.
+               &#91;<a href="#top">top</a>&#93;</li>
+            </ul>
+            
+            <p>&nbsp;</p></li>
+            
+            <li><a name=help4></a><b>Action</b>:
+            
+            <ul>
+               <li><b>Edit</b> - the edit option allows you to add a
+               note about the email account name, change password,
+               and set forwarding. See below for details.
+               
+               <ul>
+                  <li><b>Password</b> - to change password, enter the
+                  new password twice, in the boxes provided.</li>
+                  
+                  <li><b>Fwd</b> - forward to an internal account
+                  with the pull down menu, and/or forward to a
+                  combination of accounts in the boxes provided.
+                  
+                  <ul>
+                     <li>Note: If you turn forwarding "on" email will
+                     continue to be saved in the account. If you do
+                     not wish to save forwarded email, see action
+                     "Settings" and turn account status to
+                     "off."</li>
+                  </ul>
+                  </li>
+               </ul>
+               </li>
+               
+               <li><b>Autoreply or Autoresponder</b> - by default,
+               autoreply is set to "off." To set your autoreply
+               message, choose "on" in the pull down menu; enter your
+               from address, for example, you@your_domain.com or
+               "Your Name &lt;you@your_domain.com&gt;"; enter
+               subject, text and submit to save.
+               
+               <ul>
+                  <li>Special characters available:
+                  
+                  <ul>
+                     <li>'%S' will enter the subject in the
+                     autoreply.</li>
+                  </ul>
+                  </li>
+                  
+                  <li>If you turn autoresponder "on" email will
+                  continue to be saved in the account. If you do not
+                  wish to save autoreplied email, see action
+                  "Settings" and turn account status to "off."</li>
+                  
+                  <li>By default, your autoresponder will only reply
+                  once per hour to a given sender (prevents
+                  autoresponders from infinitely replying back and
+                  forth to other autoresponders).</li>
+               </ul>
+               </li>
+               
+               <li><b>Settings</b> - by default, email account status
+               is set to "on." If you turn account status to
+               "<font color="#FF0000">off</font>," email will not be
+               saved locally, nor will it bounce. This feature is
+               helpful if for example you are receiving large volumes
+               of email from a spammer and wish to permanently or
+               temporarily disable the account. Note: If you are forwarding 
+               email, it is recommended that you turn the status of the 
+               account you are forwarding to "<font color="#FF0000">off</font>."<br> 
+               Otherwise, all email sent to the account will be saved as 
+               well. See action <b>Fwd</b> description above.
+               <ul>
+                  <li>Hard quota, soft quota, message count and
+                  message size - these options can be used to limit
+                  the volume or size of email sent to the individual
+                  account.</li>
+                  
+                  <li>Expiry - If an expiration is set, email sent to
+                  the account after the expiration date will be
+                  returned to sender as "expired."</li>
+               </ul>
+               </li>
+               
+               <li><b>Delete</b> - this action is not reversible. All
+               email saved in the deleted account will be deleted as
+               well. &#91;<a href="#top">top</a>&#93;</li>
+            </ul>
+            </li>
+         </ul>
+         
+         <p>&nbsp;</p>
+         
+         <ul>
+            <li><a name=help5></a><b>Alias</b> - Why alias?
+            
+            <ul>
+               <li>An alias is a simple email redirect option. Email
+               is not saved, and an alias has no special settings
+               (e.g., autoreply, quotas or password).</li>
+               
+               <li>System account: an account used by the server for
+               special purposes; normally cannot be edited.
+               &#91;<a href="#top">top</a>&#93;</li>
+            </ul>
+            </li>
+         </ul>
+         
+         <p>&nbsp;</p>
+         
+         <ul>
+            <li><a name=help5></a><b>Special Notes</b>:
+            
+            <ul>
+               <li><b>.qmail-name </b>files<b> </b>(.e.g.,
+               .qmail-mail, .qmail-example, .qmail-autorespond, etc.)
+               - If prior to using this program .qmail-name files
+               were manually uploaded to your account to set
+               forwarding or autoresponder, these files may take
+               precedence over the settings you enter here.
+               
+               <ul>
+                  <li>If you notice that forwarding for example is
+                  not working, check your account to see if these
+                  .qmail-name files are in place.*</li>
+                  
+                  <li>If these files are in place ask your system
+                  administrator to delete them.</li>
+                  
+                  <li>*Do not delete the email system files: .qmail
+                  or .qmail-default</li>
+               </ul>
+               </li>
+               
+               <li><b>Spam?</b> You can use aliases to bounce spam
+               sent to your account.
+               
+               <ul>
+                  <li>First, ask your admin. to create a "trash"
+                  mailbox account. Name the mailbox "trash" or any
+                  name you wish.</li>
+                  
+                  <li>Second, set the "trash" mailbox "Settings"
+                  -&gt; "Expiry" to a date prior to today.
+                  
+                  <ul>
+                     <li>All email sent to or forwarded to "trash"
+                     will bounce.</li>
+                  </ul>
+                  </li>
+                  
+                  <li>Now create aliases for addresses frequently
+                  used by spammers, and set those addresses to
+                  forward to "trash."</li>
+               </ul>
+               </li>
+            </ul>
+            </li>
+         </ul>
+         
+         <p><b>Features:</b></p>
+         
+         <ul>
+            <li>Create/edit/delete/enable/disable mailboxes and
+            aliases</li>
+            
+            <li>Administrator (all rights) and single user (can only
+            change his own account) access</li>
+            
+            <li>Full autoresponder support (edit/enable/disable)</li>
+            
+            <li>Session expiration set for security</li>
+            
+            <li>Domain name based quotas (how many mailboxes/aliases,
+            autoresponder y/n, etc.)</li>
+            
+            <li>User based quotas (hard/soft disk quota, message
+            size, expiry)</li>
+            
+            <li>Lynx-browser support (and other cookie-free
+            browsers). &#91;<a href="#top">top</a>&#93;</li>
+         </ul>
+         
+         <p align=right>Help Updated: 10-Sep-01<br>
+         
+         <hr size=1 noshade>
+         
+         If you'd like to help improve oMail, please see the
+         <a href="http://omail.omnis.ch" target="_new">project
+         homepage</a> and subscribe to the mailing lists.</p>
+      </td>
+   </tr>
+</table>
