@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.9 2000/08/13 19:57:19 swix Exp $ 
+	$Id: config.php,v 1.10 2000/08/14 06:47:07 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -71,8 +71,8 @@ $vmailmgrquota_file = "/var/qmail/control/vmailmgrquotas";
 
 // version
 
-$version = "0.93";
-$cvs_version = '$Id: config.php,v 1.9 2000/08/13 19:57:19 swix Exp $';
+$version = "0.93.1";
+$cvs_version = '$Id: config.php,v 1.10 2000/08/14 06:47:07 swix Exp $';
 
 // script URL
 

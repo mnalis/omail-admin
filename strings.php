@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.13 2000/08/13 19:57:19 swix Exp $
+        $Id: strings.php,v 1.14 2000/08/14 06:47:07 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -61,7 +61,7 @@ $txt_lastname=array(	"fr"=>"Nom",
 $txt_adresse=array(	"fr"=>"Adresse",
 			"de"=>"Adresse",
 			"en"=>"Address",
-			"es"=>"Direcci¢n",
+			"es"=>"Direcci&oacute;n",
 			"it"=>"");
 
 $txt_postalcode=array(	"fr"=>"CP",
@@ -79,7 +79,7 @@ $txt_city=array(	"fr"=>"Localité",
 $txt_country=array(	"fr"=>"Pays",
 			"de"=>"Land",
 			"en"=>"Country",
-			"es"=>"Pais",
+			"es"=>"Pa&iacute;is",
 			"it"=>"");
 
 $txt_phone=array(	"fr"=>"Téléphone",
@@ -121,13 +121,13 @@ $txt_company=array(	"fr"=>"Entreprise",
 $txt_position=array(	"fr"=>"Fonction",
 			"de"=>"Funktion",
 			"en"=>"Position",
-			"es"=>"Posición",
+			"es"=>"Posici&oacute;n",
 			"it"=>"");
 
 $txt_reason=array(	"fr"=>"Raison",
 			"de"=>"Grund",
 			"en"=>"Reason",
-			"es"=>"Razón",
+			"es"=>"Raz&oacute;n",
 			"it"=>"");
 
 $txt_notes=array(	"fr"=>"Notes",
@@ -172,7 +172,7 @@ $txt_edit=array(	"fr"=>"Modifier",
 $txt_delete=array(	"fr"=>"Effacer",
 			"de"=>"Loeschen",
 			"en"=>"Delete",
-			"es"=>"Borrar",
+			"es"=>"Eliminar",
 			"it"=>"");
 
 $txt_cancel=array(	"fr"=>"Annuler",
@@ -286,7 +286,7 @@ $txt_no_domain=array(	"fr"=>"Pas de domaine",
 $txt_please_choose=array(	"fr"=>"Faites votre choix",
 			"de"=>"Bitte waehlen",
 			"en"=>"Please choose",
-			"es"=>"Elegí",
+			"es"=>"Elige",
 			"it"=>"");
 
 $txt_subdomain_name=array(	"fr"=>"Nom du sous-domaine",
@@ -353,14 +353,14 @@ $txt_menu_domain_descr = array(
  "en" => "Welcome in the domain administration main menu",
  "fr" => "Bienvenue dans le menu principal de l'adminstration de votre domaine",
  "de" => "Willkomen im Maildomain Administration Hauptmenu ",
- "es" => "Bienvenido al menú de administración de dominios",
+ "es" => "Bienvenido al menú de administraci&oacute;n de dominios",
  "it"=>"");
 
 $txt_menu_account_descr = array( 
  "en" => "Welcome your mail account administration main menu",
  "fr" => "Bienvenue dans le menu principal de l'adminstration de votre compte Mel",
  "de" => "Willkomen im Mailkonto Administration Hauptmenu ",
- "es" => "Bienvenido al menú de administración de [mailaccount]",
+ "es" => "Bienvenido al menú de administraci&oacute;n de cuenta de correo",
  "it"=>"");
 
 
@@ -404,7 +404,7 @@ $txt_delete = array(
  "en" => "Delete",
  "fr" => "Effacer",
  "de" => "Löschen",
- "es" => "Borrar",
+ "es" => "Eliminar",
  "it"=>"");
 
 $txt_info = array( 
@@ -446,7 +446,7 @@ $txt_pw_chg_ok = array(
  "en" => "Password has been changed sucessfully",
  "fr" => "Le mot de passe a été changé avec succès",
  "de" => "Passwort wurde erfolgreich geändert",
- "es" => "El password ha sido cambiado con éxito",
+ "es" => "El password ha sido cambiado con &eacute;xito",
  "it"=>"");
 
 $txt_password_str = array( 
@@ -495,7 +495,7 @@ $txt_title_info = array(
  "en" => "Entry for user",
  "fr" => "Enregistrement concernant",
  "de" => "Benutzer Info für",
- "es" => "No se que poner acá",
+ "es" => "Entrada para el usuario",
  "it"=>"");
 
 $txt_real_name = array( 
@@ -523,7 +523,7 @@ $txt_mailbox_size = array(
  "en" => "Size",
  "fr" => "Taille",
  "de" => "Grösse",
- "es" => "Tamaño",
+ "es" => "Tama&ntilde;o",
  "it"=>"");
 
 $txt_numb_of_msg = array( 
@@ -635,7 +635,7 @@ $txt_entry_for_user = array(
  "en" => "Entry for user",
  "fr" => "Données concernant",
  "de" => "Daten von",
- "es" => "No se que poner acá",
+ "es" => "Entrada para el usuario",
  "it"=>"");
 
 $txt_title_mailbox = array( 
@@ -1102,7 +1102,7 @@ $txt_autoresp_body = array(
  "en" => "Just got your mail with subject '%S'\n\nI'm not there. I'll answer your mail when I'll be back.\n\n",
  "fr" => "Je viens de recevoir votre mail à propos de '%S'\n\nJ'y répondrai à mon retour.\n\n",
  "de" => "Habe Ihren mail betreffend '%S' erhalten.\n\nEine Antwort erhalten Sie wenn ich zurück bin.\n\n",
- "es" => "He recibido tu mensaje titulado '%S'\n\n. En este momento no estoy aquí. Te contestaré cuando regrese.\n\n",
+ "es" => "He recibido tu mensaje titulado '%S'.\n. En este momento no estoy aquí. Te contestaré cuando regrese.\n\n",
  "it"=>"");
 
 $txt_mail_sysadmin = array( 
@@ -1130,28 +1130,28 @@ $txt_details = array(
  "en" => "User Info",
  "fr" => "User Info",
  "de" => "User Info",
- "es" => "User Info",
+ "es" => "Informaci&ocaute;n del usuario",
  "it"=>"");
 
 $txt_goodbye = array( 
  "en" => "Good bye!",
  "fr" => "Au revoir!",
  "de" => "Auf wiedersehen!",
- "es" => "Ciao!",
+ "es" => "Adi&ocaute;s",
  "it" =>"Ciao!");
 
 $txt_error_quota_expired = array( 
  "en" => "Not allowed : your quota is expired",
  "fr" => "Non autorise : votre quota est depasse",
  "de" => "Nicht erlaubt : Ihr Quota ist ueberschritten",
- "es" => "Not allowed : your quota is expired",
+ "es" => "Prohibido: La quota ha expirado",
  "it" =>"");
 
 $txt_error_not_allowed = array( 
  "en" => "Sorry, you are not allowed to do that",
  "fr" => "Desole, vous n'avez pas les droits pour effectuer cette operation",
  "de" => "Sorry, Sie haben nicht die Berechtigung um diese Operation durchzufuehren",
- "es" => "Sorry, you are not allowed to do that",
+ "es" => "Lo siento, esta operaci&ocaute;no está permitida",
  "it"=>"");
 
 $txt_quota = array( 
@@ -1165,56 +1165,56 @@ $txt_maximum = array(
  "en" => "maximum",
  "fr" => "maximum",
  "de" => "maximal",
- "es" => "maximum",
+ "es" => "maximo",
  "it" =>"");
 
 $txt_current = array( 
  "en" => "current",
  "fr" => "actuellement",
  "de" => "zur Zeit",
- "es" => "current",
+ "es" => "actual",
  "it" =>"");
 
 $txt_used = array( 
  "en" => "used",
  "fr" => "utilis&eacute;",
  "de" => "belegt",
- "es" => "used",
+ "es" => "usados",
  "it" =>"");
 
 $txt_hardquota = array( 
  "en" => "Hard quota",
  "fr" => "Limitation dure",
  "de" => "Hartes Quota",
- "es" => "Hard quota",
+ "es" => "Quota dura",
  "it" =>"");
 
 $txt_softquota = array( 
  "en" => "Soft quota",
  "fr" => "Limitation legere",
  "de" => "Leichtes Quota",
- "es" => "Soft quota",
+ "es" => "Quota blanda",
  "it" =>"");
 
 $txt_msgsize = array( 
  "en" => "Message size",
  "fr" => "Taille de message",
  "de" => "Mailgroesse",
- "es" => "Message size",
+ "es" => "Tama&ntilde;o del mensaje",
  "it" =>"");
 
 $txt_msgcount = array( 
  "en" => "Message count",
  "fr" => "Nombre de messages",
  "de" => "Anzahl E-Mails",
- "es" => "Message count",
+ "es" => "Cantidad de mensajes",
  "it" =>"");
 
 $txt_expiry = array( 
  "en" => "Expiry",
  "fr" => "Expiration",
  "de" => "Enddatum",
- "es" => "Expiry",
+ "es" => "Expiraci&oacuten",
  "it" =>"");
 
 $txt_ = array( 
