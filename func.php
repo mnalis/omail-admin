@@ -8,7 +8,7 @@
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 	* Copyright (C) 2000  Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 
-        $Id: func.php,v 1.25 2000/11/29 11:09:44 swix Exp $
+        $Id: func.php,v 1.26 2000/12/12 15:14:37 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -364,14 +364,20 @@ function update_userquota($arg_username, $arg_softquota, $arg_hardquota, $arg_ex
 
         global $type, $domain, $passwd;
 	
-	if ($arg_softquota == "" || $arg_softquota == "0") { $arg_softquota = "-" ; }
-	if ($arg_hardquota == "" || $arg_hardquota == "0") { $arg_hardquota = "-" ; }
-	if ($arg_msgsize == "" || $arg_msgsize == "0") { $arg_msgsize = "-" ; }
-	if ($arg_msgcount == "" || $arg_msgcount == "0") { $arg_msgcount = "-" ; }
+	if ($arg_softquota == "" || $arg_softquota == "-") 
+		{ $arg_softquota = "-" ; }
+		else { $arg_softquota = $arg_softquota * 1024; }
+	if ($arg_hardquota == "" || $arg_hardquota == "-") 
+		{ $arg_hardquota = "-" ; }
+		else { $arg_hardquota = $arg_hardquota * 1024; }
+	if ($arg_msgsize == "" || $arg_msgsize == "-" ) 
+		{ $arg_msgsize = "-" ; }
+		else { $arg_msgsize = $arg_msgsize * 1024; }
+	if ($arg_msgcount == "") { $arg_msgcount = "-" ; }
 
-	$result1 = vchattr($domain, base64_decode($passwd), $arg_username, "HARDQUOTA", ($arg_hardquota*1024));
-	$result2 = vchattr($domain, base64_decode($passwd), $arg_username, "SOFTQUOTA", ($arg_softquota*1024));
-	$result3 = vchattr($domain, base64_decode($passwd), $arg_username, "MSGSIZE", ($arg_msgsize*1024));
+	$result1 = vchattr($domain, base64_decode($passwd), $arg_username, "HARDQUOTA", $arg_hardquota);
+	$result2 = vchattr($domain, base64_decode($passwd), $arg_username, "SOFTQUOTA", $arg_softquota);
+	$result3 = vchattr($domain, base64_decode($passwd), $arg_username, "MSGSIZE", $arg_msgsize);
 	$result4 = vchattr($domain, base64_decode($passwd), $arg_username, "MSGCOUNT", $arg_msgcount);
 	$result5 = vchattr($domain, base64_decode($passwd), $arg_username, "EXPIRY", $arg_expiry);
 	$result6 = vchattr($domain, base64_decode($passwd), $arg_username, "MAILBOX_ENABLED", $arg_enabled);
