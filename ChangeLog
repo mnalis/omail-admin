@@ -2,7 +2,7 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: ChangeLog,v 1.42 2000/11/30 06:04:08 swix Exp $ 
+$Id: ChangeLog,v 1.43 2000/11/30 21:59:15 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
 2000-11-30  Olivier Mueller  <om@omnis.ch>
@@ -10,6 +10,7 @@ $Source: /cvsroot/omail/admin2/ChangeLog,v $
 	* added correct charset for japanese
 	* index.php: bugfix for newuser/alias [hs]
 	* htmlstuff.php: bugfix in html_head [hs] [om] 
+	* added correct charset for chinese
 	
 2000-11-29  Olivier Mueller  <om@omnis.ch>
 
