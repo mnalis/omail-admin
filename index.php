@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.43 2001/03/18 11:03:13 swix Exp $
+        $Id: index.php,v 1.44 2001/03/18 11:13:29 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -120,7 +120,7 @@ if (!$active) {
 			$form_login .= $login_domain;
 		}
 
-		$form_login = trim($form_login);
+		$form_login = strtolower(trim($form_login));
 
 		// setup tcp host if necessary and if we are using vmailmgrd_tcp
 

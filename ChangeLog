@@ -2,12 +2,14 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: ChangeLog,v 1.61 2001/03/18 11:03:13 swix Exp $ 
+$Id: ChangeLog,v 1.62 2001/03/18 11:13:29 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
 
 2001-03-18  Olivier Mueller  <om@omnis.ch>
-	
+
+	* quota bugfix: thanks to Martin Hetzner and Michael Bauer for pointing
+	  out the missiong strtolower problem.
 	* ldap/bugfix patch set from Ray [ri] :
 	> - Whenever you safe your auto response message a newline (\n) will be added
 	> to the file causing the message to grow with one line every time you save

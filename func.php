@@ -8,7 +8,7 @@
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 	* Copyright (C) 2000  Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 
-        $Id: func.php,v 1.32 2001/03/18 11:03:13 swix Exp $
+        $Id: func.php,v 1.33 2001/03/18 11:13:29 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -166,6 +166,7 @@ function load_quota_info($domain) {
 
 	global $vmailmgrquota_file, $quota_on, $quota_data;
 	$quota_on = 0; 
+	$domain = strtolower($domain);
 
 	if (file_exists($vmailmgrquota_file)) {
 
@@ -175,6 +176,7 @@ function load_quota_info($domain) {
 			if (substr($buffer, 1) != "#" && substr($buffer, 1) != "\n" && substr($buffer, 1) != "")
 			{
 				$entry = explode("|",$buffer);
+				$entry[0] = strtolower($entry[0]);
 
 				// catch current domain (also if quota_on is set : could happen if default domain definied at start)
 

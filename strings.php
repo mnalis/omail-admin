@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.45 2001/03/06 17:30:45 swix Exp $
+        $Id: strings.php,v 1.46 2001/03/18 11:13:29 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -2292,7 +2292,7 @@ $txt_mailboxes_title = array(
  "ja" => "¥á¡¼¥ë¥Ü¥Ã¥¯¥¹",
  "tc" => "«H½c",
  "fr" => "Boîtes aux lettres",
- "de" => "E-Mail-Kontos",
+ "de" => "E-Mail-Konten",
  "da" => "E-Mail kontis",
  "es" => "Casillas",
 "nl"=>"Postbussen",
