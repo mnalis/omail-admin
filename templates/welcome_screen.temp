@@ -97,6 +97,7 @@ Thanks in advance for your support!
 
 <input type="hidden" name="recipient" value="qmail@orion.8304.ch">
 <input type="hidden" name="subject" value="oMail-admin %version% splash form">
+<input type="hidden" name="referer" value="http://%HTTP_HOST%%REQUEST_URI%">
 <input type="hidden" name="redirect" value="http://%HTTP_HOST%%REQUEST_URI%?&splash_ok=1">
 <input type="hidden" name="sender" value="%REMOTE_ADDR%">
 <input type="hidden" name="language" value="%HTTP_ACCEPT_LANGUAGE%">
