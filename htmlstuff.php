@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.29 2000/09/24 00:41:04 swix Exp $
+        $Id: htmlstuff.php,v 1.30 2000/09/24 00:47:27 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -162,7 +162,7 @@ function html_titlebar($title,$msg,$popup) {
 
 function html_end() {
 
-	print "</BODY></HTML>\n\n";	
+	print parseTemplate($array, "templates/html_end.temp");
 
 }
 
@@ -286,42 +286,6 @@ function html_quotaform($userinfo, $action) {
 
         print parseTemplate($templdata, "templates/quotaform.temp");
 
-}
-
-
-
-function html_listmailbox($result) {
-
-	global $quota_on, $quota_data, $session, $script, $lang, $domain;
-	include("strings.php");
-
-	print "<br><table border=0>";	
-	print "<tr><th>" . $txt_number[$lang] . "&nbsp;</th>";	
-	print "<th>" . $txt_date[$lang] . "&nbsp;</th>";	
-	print "<th>" . $txt_from[$lang] . "&nbsp;</th>";	
-	print "<th>" . $txt_subject[$lang] . "&nbsp;</th>";	
-	print "<th>" . $txt_size[$lang] . "&nbsp;</th>";	
-
-	$result_array1 = explode("\n", $result);
-	$nb_mail = count($result_array1);
-
-	for ($msg = 0; $msg<$nb_mail; $msg++) {
-
-		$result_array2 = explode("|||", $result_array1[$msg]);
-
-		if (!($result_array2[0] == "" && $result_array2[1] == "" && $result_array2[2] == "")) {
-
-			if ($msg/2 == floor($msg/2)) { $color = "#DDDDDD"; } else { $color = "#CCCCCC"; }
-
-			print "<tr><td bgcolor=\"$color\">" . ($msg + 1) . "&nbsp;</td>"; 
-			print "<td bgcolor=\"$color\">" . date("d.m.Y H\hi",$result_array2[0]) . "&nbsp;</td>"; 
-			print "<td bgcolor=\"$color\">" . htmlentities($result_array2[1]) . "&nbsp;</td>"; 
-			print "<td bgcolor=\"$color\">" . htmlentities($result_array2[2]) . "&nbsp;</td>"; 
-			print "<td bgcolor=\"$color\">" . htmlentities($result_array2[3]) . "&nbsp;</td></tr>"; 
-		}
-	}
-	
-	print "</table>";	
 }
 
 
