@@ -2,9 +2,22 @@
 Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----
 
-$Id: ChangeLog,v 1.12 2000/08/14 19:40:24 swix Exp $ 
+$Id: ChangeLog,v 1.13 2000/08/18 09:20:19 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
+
+2000-08-18  Olivier Mueller  <om@omnis.ch>
+
+	* released oMail-admin version 0.94
+	* support for enabled/disabled user status (chattr -E) - thx to Mike for the suppl. info.
+	* status is displayed by the color of the username : red = disabled, green = enabled
+	* func.php; updated authentication method for single user : now checking by trying
+	  to change the password. (before it was setting MAILBOX_ENABLED to 1, but as we are now
+	  supporting this feature too, it's not quite ideal :)
+	* try to detect user's language by using the HTTP_ACCEPT_LANGUAGE variable
+	* Todo/Question: are quotas/enbled status making sense for aliases ? setting and retriving
+	  status works, but does it have an influence ?  (to test, set $config_use_settings_with_quota
+	  to 1 in config.php)
 
 2000-08-14  Olivier Mueller  <om@omnis.ch>
 

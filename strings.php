@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.15 2000/08/14 19:40:24 swix Exp $
+        $Id: strings.php,v 1.16 2000/08/18 09:20:19 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -588,6 +588,13 @@ $txt_quota = array(
  "fr" => "Limites",
  "de" => "Grenzen",
  "es" => "Quota",
+ "it"=>"");
+
+$txt_settings = array( 
+ "en" => "Settings",
+ "fr" => "Config",
+ "de" => "Config",
+ "es" => "Config",
  "it"=>"");
 
 $txt_title_edit = array( 

@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.18 2000/08/15 11:31:39 swix Exp $
+        $Id: htmlstuff.php,v 1.19 2000/08/18 09:20:19 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -291,7 +291,7 @@ function html_quotaform($userinfo, $action) {
 	global $quota_on, $quota_data, $session, $script, $lang, $domain, $type;
 	include("strings.php");
 
-	list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp)= $userinfo;
+	list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled)= $userinfo;
 
 	print "<form action=\"" . $script . "?" . SID . "\" method=\"post\">";
 	print "<table border=0>";	
@@ -304,8 +304,6 @@ function html_quotaform($userinfo, $action) {
 	print "<tr><th align=right>" . $txt_date_of_creation[$lang] . "&nbsp;</th>";	
 	print "<td bgcolor=\"#DDDDDD\" align=left>" . date("d.m.Y H\hi",$CreationTime) . "&nbsp;</td></tr>";
 
-/* not yet supported by vmail.inc/daemon
-
 	print "<tr><th align=right>" . $txt_status[$lang] . "&nbsp;</th>";	
 	print "<td bgcolor=\"#CCCCCC\" align=left>";
 	if ($Enabled == 1) { $checked_yes = "SELECTED"; $checked_no = ""; }
@@ -314,7 +312,6 @@ function html_quotaform($userinfo, $action) {
 	print "<option value=\"1\" $checked_yes>" . $txt_activated[$lang] . "</option>";	
 	print "<option value=\"0\" $checked_no>" . $txt_inactived[$lang] . "</option>";	
 	print "</select></td></tr>";
-*/
 
 	print "<tr><th align=right>" . $txt_hardquota[$lang] . "&nbsp;</th>";	
 	print "<td bgcolor=\"#DDDDDD\" align=left><input type=\"text\" name=\"form_hardquota\" value=\"$HardQuota\" size=\"8\">";
@@ -540,7 +537,7 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 
 	for ($i = 0; $i <  sizeof($mboxlist); $i++) {
 
-		list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp)=$mboxlist[$i];
+		list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled)=$mboxlist[$i];
 
 		if ($i/2 == floor($i/2)) { 
 			print "<tr bgcolor=\"#DDDDDD\">"; 
@@ -550,7 +547,12 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 
 		print "<TD>" . ($i+1)  . "&nbsp;</TD>"; // num
 
-		print "<TD><B>" . $username  . "</B>&nbsp;</TD>"; // namae
+		if ($Enabled) {
+			print "<TD><B><FONT COLOR=\"green\">" . $username  . "</FONT></B>&nbsp;</TD>"; // namae
+		} else {
+			print "<TD><B><FONT COLOR=\"red\">" . $username  . "</FONT></B>&nbsp;</TD>"; // namae
+		}
+
 		print "<TD><nobr>" . $PersonalInfo  . "</nobr>&nbsp;</TD>"; // namae
 		print "<TD>" . $alias[0]  . "&nbsp;</TD>"; // fwd1
 		print "<TD>" . $alias[1] . "&nbsp;</TD>"; // fwd2
@@ -582,9 +584,9 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 				$txt_responder[$lang] . "</a>&nbsp;"; // action
 		}	
 
-		if ($arg_action == 1 && !($quota_on && !$quota_data["user_quota_support"])) {
+		if ((($arg_action == 2 && $config_use_settings_with_quota) || $arg_action == 1) && !($quota_on && !$quota_data["user_quota_support"])) {
 			print "&nbsp;&nbsp;<A HREF=\"$script?A=quota&U=" . $username . "&" . SID . "\" onClick=\"oW2(this,'pop')\">"  . 
-				$txt_quota[$lang] . "</a>&nbsp;"; // action
+				$txt_settings[$lang] . "</a>&nbsp;"; // action
 		}	
 
 		if ($arg_action) {
@@ -661,7 +663,7 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 
 function html_about() {
 
-	global $A, $domain, $cvs_version, $version, $lang, $HTTP_HOST, $REQUEST_URI, $REMOTE_ADDR;
+	global $A, $domain, $cvs_version, $version, $lang, $HTTP_HOST, $REQUEST_URI, $REMOTE_ADDR, $HTTP_ACCEPT_LANGUAGE;
 	include("strings.php");
 
 	?>
@@ -676,7 +678,7 @@ Dan Bernstein's <a href="http://www.qmail.org">qmail</a> and Bruce Guenter's <a 
 <li>Features:
 <ul>
 <li>complete support of all vmailmgr functions</li>
-<li>create/edit/delete mailboxes and aliases</li>
+<li>create/edit/delete/enable/disable mailboxes and aliases</li>
 <li>administrator (all rights) and single user (can only change his own account) access</li>
 <li>full autoresponder support (edit/enable/disable)</li>
 <li>can be used by non unix-gurus users</li>
@@ -719,7 +721,7 @@ and of course the <a href="CREDITS">Credits</a></li>
 </ul>
 </td></tr></table>
 <br></li>
-<li>CVS Version: $Id: htmlstuff.php,v 1.18 2000/08/15 11:31:39 swix Exp $ <br><br></li>
+<li>CVS Version: $Id: htmlstuff.php,v 1.19 2000/08/18 09:20:19 swix Exp $ <br><br></li>
 
 <li>
 Feel free to use this form for your suggestions, requests and bugfixes:
@@ -728,7 +730,8 @@ Feel free to use this form for your suggestions, requests and bugfixes:
 <input type="hidden" name="subject" value="oMail-admin <?php echo($version); ?> comment form">
 <input type="hidden" name="redirect" value="http://<?php echo($HTTP_HOST); ?><?php echo($REQUEST_URI); ?>">
 <input type="hidden" name="sender" value="<?php echo($REMOTE_ADDR); ?>">
-<input type="hidden" name="sender" value="Version: $Id: htmlstuff.php,v 1.18 2000/08/15 11:31:39 swix Exp $ ">
+<input type="hidden" name="language" value="<?php echo($HTTP_ACCEPT_LANGUAGE); ?>">
+<input type="hidden" name="version" value="Version: $Id: htmlstuff.php,v 1.19 2000/08/18 09:20:19 swix Exp $ ">
 <table border="0">
 <tr><td align="right">Email</td><td><small>
 <input type="text" size="30" name="from_email"></small></td></tr>
@@ -742,7 +745,8 @@ Feel free to use this form for your suggestions, requests and bugfixes:
 </table>
 
 <br>
-</td></tr></table>
+</td></tr></table><!-- logo: to be created -->
+<p><img src="http://omail.omnis.ch/logo.gif?<?php echo(urlencode($version)); ?>" height="1" width="1"></p>
 	<?php
 
 }

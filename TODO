@@ -5,7 +5,7 @@ Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Muell
 
 oMail-admin TODO
 ================
-$Id: TODO,v 1.10 2000/08/15 11:31:39 swix Exp $ 
+$Id: TODO,v 1.11 2000/08/18 09:20:19 swix Exp $ 
 $Source: /cvsroot/omail/admin2/TODO,v $ 
 
 
@@ -15,19 +15,29 @@ High priority
 [X] correct autoresponder support    (om, 03aug2k)
 [X] support for non cookies enabled browsers  (om, 14aug2k)
 [X] remove autoresponder info and button for aliases  (om, 03aug2k)
-[ ] make the enabled/disabled feature work (problem: can't get status with lookup?!)
+[X] make the enabled/disabled feature work (om, 18aug2k)
 
 Normal priority
 ---------------
-[ ] more translations  (jc: spanish added on 06aug2k)
+[.] more translations  (jc: spanish added on 06aug2k)
 [ ] display mailbox size : unread mails, saved mails (waiting for changes in vmailmgrd)
 [X] support for info field           (om, 11aug2k)
 [ ] use <select> to setup expiry date on quota edition
+[.] add help screen / buttons
+[ ] create a logo for the project
 
 Low priority
 ------------
 [ ] display mailbox listing (also need changes in daemon)
 [ ] webmail support
 [X] add "GPL" standard headers in all source files    (om, 14aug2k)
+
+
+
+
+
+----------------------------------------------
+[ ]  Todo       [X]  Done      [.]  On the way
+----------------------------------------------
 
 

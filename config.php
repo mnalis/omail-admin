@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.11 2000/08/14 19:40:24 swix Exp $ 
+	$Id: config.php,v 1.12 2000/08/18 09:20:19 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -52,6 +52,13 @@ $vmailmgrquota_file = "/var/qmail/control/vmailmgrquotas";
 //$vmailmgrquota_file = "/etc/vmailmgr/vmailmgrquotas";
 
 
+// config_use_settings_with_quota
+// ------------------------------
+// experimental stuff : show [settings] button for aliases too ? 1 = yes, 0 = no
+
+$config_use_settings_with_quota = 0;
+
+
 
 /* END OF USER CONFIGURATION */
 
@@ -71,8 +78,8 @@ $vmailmgrquota_file = "/var/qmail/control/vmailmgrquotas";
 
 // version
 
-$version = "0.93.2";
-$cvs_version = '$Id: config.php,v 1.11 2000/08/14 19:40:24 swix Exp $';
+$version = "0.94";
+$cvs_version = '$Id: config.php,v 1.12 2000/08/18 09:20:19 swix Exp $';
 
 // script URL
 

@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: func.php,v 1.13 2000/08/15 11:31:39 swix Exp $
+        $Id: func.php,v 1.14 2000/08/18 09:20:19 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -120,7 +120,7 @@ function authenticate($arg_login, $arg_passwd, $arg_ip) {
 
 	} elseif ($type == "user") {
 
-		$test = vchattr($domain, base64_decode($passwd), $username, "MAILBOX_ENABLED", "1");
+		$test = vchattr($domain, base64_decode($passwd), $username, "PASS", base64_decode($passwd));
 
 		if ($test[0] == 0) {
 	
@@ -211,8 +211,8 @@ function load_quota_info($domain) {
 
 function get_accounts_sort_by_name($a, $b) {
 
-	list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp)=$a;
-	list($username2, $password2, $mbox2, $alias2, $PersonalInfo2, $HardQuota2, $SoftQuota2, $SizeLimit2, $CountLimit2, $CreationTime2, $ExpiryTime2, $resp)=$b;
+	list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled)=$a;
+	list($username2, $password2, $mbox2, $alias2, $PersonalInfo2, $HardQuota2, $SoftQuota2, $SizeLimit2, $CountLimit2, $CreationTime2, $ExpiryTime2, $resp, $Enabled)=$b;
 	return ($username < $username2) ? -1 : 1; 
 }		
 
@@ -236,13 +236,15 @@ function get_accounts($arg_action, $arg_username = "") {
 
 	        for ($i = 0; $i <  sizeof($list); $i++) {
 
-	                list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime)=$list[$i];
+	                list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $data11)=$list[$i];
+
+			// get enabled/disabled status
+			if (ord($data11[8]) == 49) { $Enabled = 1; } else { $Enabled = 0; }
 
 			// findout autoresp status
-
 			if ($mbox) { $resp = load_resp_status($username); }  else { $resp = 0; }   // only lookup for mailboxes
 
-	                $list[$i] = array($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp);
+	                $list[$i] = array($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled);
 			
 			if ($mbox && ($arg_action == 1)) { 
 				$new_list[$j++] = $list[$i];  
@@ -269,12 +271,14 @@ function get_accounts($arg_action, $arg_username = "") {
 		$alias = array();
 		$i = -1;
 
+		list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $data11)=$lookup_data;
 
-		list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime)=$lookup_data;
-
+		// get enabled/disabled status
+		if (ord($data11[8]) == 49) { $Enabled = 1; } else { $Enabled = 0; }
+	
 		if ($mbox) { $resp = load_resp_status($username); }  else { $resp = 0; } // only lookup for mailboxes
 
-                $new_list[0] = array($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp);
+                $new_list[0] = array($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled);
 	}
 
 	return $new_list;

@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.14 2000/08/14 19:40:24 swix Exp $
+        $Id: index.php,v 1.15 2000/08/18 09:20:19 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -46,7 +46,27 @@ session_start();
 session_register("username","domain","passwd","type","ip","expire","lang","active");
 session_register("quota_on","quota_data");
 
-if (!$lang) { $lang = $default_lang; }
+if (!$lang) { 
+
+	// try to findout users language by checking it's HTTP_ACCEPT_LANGUAGE variable
+    
+    if ($HTTP_ACCEPT_LANGUAGE) {
+	$langaccept = explode(",", $HTTP_ACCEPT_LANGUAGE);
+	for ($i = 0; $i < count($langaccept); $i++) { 
+	    $tmplang = trim($langaccept[$i]);  $tmplang2 = substr($tmplang,0,2);
+	    if ($txt_langname[$tmplang] && !$lang) {   // if the whole string matchs ("de-CH", or "en", etc)
+		$lang = $tmplang;
+	    } elseif ($txt_langname[$tmplang2] && !$lang) { // then try only the 2 first chars ("de", "fr"...)
+		$lang = $tmplang2; 
+	    }
+	}
+    }
+
+    if (!$lang) {
+        // didn't catch any valid lang : we use the default settings
+	$lang = $default_lang; 
+    }
+}
 
 if (!$active) {
 
