@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.36 2000/09/24 18:14:31 swix Exp $
+        $Id: htmlstuff.php,v 1.37 2000/09/26 23:34:52 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -15,7 +15,7 @@
 
 	16.jan.2k   om   First version
         01.aug.2k   om   Rewrite for PHP4
-
+	25.sep.2k   om   Full templates support
 	
         This program is free software; you can redistribute it and/or modify
         it under the terms of the GNU General Public License as published by
@@ -133,7 +133,7 @@ function html_titlebar($title,$msg,$popup) {
 		$array[buttonlabels][0][onClick] = 'onClick="return gO(this,true,true)"';
 		$array[buttonlabels][1][url] = $script . "?A=logout&" . SID;
 		$array[buttonlabels][1][txt] = $txt_logout[$lang];
-		$array[buttonlabels][1][onClick] = 'onClick="return gO(this,true,true)"';
+		$array[buttonlabels][1][onClick] = 'onClick="return gO(this,true)"';
 	} elseif ($A == "menu") { 	
 		$array[buttonlabels][0][url] = $script . "?" . SID;
 		$array[buttonlabels][0][txt] = $txt_refresh_menu[$lang];
@@ -380,94 +380,90 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 	}
 
 
-
-        print parseTemplate($templdata, "templates/display_$listtype.temp");
-
-
-	print "<table border=0><TR><TH>N°</TH>";
-	print "<TH>" . $txt_email[$lang] . "</TH>" .
-		"<TH>" . $txt_info[$lang] . "</TH>" .
-		"<TH>" . $txt_fwd[$lang] . "1</TH>" .
-		"<TH>" . $txt_fwd[$lang] . "2</TH>" .
-		"<TH>" . $txt_fwd[$lang] . "3</TH>" .
-		"<TH>" . $txt_more_fwd[$lang] . "?</TH>";
+	$templdata["txt_email"] = $txt_email[$lang];
+	$templdata["txt_info"] = $txt_info[$lang];
+	$templdata["txt_fwd"] = $txt_fwd[$lang];
+	$templdata["txt_responder"] = $txt_responder[$lang];
+	$templdata["txt_more_fwd"] = $txt_more_fwd[$lang];
+	$templdata["txt_action"] = $txt_action[$lang];
 
 	if ($arg_action != 2 && !(!$arg_action && $mtype == "alias")  && !($quota_on && !$quota_data["autoresp_support"])) {
-		print "<TH>" . $txt_responder[$lang] . "?</TH>";
+		$templdata["ifdef_txt_responder"] = "<TH>" . $txt_responder[$lang] . "?</TH>"; 
+	} else {
+		$templdata["ifdef_txt_responder"] = "";
 	}
 
-	print "<TH>" . $txt_action[$lang] . "</TH></TR>";
-			
 	$yes = "<font color=\"green\">" . $txt_yes[$lang] . "</font>";
 	$no = "<font color=\"red\">" . $txt_no[$lang] . "</font>";
-
 
 	$activated = "<font color=\"green\">" . $txt_activated[$lang] . "</font>";
 	$inactived = "<font color=\"red\">" . $txt_inactived[$lang] . "</font>";
 
-
 	$total_size = 0;
 
-	for ($i = 0; $i <  sizeof($mboxlist); $i++) {
-
+	for ($i = 0; $i <= sizeof($mboxlist); $i++) {
+	
+		$ii = $i+1;  // neded for the <template>
+	
 		list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled)=$mboxlist[$i];
 
+		$templdata[obj][$ii]["nb"] = ($i + 1);
+
 		if ($i/2 == floor($i/2)) { 
-			print "<tr bgcolor=\"#DDDDDD\">"; 
+			$templdata[obj][$ii]["rowcolor"] = "#DDDDDD"; 
 		} else { 
-			print "<tr bgcolor=\"#CCCCCC\">"; 
+			$templdata[obj][$ii]["rowcolor"] = "#CCCCCC";
 		}			
 
-		print "<TD>" . ($i+1)  . "&nbsp;</TD>"; // num
-
 		if ($Enabled) {
-			print "<TD><B><FONT COLOR=\"green\">" . $username  . "</FONT></B>&nbsp;</TD>"; // namae
+			$templdata[obj][$ii]["colorUsername"] = "green";
 		} else {
-			print "<TD><B><FONT COLOR=\"red\">" . $username  . "</FONT></B>&nbsp;</TD>"; // namae
+			$templdata[obj][$ii]["colorUsername"] = "red";
 		}
+		
+		$templdata[obj][$ii]["username"] = $username;
+		$templdata[obj][$ii]["PersonalInfo"] = $PersonalInfo;
+		$templdata[obj][$ii]["alias0"] = $alias[0];
+		$templdata[obj][$ii]["alias1"] = $alias[1];
+		$templdata[obj][$ii]["alias2"] = $alias[2];
 
-		print "<TD><nobr>" . $PersonalInfo  . "</nobr>&nbsp;</TD>"; // namae
-		print "<TD>" . $alias[0]  . "&nbsp;</TD>"; // fwd1
-		print "<TD>" . $alias[1] . "&nbsp;</TD>"; // fwd2
-		print "<TD>" . $alias[2] . "&nbsp;</TD>"; // fwd3
+		if ($alias[3]) { $templdata[obj][$ii]["more_alias"] = $yes; } 
+		    else { $templdata[obj][$ii]["more_alias"] = $no; } 
 
-		print "<TD>";
-		if ($alias[3]) { print $yes; } else { print $no; } 
-		print "&nbsp;</TD>"; // alias?
 
 		if ($arg_action != 2 && !(!$arg_action && $mtype == "alias") && !($quota_on && !$quota_data["autoresp_support"])) {
-			print "<TD>";
-			if ($resp) { print $activated; } else { print $inactived; } 
-			print "&nbsp;</TD>"; // responder?
+			$templdata[obj][$ii]["ifdef_autoresponder_status"] = "<TD>";
+			if ($resp) { 
+			    $templdata[obj][$ii]["ifdef_autoresponder_status"] .= $activated;
+			} else { 
+			    $templdata[obj][$ii]["ifdef_autoresponder_status"] .= $inactived;
+			} 
+			$templdata[obj][$ii]["ifdef_autoresponder_status"] .= "&nbsp;</TD>";
+		} else {
+			$templdata[obj][$ii]["ifdef_autoresponder_status"] = "";
 		}
 
 		// convert the username to an html escaped string (because of user "+") 
 
 		$username = urlencode($username);
 
-		// actions
-	
-		print "<TD align=\"center\">";
-		
-		print "&nbsp;&nbsp;<A HREF=\"$script?A=edit&U=" . $username . "&" . SID . "\" onClick=\"oW(this,'pop')\">"  . 
-			$txt_edit[$lang]  . "</a>&nbsp;"; // action
+		$templdata[obj][$ii]["actions"] .= "&nbsp;&nbsp;<A HREF=\"$script?A=edit&U=" . $username . "&" . SID . "\" onClick=\"oW(this,'pop')\">"  .
+				$txt_edit[$lang]  . "</a>&nbsp;"; // action
 
-		if ($arg_action != 2 && !(!$arg_action && $mtype == "alias") && !($quota_on && !$quota_data["autoresp_support"])) {
-			print "&nbsp;&nbsp;<A HREF=\"$script?A=resp&U=" . $username . "&" . SID . "\" onClick=\"oW2(this,'pop')\">"  . 
+  		if ($arg_action != 2 && !(!$arg_action && $mtype == "alias") && !($quota_on && !$quota_data["autoresp_support"])) {
+ 			$templdata[obj][$ii]["actions"] .= "&nbsp;&nbsp;<A HREF=\"$script?A=resp&U=" . $username . "&" . SID . "\" onClick=\"oW2(this,'pop')\">"  . 
 				$txt_responder[$lang] . "</a>&nbsp;"; // action
 		}	
 
 		if ((($arg_action == 2 && $config_use_settings_with_quota) || $arg_action == 1) && !($quota_on && !$quota_data["user_quota_support"])) {
-			print "&nbsp;&nbsp;<A HREF=\"$script?A=quota&U=" . $username . "&" . SID . "\" onClick=\"oW2(this,'pop')\">"  . 
+			$templdata[obj][$ii]["action"] .=  "&nbsp;&nbsp;<A HREF=\"$script?A=quota&U=" . $username . "&" . SID . "\" onClick=\"oW2(this,'pop')\">"  . 
 				$txt_settings[$lang] . "</a>&nbsp;"; // action
-		}	
+		}
 
 		if ($arg_action) {
-			print "&nbsp;&nbsp;<A HREF=\"$script?A=delete&U=" . $username . "&" . SID . "\" onClick=\"oW(this,'pop')\">"  . 
+			$templdata[obj][$ii]["actions"] .=  "&nbsp;&nbsp;<A HREF=\"$script?A=delete&U=" . $username . "&" . SID . "\" onClick=\"oW(this,'pop')\">"  . 
 				$txt_delete[$lang]  . "</a>&nbsp;"; // action
 		}
-		print "</TD></TR>";
-
 	}
 			
 
@@ -518,17 +514,18 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 		} // if quota_on
 	
 		if ($arg_action != 2 && !($quota_on && !$quota_data["autoresp_support"])) {
-			print "<tr><th COLSPAN=8 ALIGN=left><font size=-1>&nbsp;$quota_string &nbsp;</font></th>";
-			print "<TH ALIGN=center>";
+			$templdata["nbcols"] .= "8";
 		} else { 
-			print "<tr><th COLSPAN=7 ALIGN=left><font size=-1>&nbsp;$quota_string &nbsp;</font></th>";
-			print "<TH ALIGN=center>";
+			$templdata["nbcols"] .= "7"; 
 		}
-	
-		print "<A HREF=\"$script?A=$tmp_action&" . SID . "\" onClick=\"oW(this,'pop')\">"  . $tmp_label  . "</a>&nbsp;</TH></TR>";
+		
+		$templdata["quota_string"] .= $quota_string;
+    
+		$templdata["global_action_and_url"] .= "<A HREF=\"$script?A=$tmp_action&" . SID . "\" onClick=\"oW(this,'pop')\">"  . $tmp_label  . "</a>&nbsp;</TH></TR>";
 	}
 
-	print "</table><br>"; 
+
+        print parseTemplate($templdata, "templates/display_$listtype.temp");
 
 }
 

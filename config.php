@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.23 2000/09/24 22:54:45 swix Exp $ 
+	$Id: config.php,v 1.24 2000/09/26 23:34:52 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -67,6 +67,15 @@ $vmailmgrquota_file = "/var/qmail/control/vmailmgrquotas";
 //$vmailmgrquota_file = "/etc/vmailmgr/vmailmgrquotas";
 
 
+// template name
+// -------------
+// you can create xxxxxx.TemplateName.temp files in the templates/ directory :
+// omail-admin will first try to use "xxxxxx.TemplateName.temp" if it found it
+// and "xxxxxxx.temp" otherwise.  Keep empty to use the standard set.
+
+$template_name = "";
+
+
 // config_use_settings_with_quota
 // ------------------------------
 // experimental stuff : show [settings] button for aliases too ? 1 = yes, 0 = no
@@ -98,8 +107,8 @@ $hide_about_button = 0;
 
 // version
 
-$version = "0.96.1";
-$cvs_version = '$Id: config.php,v 1.23 2000/09/24 22:54:45 swix Exp $';
+$version = "0.96pre1";
+$cvs_version = '$Id: config.php,v 1.24 2000/09/26 23:34:52 swix Exp $';
 
 // script URL
 

@@ -2,19 +2,31 @@
 Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----
 
-$Id: ChangeLog,v 1.19 2000/09/24 22:54:45 swix Exp $ 
+$Id: ChangeLog,v 1.20 2000/09/26 23:34:52 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
+
+
+2000-09-25  Olivier Mueller  <om@omnis.ch>
+
+	* released oMail-admin version 0.96pre1
+    
+2000-09-25  Olivier Mueller  <om@omnis.ch>
+
+	* templates/ : completed all the templates, everything seems to work as usual
+	* index.php: corrected the blank screen shown in case of ($active == 1 && $A = "login")
+	  thanks Jim for rapporting the bug
+	* htmlstuff.php: [logout] button was not acting correctely anymore on popup windows: fixed.
 
 2000-09-24  Olivier Mueller  <om@omnis.ch>
 
-	* nearly finished the templates : only the account list is missing 
+	* templates/ : nearly finished the templates : only the account list is missing 
 	
 2000-09-23  Olivier Mueller  <om@omnis.ch>
 	
 	* templates support now in main cvs. conversion of the htmlstuff -> templates
 	  in progress.
 	* updated cookie stuff (for username/domain/lang)
-	* moved .gifs to /images
+	* *.gif: moved .gifs to /images
 	
 2000-09-19  Olivier Mueller  <om@omnis.ch>
 	

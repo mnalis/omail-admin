@@ -5,7 +5,7 @@ Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Muell
 
 oMail-admin TODO
 ================
-$Id: TODO,v 1.15 2000/09/24 00:29:06 swix Exp $ 
+$Id: TODO,v 1.16 2000/09/26 23:34:52 swix Exp $ 
 $Source: /cvsroot/omail/admin2/TODO,v $ 
 
 
@@ -19,21 +19,22 @@ High priority
 
 Normal priority
 ---------------
-[.] more translations  (chineese, swedish, japaneese... would be great!)
+[.] more translations  (chineese, swedish, japanese... would be great!)
 [ ] display mailbox size : unread mails, saved mails (waiting for changes in vmailmgrd)
 [X] support for info field           (om, 11aug2k)
 [ ] use <select> to setup expiry date on quota edition
 [.] add help screen / buttons
 [ ] create a logo for the project
-[.] support for HTML templates
+[X] support for HTML templates
 [ ] better support for the + alias
 [ ] support for specific mail accounts limitation (root, abuse, mailer-daemon, postmaster, etc.)
     -> hide, read only, or read/write
+[ ] case of popup screens & session timeout : close popup on session timeout
 
 Low priority
 ------------
 [ ] display mailbox listing (also need changes in daemon)
-[ ] webmail support
+[ ] webmail support  (would need vmailmgr daemon support)
 [X] add "GPL" standard headers in all source files    (om, 14aug2k)
 
 

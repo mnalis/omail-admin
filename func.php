@@ -8,7 +8,7 @@
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 	* Copyright (C) 2000  Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 
-        $Id: func.php,v 1.16 2000/09/23 11:13:47 swix Exp $
+        $Id: func.php,v 1.17 2000/09/26 23:34:52 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -514,7 +514,13 @@ function parseC ($parseArray,$content, $encoding, $separator="%")
 
 function parseT ($parseArray, $template, $outputFile = "",$encoding="", $separator="%")
 {
-	global $SCRIPT_FILENAME;
+	global $SCRIPT_FILENAME, $template_name;       
+
+        if (file_exists("$template.$template_name")) {    // [om] 25sep2k
+    	    $template = "$template.$template_name";
+        }
+
+
         if($fp=fopen("$template","r"))
     {
         $content=fread( $fp, filesize($template) );
@@ -548,7 +554,15 @@ function parseT ($parseArray, $template, $outputFile = "",$encoding="", $separat
 
 function getTemplateStrings($template, $tag)
 {
-        if($fp=fopen("$template","r"))
+
+
+    global $template_name;       
+
+    if (file_exists("$template.$template_name")) {    // [om] 25sep2k
+	$template = "$template.$template_name";
+    }
+    
+    if ($fp=fopen("$template","r")) 
     {
         $content=fread($fp, filesize($template));
         fclose($fp);

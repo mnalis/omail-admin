@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.21 2000/09/24 18:14:31 swix Exp $
+        $Id: index.php,v 1.22 2000/09/26 23:34:52 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -15,7 +15,7 @@
 
         16.jan.2k   om   First version
         01.aug.2k   om   Rewrite for PHP4
-	13.sep.2k   om   Adding templates support
+	13.sep.2k   om   Adding templates support -> done on 25.sep.2k
 
         This program is free software; you can redistribute it and/or modify
         it under the terms of the GNU General Public License as published by
@@ -152,6 +152,8 @@ if ($active == 1) {    // active=1 -> user logged in
 
 
 	if (!$A) { $A = "menu"; }  // default action
+	if ($A == "login") { $A = "menu"; }  // we're already logged in! So we show the menu instead.
+
 
 	html_head("$program_name Administration");	
 
@@ -712,6 +714,8 @@ if ($active == 1) {    // active=1 -> user logged in
 	        exit();
 	}	
 
+
+	// fixme : if we're here, $A seems not to exist : should we show something ?
 
 
 
