@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.30 2000/09/24 00:47:27 swix Exp $
+        $Id: htmlstuff.php,v 1.31 2000/09/24 00:55:45 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -113,7 +113,7 @@ function html_head($title) {
 		print parseTemplate($templdata, "templates/html_header_menu.temp");
 	} else if ($A != "login" || $A != "" || $A != "checkin") {
 		print parseTemplate($templdata, "templates/html_header_standard.temp");
-	}
+	} 
 }
 
 
@@ -162,7 +162,8 @@ function html_titlebar($title,$msg,$popup) {
 
 function html_end() {
 
-	print parseTemplate($array, "templates/html_end.temp");
+	$templdata[""]="";
+	print parseTemplate($templdata, "templates/html_end.temp");
 
 }
 

@@ -11,19 +11,17 @@ Dan Bernstein's <a href="http://www.qmail.org">qmail</a> and Bruce Guenter's <a 
 <li>create/edit/delete/enable/disable mailboxes and aliases</li>
 <li>administrator (all rights) and single user (can only change his own account) access</li>
 <li>full autoresponder support (edit/enable/disable)</li>
-
-<li>administrator (all rights) and single user (can only change his own account) access</li>
-<li>full autoresponder support (edit/enable/disable)</li>
 <li>can be used by non unix-gurus users</li>
 <li>session expiration after N minutes for security</li>
-<li>domain name based quotas (how many mailboxes/aliases, autoresponder y/n, etc.)
-<li>user based quotas (hard/soft disk quota, message size, expiry)
-<li>Lynx-browser support (and other cookie-free browsers)
+<li>domain name based quotas (how many mailboxes/aliases, autoresponder y/n, etc.)</li>
+<li>user based quotas (hard/soft disk quota, message size, expiry)</li>
+<li>Lynx-browser support (and other cookie-free browsers)</li>
+<li>templates support, for easy customisation</li>
 </ul>
 <br></li>
                  
-<li>This a <a href="http://www.gnu.org/copyleft/gpl.html">GPL</a> project, currently maintained by
-<a href="mailto:om@omnis.ch">Olivier M&uuml;ller</a>, Z&uuml;rich, Switzerland. <br><br></li>
+<li>This a <a href="http://www.gnu.org/copyleft/gpl.html">GPL</a> project, created and currently maintained by
+<a href="mailto:omail@omnis.ch">Olivier M&uuml;ller</a>, Z&uuml;rich, Switzerland. <br><br></li>
          
 <li>Supported languages:<font color="blue">%languages%</font><br><br></li>   
 
