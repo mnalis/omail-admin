@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.9 2000/08/06 21:43:40 swix Exp $
+        $Id: strings.php,v 1.10 2000/08/10 13:55:02 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -37,7 +37,7 @@ $txt_login=array(	"fr"=>"Login",
 $txt_passwd=array(	"fr"=>"Mot de passe",
 			"de"=>"Passwort",
 			"en"=>"Password",
-			"es"=>"Contrase¤a",
+			"es"=>"Contrase&ntilde;a",
 			"it"=>"");
 
 $txt_title=array(	"fr"=>"Titre",
@@ -424,7 +424,7 @@ $txt_please_login = array(
  "en" => "Please Identify Yourself with your domain and password.",
  "fr" => "Veillez vous identifier a l'aide du nom de domaine et de votre mot de passe",
  "de" => "Bitte melden Sie sich ein mit Ihren Domain Name und Passwort",
- "es" => "Por favor ingrese su nombre de usuario o dominio y contraseña",
+ "es" => "Por favor ingrese su nombre de usuario o dominio y contrase&ntilde;a",
  "it"=>"");
 
 $txt_update_list = array( 
@@ -445,7 +445,7 @@ $txt_password_str = array(
  "en" => "Password",
  "fr" => "Mot de passe",
  "de" => "Passwort",
- "es" => "Contraseña",
+ "es" => "Contrase&ntilde;a",
  "it"=>"");
 
 $txt_domain_name = array( 
@@ -816,7 +816,7 @@ $txt_bad_passwd_for_domain = array(
  "en" => "Bad Password for Domain manager",
  "fr" => "Mot de passe erroné pour l'administrateur du domaine",
  "de" => "Falsches Passwort für Domainadministrator",
- "es" => "Contraseña inválida para administrador de dominios",
+ "es" => "Contrase&ntilde;a inválida para administrador de dominios",
  "it"=>"");
 
 $txt_error = array( 
@@ -933,14 +933,14 @@ $txt_error_pw_not_same = array(
  "en" => "You have to type twice the same password",
  "fr" => "Vous devez indiquer deux fois le meme mot de passe",
  "de" => "Sie mussen zweimal das gleiche Passwort eintippen",
- "es" => "Debes ingresar la contraseña 2 veces",
+ "es" => "Debes ingresar la contrase&ntilde;a 2 veces",
  "it"=>"");
 
 $txt_error_pw_needed = array( 
  "en" => "You have to type a password",
  "fr" => "Vous devez indiquer un mot de passe",
  "de" => "Sie mussen einen Passwort eintippen",
- "es" => "Debes ingresar una contraseña",
+ "es" => "Debes ingresar una contrase&ntilde;a",
  "it"=>"");
 
 $txt_error_fwd_needed = array( 
@@ -1059,7 +1059,7 @@ $txt_login_failed = array(
  "en" => "Login failed : please check login and password",
  "fr" => "La connexion a échoué : veuillez vérifier le login et votre mot de passe",
  "de" => "Kein Zugang: bitte Login und Passwort überprüfen",
- "es" => "Login incorrecto : Por favor verifique su nombre de usuario y contraseña",
+ "es" => "Login incorrecto : Por favor verifique su nombre de usuario y contrase&ntilde;a",
  "it"=>"");
 
 $txt_facultatif = array( 
@@ -1077,10 +1077,10 @@ $txt_autoresp_subj = array(
  "it"=>"");
 
 $txt_autoresp_body = array( 
- "en" => "Just got your mail with subject %S\n\nI'm not there. I'll answer your mail when I'll be back.\n\n",
- "fr" => "Je viens de recevoir votre mail à propos de %S\n\nJ'y répondrai à mon retour.\n\n",
- "de" => "Habe Ihren mail betreffend %S erhalten.\n\nEine Antwort erhalten Sie wenn ich zurück bin.\n\n",
- "es" => "He recibido tu mensaje titulado %S\n\n. En este momento no estoy aquí. Te contestaré cuando regrese.\n\n",
+ "en" => "Just got your mail with subject '%S'\n\nI'm not there. I'll answer your mail when I'll be back.\n\n",
+ "fr" => "Je viens de recevoir votre mail à propos de '%S'\n\nJ'y répondrai à mon retour.\n\n",
+ "de" => "Habe Ihren mail betreffend '%S' erhalten.\n\nEine Antwort erhalten Sie wenn ich zurück bin.\n\n",
+ "es" => "He recibido tu mensaje titulado '%S'\n\n. En este momento no estoy aquí. Te contestaré cuando regrese.\n\n",
  "it"=>"");
 
 $txt_mail_sysadmin = array( 
