@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.24 2000/10/15 21:43:44 swix Exp $
+        $Id: index.php,v 1.25 2000/10/16 19:05:19 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -819,6 +819,14 @@ if ($active == 1) {    // active=1 -> user logged in
 
         
 	                // check args format....
+	
+			$form_expiry = "-"; // per default
+
+			if ($form_year != "-" && $form_month != "-" && $form_day != "-") {
+				if (checkdate($form_month, $form_day, $form_year)) {
+					$form_expiry =  mktime(0,0,0, $form_month, $form_day, $form_year);
+				}					
+			} 
 
 	                // update quotas
 

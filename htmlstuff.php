@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.41 2000/10/16 15:45:45 swix Exp $
+        $Id: htmlstuff.php,v 1.42 2000/10/16 19:05:19 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -274,7 +274,19 @@ function html_quotaform($userinfo, $action) {
         $templdata["txt_expiry"]=$txt_expiry[$lang];
         $templdata["ExpiryTimeString"]="";
 
-	if ($ExpiryTime && $ExpiryTime != "-") { $templdata["ExpiryTimeString"] = date("d.m.Y H\hi",$ExpiryTime) . "<br>"; }
+	$templdata["yearx"]="";
+	for ($i=0;$i<=9;$i++) { $templdata["year200$i"]=""; }
+	for ($i=0;$i<=9;$i++) { $templdata["month0$i"]=""; }
+	for ($i=10;$i<=12;$i++) { $templdata["month$i"]=""; }
+	for ($i=0;$i<=9;$i++) { $templdata["day0$i"]=""; }
+	for ($i=10;$i<=31;$i++) { $templdata["day$i"]=""; }
+
+	if ($ExpiryTime && $ExpiryTime != "-") { 
+		$templdata["ExpiryTimeString"] = date("d.m.Y",$ExpiryTime) . "<br>"; 
+		$Ey=date("Y",$ExpiryTime); $templdata["year$Ey"]=" SELECTED";
+ 		$Em=date("m",$ExpiryTime); $templdata["month$Em"]=" SELECTED";
+		$Ed=date("d",$ExpiryTime); $templdata["day$Ed"]=" SELECTED";
+	}
 
         $templdata["ExpiryTime"]=$ExpiryTime;
         $templdata["txt_submit"]=$txt_submit[$lang];
@@ -476,6 +488,12 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 			$templdata[obj][$ii]["colorUsername"] = "green";
 		} else {
 			$templdata[obj][$ii]["colorUsername"] = "red";
+		}
+
+		if ($ExpiryTime && $ExpiryTime != "-") { 
+			if ($ExpiryTime < time()) {
+				$templdata[obj][$ii]["colorUsername"] = "red";
+			}
 		}
 		
 		$templdata[obj][$ii]["username"] = $username;
