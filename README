@@ -1,8 +1,8 @@
 -----------
-oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
+oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2004  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: README,v 1.10 2001/02/24 21:47:30 swix Exp $ 
+$Id: README,v 1.11 2004/02/14 23:17:23 swix Exp $ 
 $Source: /cvsroot/omail/admin2/README,v $
 
 
@@ -40,16 +40,16 @@ list... (www.vmailmgr.org)
 
 * CVS repository : 
 
-	cvs -d:pserver:anonymous@cvs.oMail.sourceforge.net:/cvsroot/oMail login 
-	cvs -z3 -d:pserver:anonymous@cvs.oMail.sourceforge.net:/cvsroot/oMail co admin2 
+	cvs -d:pserver:anonymous@cvs.oMail.sourceforge.net:/cvsroot/omail login 
+	cvs -z3 -d:pserver:anonymous@cvs.oMail.sourceforge.net:/cvsroot/omail co admin2 
 
-	Or via CVS-web : http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi/admin2/?cvsroot=oMail
+	Or via CVS-web : http://cvs.sourceforge.net/viewcvs.py/omail/admin2/
 
 * Mailing list :   http://sourceforge.net/mail/?group_id=3658  
   To subscribe :   http://lists.sourceforge.net/mailman/listinfo/omail-admin-devel/
                    http://lists.sourceforge.net/mailman/listinfo/omail-admin-news/
-  Archives     :   http://www.geocrawler.com/redir-sf.php3?list=/omail-admin-devel/
-                   http://www.geocrawler.com/redir-sf.php3?list=/omail-admin-news/
+  Archives     :   http://sourceforge.net/mailarchive/forum.php?forum=omail-admin-devel
+                   http://sourceforge.net/mailarchive/forum.php?forum=omail-admin-news
 
 
 * If you really want to send me a personal mail, please use

@@ -1,8 +1,8 @@
 -----------
-oMail-admin -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
+oMail-admin -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2004  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: INSTALL,v 1.16 2001/03/06 17:30:45 swix Exp $
+$Id: INSTALL,v 1.17 2004/02/14 23:17:23 swix Exp $
 $Source: /cvsroot/omail/admin2/INSTALL,v $
 
 
@@ -62,7 +62,11 @@ oMail - INSTALL
   7. if necessary, setup domain-based quotas (look next section in
      INSTALL file)
 
-  8. Well, then it should work correctely. If it's the case, you can
+  8. if you want to display mailbox usage (size of accounts), etc.
+     you can setup the scripts/vmailstats.pl script. Check the
+     readme file in the scripts/ directory.
+
+  9. Well, then it should work correctely. If it's the case, you can
      jump to step 99.
 
   ...
@@ -103,5 +107,5 @@ oMail - INSTALL
 
 
 
---Olivier, 24.feb.MMI
+--Olivier
 

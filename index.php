@@ -8,9 +8,9 @@
         oMail-admin  -  A PHP4 based Vmailmgrd Web interface
         -----------
 
-        * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
+        * Copyright (C) 2004  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.53 2003/01/29 22:39:47 swix Exp $
+        $Id: index.php,v 1.54 2004/02/14 23:17:23 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -47,6 +47,7 @@ session_register("quota_on","quota_data","catchall_active", "sort_order");
 session_register("mb_start","al_start");
 session_register("mb_letter","al_letter");
 session_register("vm_tcphost","vm_tcphost_port");   // for vmailmgrd-tcp
+session_register("vmailstats");
 
 // clean input values (because of magic quotes...)
 
@@ -170,6 +171,44 @@ if (!$active) {
 
 			$active = 1;
 			$A = "menu";
+
+
+			// if we have vmailstats, load the data into the session
+
+			if ($vmailstats_directory) {
+
+				if (preg_match("/@/", $form_login)) {
+					list($tmpuser,$tmpdomain) = explode("@", $form_login);
+				} else {
+					$tmpdomain = $form_login;
+				}
+
+				if (file_exists("$vmailstats_directory/$tmpdomain")) {
+					$vmstats = @fopen("$vmailstats_directory/$tmpdomain", "r");
+					$firstline = @fgets($vmstats);
+					list($tmp1, $tmp2) = explode("\t", $firstline);
+					if ($tmp1 == "total_dir_size") { 
+						$vmailstats["active"] = "1";
+						$vmailstats["global_size"] = $tmp2;
+						$tmpstat = fstat($vmstats);
+						$vmailstats["date"] = $tmpstat["ctime"];
+					} 
+	
+					while($line = fgets($vmstats)) {
+	
+						list($tmpuser, $maildirsize, $cursize, $newsize, $curfiles, $newfiles) = explode("\t", $line);
+						$vmailstats[$tmpuser]["size"] = $maildirsize;
+						$vmailstats[$tmpuser]["cursize"] = $cursize;
+						$vmailstats[$tmpuser]["newsize"] = $newsize;
+						$vmailstats[$tmpuser]["curfiles"] = $curfiles;
+						$vmailstats[$tmpuser]["newfiles"] = $newfiles;
+					}
+				}
+			}		
+
+
+
+
 	
 		} else {
 				
@@ -294,6 +333,17 @@ if ($active == 1) {    // active=1 -> user logged in
 			    $txt_menu_add = "<br>" . $txt_current_catchall_not_defined[$lang] ;
 			    $txt_menu_add .= ' [ <a href="'. $script_url . '?A=create_catchall&U=" onClick="oW(this,\'pop\')">' . $txt_edit[$lang] . '</a> ]';
 			}	
+
+
+			if ($vmailstats["active"]) { 
+				$txt_menu_add .= "<br>$txt_total_size[$lang]: ";
+				if ($vmailstats["global_size"]<1024) {
+					$txt_menu_add .= "<b>" . $vmailstats["global_size"] . " kB</b>.";
+				} else {
+					$txt_menu_add .= "<b>" . round($vmailstats["global_size"]/1024,1) . " MB</b>.";
+				}
+				$txt_menu_add .= " (" . date("j.m.y H:i:s", $vmailstats["date"]) . ") ";
+			}
 
 
 			html_titlebar($txt_menu[$lang] . " - $domain", $txt_menu_domain_descr[$lang] . $txt_menu_add, 0);

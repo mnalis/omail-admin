@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.66 2003/05/04 16:04:41 swix Exp $ 
+	$Id: config.php,v 1.67 2004/02/14 23:17:23 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -132,6 +132,15 @@ $config_use_settings_with_quota = 0;
 // to hide the about-screen button : I think it is fair to keep it zero.
 
 $hide_about_button = 0;
+
+
+// vmailstats_directory
+// --------------------
+// location of vmailstats (cf. scripts/vmailstats.pl) informations
+// to allow display of domain / maildir disk usage information
+// (empty by default, to activate it, replace by directory name)
+
+$vmailstats_directory = "/var/vmailstats";
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -285,8 +294,8 @@ $tb_userpref = "userpref";
 /* you shouldn't have to change the following lines */
 
 // version
-$version = "1.0-alpha";
-$cvs_version = '$Id: config.php,v 1.66 2003/05/04 16:04:41 swix Exp $';
+$version = "1.2";
+$cvs_version = '$Id: config.php,v 1.67 2004/02/14 23:17:23 swix Exp $';
 
 // script URL
 

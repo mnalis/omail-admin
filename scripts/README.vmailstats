@@ -1,0 +1,45 @@
+-----------
+oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
+-----------
+
+$Id: README.vmailstats,v 1.1 2004/02/14 23:17:23 swix Exp $ 
+$Source: /cvsroot/omail/admin2/scripts/README.vmailstats,v $
+
+
+Purpose
+=======
+
+vmailstats.pl will scan all your vmailmgr-based maildirs 
+and write per-domain statistics in a directory, /var/vmailstats
+per default. 
+
+for example, /var/vmailstats/test.com  :
+
+total_dir_size  160
+qmailuser       28      4       8       0       1
+troy    28      4       8       0       1
+fdsfds  16      4       4       0       0
+chris   16      4       4       0       0
+Bob     20      4       8       0       1
+gosia   24      4       4       0       0
+jdoe    24      4       4       0       0
+
+
+Each line (excepted the 1st one) means:
+username    maildir_size   cur_dir_size   new_dir_size   cur_dir_files   new_dir_files
+
+
+
+Installation
+============
+
+1. copy the script to /usr/local/sbin/vmailstats.pl
+2. create the /var/vmailstats directory, and give +rx rights to it
+   (to allow the webserver access the files)
+3. insert this line to your crontab:
+	22 */4 * * *       root    /usr/local/sbin/vmailstats.pl
+   this will run the script every 4 hour.
+
+
+
+

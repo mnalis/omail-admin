@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.71 2003/05/04 21:56:42 swix Exp $
+        $Id: htmlstuff.php,v 1.72 2004/02/14 23:17:23 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -203,7 +203,7 @@ function html_end() {
 
 function html_userform($userinfo, $action, $mboxlist) {
 
-	global $use_ldap, $quota_on, $quota_data, $session, $script, $lang, $domain, $type;
+	global $use_ldap, $quota_on, $quota_data, $session, $script, $lang, $domain, $type, $vmailstats;
 	include("strings.php");
 	$fwd = 0;
 
@@ -250,6 +250,19 @@ function html_userform($userinfo, $action, $mboxlist) {
 		$templdata["lastname"] = "<input type=\"text\" name=\"lastname\" value=\"" . $ldap_entry["lastname"] . "\" size= \"23\">";
 	    }
 	}
+
+
+	if ($vmailstats["active"] && $vmailstats[$userinfo[0]]["size"]) {
+
+		if ($templdata["userdetailfield"]) { $templdata["userdetailfield"] .= "<br><br>"; }
+
+		$templdata["userdetailfield"] .= $txt_mailbox_size[$lang] . ": ". $vmailstats[$userinfo[0]]["size"] . " kB <br>";
+		$templdata["userdetailfield"] .= $txt_unread_mails[$lang] . ": ". $vmailstats[$userinfo[0]]["newsize"] . " kB (" . $vmailstats[$userinfo[0]]["newfiles"] . ")<br>";
+		$templdata["userdetailfield"] .= $txt_read_mails[$lang] . ": ". $vmailstats[$userinfo[0]]["cursize"] . " kB (" . $vmailstats[$userinfo[0]]["curfiles"] . ")";
+	}
+
+
+
 
         $templdata["userinfo2"]=$userinfo[2]; if (!($templdata["userinfo2"])) { $templdata["userinfo2"]= "-"; }
         $templdata["userinfo0"]=$userinfo[0];
@@ -597,7 +610,7 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 
 
 	global $quota_on, $quota_data, $session, $script, $lang, $domain, $catchall_active, $system_accounts_list, $readonly_accounts_list, $show_how_many_accounts, $mb_start, $al_start;
-	global $mb_letter, $al_letter, $use_spamassassin;
+	global $mb_letter, $al_letter, $use_spamassassin, $vmailstats;
 	include("strings.php");
 
 	switch ($arg_action) {
@@ -621,6 +634,11 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 
 	$templdata["txt_email"] = $txt_email[$lang];
 	$templdata["txt_info"] = $txt_info[$lang];
+
+	if ($vmailstats["active"]) { 
+		$templdata["txt_info"] .= " / " . $txt_mailbox_size[$lang];
+	}
+
 	$templdata["txt_fwd"] = $txt_fwd[$lang];
 	$templdata["txt_responder"] = $txt_responder[$lang];
 	$templdata["txt_spamsettings"] = $txt_spamsettings[$lang];
@@ -791,6 +809,14 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 		if (in_array($username, $readonly_accounts_list)) {
 		     $templdata[obj][$ii]["PersonalInfo"] = "<I>" . $txt_system_account[$lang] . "</I>"; 
 			$templdata[obj][$ii]["colorUsername"] = "black";
+		}
+
+		if ($vmailstats["active"] && $arg_action != 2) {
+			if ($vmailstats[$username][size]<1024) { 
+				$templdata[obj][$ii]["PersonalInfo"] .= " (" . $vmailstats[$username][size] . " kB)"; 
+			} else {
+				$templdata[obj][$ii]["PersonalInfo"] .= " (" . round($vmailstats[$username][size]/1024,1) . " MB)"; 
+			}
 		}
 
 
