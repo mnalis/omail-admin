@@ -8,7 +8,7 @@
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 	* Copyright (C) 2000  Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 
-        $Id: func.php,v 1.24 2000/11/17 16:31:11 swix Exp $
+        $Id: func.php,v 1.25 2000/11/29 11:09:44 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -267,8 +267,8 @@ function get_accounts($arg_action, $arg_username = "") {
 		$j = 0;
 
 		if ($quota_on) { 
-			if ($arg_action == 1) { $quota_data["nb_users"] = 0; } 
-			if ($arg_action == 2) { $quota_data["nb_alias"] = 0; } 
+			if ($arg_action == 1 || $arg_action == 3) { $quota_data["nb_users"] = 0; }
+			if ($arg_action == 2 || $arg_action == 3) { $quota_data["nb_alias"] = 0; }
 		}
 		
 	        for ($i = 0; $i <  sizeof($list); $i++) {
