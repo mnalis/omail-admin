@@ -2,8 +2,13 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2001  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: ChangeLog,v 1.75 2003/01/29 21:33:25 swix Exp $ 
+$Id: ChangeLog,v 1.76 2003/01/29 22:39:45 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
+
+2003-01-29  Olivier Mueller  <om@omnis.ch>
+
+	* tcp_hosts_dir method now also compatible with virtualdomains-like files
+	* func.php: tcp_host_dir method now ok also on single user login (login = mail address)
 
 2003-01-15  Olivier Mueller  <om@omnis.ch>
 

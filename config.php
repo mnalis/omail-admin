@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.64 2003/01/29 21:33:26 swix Exp $ 
+	$Id: config.php,v 1.65 2003/01/29 22:39:46 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -243,9 +243,8 @@ $ldap_passwd = "SECRET";
 // ----------------
 // check the doc in the README & INSTALL files
 
-$use_spamassassin = 0;
-$spamassassin_default_status = 1;	// 0 = turned off by default on new user creation
-
+$use_spamassassin = 1;
+$spamassassin_default_status = 0;
 
 // access data for the database (mysql-based for the moment):
 
@@ -254,6 +253,21 @@ $db_login    = "omail";
 $db_passwd   = "********";
 $db_database = "omail";
 $tb_userpref = "userpref";
+
+
+// in case of multiple servers ($use_vmailmgrd_tcp = 1), this array 
+// will be used instead:
+
+// $spamassassin_remote_conf["IP"]["VARIABLE NAME"] = "VALUE";
+// with VARIABLE NAME = use_spammassassin, db_server, db_login, db_passwd, 
+//                      db_database, tb_userpref
+//
+// $spamassassin_remote_conf["10.0.2.3"]["use_spamassassin"] = "";
+// $spamassassin_remote_conf[""]["db_login"] = "";
+// $spamassassin_remote_conf[""]["db_passwd"] = "";
+// $spamassassin_remote_conf[""]["db_database"] = "";
+// $spamassassin_remote_conf[""]["db_server"] = "";
+// $spamassassin_remote_conf[""]["tb_userpref"] = "";
 
 
 /* END OF USER CONFIGURATION */
@@ -268,13 +282,11 @@ $tb_userpref = "userpref";
 
 
 
-
-
 /* you shouldn't have to change the following lines */
 
 // version
 $version = "1.0-alpha";
-$cvs_version = '$Id: config.php,v 1.64 2003/01/29 21:33:26 swix Exp $';
+$cvs_version = '$Id: config.php,v 1.65 2003/01/29 22:39:46 swix Exp $';
 
 // script URL
 

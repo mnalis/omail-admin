@@ -10,7 +10,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.52 2003/01/29 21:33:27 swix Exp $
+        $Id: index.php,v 1.53 2003/01/29 22:39:47 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -207,6 +207,20 @@ if ($active == 1) {    // active=1 -> user logged in
 	        exit();
 	}
 
+
+
+	// spamassassin stuff, in case of multiple hosts ($use_vmailmgrd_tcp = 1)
+
+	if ($use_vmailmgrd_tcp && $vm_tcphost) {
+		
+		$use_spamassassin = $spamassassin_remote_conf[$vm_tcphost]["use_spamassassin"];
+		$db_login = $spamassassin_remote_conf[$vm_tcphost]["db_login"];
+		$db_passwd = $spamassassin_remote_conf[$vm_tcphost]["db_passwd"];
+		$db_database = $spamassassin_remote_conf[$vm_tcphost]["db_database"];
+		$db_server = $spamassassin_remote_conf[$vm_tcphost]["db_server"];
+		$tb_userpref = $spamassassin_remote_conf[$vm_tcphost]["tb_userpref"];
+
+	}
 
 
 	if (!$A) { $A = "menu"; }  // default action

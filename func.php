@@ -8,7 +8,7 @@
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 	* Copyright (C) 2000  Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 
-        $Id: func.php,v 1.36 2002/02/09 01:38:00 swix Exp $
+        $Id: func.php,v 1.37 2003/01/29 22:39:47 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -939,6 +939,13 @@ function tcp_host_findout($domain) {
 
 	global $vmailmgrd_tcp_hosts_dir;
 
+	// 0. reduce to domain
+	
+	if (preg_match("/@/i", $domain)) {
+		$tmp1 = explode("@", $domain);
+		$domain = $tmp1[1];
+	}
+
 	// 1. get listing of files
 
 	if (is_dir($vmailmgrd_tcp_hosts_dir)) {
@@ -946,7 +953,7 @@ function tcp_host_findout($domain) {
 		$tmp_dir = opendir($vmailmgrd_tcp_hosts_dir);
 
 		while (false!==($file = readdir($tmp_dir))) { 
-			if ($file != "." && $file != "..") { 
+			if ($file != "." && $file != ".." && $file != "CVS") { 
 
 				// 2. parse each file and look for domain
 	
@@ -954,6 +961,13 @@ function tcp_host_findout($domain) {
 				if ($fp) {
 					while (!feof ($fp)) {
 						$line = trim(fgets ($fp, 1024));
+
+						if (ereg(":", $line)) {
+							// in case we have virtualdomains-like files
+							// (domainname.ext:username)
+							$tmp_split_arr = split(":", $line);
+							$line = $tmp_split_arr[0];
+						}
 
 						if ($line == $domain) {
 							// we found the domain! return filename (=host)
