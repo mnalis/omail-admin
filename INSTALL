@@ -1,8 +1,8 @@
 -----
-Omail  -  A PHP/perl based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
+Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----
 
-$Id: INSTALL,v 1.3 2000/08/02 23:07:45 swix Exp $
+$Id: INSTALL,v 1.4 2000/08/06 21:43:40 swix Exp $
 $Source: /cvsroot/omail/admin2/INSTALL,v $
 
 
@@ -12,13 +12,17 @@ oMail - INSTALL
 
 * You will need:
   --------------
+
 - qmail 1.03 (Dan Bernstein) 
   http://www.qmail.org
 
-- vmailmgrd 0.96.7 (Bruce Guenter)    (didn't tried with any other versions)
+- vmailmgrd 0.96.7 or higher (Bruce Guenter)    (didn't tried with any other versions)
   http://www.em.ca/~bruceg/vmailmgr/
+  
+- uscpi-unix 0.33 or higher (Bruce Guenter)  (needed to make the daemon works)
+  http://em.ca/~bruceg/ucspi-unix/
 
-- qmail-autoresponder (Bruce Guenter)   
+- qmail-autoresponder 0.93 or higher (Bruce Guenter)   
   http://www.em.ca/~bruceg/qmail-autoresponder/
 
 - php 4.0.x
@@ -35,9 +39,9 @@ oMail - INSTALL
   1. install qmail, autorespond and vmailmgr
 
   2. make sure vmailmgrd (the vmailmgr daemon) is running. Don't forget it needs uscpi-unix to work.
-     ( /usr/local/bin/unixserver /tmp/.vmailmgrd vmailmgrd )
+     (  /usr/local/bin/unixserver -v -- /tmp/.vmailmgrd /usr/local/sbin/vmailmgrd -V  )
 
-	* current version : vmailmgr 0.96.7 + daemon/autorespond.cc patch :
+	* current version : vmailmgr 0.96.7 + apply this daemon/autorespond.cc patch :
 
 Index: autoresponse.cc
 ===================================================================
@@ -59,16 +63,15 @@ diff -u -r1.4 autoresponse.cc
    if(!out)
 
 
-
   3. check config.php  (optional)
 
   4. Well, then it should work out of the box.
 
 
   If you make it work on your server, I would be glad to hear from you! 
-  Just send a little mail to: omail@omnis.ch.
+  Just send a little mail to: omail@omnis.ch. And please, if you translate
+  it to another language, please do send me the updated strings.php file!
 
 
-
---Olivier, 02.aug.2k
+--Olivier, 06.aug.2k
 

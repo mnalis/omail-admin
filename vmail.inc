@@ -1,8 +1,10 @@
 <?
 // Copyright (C) 2000 Mike Bell <mike@mikebell.org>
 // 
-//      $Id: vmail.inc,v 1.3 2000/08/02 01:38:58 swix Exp $
+//      $Id: vmail.inc,v 1.4 2000/08/06 21:43:40 swix Exp $
 //      $Source: /cvsroot/omail/admin2/vmail.inc,v $
+//
+//  [om]  added lookup command on 03aug2k
 //
 // Examples available at http://mailtest.mikebell.org/
 // Latest version will be included in each vmailmgr release

@@ -2,12 +2,12 @@
 
 /*
         -----
-        Omail  -  A PHP/Perl based Vmailmgrd Web interface
+        Omail  -  A PHP4 based Vmailmgrd Web interface
         -----
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: func.php,v 1.7 2000/08/02 23:07:45 swix Exp $
+        $Id: func.php,v 1.8 2000/08/06 21:43:40 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php

@@ -1,13 +1,12 @@
 <?
 
-/* 
-	-----
-	Omail  -  A PHP/Perl based Vmailmgrd Web interface
+/* 	-----
+	Omail  -  A PHP4 based Vmailmgrd Web interface
 	-----
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.9 2000/08/03 00:12:35 swix Exp $
+        $Id: htmlstuff.php,v 1.10 2000/08/06 21:43:40 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -580,7 +579,7 @@ highly recommended. -->
 </ul>
 </td></tr></table>
 <br></li>
-<li>CVS Version: $Id: htmlstuff.php,v 1.9 2000/08/03 00:12:35 swix Exp $ <br><br></li>
+<li>CVS Version: $Id: htmlstuff.php,v 1.10 2000/08/06 21:43:40 swix Exp $ <br><br></li>
 
 <li>
 Feel free to use this form for your suggestions, requests and bugfixes:
@@ -589,7 +588,7 @@ Feel free to use this form for your suggestions, requests and bugfixes:
 <input type="hidden" name="subject" value="oMail-admin $version comment form">
 <input type="hidden" name="redirect" value="http://$ENV{'HTTP_HOST'}$ENV{'REQUEST_URI'}">
 <input type="hidden" name="sender" value="$ENV{'REMOTE_ADDR'}">
-<input type="hidden" name="sender" value="Version: $Id: htmlstuff.php,v 1.9 2000/08/03 00:12:35 swix Exp $ ">
+<input type="hidden" name="sender" value="Version: $Id: htmlstuff.php,v 1.10 2000/08/06 21:43:40 swix Exp $ ">
 <table border="0">
 <tr><td align="right">Email</td><td><small>
 <input type="text" size="30" name="from_email"></small></td></tr>

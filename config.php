@@ -2,12 +2,12 @@
 
 /* 
 	-----
-	Omail  -  A PHP/Perl based Vmailmgrd Web interface
+	Omail  -  A PHP4 based Vmailmgrd Web interface
 	-----
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.5 2000/08/03 00:26:48 swix Exp $ 
+	$Id: config.php,v 1.6 2000/08/06 21:43:40 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -64,8 +64,8 @@ $default_language = "en";
 
 // version
 
-$version = "0.90.2a";
-$cvs_version = '$Id: config.php,v 1.5 2000/08/03 00:26:48 swix Exp $';
+$version = "0.90.3a";
+$cvs_version = '$Id: config.php,v 1.6 2000/08/06 21:43:40 swix Exp $';
 
 // script URL
 

@@ -1,11 +1,11 @@
 -----
-Omail  -  A PHP/perl based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
+Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----
 
 
 oMail-admin TODO
 ================
-$Id: TODO,v 1.3 2000/08/03 00:14:41 swix Exp $ 
+$Id: TODO,v 1.4 2000/08/06 21:43:40 swix Exp $ 
 $Source: /cvsroot/omail/admin2/TODO,v $ 
 
 
@@ -19,7 +19,7 @@ High priority
 
 Normal priority
 ---------------
-[ ] more translations
+[ ] more translations  (jc: spanish added on 06aug2k)
 [ ] display mailbox size (waiting for changes in vmailmgrd)
 [ ] support for info field           (lookup has to support this too first in user mode)
 
