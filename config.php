@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.6 2000/08/06 21:43:40 swix Exp $ 
+	$Id: config.php,v 1.7 2000/08/11 13:15:28 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -30,7 +30,7 @@
 // expire session after 
 // -------------------- 
 
-$expire_after = "20"; // minutes
+$expire_after = "10"; // minutes
 
 
 // sysadmin mail
@@ -64,8 +64,8 @@ $default_language = "en";
 
 // version
 
-$version = "0.90.3a";
-$cvs_version = '$Id: config.php,v 1.6 2000/08/06 21:43:40 swix Exp $';
+$version = "0.91";
+$cvs_version = '$Id: config.php,v 1.7 2000/08/11 13:15:28 swix Exp $';
 
 // script URL
 

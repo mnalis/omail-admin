@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.12 2000/08/06 22:50:41 swix Exp $
+        $Id: htmlstuff.php,v 1.13 2000/08/11 13:15:28 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -99,7 +99,7 @@ th   {  font-family: Arial, Helvetica, sans-serif; font-size: 10pt; font-weight:
 td   {  font-family: Arial, Helvetica, sans-serif; font-size: 10pt;}
 test.td   {  font-family: Arial, Helvetica, sans-serif; font-size: 10pt;}
 form   {  font-family: Arial, Helvetica, sans-serif; font-size: 10pt}
-h1   {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 16pt; font-weight: bold}
+h1   {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12pt; font-weight: bold}
 A:link    {  font-family: Arial, Helvetica, sans-serif; font-size: 10pt; text-decoration: none; color: blue}
 A:visited {  font-family: Arial, Helvetica, sans-serif; font-size: 10pt; text-decoration: none; color: blue}
 A:hover   {  font-family: Arial, Helvetica, sans-serif; font-size: 10pt; text-decoration: underline; color: red}
@@ -163,7 +163,7 @@ function html_titlebar($title,$msg,$popup) {
 	?>
 	
 <TABLE cellpadding=10 cellspacing=0 border=0 width="80%">
-<TR><TD BGCOLOR="#cccccc"><FONT SIZE="+3" COLOR="#000000"><b>oMail-Admin <?php echo($version); ?> - <?php echo($title); ?>
+<TR><TD BGCOLOR="#cccccc"><FONT SIZE="+1" COLOR="#000000"><b>oMail-Admin <?php echo($version); ?> - <?php echo($title); ?>
 </b></FONT></TD>
 <TD ALIGN="RIGHT" BGCOLOR="#cccccc"><nobr>
 <?php if ($popup) { ?>
@@ -200,7 +200,7 @@ function html_end() {
 
 function html_userform($userinfo, $action) {
 
-	global $session, $script, $lang, $domain;
+	global $session, $script, $lang, $domain, $type;
 	include("strings.php");
 
 	$fwd = 0;
@@ -222,6 +222,14 @@ function html_userform($userinfo, $action) {
 	print "<input type=\"hidden\" name=\"U\" value=\"" . $userinfo[0] . "\">";
 	} else {
 	print "<td bgcolor=\"#DDDDDD\" align=left><input type=\"text\" name=\"U\" value=\"" . $userinfo[0]. "\" size=\"15\">@$domain&nbsp;</td></tr>";
+	}
+
+
+	print "<tr><th align=right>" . $txt_details[$lang] . "&nbsp;</th>";	
+	if ($type == "user") {
+	print "<td bgcolor=\"#DDDDDD\" align=left>" . $userinfo[4]. "&nbsp;</td></tr>";
+	} else {
+	print "<td bgcolor=\"#DDDDDD\" align=left><input type=\"text\" name=\"userdetail\" value=\"" . $userinfo[4]. "\" size=\"23\">&nbsp;</td></tr>";
 	}
 
 	print "<tr><th align=right>" . $txt_directory[$lang] . "&nbsp;</th>";	
@@ -255,7 +263,9 @@ function html_userform($userinfo, $action) {
 
 	print "<input type=\"hidden\" name=\"A\" value=\"parse\">";
 	print "<input type=\"hidden\" name=\"action\" value=\"" . $action . "\">";
-	print "<input type=\"submit\" value=\"" . $txt_submit[$lang]. "\">&nbsp;</td></tr>";
+	print "<input type=\"submit\" value=\"" . $txt_submit[$lang]. "\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+	print "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+	print "<input type=\"reset\" value=\"" . $txt_cancel[$lang]. "\" onClick=\"return gO(this,true,true)\">&nbsp;</td></tr>";
 	
 	print "</table>";	
 	print "</form>";	
@@ -342,8 +352,10 @@ function html_respform($userinfo, $respinfo, $status) {
 	print "<td bgcolor=\"#CCCCCC\" align=left>";
 	print "<input type=\"hidden\" name=\"A\" value=\"parse\">";
 	print "<input type=\"hidden\" name=\"action\" value=\"responder\">";
-	print "<input type=\"submit\" value=\"" . $txt_submit[$lang]. "\">&nbsp;</td></tr>";
-	
+	print "<input type=\"submit\" value=\"" . $txt_submit[$lang]. "\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+	print "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+	print "<input type=\"reset\" value=\"" . $txt_cancel[$lang]. "\" onClick=\"return gO(this,true,true)\">&nbsp;</td></tr>";
+
 	print "</table>";	
 	print "</form>";	
 }
@@ -365,7 +377,7 @@ function html_delete_confirm($userinfo) {
 
 
 	print "<tr><th align=right>" . $txt_action[$lang] . "&nbsp;</th>";	
-	print "<td bgcolor=\"#CCCCCC\" align=\"center\" valign=\"top\">";
+	print "<td bgcolor=\"#CCCCCC\" align=\"center\" valign=\"center\">";
 	print "<small><font color=\"red\">";
 
 	print "<form action=\"" . $script . "?<?=SID?>\" method=\"post\">";
@@ -373,10 +385,10 @@ function html_delete_confirm($userinfo) {
 	print "<input type=\"hidden\" name=\"action\" value=\"delete_ok\">";
 	print "<input type=\"hidden\" name=\"U\" value=\"" . $userinfo[0] . "\">";
 	print "<br><input type=\"submit\" name=\"submit\" value=\"" . $txt_delete[$lang]. "\"></font>";
-	print "</form></small></td><td bgcolor=\"#CCCCCC\" align=\"center\" valign=\"top\"><small>";
+	print "</form></small></td><td bgcolor=\"#CCCCCC\" align=\"center\" valign=\"center\"><small>";
 	print "<form action=\"" . $script . "\" method=\"post\">";
 	print "<input type=\"hidden\" name=\"A\" value=\"menu\">";
-	print "<br><input type=\"submit\" name=\"submit\" onClick=\"return gO(this,true,true)\" value=\"" . $txt_cancel[$lang]. "\">";
+	print "<br><input type=\"reset\" name=\"submit\" onClick=\"return gO(this,true,true)\" value=\"" . $txt_cancel[$lang]. "\">";
 	print "</form></small></td></tr>";	
 	print "</table>";	
 }
@@ -416,7 +428,7 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 
 	print "<table border=0><TR><TH>N°</TH>";
 	print "<TH>" . $txt_email[$lang] . "</TH>" .
-	//	"<TH>" . $txt_info[$lang] . "</TH>" .
+		"<TH>" . $txt_info[$lang] . "</TH>" .
 		"<TH>" . $txt_fwd[$lang] . "1</TH>" .
 		"<TH>" . $txt_fwd[$lang] . "2</TH>" .
 		"<TH>" . $txt_fwd[$lang] . "3</TH>" .
@@ -457,7 +469,7 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 		print "<TD>" . ($i+1)  . "&nbsp;</TD>"; // num
 
 		print "<TD><B>" . $username  . "</B>&nbsp;</TD>"; // namae
-	//	print "<TD><nobr>" . $PersonalInfo  . "</nobr>&nbsp;</TD>"; // namae
+		print "<TD><nobr>" . $PersonalInfo  . "</nobr>&nbsp;</TD>"; // namae
 		print "<TD>" . $alias[0]  . "&nbsp;</TD>"; // fwd1
 		print "<TD>" . $alias[1] . "&nbsp;</TD>"; // fwd2
 		print "<TD>" . $alias[2] . "&nbsp;</TD>"; // fwd3
@@ -508,10 +520,10 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 	if ($arg_action != 0) {
 	
 		if ($arg_action != 2) {
-			print "<tr><th COLSPAN=7 ALIGN=right>&nbsp;&nbsp;</th>";
+			print "<tr><th COLSPAN=8 ALIGN=right>&nbsp;&nbsp;</th>";
 			print "<TH COLSPAN=3 ALIGN=center>";
 		} else { 
-			print "<tr><th COLSPAN=6 ALIGN=right>&nbsp;&nbsp;</th>";
+			print "<tr><th COLSPAN=7 ALIGN=right>&nbsp;&nbsp;</th>";
 			print "<TH COLSPAN=2 ALIGN=center>";
 		}
 	
@@ -536,7 +548,7 @@ function html_about() {
 <br>
 <ul>
 <li>oMail-admin <?php echo($version); ?> is a PHP4-based Web-administration solution for mail servers based on Dan Bernstein's <a href="http://www.qmail.org">qmail</a>
-and Bruce Guenter's <a href="http://www.em.ca/~bruceg/vmailmgr/">vmailmgr</a>.<br><br></li>
+and Bruce Guenter's <a href="http://www.em.ca/~bruceg/vmailmgr/">vmailmgr</a> (version 0.96.8 and higher).<br><br></li>
 
 <li>Features:
 <ul>
@@ -545,6 +557,7 @@ and Bruce Guenter's <a href="http://www.em.ca/~bruceg/vmailmgr/">vmailmgr</a>.<b
 <li>administrator (all rights) and single user (can only change his own account) access</li>
 <li>full autoresponder support (edit/enable/disable)</li>
 <li>can be used by non unix-gurus users</li>
+<li>session expiration after N minutes for security</li>
 </ul>
 <br></li>
 
@@ -571,24 +584,25 @@ highly recommended. -->
 <table border="0"><tr><td>
 <ul>
 <li><a href="http://sourceforge.net/project/filelist.php?group_id=3658">oMail-admin download page</a></li>
-<li><a href="http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi/admin2/?cvsroot=oMail">oMail-adminl public CVS tree</a></li>
+<li><a href="http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi/admin2/?cvsroot=oMail">oMail-admin public CVS tree</a></li>
 <!-- <li><a href="http://sourceforge.net/mail/?group_id=3658">Mailing lists (subscribe/archives)</a></li> -->
 <li><a href="http://omail.omnis.ch">The oMail-admin project homepage</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
 <li><a href="http://admin.omnis.ch/admin2">Live Demo : login: <I>test.com</I>, and password: <I>test</I></a></li>
-<li><a href="TODO">Todo List</a></li>
+<li><a href="TODO">Todo List</a>, <a href="ChangeLog">ChangeLog</a>, <a href="README">README</a>, <a href="INSTALL">INSTALL</a>, 
+and of course the <a href="CREDITS">Credits</a></li>
 </ul>
 </td></tr></table>
 <br></li>
-<li>CVS Version: $Id: htmlstuff.php,v 1.12 2000/08/06 22:50:41 swix Exp $ <br><br></li>
+<li>CVS Version: $Id: htmlstuff.php,v 1.13 2000/08/11 13:15:28 swix Exp $ <br><br></li>
 
 <li>
 Feel free to use this form for your suggestions, requests and bugfixes:
 <form action="http://www.8304.ch/cgi-bin/formmail.pl" method="post">
 <input type="hidden" name="recipient" value="omail@omnis.ch">
-<input type="hidden" name="subject" value="oMail-admin $version comment form">
+<input type="hidden" name="subject" value="oMail-admin <?php echo($version); ?> comment form">
 <input type="hidden" name="redirect" value="http://<?php echo($HTTP_HOST); ?><?php echo($REQUEST_URI); ?>">
 <input type="hidden" name="sender" value="<?php echo($REMOTE_ADDR); ?>">
-<input type="hidden" name="sender" value="Version: $Id: htmlstuff.php,v 1.12 2000/08/06 22:50:41 swix Exp $ ">
+<input type="hidden" name="sender" value="Version: $Id: htmlstuff.php,v 1.13 2000/08/11 13:15:28 swix Exp $ ">
 <table border="0">
 <tr><td align="right">Email</td><td><small>
 <input type="text" size="30" name="from_email"></small></td></tr>

@@ -2,18 +2,27 @@
 Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----
 
-$Id: ChangeLog,v 1.7 2000/08/06 21:43:40 swix Exp $ 
+$Id: ChangeLog,v 1.8 2000/08/11 13:15:28 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
 
+2000-08-11  Olivier Mueller  <om@omnis.ch>
 
-2000-08-02  Olivier Mueller  <om@omnis.ch>
+	* released version oMail-admin 0.91
+	* support for (and only) vmailmgr 0.96.8
+	* updated vmail.inc
+	* userinfo field support
+	* added [cancel] buttons on all forms
+	* improved autoresponder support thanks vautorespondstatus
+	* documentation has been updated
+
+2000-08-08  Olivier Mueller  <om@omnis.ch>
 
 	* released version 0.90.3a
 	* translation to spanish added (thanks [jc]!)
 	* some updates in documentation
 
-2000-08-02  Olivier Mueller  <om@omnis.ch>
+2000-08-06  Olivier Mueller  <om@omnis.ch>
 
 	* released version 0.90.2a
 	* autoresponder support 100% ok now

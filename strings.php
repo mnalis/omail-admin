@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.10 2000/08/10 13:55:02 swix Exp $
+        $Id: strings.php,v 1.11 2000/08/11 13:15:28 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -910,8 +910,8 @@ $txt_session_expired = array(
 
 $txt_submit = array( 
  "en" => "Submit",
- "fr" => "Executer",
- "de" => "Ausführen",
+ "fr" => "Enregistrer",
+ "de" => "Speichern",
  "es" => "Enviar",
  "it"=>"");
 
@@ -1104,10 +1104,11 @@ $txt_about = array(
  "es" => "Acerca de",
  "it"=>"");
 
-$txt_ = array( 
- "en" => "",
- "fr" => "",
- "de" => "",
+$txt_details = array( 
+ "en" => "User Info",
+ "fr" => "User Info",
+ "de" => "User Info",
+ "es" => "User Info",
  "it"=>"");
 
 $txt_ = array( 

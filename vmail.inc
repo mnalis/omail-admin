@@ -1,10 +1,12 @@
 <?
 // Copyright (C) 2000 Mike Bell <mike@mikebell.org>
 // 
-//      $Id: vmail.inc,v 1.4 2000/08/06 21:43:40 swix Exp $
+//      $Id: vmail.inc,v 1.5 2000/08/11 13:15:28 swix Exp $
 //      $Source: /cvsroot/omail/admin2/vmail.inc,v $
 //
 //  [om]  added lookup command on 03aug2k
+//  [mb]  updated lookup command on 11aug2k
+//  [om]  added vautoresponsestatus command 03aug2k
 //
 // Examples available at http://mailtest.mikebell.org/
 // Latest version will be included in each vmailmgr release
@@ -84,18 +86,12 @@ return array($value, $message);
 
 }
 
-/* Parses the lines from listdomain into fields. All fields after aliases
-   are ignored, but this is easy to fix if anybody cared about them */
-
-function listdomain_parse_line($line){
-	//Grab the user's name
-	$position = strpos($line, chr(0));
-	$username=substr($line, 0, $position);
+function listdomain_parse_userdata($line, $username){
 	//Grab the protocol version
-	$ver=ord(substr($line, $position+1, $position+2));
+	$ver=ord(substr($line, 0, 1));
 	if ($ver != 2) die("Protocol version is $ver, not the 2 as this script expects.");
-	//Thow away everything already done
-	$line=substr($line, $position+2);
+	//Chop off the version
+	$line=substr($line, 1);
 	//Grab the flags
 	while (substr($line, 0, 1) != chr(0)){
 		$flags[ord(substr($line, 0, 1))]=ord(substr($line, 1, 1));
@@ -120,6 +116,16 @@ function listdomain_parse_line($line){
 	return array($username, $password, $mailbox, $aliases,
 $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit,
 $CreationTime, $ExpiryTime, $flags);
+}	
+
+/* Parses the lines from listdomain into fields. */
+
+function listdomain_parse_line($line){
+	//Grab the user's name
+	$data_position = strpos($line, chr(0));
+	$username=substr($line, 0, $data_position);
+	// Send that user's data to be parsed. The $username is nessesary because array manipulation in PHP3 is so limited.
+	return listdomain_parse_userdata(substr($line, $data_position+1), $username);
 }
 
 /* Does the ugly stuff for listdomain, and calls listdomain_parse_line once
@@ -146,6 +152,12 @@ if ($password=="") return array(1, "Empty domain password");
 	$temp=vm_daemon_raw(array("listdomain", $domain, $password));
 	if (is_array($temp)) return $temp;
 return listdomain_parse($temp);
+}
+
+function lookup($domain, $user, $password){
+	$command=array("lookup", $domain, $user, $password);
+	$tmp = vm_daemon_raw($command);
+	return listdomain_parse_userdata($tmp[1], $user);
 }
 
 /* vadduser, takes domain name, password, username, userpassword, and an
@@ -240,13 +252,6 @@ function vchattr($domain, $password, $username, $attr, $value){
 return vm_daemon_raw($command);
 }
 
-function lookup($domain, $user){
-       $temp = vm_daemon_raw(array("lookup", $domain, $user));
-return $temp;
-}
- 
-
-
 function vwriteautoresponse($domain, $password, $username, $message){
 	$command = array("autoresponse", $domain, $username, $password, "write", $message);
 return vm_daemon_raw($command);
@@ -266,6 +271,12 @@ function venableautoresponse($domain, $password, $username){
         $command = array("autoresponse", $domain, $username, $password, "enable");
 return vm_daemon_raw($command);
 }
+
+function vautoresponsestatus($domain, $password, $username){
+	$command = array("autoresponse", $domain, $username, $password, "status");
+return vm_daemon_raw($command);
+}
+
 
 
 ?>

@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.10 2000/08/06 21:43:40 swix Exp $
+        $Id: index.php,v 1.11 2000/08/11 13:15:28 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -308,6 +308,11 @@ if ($active == 1) {
 	
 	                // update forwarders
                         $results .= "<br>" . update_account($U, $fwd);
+
+	                // update user detail
+			if ($type == "domain") {
+                        	$results .= "<br>" . update_userdetail($U, $userdetail);
+			}
 	        
 		
 	                html_head("oMail Administration");
@@ -375,12 +380,15 @@ if ($active == 1) {
 	                
 	                if ($action == "newuser") {
 	                        $results = "<br>" . create_account($U, $passwd1, $fwd);
+	                       	update_userdetail($U, $userdetail);
 	                }
 
 
 	                if ($action == "newalias") {
 	                        $results = create_alias($U, $passwd1, $fwd);
+	                       	update_userdetail($U, $userdetail);
 	                }
+
 
 
 

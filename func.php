@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: func.php,v 1.8 2000/08/06 21:43:40 swix Exp $
+        $Id: func.php,v 1.9 2000/08/11 13:15:28 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -87,7 +87,7 @@ function authenticate($arg_login, $arg_passwd, $arg_ip) {
 
 		$test = listdomain($domain, base64_decode($passwd));
 
-		if (is_array($test[0])) {
+		if (is_array($test[0]) || ($test[0] != 2)) {
 
 			SetCookie("cookie_omail_last_domain",$domain, Time()+993600);
 			SetCookie("cookie_omail_lang",$lang, Time()+993600);
@@ -153,16 +153,10 @@ function get_accounts($arg_action, $arg_username = "") {
 	        for ($i = 0; $i <  sizeof($list); $i++) {
 
 	                list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime)=$list[$i];
-	
 
 			// findout autoresp status
 
-			$tmp_autoresp = load_resp_file($username);
-			if ($tmp_autoresp[0] == 2) {
-				$resp = 0;
-			} else {	
-				$resp = 1;
-			}			
+			if ($mbox) { $resp = load_resp_status($username); }  else { $resp = 0; }   // only lookup for mailboxes
 
 	                $list[$i] = array($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp);
 			
@@ -179,31 +173,16 @@ function get_accounts($arg_action, $arg_username = "") {
 
 	} else {  // user
 
-		$lookup_data = lookup($domain, $arg_username);
+		$lookup_data = lookup($domain, $arg_username, base64_decode($passwd));
 		$alias = array();
 		$i = -1;
 
-		$tmp_arr =  explode(chr(0), $lookup_data[1]);
 
-		while (list($key,$val) = each($tmp_arr)) {
+		list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime)=$lookup_data;
 
-			if ($i == -1) {
-				$mbox = $val; 
-				$i++;
-			} else { 	
-				$alias[$i++] = $val;
-			}			
-		}
+		if ($mbox) { $resp = load_resp_status($username); }  else { $resp = 0; } // only lookup for mailboxes
 
-		$tmp_autoresp = load_resp_file($arg_username);
-		if ($tmp_autoresp[0] == 2) {
-			$resp = 0;
-		} else {	
-			$resp = 1;
-		}			
-
-		$tmp_array = array($arg_username, "", $mbox, $alias, "User", "", "", "", "", "", "", $resp);
-		$new_list[0] = $tmp_array;
+                $new_list[0] = array($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp);
 	}
 
 	return $new_list;
@@ -223,6 +202,17 @@ function update_passwd($arg_username, $arg_passwd) {
 
         if (!$result[0]) { return "PASSW ok : " . $result[1] ; }
                 else { return "PASSW error : " . $result[1] ; }
+
+}
+
+function update_userdetail($arg_username, $arg_detail) {
+
+        global $type, $domain, $passwd;
+
+	$result = vchattr($domain, base64_decode($passwd), $arg_username, "PERSONAL", $arg_detail);
+
+        if (!$result[0]) { return "USERINFO ok : " . $result[1] ; }
+                else { return "USERINFO error : " . $result[1] ; }
 
 }
 
@@ -281,32 +271,24 @@ function delete_account($arg_username) {
 }
 
 
-function load_resp_file($arg_username, $arg_status = -1) {
+function load_resp_file($arg_username) {
 
         global $type, $domain, $passwd;
 
-	// if $arg_status = -1, don't do anything, just return status.
-	//
-	// problem : we get the current text only if the responder is enabled.
-	// so in this function, we will always enable the resp, and turn back
-	// to last status after having the data.
-
-	if ($arg_status != -1) {
-		venableautoresponse($domain, base64_decode($passwd), $arg_username);
-	}
-
-	// get the data 
-
 	$return_data = vreadautoresponse($domain, base64_decode($passwd), $arg_username);
-
-	// turn back to current status 
-	
-	if ($arg_status != -1 && !$arg_status) {
-		vdisableautoresponse($domain, base64_decode($passwd), $arg_username);
-	}
 	
 	return $return_data;
 
+}
+
+function load_resp_status($arg_username) {
+
+        global $type, $domain, $passwd;
+
+	$data = vautoresponsestatus($domain, base64_decode($passwd), $arg_username);
+	$status = $data[1];
+
+	if ($status == "enabled") { return 1; } else { return 0; }
 }
 
 function parse_resp_file($arg_text) {
