@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.3 2000/08/02 01:38:58 swix Exp $
+        $Id: strings.php,v 1.4 2000/08/02 02:40:37 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -904,10 +904,10 @@ $txt_login_failed = array(
  "de" => "Kein Zugang: bitte Login und Passwort überprüfen",
  "it"=>"");
 
-$txt_ = array( 
- "en" => "",
- "fr" => "",
- "de" => "",
+$txt_facultatif = array( 
+ "en" => "optional",
+ "fr" => "facultatif",
+ "de" => "nicht obligatorisch",
  "it"=>"");
 
 $txt_ = array( 

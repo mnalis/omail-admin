@@ -2,7 +2,7 @@
 Omail  -  A PHP/perl based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----
 
-$Id: ChangeLog,v 1.1 2000/08/02 01:38:58 swix Exp $ 
+$Id: ChangeLog,v 1.2 2000/08/02 02:40:36 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
 
@@ -14,6 +14,8 @@ $Source: /cvsroot/omail/admin2/ChangeLog,v $
 	* display of account information is working
 	* sorting is working
 	* session support with check of remote host and automatic expiration after N minutes
+	* edit account form working again
+	* password change working  (other things in progress)
 
 2000-07-29  Olivier Mueller  <om@omnis.ch>
 

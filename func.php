@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: func.php,v 1.3 2000/08/02 01:38:58 swix Exp $
+        $Id: func.php,v 1.4 2000/08/02 02:40:37 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -155,7 +155,7 @@ function get_accounts($arg_action, $arg_username = "") {
 	                list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime)=$list[$i];
 	
 			if ($mbox && ($arg_action == 1)) { $new_list[$j++] = $list[$i];  }	
-			if ($alias && ($arg_action == 2)) { $new_list[$j++] = $list[$i]; }	
+			if (!$mbox && ($arg_action == 2)) { $new_list[$j++] = $list[$i]; }	
 			if (($username == $arg_username) && ($action == 0)) { $new_list[$j++] = $list[$i]; }	
 
 		}
@@ -176,7 +176,7 @@ function get_accounts($arg_action, $arg_username = "") {
 		while (list($key,$val) = each($tmp_arr)) {
 
 			if ($i == -1) {
-				$mbox = $val;
+				$mbox = $val; 
 				$i++;
 			} else { 	
 				$alias[$i++] = $val;
@@ -192,6 +192,58 @@ function get_accounts($arg_action, $arg_username = "") {
 }
 
 	
+
+function update_passwd($arg_username, $arg_passwd) {
+
+        global $type, $domain, $passwd;
+
+	vchpass($domain, base64_decode($passwd), $arg_username, $arg_passwd);
+
+        if ($result[0]) { return "ok - " . $result[1]; }
+                else { return "error - " . $result[1]; }
+}
+
+function update_account($arg_username, $arg_fwd) {
+
+        global $type, $domain, $passwd;
+
+
+
+        if ($result) { return "ok - $result"; }
+                else { return "error"; }
+}
+
+function create_account($arg_username, $arg_fwd) {
+
+        global $type, $domain, $passwd;
+
+
+
+        if ($result) { return "ok - $result"; }
+                else { return "error"; }
+}
+
+function create_alias($arg_username, $arg_fwd) {
+
+        global $type, $domain, $passwd;
+
+
+
+        if ($result) { return "ok - $result"; }
+                else { return "error"; }
+}
+
+function delete_account($arg_username, $arg_type) {
+
+        global $type, $domain, $passwd;
+
+
+
+        if ($result) { return "ok - $result"; }
+                else { return "error"; }
+}
+
+
 
 
 

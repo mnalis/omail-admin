@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.3 2000/08/02 01:38:58 swix Exp $
+        $Id: htmlstuff.php,v 1.4 2000/08/02 02:40:37 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -166,14 +166,14 @@ function html_titlebar($title,$msg,$popup) {
 <TABLE cellpadding=10 cellspacing=0 border=0 width="80%">
 <TR><TD BGCOLOR="#cccccc"><FONT SIZE="+3" COLOR="#000000"><b>oMail-Admin <?php echo($version); ?> - <?php echo($title); ?>
 </b></FONT></TD>
-<TD ALIGN="RIGHT" BGCOLOR="#cccccc">
+<TD ALIGN="RIGHT" BGCOLOR="#cccccc"><nobr>
 <?php if ($popup) { ?>
 [ <A HREF="<?php echo($script); ?>?<?=SID?>" onClick="return gO(this,true,true)"><?php echo($txt_close[$lang]); ?></A> ]
 [ <A HREF="<?php echo($script); ?>?A=logout&<?=SID?>" onClick="return gO(this,true)"><?php echo($txt_logout[$lang]); ?></A> ]
 <?php } elseif ($A == "menu") { ?>
 [ <A HREF="<?php echo($script); ?>?A=logout&<?=SID?>"><?php echo($txt_logout[$lang]); ?></A> ]
 [ <A HREF="<?php echo($script); ?>?A=menu&<?=SID?>"><?php echo($txt_refresh_menu[$lang]); ?></A> ]
-<?php } ?>&nbsp;
+<?php } ?></nobr>&nbsp;
 </TD>
 </TR>
 <TR><TD COLSPAN="2" BGCOLOR="#eeeeee">
@@ -203,37 +203,44 @@ function html_userform($userinfo, $action) {
 
 	if ($action == "edit") {
 		// find how many forwarders there are
-		$nb_fwd = count($userinfo) - 2;
+		$aliases = $userinfo[3];
+		$nb_fwd = count($aliases);
 	}
 
-	print "<form action=\"" . $script . "?<?=SID?>\" method=\"post\">";
+	print "<form action=\"" . $script . "?";
+	?><?=SID?><?php   // ugly, but well... another solution ?
+	print "\" method=\"post\">";
 	print "<table border=0>";	
 	print "<tr><th align=right>" . $txt_username[$lang] . "&nbsp;</th>";	
 
 	if ($action == "edit") {
-	print "<td bgcolor=\"#DDDDDD\" align=left>" . $userinfo[1]. "@$domain&nbsp;</td></tr>";
-	print "<input type=\"hidden\" name=\"username\" value=\"" . $userinfo[1] . "\">";
+	print "<td bgcolor=\"#DDDDDD\" align=left>" . $userinfo[0]. "@$domain&nbsp;</td></tr>";
+	print "<input type=\"hidden\" name=\"U\" value=\"" . $userinfo[0] . "\">";
 	} else {
-	print "<td bgcolor=\"#DDDDDD\" align=left><input type=\"text\" name=\"username\" value=\"" . $userinfo[1]. "\" size=\"15\">@$domain&nbsp;</td></tr>";
+	print "<td bgcolor=\"#DDDDDD\" align=left><input type=\"text\" name=\"U\" value=\"" . $userinfo[0]. "\" size=\"15\">@$domain&nbsp;</td></tr>";
 	}
 
 	print "<tr><th align=right>" . $txt_directory[$lang] . "&nbsp;</th>";	
 	print "<td bgcolor=\"#CCCCCC\" align=left>" . $userinfo[2]. "&nbsp;</td></tr>";
 	
 	print "<tr><th align=right>" . $txt_passwd[$lang] . "&nbsp;</th>";	
-	print "<td bgcolor=\"#DDDDDD\" align=left><input type=\"password\" name=\"passwd1\" value=\"\" size=\"9\">&nbsp;</td></tr>";
+	print "<td bgcolor=\"#DDDDDD\" align=left><input type=\"password\" name=\"passwd1\" value=\"\" size=\"9\">";
+	if ($action == "newalias") { print "&nbsp;&nbsp;(" . $txt_facultatif[$lang] . ")"; }
+	print "&nbsp;</td></tr>";
 
 	print "<tr><th align=right>" . $txt_passwd[$lang] . "&nbsp;</th>";	
-	print "<td bgcolor=\"#CCCCCC\" align=left><input type=\"password\" name=\"passwd2\" value=\"\" size=\"9\">&nbsp;</td></tr>";
+	print "<td bgcolor=\"#CCCCCC\" align=left><input type=\"password\" name=\"passwd2\" value=\"\" size=\"9\">";
+	if ($action == "newalias") { print "&nbsp;&nbsp;(" . $txt_facultatif[$lang] . ")"; }
+	print "&nbsp;</td></tr>";
 
-	for ($i = 3; $i < ($nb_fwd + 7); $i++) {
+	for ($i = 0; $i < ($nb_fwd + 5); $i++) {
 		
-		print "<tr><th align=right>" . $txt_fwd[$lang] . " " . ($i - 1) . "&nbsp;</th>";	
+		print "<tr><th align=right>" . $txt_fwd[$lang] . " " . ($i + 1) . "&nbsp;</th>";	
 
 	if ($i/2 == floor($i/2)) { print "<td bgcolor=\"#DDDDDD\" align=left>"; }
 					else { print "<td bgcolor=\"#CCCCCC\" align=left>"; }
 
-		print "<input type=\"text\" name=\"fwd[]\" value=\"" . $userinfo[$i]. "\" size=\"25\">&nbsp;</td></tr>";
+		print "<input type=\"text\" name=\"fwd[]\" value=\"" . $aliases[$i]. "\" size=\"25\">&nbsp;</td></tr>";
 
 	}	
 
@@ -469,17 +476,21 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 	switch ($arg_action) {
 		case 1:
 			$tmp_label = $txt_newuser[$lang];
+			$tmp_action = "newuser";
 			break;
 		case 2:
 			$tmp_label = $txt_newalias[$lang];
+			$tmp_action = "newalias";
 			break;
 	}
 
 
 	if ($arg_action != 0) {
 		print "<tr><th COLSPAN=8 ALIGN=right>&nbsp;&nbsp;</th>";
+
+	
 		print "<TH COLSPAN=3 ALIGN=center>" .
-			"<A HREF=\"$script?A=newuser\" onClick=\"oW(this,'pop')\">"  . $txt_newuser[$lang]  . "</a>&nbsp;</TH></TR>";
+			"<A HREF=\"$script?A=$tmp_action\" onClick=\"oW(this,'pop')\">"  . $tmp_label  . "</a>&nbsp;</TH></TR>";
 	}
 
 	print "</table><br>"; 
