@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.46 2001/01/11 17:49:08 swix Exp $ 
+	$Id: config.php,v 1.47 2001/02/24 20:30:11 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -26,28 +26,28 @@
 
 /* START OF USER CONFIGURATION */
 
-// domains list  (keep empty to show a textfield)
+// domains list  (keep the array empty to show a textfield)
 // ------------
 
 $domains_list = array();   // empty : login for all.
-//$domains_list = array( 'omail-test.com', 'omnis.ch', '8304.ch', 'test.com');
+//$domains_list = array( 'test.com', 'omnis.ch', '8304.ch', 'omnis-test.com');
 
 // expire session after 
 // -------------------- 
-// automatic logout after N minutes 
+// automatic logout after N minutes of inactivity
 
 $expire_after = "20"; // minutes
 
-// show how many accounts per page _
-// -------------------- 
+// show how many accounts at a time
+// --------------------------------
 // ignore = 0
 
 $show_how_many_accounts = 10;
 
-
 // sysadmin mail
 // -------------
 // will be displayed on screens with error messages
+// must be set to something else than the default value
 
 $sysadmin_mail = "sysadmin@notdefined.yetx";
 
@@ -61,14 +61,16 @@ $default_language = "en";
 
 // system accounts
 // ---------------
-// accounts which will be hidden and not usable anywhere (no edit, create, delete, login)
+// accounts which will be hidden and not usable anywhere 
+// (no edit, create, delete, login)
 
 $system_accounts_list = array( );
 //$system_accounts_list = array( 'abuse', 'root', 'hostmaster');
 
 // readonly accounts
 // ----------------
-// accounts which will be shown, but will remain uneditable (no edit, create, delete or login)
+// accounts which will be shown, but will remain uneditable 
+// (no edit, create, delete or login)
 
 $readonly_accounts_list = array( '', '', '');
 //$readonly_accounts_list = array( 'postmaster', 'mailer-daemon' );
@@ -83,7 +85,8 @@ $program_name = "oMail-admin";
 // vmailmgrquota file location
 // ---------------------------
 
-$vmailmgrquota_file = "/var/qmail/control/vmailmgrquotas";
+$vmailmgrquota_file = "vmailmgrquotas";  // in current directory
+//$vmailmgrquota_file = "/var/qmail/control/vmailmgrquotas";
 //$vmailmgrquota_file = "/etc/vmailmgr/vmailmgrquotas";
 
 
@@ -94,7 +97,6 @@ $vmailmgrquota_file = "/var/qmail/control/vmailmgrquotas";
 // and "xxxxxxx.temp" otherwise.  Keep empty to use the standard set.
 
 $template_name = "";
-
 
 // config_use_settings_with_quota
 // ------------------------------
@@ -107,6 +109,66 @@ $config_use_settings_with_quota = 0;
 // to hide the about-screen button : I think it is fair to keep it zero.
 
 $hide_about_button = 0;
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+
+// use_vmailmgrd_tcp
+// -----------------
+// normaly, omail-admin assumes that vmailmgrd is running on the same server
+// as the omail-admin scripts, and access it via an unix socket. Now there
+// is also a way to access the vmailmgrd via tcp : to use this feature, set
+// the variable to 1, and set the host(s).
+
+$use_vmailmgrd_tcp = 0;
+
+// vmailmgrd_tcp_host
+// ------------------
+// contains ip of target host. This host must accept tcp connections on port
+// 322 comming for the webserver where omail-admin is running.
+
+$vmailmgrd_tcp_host = "127.0.0.1";
+
+
+// vmailmgrd_tcp_host_method
+// -------------------------
+// possible choices:
+//	0 : use default host set in $vmailmgrd_tcp_host
+//	1 : use the vmailmgrd_tcp_hosts_list method
+//	2 : use the vmailmgrd_tcp_hosts_dir method
+
+$vmailmgrd_tcp_host_method = 2;
+
+
+// vmailmgrd_tcp_hosts_list  [1]
+// ------------------------
+// first host selection method : a selection field on login screen.
+// Format: "host public name" => "ip". 
+// Should also work with hostnames instead of ip's, if your dns resolver
+// si configured correctly.
+
+$vmailmgrd_tcp_hosts_list=array(
+                        "Localhost"=>"127.0.0.1",
+                        "Omega"=>"195.134.143.43",
+                        "Pegasus"=>"195.134.143.40"
+			);
+
+// vmailmgrd_tcp_hosts_dir  [2]
+// -----------------------
+// second host selection method : put in the variable a directory name (no trailing "/")
+// which contain one domain list per existing vmailmgrd-tcp mailserver, with the
+// host-ip or name as filename. On login, omail-admin will check in which file the 
+// domain is, and then connect transparently to the right host, or display an error
+// message if domain was not found.
+
+$vmailmgrd_tcp_hosts_dir = "vmailmgrd-tcp-hosts";   
+//$vmailmgrd_tcp_hosts_dir = "/var/qmail/vmailmgrd-tcp-hosts";   
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+
 
 // use_ldap
 // --------
@@ -167,8 +229,8 @@ $ldap_passwd = "very_secret";
 /* you shouldn't have to change the following lines */
 
 // version
-$version = "0.96pre11";
-$cvs_version = '$Id: config.php,v 1.46 2001/01/11 17:49:08 swix Exp $';
+$version = "0.97";
+$cvs_version = '$Id: config.php,v 1.47 2001/02/24 20:30:11 swix Exp $';
 
 // script URL
 
@@ -181,7 +243,7 @@ if ($cookie_omail_lang && !$default_lang) { $default_lang = htmlentities($cookie
 if (!$default_lang) { $default_lang = $default_language; }       // default language
 
 
-// yes, it's here:  Thanks for using oMail-admin! Enjoy :)
+// yes, it's here:  Thanks for using oMail-admin! & Enjoy :)
 
 $splash_screen = 0;
 

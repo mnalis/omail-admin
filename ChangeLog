@@ -2,8 +2,16 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: ChangeLog,v 1.51 2001/01/11 17:49:08 swix Exp $ 
+$Id: ChangeLog,v 1.52 2001/02/24 20:30:10 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
+
+2001-02-24  Olivier Mueller  <om@omnis.ch>
+
+	* added vmailmgrd-tcp support, with 3 different host selection
+	  methods : 1) an unique host, 2) a hosts listing, with selection
+	  on login screen, 3) transparent host selection based on domain
+	  name.
+	* catchall action is now visible by default
 
 
 2001-01-11  Olivier Mueller  <om@omnis.ch>

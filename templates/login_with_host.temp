@@ -31,18 +31,36 @@ function selectLang() {
 <INPUT TYPE="hidden" name="A" value="login">
 </FORM>
 
+
+
+
+
 <FORM METHOD="post" ACTION="%script%?%SID%">
-<TD ROWSPAN="4" width=8 bgcolor="#ffffff">
+<TD ROWSPAN="5" width=8 bgcolor="#ffffff">
 <IMG SRC="images/srs.gif" width=16 height=250 alt=""></TD></TR>  
+
 <TR><TD ALIGN="RIGHT">%txt_domain_or_email% :&nbsp;</TD>
 <TD><input name="form_login" VALUE="%domain_value%" size="20"> %domain_select%
-
 </TD>
-<TD>&nbsp;</TD></TR><TR>
+<TD>&nbsp;</TD></TR>
+
+<TR>
 <TD ALIGN="RIGHT">%txt_password_str% :&nbsp;</TD>
 <TD><input name="form_passwd" type="password" size="20"></TD>
 <TD>&nbsp;</TD>
-</TR><TR>
+</TR>
+
+<TR>
+<TD ALIGN="RIGHT">%txt_mailhost_str% :&nbsp;</TD>
+<TD>
+<select name="form_tcphost">
+%tcphost_select_list%
+</select>
+</TD>
+<TD>&nbsp;</TD>
+</TR>
+
+<TR>
 <TD ALIGN="CENTER" COLSPAN="4">
 <INPUT TYPE="hidden" name="A" value="checkin">
 <INPUT TYPE="hidden" name="setlang" value="%lang%">

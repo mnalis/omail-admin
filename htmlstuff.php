@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.58 2001/01/11 17:49:08 swix Exp $
+        $Id: htmlstuff.php,v 1.59 2001/02/24 20:30:11 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -37,6 +37,7 @@
 function html_login() {
 
 	global $script_url, $A, $lang, $version, $cookie_omail_last_login, $cookie_omail_last_domain, $domains_list;
+	global $use_vmailmgrd_tcp, $vmailmgrd_tcp_host_method, $vmailmgrd_tcp_hosts_list;
 	include("strings.php");
 
         $templdata["script"]=$script;
@@ -44,6 +45,7 @@ function html_login() {
 	$templdata["txt_dom_ident"]=$txt_dom_ident[$lang];
 	$templdata["txt_domain_or_email"]=$txt_domain_or_email[$lang];
 	$templdata["txt_password_str"]=$txt_password_str[$lang];
+	$templdata["txt_mailhost_str"]=$txt_mailhost_str[$lang];
 	$templdata["txt_login"]=$txt_login[$lang];
 	$templdata["lang"]=$lang;
 
@@ -91,8 +93,20 @@ function html_login() {
                 $templdata["domain_select"] .= "</select>";
         }
 
-        print parseTemplate($templdata, "templates/login.temp");
+	if ($use_vmailmgrd_tcp && $vmailmgrd_tcp_host_method == 1) {
 
+		// prepare hosts list
+		
+		$templdata["tcphost_select_list"] = "";	
+		reset($vmailmgrd_tcp_hosts_list);
+		while(list ($id,$tmp) = each ($vmailmgrd_tcp_hosts_list)) {
+			$templdata["tcphost_select_list"] .= "<option>$id</option>";
+		}
+
+	        print parseTemplate($templdata, "templates/login_with_host.temp");
+	} else {
+	        print parseTemplate($templdata, "templates/login.temp");
+	}
 }
 
 
@@ -712,7 +726,7 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 		    
 		if ($arg_action) {
 
-			if ($quota_data["catchall_use_allowed"]) {
+			if ($quota_data["catchall_use_allowed"] == "1" || $quota_data["catchall_use_allowed"] == "") {
 
 			    // check status : catchall or not ?
 			

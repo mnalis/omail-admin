@@ -2,7 +2,7 @@
 oMail-admin -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: INSTALL,v 1.13 2000/11/13 20:20:07 swix Exp $
+$Id: INSTALL,v 1.14 2001/02/24 20:30:10 swix Exp $
 $Source: /cvsroot/omail/admin2/INSTALL,v $
 
 
@@ -22,7 +22,12 @@ oMail - INSTALL
 - uscpi-unix 0.34 or higher (Bruce Guenter)  (needed to make the daemon works)
   http://em.ca/~bruceg/ucspi-unix/
 
-- qmail-autoresponder 0.93 or higher (Bruce Guenter)   
+  OR/AND (at least one!)
+
+- ucspi-tcp (Dan Bernstein)   (needed to make the daemon works)
+  http://cr.yp.to/ucspi-tcp.html
+
+- qmail-autoresponder 0.93 or higher (Bruce Guenter)    
   http://www.em.ca/~bruceg/qmail-autoresponder/
 
 - php 4.0.x
@@ -38,10 +43,11 @@ oMail - INSTALL
 
   1. install qmail, autorespond and vmailmgr
 
-  2. make sure vmailmgrd (the vmailmgr daemon) is running. Don't forget it needs uscpi-unix to work.
-     ( for example:  /usr/local/bin/unixserver -v -- /tmp/.vmailmgrd /usr/local/sbin/vmailmgrd -V  )
+  2. make sure that vmailmgrd (the vmailmgr daemon) is running. Don't forget it needs 
+     uscpi-unix or uscpi-tcp to work.  Check INSTALL.daemon for some real-life examples 
+     of working setups.
 
-  3. check config.php  (optional)
+  3. check config.php and setup the configuration variables.
 
   4. if "index.php" is not defined as DirectoryIndex in your Apache conf, replace the	
      $script_url = "$SCRIPT_URL"; line in config.php by 
@@ -59,6 +65,8 @@ oMail - INSTALL
   ...
 
   99. Have a look at http://cdnow.com/gift/om@omnis.ch  :)
+
+ 100. Thanks for using omail-admin!
 
 
 
@@ -91,5 +99,5 @@ oMail - INSTALL
 
 
 
---Olivier, 13.nov.2k
+--Olivier, 24.feb.MMI
 

@@ -1,8 +1,8 @@
------
-Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
------
+-----------
+oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
+-----------
 
-$Id: TRANSLATION,v 1.1 2000/10/13 11:15:40 swix Exp $ 
+$Id: TRANSLATION,v 1.2 2001/02/24 20:30:11 swix Exp $ 
 $Source: /cvsroot/omail/admin2/TRANSLATION,v $
 
 

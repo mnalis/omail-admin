@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.37 2001/01/10 16:28:46 swix Exp $
+        $Id: index.php,v 1.38 2001/02/24 20:30:11 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -47,6 +47,8 @@ session_register("username","domain","passwd","type","ip","expire","lang","activ
 session_register("quota_on","quota_data","catchall_active", "sort_order");
 session_register("mb_start","al_start");
 session_register("mb_letter","al_letter");
+session_register("vm_tcphost","vm_tcphost_port");   // for vmailmgrd-tcp
+
 
 if (!$lang) { 
 
@@ -107,8 +109,9 @@ if (!$active) {
 		html_end();
 		exit();
 
-	} else {
-	
+	} else { 
+		
+		// checkin:
 
 		if (count($domains_list)) { 
 			if (!$login_domain) { $form_login = ""; }   // -> failure : we need a domain!
@@ -116,6 +119,34 @@ if (!$active) {
 			if ($form_login) { $form_login .= "@"; }
 			$form_login .= $login_domain;
 		}
+
+		$form_login = trim($form_login);
+
+		// setup tcp host if necessary and if we are using vmailmgrd_tcp
+
+		if ($use_vmailmgrd_tcp) {
+			
+			$vm_tcphost = "";
+			$vm_tcphost_port = "";
+
+			switch ($vmailmgrd_tcp_host_method) {
+
+				case "0":  // one host
+					$vm_tcphost = $vmailmgrd_tcp_host;
+					break;
+
+				case "1":  // multi host via select
+					
+					$vm_tcphost = $vmailmgrd_tcp_hosts_list[$form_tcphost];
+					break;
+
+				case "2":  // multi host with transparent host selection
+					$vm_tcphost = tcp_host_findout($form_login); 	
+					break;
+
+			}
+		}
+
 
 		if ($form_passwd && $form_login && authenticate($form_login, $form_passwd, $REMOTE_ADDR)) {
 

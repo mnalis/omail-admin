@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.38 2001/01/10 16:28:46 swix Exp $
+        $Id: strings.php,v 1.39 2001/02/24 20:30:11 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -2693,7 +2693,6 @@ $txt_last = array(
   "sv" => "&gt;&gt;&gt;");
 
 
-
  $txt_any = array(
   "ru" => "Any",
   "en" => "Any",
@@ -2707,6 +2706,38 @@ $txt_last = array(
   "it" => "Any",
   "ro" => "Any",
   "sv" => "Allt");
+
+
+ $txt_mailhost_str = array(
+  "ru" => "Mailserver",
+  "en" => "Mailserver",
+  "ja" => "Mailserver",
+  "tc" => "Mailserver",
+  "fr" => "Serveur mail",
+  "de" => "Mailserver",
+  "da" => "Mailserver",
+  "es" => "Mailserver",
+  "nl" => "Mailserver",
+  "it" => "Mailserver",
+  "ro" => "Mailserver",
+  "sv" => "Mailserver");
+
+
+// empty array - please also update with new languages :)
+
+ $txt_ = array(
+  "ru" => "",
+  "en" => "",
+  "ja" => "",
+  "tc" => "",
+  "fr" => "",
+  "de" => "",
+  "da" => "",
+  "es" => "",
+  "nl" => "",
+  "it" => "",
+  "ro" => "",
+  "sv" => "");
 
 
 

@@ -1,0 +1,10 @@
+-----------
+oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
+-----------
+
+$Id: INSTALL.daemon,v 1.1 2001/02/24 20:30:11 swix Exp $ 
+$Source: /cvsroot/omail/admin2/INSTALL.daemon,v $
+
+INSTALL.daemon
+==============
+

@@ -8,7 +8,7 @@
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 	* Copyright (C) 2000  Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 
-        $Id: func.php,v 1.28 2001/01/10 16:28:46 swix Exp $
+        $Id: func.php,v 1.29 2001/02/24 20:30:11 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -902,6 +902,53 @@ function ldap_entry ($action, $username, $firstname, $lastname)
 	return "LDAP error : no action given"; 
     }
     ldap_close($linkid);
+}
+
+
+
+// tcp_host_findout
+// ----------------
+// used to findout server ip based on domain name. 
+
+function tcp_host_findout($domain) {
+
+	global $vmailmgrd_tcp_hosts_dir;
+
+	// 1. get listing of files
+
+	if (is_dir($vmailmgrd_tcp_hosts_dir)) {
+
+		$tmp_dir = opendir($vmailmgrd_tcp_hosts_dir);
+
+		while (false!==($file = readdir($tmp_dir))) { 
+			if ($file != "." && $file != "..") { 
+
+				// 2. parse each file and look for domain
+	
+				$fp = fopen("$vmailmgrd_tcp_hosts_dir/$file", "r");
+				if ($fp) {
+					while (!feof ($fp)) {
+						$line = trim(fgets ($fp, 1024));
+
+						if ($line == $domain) {
+							// we found the domain! return filename (=host)
+							fclose($fp);
+							closedir($tmp_dir);
+							return $file;
+						}	
+					}
+					fclose($fp);
+				}
+     			}	 
+ 		}
+
+		closedir($tmp_dir);
+		return ""; 		// domain not found
+		
+	} else { 
+		return "";		// $vmailmgrd_tcp_hosts_dir not a directory
+	}
+
 }
 
 ?>

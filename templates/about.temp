@@ -9,6 +9,7 @@ Dan Bernstein's <a href="http://www.qmail.org" target="_new">qmail</a> and Bruce
 <li>Features:
 <ul>
 <li>complete support of all vmailmgr functions</li>
+<li>can be used with vmailmgrd-unix (file socket) or vmailmgrd-tcp (tcp socket)</li>
 <li>create/edit/delete/enable/disable mailboxes and aliases</li>
 <li>administrator (all rights) and single user (can only change his own account) access</li>
 <li>full autoresponder support (edit/enable/disable)</li>

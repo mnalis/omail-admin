@@ -1,7 +1,7 @@
 <?
 // Copyright (C) 2000 Mike Bell <mike@mikebell.org>
 // 
-//      $Id: vmail.inc,v 1.7 2000/11/17 16:31:11 swix Exp $
+//      $Id: vmail.inc,v 1.8 2001/02/24 20:30:11 swix Exp $
 //      $Source: /cvsroot/omail/admin2/vmail.inc,v $
 //
 //  [om]  added lookup command on 03aug2k
@@ -27,16 +27,35 @@
 
 function vm_daemon_raw($arg)
 {
-        $vmailfile = "/tmp/.vmailmgrd";
-	if (file_exists("/etc/vmailmgr/socket-file"))
-		$socketfile = (file ("/etc/vmailmgr/socket-file"));
-	$socketfile = trim($socketfile[0]);
-	if ($socketfile != "")
-		$vmailfile = $socketfile;
-		
+	global $vm_tcphost, $vm_tcphost_port;
 
-        $vmailsock = fsockopen ($vmailfile, 0, $errno, $errstr, 4);
-	if (!$vmailsock) die("Failed to open socket file, is daemon running?");
+	// om/23feb01 - dual vmailmgrd support : unix & tcp socket
+
+	if ($vm_tcphost) { 
+		
+		// TCP SOCKET - default port = 322.
+ 	
+		if (!$vm_tcphost_port) { $vm_tcphost_port = "322"; }
+
+        	$vmailsock = fsockopen ($vm_tcphost, $vm_tcphost_port, $errno, $errstr, 10);
+        	if (!$vmailsock) die("Failed to open tcp socket, is daemon running on host '$vm_tcphost:$vm_tcphost_port'? <br>\nError: $errno - $errstr");
+	
+	} else {
+
+		// UNIX SOCKET
+
+	        $vmailfile = "/tmp/.vmailmgrd";
+		if (file_exists("/etc/vmailmgr/socket-file"))
+			$socketfile = (file ("/etc/vmailmgr/socket-file"));
+		$socketfile = trim($socketfile[0]);
+		if ($socketfile != "")
+			$vmailfile = $socketfile;
+
+		$vmailsock = fsockopen ($vmailfile, 0, $errno, $errstr, 4);
+		if (!$vmailsock) die("Failed to open unix socket file at '$vmailfile', is daemon running? <br>\n Error: $errno - $errstr");
+	}
+
+
 
 /*      Parse $arg, which should be an array of arguments to pass to the
         daemon, into a glob consisting of each argument proceeded by a
