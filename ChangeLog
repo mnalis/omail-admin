@@ -2,10 +2,13 @@
 Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----
 
-$Id: ChangeLog,v 1.18 2000/09/23 11:13:47 swix Exp $ 
+$Id: ChangeLog,v 1.19 2000/09/24 22:54:45 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
+2000-09-24  Olivier Mueller  <om@omnis.ch>
 
+	* nearly finished the templates : only the account list is missing 
+	
 2000-09-23  Olivier Mueller  <om@omnis.ch>
 	
 	* templates support now in main cvs. conversion of the htmlstuff -> templates
