@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.11 2000/08/06 22:48:55 swix Exp $
+        $Id: htmlstuff.php,v 1.12 2000/08/06 22:50:41 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -526,7 +526,7 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 
 function html_about() {
 
-	global $A, $domain, $cvs_version, $version, $lang;
+	global $A, $domain, $cvs_version, $version, $lang, $HTTP_HOST, $REQUEST_URI, $REMOTE_ADDR;
 	include("strings.php");
 
 	?>
@@ -579,7 +579,7 @@ highly recommended. -->
 </ul>
 </td></tr></table>
 <br></li>
-<li>CVS Version: $Id: htmlstuff.php,v 1.11 2000/08/06 22:48:55 swix Exp $ <br><br></li>
+<li>CVS Version: $Id: htmlstuff.php,v 1.12 2000/08/06 22:50:41 swix Exp $ <br><br></li>
 
 <li>
 Feel free to use this form for your suggestions, requests and bugfixes:
@@ -587,8 +587,8 @@ Feel free to use this form for your suggestions, requests and bugfixes:
 <input type="hidden" name="recipient" value="omail@omnis.ch">
 <input type="hidden" name="subject" value="oMail-admin $version comment form">
 <input type="hidden" name="redirect" value="http://<?php echo($HTTP_HOST); ?><?php echo($REQUEST_URI); ?>">
-<input type="hidden" name="sender" value="<?php echo($REMOTE_ADDR);>">
-<input type="hidden" name="sender" value="Version: $Id: htmlstuff.php,v 1.11 2000/08/06 22:48:55 swix Exp $ ">
+<input type="hidden" name="sender" value="<?php echo($REMOTE_ADDR); ?>">
+<input type="hidden" name="sender" value="Version: $Id: htmlstuff.php,v 1.12 2000/08/06 22:50:41 swix Exp $ ">
 <table border="0">
 <tr><td align="right">Email</td><td><small>
 <input type="text" size="30" name="from_email"></small></td></tr>
