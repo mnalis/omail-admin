@@ -2,11 +2,13 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: ChangeLog,v 1.47 2001/01/09 22:42:11 swix Exp $ 
+$Id: ChangeLog,v 1.48 2001/01/09 23:09:03 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
+
 2001-01-09  Olivier Mueller  <om@omnis.ch>
-	
+
+	* released version 0.96pre10	
 	* applied patch from Peter, and corrected a few things:
 	 > I've attached a patch that does the following to omail-admin-0.96pre9:
 	 > * Adds the ability to display mailboxes and/or aliases starting with a

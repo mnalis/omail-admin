@@ -76,7 +76,7 @@ Thanks in advance for your support!
 <option value=""> - </option>
 <option>Less than 10 mailboxes/alias per domain</option>
 <option>Between 10 and 50 mailboxes/alias per domain</option>
-<option>More than 50 mailboxes/alias per domain (web interface should be improved...)</option>
+<option>More than 50 mailboxes/alias per domain</option>
 </select>
 </small></td></tr>
 
