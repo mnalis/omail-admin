@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.69 2003/01/29 21:33:26 swix Exp $
+        $Id: htmlstuff.php,v 1.70 2003/05/04 16:04:42 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -207,7 +207,6 @@ function html_userform($userinfo, $action, $mboxlist) {
 	include("strings.php");
 	$fwd = 0;
 
-	$templdata["spamsettings"] = "";
         $templdata["script"]=$script;
         $templdata["SID"]=SID;
         $templdata["txt_username"]=$txt_username[$lang];
@@ -327,7 +326,6 @@ function html_quotaform($userinfo, $action) {
 
 
 	// cleanup userinfo field, if containing SPAM settings
-	$templdata["spamsettings"] = "";
         $templdata["script"]=$script;
         $templdata["SID"]=SID;
         $templdata["txt_username"]=$txt_username[$lang];
@@ -456,10 +454,22 @@ function html_spamform($userinfo, $spamsetup) {
         $templdata["txt_standard_value"]=$txt_standard_value[$lang];
         $templdata["txt_master_switch"]=$txt_master_switch[$lang];
 
+        $templdata["txt_spam_sensibility"]=$txt_spam_sensibility[$lang];
+        $templdata["txt_high"]=$txt_high[$lang];
+        $templdata["txt_normal"]=$txt_normal[$lang];
+        $templdata["txt_low"]=$txt_low[$lang];
+        $templdata["txt_current_value"]=$txt_current_value[$lang];
+
         $templdata["spam_target"]=$spamsetup["spam_target"];
         $templdata["required_hits"]=$spamsetup["required_hits"];
         $templdata["blacklist"]=$spamsetup["blacklist"];
         $templdata["whitelist"]=$spamsetup["whitelist"];
+
+	if (!$templdata["required_hits"]) { $templdata["required_hits"] = "5"; }
+	$templdata["required_hits_txt"] = "-";
+	if ($templdata["required_hits"] == 4) { $templdata["required_hits_txt"] = $txt_high[$lang]; }
+	if ($templdata["required_hits"] == 5) { $templdata["required_hits_txt"] = $txt_normal[$lang]; }
+	if ($templdata["required_hits"] == 7) { $templdata["required_hits_txt"] = $txt_low[$lang]; }
 
         print parseTemplate($templdata, "templates/spamform.temp");
 

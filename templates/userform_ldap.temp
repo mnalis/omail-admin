@@ -38,7 +38,6 @@
 
 <input type="hidden" name="A" value="parse">
 <input type="hidden" name="action" value="%action%">
-<input type="hidden" name="spamsettings" value="%spamsettings%">
 <input type="submit" value="%txt_submit%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <input type="reset" value="%txt_cancel%" onClick="return gO(this,true,true)">&nbsp;</td></tr>
 </table>

@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.65 2003/01/29 22:39:46 swix Exp $ 
+	$Id: config.php,v 1.66 2003/05/04 16:04:41 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -52,7 +52,7 @@ $show_how_many_accounts = 20;
 // will be displayed on screens with error messages
 // must be set to something else than the default value
 
-$sysadmin_mail = "sysadmin@notdefined.yet";
+$sysadmin_mail = "admin@omnis.ch";
 
 
 // default language
@@ -249,9 +249,9 @@ $spamassassin_default_status = 0;
 // access data for the database (mysql-based for the moment):
 
 $db_server   = "localhost";
-$db_login    = "omail";
-$db_passwd   = "********";
-$db_database = "omail";
+$db_login    = "nospam";
+$db_passwd   = "nospam0608";
+$db_database = "nospam";
 $tb_userpref = "userpref";
 
 
@@ -286,7 +286,7 @@ $tb_userpref = "userpref";
 
 // version
 $version = "1.0-alpha";
-$cvs_version = '$Id: config.php,v 1.65 2003/01/29 22:39:46 swix Exp $';
+$cvs_version = '$Id: config.php,v 1.66 2003/05/04 16:04:41 swix Exp $';
 
 // script URL
 

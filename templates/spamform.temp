@@ -15,10 +15,15 @@
 <font color="red"><b>(%txt_master_switch%)</b></font></td></tr> 
 
 
- <tr><th align=right>%txt_required_hits%:&nbsp;</th> 
+ <tr><th align=right>%txt_spam_sensibility%:&nbsp;</th> 
  <td bgcolor="#CCCCCC" align=left> 
-<input type="text" name="required_hits" value="%required_hits%" size="3">&nbsp;
-(%txt_standard_value% = 5)&nbsp;</td></tr> 
+<select name="required_hits">
+<option value="%required_hits%">%txt_current_value%: %required_hits_txt%</option>
+<option value="4">%txt_high%</option>
+<option value="5">%txt_normal%</option>
+<option value="7">%txt_low%</option>
+</select>
+&nbsp;</td></tr> 
 
 
  <tr><th align=right>

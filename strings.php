@@ -6,7 +6,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.56 2003/01/29 21:33:28 swix Exp $
+        $Id: strings.php,v 1.57 2003/05/04 16:04:42 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
         strings.php
@@ -3794,6 +3794,97 @@ $txt_current_catchall_not_defined = array(
   "sv" => "fixme_and_update_cvs",
   "lt" => "fixme_and_update_cvs",
   "id" => "fixme_and_update_cvs");
+
+ $txt_spam_sensibility = array(
+  "ru" => "fixme_and_update_cvs",
+  "en" => "Spam filter sensibility",
+  "cz" => "fixme_and_update_cvs",
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "Sensibilité du filtre",
+  "de" => "Empfindlichkeit",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "pt-br" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs",
+  "lt" => "fixme_and_update_cvs",
+  "id" => "fixme_and_update_cvs");
+
+ $txt_high = array(
+  "ru" => "fixme_and_update_cvs",
+  "en" => "High",
+  "cz" => "fixme_and_update_cvs",
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "Haute",
+  "de" => "Hoch",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "pt-br" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs",
+  "lt" => "fixme_and_update_cvs",
+  "id" => "fixme_and_update_cvs");
+
+ $txt_normal = array(
+  "ru" => "fixme_and_update_cvs",
+  "en" => "Normal",
+  "cz" => "fixme_and_update_cvs",
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "Normal",
+  "de" => "Normal",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "pt-br" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs",
+  "lt" => "fixme_and_update_cvs",
+  "id" => "fixme_and_update_cvs");
+
+ $txt_low = array(
+  "ru" => "fixme_and_update_cvs",
+  "en" => "Low",
+  "cz" => "fixme_and_update_cvs",
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "Basse",
+  "de" => "Tief",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "pt-br" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs",
+  "lt" => "fixme_and_update_cvs",
+  "id" => "fixme_and_update_cvs");
+
+ $txt_current_value = array(
+  "ru" => "fixme_and_update_cvs",
+  "en" => "Current value",
+  "cz" => "fixme_and_update_cvs",
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "Valeur actuelle",
+  "de" => "Aktuel",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "pt-br" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs",
+  "lt" => "fixme_and_update_cvs",
+  "id" => "fixme_and_update_cvs");
+
 
  $txt_standard_value = array(
   "ru" => "fixme_and_update_cvs",
