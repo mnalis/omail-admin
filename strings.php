@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.48 2001/04/17 11:02:23 swix Exp $
+        $Id: strings.php,v 1.49 2001/04/17 11:06:43 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -57,7 +57,7 @@ $txt_langname=array(	"fr"=>"Français",
                         "ro"=>"Romana",
 			"ru"=>"Russian",
 			"sv"=>"Svenska",
-			"id"=>"Indonesia");
+			"id"=>"Indonesian");
 
 $txt_charset=array(     "ru"=>"KOI8-R",
                         "fr"=>"",
