@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.70 2003/05/04 16:04:42 swix Exp $
+        $Id: htmlstuff.php,v 1.71 2003/05/04 21:56:42 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -459,6 +459,9 @@ function html_spamform($userinfo, $spamsetup) {
         $templdata["txt_normal"]=$txt_normal[$lang];
         $templdata["txt_low"]=$txt_low[$lang];
         $templdata["txt_current_value"]=$txt_current_value[$lang];
+
+        $templdata["txt_spam_autorizations"]=$txt_spam_autorizations[$lang];
+        $templdata["txt_spam_action"]=$txt_spam_action[$lang];
 
         $templdata["spam_target"]=$spamsetup["spam_target"];
         $templdata["required_hits"]=$spamsetup["required_hits"];

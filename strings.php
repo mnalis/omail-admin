@@ -6,7 +6,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.57 2003/05/04 16:04:42 swix Exp $
+        $Id: strings.php,v 1.58 2003/05/04 21:56:42 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
         strings.php
@@ -3742,11 +3742,11 @@ $txt_current_catchall_not_defined = array(
 
  $txt_white_list = array(
   "ru" => "fixme_and_update_cvs",
-  "en" => "White List",
+  "en" => "White List: <br>mails from these senders will never be tagged as Spams",
   "cz" => "fixme_and_update_cvs",
   "ja" => "fixme_and_update_cvs",
   "tc" => "fixme_and_update_cvs",
-  "fr" => "Liste Blanche",
+  "fr" => "Liste Blanche: <br>les mails de ces expéditeurs ne seront jamais traités comme étant des Spams",
   "de" => "Weisse Liste: <br>E-Mails von folgenden Absendern<br>werden nie als Spam eingestuft",
   "da" => "fixme_and_update_cvs",
   "es" => "fixme_and_update_cvs",
@@ -3760,11 +3760,11 @@ $txt_current_catchall_not_defined = array(
 
  $txt_black_list = array(
   "ru" => "fixme_and_update_cvs",
-  "en" => "Black List",
+  "en" => "Black List: <br>mails from these senders will always be treated as Spams",
   "cz" => "fixme_and_update_cvs",
   "ja" => "fixme_and_update_cvs",
   "tc" => "fixme_and_update_cvs",
-  "fr" => "Liste Noire",
+  "fr" => "Liste Noire: <br>les mails des ces expéditeurs seront toujours traités comme étant des Spams",
   "de" => "Schwarze Liste: <br>E-Mails von folgenden Absendern<br>werden immer als Spam eingestuft",
   "da" => "fixme_and_update_cvs",
   "es" => "fixme_and_update_cvs",
@@ -3922,6 +3922,42 @@ $txt_current_catchall_not_defined = array(
   "lt" => "fixme_and_update_cvs",
   "id" => "fixme_and_update_cvs");
 
+
+ $txt_spam_action = array(
+  "ru" => "fixme_and_update_cvs",
+  "en" => "Reaction",
+  "cz" => "fixme_and_update_cvs",
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "Réaction",
+  "de" => "Massnahmen",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "pt-br" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs",
+  "lt" => "fixme_and_update_cvs",
+  "id" => "fixme_and_update_cvs");
+
+ $txt_spam_autorizations = array(
+  "ru" => "fixme_and_update_cvs",
+  "en" => "Authorizations",
+  "cz" => "fixme_and_update_cvs",
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "Autorisations",
+  "de" => "Berechtigungen",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "pt-br" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs",
+  "lt" => "fixme_and_update_cvs",
+  "id" => "fixme_and_update_cvs");
 
 
 // empty array - please also update with new languages :)

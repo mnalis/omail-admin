@@ -27,7 +27,7 @@
 
 
  <tr><th align=right>
-<b><font color="blue">Massnahmen / Action:</font></b>
+<b><font color="blue">%txt_spam_action%:</font></b>
 &nbsp;
 </th>  <td bgcolor="#CCCCCC" align=left> 
 &nbsp;
@@ -49,7 +49,7 @@
 
 
  <tr><th align=right>
-<b><font color="blue">Berechtigungen / Authorizations:</font></b>
+<b><font color="blue">%txt_spam_autorizations%</font></b>
 &nbsp;
 </th>  <td bgcolor="#CCCCCC" align=left> 
 &nbsp;
