@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.51 2000/11/17 16:55:45 swix Exp $
+        $Id: htmlstuff.php,v 1.52 2000/11/17 16:57:08 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -255,7 +255,7 @@ function html_userform($userinfo, $action, $mboxlist) {
 		$templdata["select_account_contents"] .= '<option>' . $tmp_account[0] . '</option>';		
 	}
 
-	if ($type = "user") {
+	if ($type == "user") {
 		print parseTemplate($templdata, "templates/userform_userlogin.temp");
 	} else {
 		print parseTemplate($templdata, "templates/userform.temp");
