@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.61 2001/11/17 12:16:15 swix Exp $ 
+	$Id: config.php,v 1.62 2002/02/09 01:38:00 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -134,6 +134,14 @@ $config_use_settings_with_quota = 0;
 $hide_about_button = 0;
 
 
+
+// use SpamAssassin
+// ----------------
+// check the doc in the README & INSTALL files
+
+$use_spamassassin = 1;
+$spamassassin_default_status = 1;	// 0 = turned off by default on new user creation
+
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -252,8 +260,8 @@ $ldap_passwd = "SECRET";
 /* you shouldn't have to change the following lines */
 
 // version
-$version = "0.98.2";
-$cvs_version = '$Id: config.php,v 1.61 2001/11/17 12:16:15 swix Exp $';
+$version = "0.99";
+$cvs_version = '$Id: config.php,v 1.62 2002/02/09 01:38:00 swix Exp $';
 
 // script URL
 

@@ -1,0 +1,48 @@
+ <form action="%script%?%SID%" method="post"> 
+ <table border=0> 
+ <tr><th align=right>  %txt_username% &nbsp;</th> 
+ <td bgcolor="#DDDDDD" align=left>%userinfo0%@%domain%&nbsp;</td></tr> 
+ <input type="hidden" name="U" value="%userinfo0%"> 
+        
+ <tr><th align=right>%txt_scan_for_spam%&nbsp;</th> 
+ <td bgcolor="#CCCCCC" align=left> 
+
+ <select name="spam_status"> 
+ <option value="1" %spam_checked_yes%>%txt_activated%</option> 
+ <option value="0" %spam_checked_no%>%txt_inactived%</option> 
+ </select></td></tr> 
+
+
+ <tr><th align=right>%txt_auto_delete_spams%&nbsp;</th> 
+ <td bgcolor="#DDDDDD" align=left> 
+
+ <select name="spam_delete"> 
+ <option value="1" %spam_delete_checked_yes%>%txt_activated%</option> 
+ <option value="0" %spam_delete_checked_no%>%txt_inactived%</option> 
+ </select></td></tr> 
+
+
+ <tr><th align=right>%txt_fwd_spams_to%&nbsp;</th> 
+ <td bgcolor="#CCCCCC" align=left> 
+
+ <select name="spam_redirect"> 
+ <option value="1" %spam_redirect_checked_yes%>%txt_activated%</option> 
+ <option value="0" %spam_redirect_checked_no%>%txt_inactived%</option> 
+ </select></td></tr> 
+
+ <tr><th align=right>%txt_fwd%&nbsp;</th> 
+ <td bgcolor="DDDDDD" align=left><input type="text" name="from" value="%spam_target%" size="35">&nbsp;</td></tr> 
+
+ <tr><th align=right>%txt_submit%&nbsp;</th> 
+
+ <td bgcolor="#CCCCCC" align=left> 
+ <input type="hidden" name="A" value="parse"> 
+       <input type="hidden" name="action" value="spam"> 
+ <input type="submit" value="%txt_submit%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ <input type="reset" value="%txt_cancel%" onClick="return gO(this,true,true)">&nbsp;</td></tr> 
+               
+ </table> 
+ </form> 
+
+<table><tr><td>%txt_spam_notes%</td></tr></table>

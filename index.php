@@ -7,15 +7,11 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.49 2001/11/12 01:22:29 swix Exp $
+        $Id: index.php,v 1.50 2002/02/09 01:38:00 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
         ---------
-
-        16.jan.2k   om   First version
-        01.aug.2k   om   Rewrite for PHP4
-	13.sep.2k   om   Adding templates support -> done on 25.sep.2k
 
         This program is free software; you can redistribute it and/or modify
         it under the terms of the GNU General Public License as published by
@@ -329,7 +325,7 @@ if ($active == 1) {    // active=1 -> user logged in
 	// Check arguments
 	// 
 
-	if ($A == "resp" || $A == "edit" || $A == "read" || $A == "delete" || $A == "parse" || $A == "quota" || $A == "catchall" || $A == "catchall_remove" || $A == "remove_catchall" || $A == "user_enable" || $A == "user_disable") {
+	if ($A == "spam" || $A == "resp" || $A == "edit" || $A == "read" || $A == "delete" || $A == "parse" || $A == "quota" || $A == "catchall" || $A == "catchall_remove" || $A == "remove_catchall" || $A == "user_enable" || $A == "user_disable") {
 
 	        // check if $U ok
 
@@ -623,6 +619,56 @@ if ($active == 1) {    // active=1 -> user logged in
 
 
 
+
+	//
+	// SPAM SETTINGS EDIT
+	//
+
+	if ($A == "spam") {
+                
+		if ($use_spamassassin && !$quota_data["spamassassin_use_forbidden"]) {
+
+			html_head("$program_name Administration - SpamAssassin");	
+	
+		        html_titlebar($txt_edit_account[$lang], $txt,1);
+		        $user = get_accounts(0, $U);
+			$userinfo = $user[0];
+
+
+			// default values
+
+			$spamsetup["status"] = "0";
+			$spamsetup["delete"] = "0";
+			$spamsetup["redirect"] = "0";
+			$spamsetup["spam_target"] = "";
+
+			// get spam setup from userdetails field, if any
+
+			$userdetails = $userinfo[4];
+			if (ereg("\|SPAM\|", $userdetails)) {
+
+				$tmp_spam_array = explode("|SPAM|", $userdetails);
+				list($spamsetup["status"],$spamsetup["delete"],$spamsetup["redirect"],$spamsetup["spam_target"]) = explode("|", $tmp_spam_array[1]);
+			}
+	
+		        html_spamform($userinfo, $spamsetup);
+		        html_end();
+		        exit();
+
+		} else {
+			$msg = $txt_error_not_allowed[$lang];
+	                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+	                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
+			html_head("$program_name Administration - Error");	
+        	        html_titlebar($txt_error[$lang], $msg ,0);
+	                html_end();
+			exit();
+		}				
+
+	}
+
+
+
 	//
 	// QUOTAS EDIT
 	//
@@ -694,7 +740,6 @@ if ($active == 1) {    // active=1 -> user logged in
 	
 	                // check args format... addslashed everywhere, etc...
 
-
 			if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
     
 		            html_head("$program_name Administration - Error");
@@ -763,6 +808,11 @@ if ($active == 1) {    // active=1 -> user logged in
 			if ($userdetail == "" && ($firstname != "" && $lastname != "")) {
 			    $userdetail = trim($lastname.", ".$firstname);
 			}
+
+			if ($spamsettings) {
+				$userdetail .= "|SPAM|" . $spamsettings;
+			}
+
 			if ($type == "domain") {
                         	$results .= "<br>" . update_userdetail($U, $userdetail);
 			}
@@ -879,6 +929,9 @@ if ($active == 1) {    // active=1 -> user logged in
  					$userdetail=$lastname.", ".$firstname;
  				    }
 				    if (strpos($results,"ok")) {
+					    if ($use_spamassassin && !$quota_data["spamassassin_use_forbidden"] && ($quota_data["spamassassin_default_status"] || $spamassassin_default_status)) {
+						$userdetail .= "|SPAM|1|0|0||";
+					    }
 					    update_userdetail($U, $userdetail);
 				    }
 				}
@@ -897,6 +950,9 @@ if ($active == 1) {    // active=1 -> user logged in
  					$userdetail=$lastname.", ".$firstname;
  				    }
 				    if (strpos($results,"ok")) {
+					    if ($use_spamassassin && !$quota_data["spamassassin_use_forbidden"] && ($quota_data["spamassassin_default_status"] || $spamassassin_default_status)) {
+						$userdetail .= "|SPAM|1|0|0||";
+					    }
 					    update_userdetail($U, $userdetail);
 				    }
 				}
@@ -920,7 +976,6 @@ if ($active == 1) {    // active=1 -> user logged in
 	        // "delete_ok"
 
 	        if ($action == "delete_ok") {
-
 
 			if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
     
@@ -969,6 +1024,7 @@ if ($active == 1) {    // active=1 -> user logged in
         	        html_end();
         	        exit();
 	       	}
+
 
 	       // "responder"
 
@@ -1024,6 +1080,65 @@ if ($active == 1) {    // active=1 -> user logged in
 	                html_end();
 	                exit();
 	        }
+
+
+
+	       // "spam"
+
+	        if ($action == "spam") {
+
+			// if spam support is off, show error
+
+			if (!$use_spamassassin && !$quota_data["spamassassin_use_forbidden"]) {
+
+	                	html_head("$program_name Administration - Error");
+				$msg = $txt_error_not_allowed[$lang];
+		                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+		                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
+	        	        html_titlebar($txt_error[$lang], $msg ,0);
+		                html_end();
+				exit();
+			}				
+
+        
+	                // check args format....
+
+		        if (get_magic_quotes_gpc() == 1) {
+                           $from = stripslashes($from); 
+	                }
+
+			// remove blanks
+
+			$from = trim($from);
+	
+
+			// remove any spam infos from userdetail, keep actual infos...
+
+			$userinfotmp = get_accounts(0,$U);
+			$userinfo = $userinfotmp[0];
+			$userdetail = $userinfo[4];
+			if (ereg("\|SPAM\|", $userdetail)) {
+				$tmp_spam_array = explode("|SPAM|", $userdetail);
+				$userdetail = $tmp_spam_array[0];
+			}
+			
+			$userdetail .= "|SPAM|" . $spam_status . "|" . $spam_delete . "|" . $spam_redirect . "|" . $from . "|";
+
+	                // update status in db
+				
+	                $results = update_userdetail($U, $userdetail) . "   <!-- $userdetail -->    ";
+
+			// ......
+
+	                html_head("$program_name Administration");
+	                $msg = "<b>" . $results . "</b><br><br>";
+	                $msg .= "<ul>";
+	                $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+	                html_titlebar($txt_spamsettings[$lang], "$msg",0);
+	                html_end();
+	                exit();
+	        }
+
 
 
 	       // "quota"

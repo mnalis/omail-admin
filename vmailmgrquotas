@@ -2,7 +2,7 @@
 # --------------
 # configuration file for oMail-admin
 # 
-# $Id: vmailmgrquotas,v 1.8 2001/04/12 20:43:55 swix Exp $ 
+# $Id: vmailmgrquotas,v 1.9 2002/02/09 01:38:00 swix Exp $ 
 # $Source: /cvsroot/omail/admin2/vmailmgrquotas,v $ 
 # 
 # to be copied in /var/qmail/control or /etc/vmailmgr (path to be set in config.php!) 
@@ -16,7 +16,8 @@
 #
 # domain.ext|max_allowd_users|max_allowed_alias|users_support|alias_support \
 #    |user_login_allowed|autoresp_allowed|user_quota_allowed|catchall_use_allowed
-#    |soft_quota|hard_quota|message_size|new_mailbox_forbidden|new_alias_forbidden|
+#    |soft_quota|hard_quota|message_size|new_mailbox_forbidden|new_alias_forbidden
+#    |spamassassin_use_forbidden|spamassassin_default_status|
 # 
 # default : no limits, support for everything
 # 0 = no/undefined, 1 = yes
@@ -29,12 +30,13 @@
 #
 # default configuration  (optional!) 
 # keep it on if you want to allow catchall use for every domain.
-default|0|0|1|1|1|1|1|1|-|-|-|0|0|
+default|0|0|1|1|1|1|1|1|-|-|-|0|0|0|0|
 
 
 #
 # configuration for specific domains
 #
-omnis.ch|6|10|1|1|1|1|1|0|-|-|-|0|0|
-test.com|15|25|1|1|1|1|1|1|20480|15480|5120|0|0|
+omnis.ch|6|10|1|1|1|1|1|0|-|-|-|0|0|0|0|
+test.com|15|25|1|1|1|1|1|1|20480|15480|5120|0|0|0|0|
+
 

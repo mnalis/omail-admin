@@ -6,7 +6,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.54 2001/11/17 12:18:11 swix Exp $
+        $Id: strings.php,v 1.55 2002/02/09 01:38:00 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
         strings.php
@@ -3646,6 +3646,100 @@ $txt_current_catchall_not_defined = array(
   "lt" => "(vienam adresui skiriama viena eilutë)",
   "id" => "fixme_and_update_cvs");
 
+
+ $txt_spamsettings = array(
+  "ru" => "fixme_and_update_cvs",
+  "en" => "SpamAssassin",
+  "cz" => "fixme_and_update_cvs",
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "AntiSpam",
+  "de" => "SpamKiller",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "pt-br" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs",
+  "lt" => "fixme_and_update_cvs",
+  "id" => "fixme_and_update_cvs");
+
+
+ $txt_scan_for_spam = array(
+  "ru" => "fixme_and_update_cvs",
+  "en" => "(1) Scan email for spam with Spamassassin",
+  "cz" => "fixme_and_update_cvs",
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "Détecter les Spams",
+  "de" => "Spams rausfinden",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "pt-br" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs",
+  "lt" => "fixme_and_update_cvs",
+  "id" => "fixme_and_update_cvs");
+
+
+ $txt_auto_delete_spams = array(
+  "ru" => "fixme_and_update_cvs",
+  "en" => "(2) Delete spam",
+  "cz" => "fixme_and_update_cvs",
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "Efface automatiquement les mails considérés comme Spams",
+  "de" => "Löscht direkt alle Mails die als Spam erkannt worden sind",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "pt-br" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs",
+  "lt" => "fixme_and_update_cvs",
+  "id" => "fixme_and_update_cvs");
+
+
+ $txt_fwd_spams_to = array(
+  "ru" => "fixme_and_update_cvs",
+  "en" => "(3) Forward identified spam to separate address",
+  "cz" => "fixme_and_update_cvs",
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "Faire suivre les Spams à l'adresse suivante",
+  "de" => "Spams an folgende Adresse weiterleiten",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "pt-br" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs",
+  "lt" => "fixme_and_update_cvs",
+  "id" => "fixme_and_update_cvs");
+
+
+ $txt_spam_notes = array(
+  "ru" => "fixme_and_update_cvs",
+  "en" => "Notes:<br>1. Spamassassin will review incoming email, and prefix the subject line of suspected messages with the word: \"spam:\" Email will not be deleted.<br>2.  Warning: There is a 1% chance non-spam may be deleted if you choose \"Delete spam\" Deleted email cannot be recovered. Use this option with caution.<br>3. Email will be redirected to this internal or external email address.",
+  "cz" => "fixme_and_update_cvs",
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "fixme_and_update_cvs",
+  "de" => "fixme_and_update_cvs",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "pt-br" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs",
+  "lt" => "fixme_and_update_cvs",
+  "id" => "fixme_and_update_cvs");
 
 
 // empty array - please also update with new languages :)

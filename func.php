@@ -8,7 +8,7 @@
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 	* Copyright (C) 2000  Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 
-        $Id: func.php,v 1.35 2001/11/11 21:32:09 swix Exp $
+        $Id: func.php,v 1.36 2002/02/09 01:38:00 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -197,6 +197,8 @@ function load_quota_info($domain) {
 					$quota_data["msgsize"] = $entry[11] * 1024;
 					$quota_data["new_mailbox_forbidden"] = $entry[12];
 					$quota_data["new_alias_forbidden"] = $entry[13];
+					$quota_data["spamassassin_use_forbidden"] = $entry[14];
+					$quota_data["spamassassin_default_status"] = $entry[15];
 
 				
 					// dirty hack, but should be ok for the moment :]  (index.php will be updated soon)
@@ -227,6 +229,8 @@ function load_quota_info($domain) {
 					$quota_data["msgsize"] = $entry[11] * 1024;
 					$quota_data["new_mailbox_forbidden"] = $entry[12];
 					$quota_data["new_alias_forbidden"] = $entry[13];
+					$quota_data["spamassassin_use_forbidden"] = $entry[14];
+					$quota_data["spamassassin_default_status"] = $entry[15];
 					
 				
 					// dirty hack, but should be ok for the moment :]  (index.php will be updated later)
