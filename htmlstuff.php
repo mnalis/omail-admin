@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.33 2000/09/24 13:47:10 swix Exp $
+        $Id: htmlstuff.php,v 1.34 2000/09/24 14:28:03 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -322,32 +322,18 @@ function html_delete_confirm($userinfo) {
 	global $session, $script, $lang, $domain;
 	include("strings.php");
 
-	// find type of account (mbox or alias)
+        $templdata["script"]=$script;
+        $templdata["SID"]=SID;
+        $templdata["txt_username"]=$txt_username[$lang];
+        $templdata["userinfo0"]=$userinfo[0];
+        $templdata["domain"]=$domain;
 
-	print "<br><table border=0>";	
-	print "<tr><th align=right>" . $txt_username[$lang] . "&nbsp;</th>";	
+        $templdata["txt_submit"]=$txt_submit[$lang];
+        $templdata["txt_cancel"]=$txt_cancel[$lang];
+        $templdata["txt_action"]=$txt_action[$lang];
+        $templdata["txt_delete"]=$txt_delete[$lang];
 
-	print "<td colspan=\"2\" bgcolor=\"#DDDDDD\" align=left>" . $userinfo[0]. "@$domain&nbsp;</td></tr>";
-
-
-	print "<tr><th align=right>" . $txt_action[$lang] . "&nbsp;</th>";	
-	print "<td bgcolor=\"#CCCCCC\" align=\"center\" valign=\"center\">";
-	print "<small><font color=\"red\">";
-
-
-	print "<form action=\"" . $script . "?" . SID . "\" method=\"post\">";
-	print "<input type=\"hidden\" name=\"A\" value=\"parse\">";
-	print "<input type=\"hidden\" name=\"action\" value=\"delete_ok\">";
-	print "<input type=\"hidden\" name=\"U\" value=\"" . $userinfo[0] . "\">";
-	print "<br><input type=\"submit\" name=\"submit\" value=\"" . $txt_delete[$lang]. "\"></font>";
-	print "</form></small></td><td bgcolor=\"#CCCCCC\" align=\"center\" valign=\"center\"><small>";
-
-
-	print "<form action=\"" . $script . "?" . SID . "\" method=\"post\">";
-	print "<input type=\"hidden\" name=\"A\" value=\"menu\">";
-	print "<br><input type=\"reset\" name=\"submit\" onClick=\"return gO(this,true,true)\" value=\"" . $txt_cancel[$lang]. "\">";
-	print "</form></small></td></tr>";	
-	print "</table>";	
+        print parseTemplate($templdata, "templates/delete_confirm.temp");
 }
 
 
