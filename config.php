@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.21 2000/09/24 00:41:04 swix Exp $ 
+	$Id: config.php,v 1.22 2000/09/24 14:51:11 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -34,20 +34,30 @@ $domains_list = array( 'omail-test.com', 'omnis.ch', '8304.ch', 'test.com');
 
 // expire session after 
 // -------------------- 
+// automatic logout after N minutes 
 
 $expire_after = "20"; // minutes
 
 
 // sysadmin mail
 // -------------
+// will be displayed on screens with error messages
 
 $sysadmin_mail = "sysadmin@notdefined.yetx";
 
 
 // default language
 // ----------------
+// look in strings.php for available languages
 
 $default_language = "en";
+
+
+// program_name
+// ------------
+// if you want to display something else as "omail-admin" as program name
+
+$program_name = "oMail-admin";
 
 
 // vmailmgrquota file location
@@ -62,6 +72,12 @@ $vmailmgrquota_file = "/var/qmail/control/vmailmgrquotas";
 // experimental stuff : show [settings] button for aliases too ? 1 = yes, 0 = no
 
 $config_use_settings_with_quota = 0;
+
+// hide_about_button
+// -----------------
+// to hide the about-screen button : I think it is fair to keep it zero.
+
+$hide_about_button = 0;
 
 
 /* END OF USER CONFIGURATION */
@@ -83,7 +99,7 @@ $config_use_settings_with_quota = 0;
 // version
 
 $version = "0.96.2";
-$cvs_version = '$Id: config.php,v 1.21 2000/09/24 00:41:04 swix Exp $';
+$cvs_version = '$Id: config.php,v 1.22 2000/09/24 14:51:11 swix Exp $';
 
 // script URL
 

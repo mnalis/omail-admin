@@ -2,7 +2,7 @@
 Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----
 
-$Id: INSTALL,v 1.7 2000/09/17 00:04:43 swix Exp $
+$Id: INSTALL,v 1.8 2000/09/24 14:51:11 swix Exp $
 $Source: /cvsroot/omail/admin2/INSTALL,v $
 
 
@@ -43,15 +43,19 @@ oMail - INSTALL
 
   3. check config.php  (optional)
 
-  4. make sure you have installed the autoresponder correctely (look at the
+  4. if "index.php" is not defined as DirectoryIndex, replace the	
+     $script_url = "$SCRIPT_URL"; line in config.php by 
+     $script_url = "$SCRIPT_URL/index.php"; 
+
+  5. make sure you have installed the autoresponder correctely (look at the
      vautoresponder file in the qmail-autoresponder distribution...)
 
-  5. make sure you have "magic_quotes_gpc = Off" in your php.ini  (usually in /usr/local/lib/)
+  6. make sure you have "magic_quotes_gpc = Off" in your php.ini  (usually in /usr/local/lib/)
      (just important if there are "'` in the autoresponder message)
 
-  6. if necessary, setup domain-based quotas (look next section in INSTALL file)
+  7. if necessary, setup domain-based quotas (look next section in INSTALL file)
 
-  7. Well, then it should work out of the box.
+  8. Well, then it should work out of the box.
 
 
 

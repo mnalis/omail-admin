@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.34 2000/09/24 14:28:03 swix Exp $
+        $Id: htmlstuff.php,v 1.35 2000/09/24 14:51:11 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -119,9 +119,10 @@ function html_head($title) {
 
 function html_titlebar($title,$msg,$popup) {
 	
-	global $quota_on, $quota_data, $script, $A, $lang, $version;
+	global $quota_on, $quota_data, $script, $A, $lang, $version, $hide_about_button, $program_name;
 	include("strings.php");
 
+	$array["program_name"] = $program_name;
 	$array["version"] = $version;
 	$array["title"] = $title;
 	$array["msg"] = $msg;
@@ -140,10 +141,12 @@ function html_titlebar($title,$msg,$popup) {
 		$array[buttonlabels][1][url] = $script . "?A=logout&" . SID;
 		$array[buttonlabels][1][txt] = $txt_logout[$lang];
 		$array[buttonlabels][1][onClick] = '';
-		$array[buttonlabels][2][url] = $script . "?A=about&" . SID;
-		$array[buttonlabels][2][txt] = $txt_about[$lang];
-		$array[buttonlabels][2][onClick] = '';
-	} elseif ($A == "login" || $A == "" || $A == "splash") {
+		if (!$hide_about_button) {
+			$array[buttonlabels][2][url] = $script . "?A=about&" . SID;
+			$array[buttonlabels][2][txt] = $txt_about[$lang];
+			$array[buttonlabels][2][onClick] = '';
+		}
+	} elseif (($A == "login" || $A == "" || $A == "splash") && !$hide_about_button) {
 		$array[buttonlabels][0][url] = $script . "?A=about&" . SID;
 		$array[buttonlabels][0][txt] = $txt_about[$lang];
 		$array[buttonlabels][0][onClick] = '';
