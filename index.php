@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.44 2001/03/18 11:13:29 swix Exp $
+        $Id: index.php,v 1.45 2001/04/12 20:43:55 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -257,7 +257,8 @@ if ($active == 1) {    // active=1 -> user logged in
 
 			if ($catchall_active) {
 			    $txt_menu_add = "<br>" . $txt_current_catchall_account_is[$lang] . ": <b>$catchall_active@$domain</b>";
-			    $txt_menu_add .= ' [ <a href="' . $script_url . '?A=create_catchall&U='.$catchall_active.'" onClick="oW(this,\'pop\')">' . $txt_edit[$lang] . '</a> ]';
+			    $txt_menu_add .= ' [ <a href="' . $script_url . '?A=create_catchall&" onClick="oW(this,\'pop\')">' . $txt_edit[$lang] . '</a> ]';
+			    // $txt_menu_add .= ' [ <a href="' . $script_url . '?A=create_catchall&U='.$catchall_active.'" onClick="oW(this,\'pop\')">' . $txt_edit[$lang] . '</a> ]';
 			    // $txt_menu_add .= ' [ <a href="' . $script_url . '?A=remove_catchall&U='.$catchall_active.'" onClick="oW(this,\'pop\')">' . $txt_delete[$lang] . '</a> ]';
 			} else {
 			    $txt_menu_add = "<br>" . $txt_current_catchall_not_defined[$lang] ;
@@ -328,7 +329,7 @@ if ($active == 1) {    // active=1 -> user logged in
 	// Check arguments
 	// 
 
-	if ($A == "resp" || $A == "edit" || $A == "read" || $A == "delete" || $A == "parse" || $A == "quota" || $A == "catchall" || $A == "catchall_remove" || $A == "remove_catchall") {
+	if ($A == "resp" || $A == "edit" || $A == "read" || $A == "delete" || $A == "parse" || $A == "quota" || $A == "catchall" || $A == "catchall_remove" || $A == "remove_catchall" || $A == "user_enable" || $A == "user_disable") {
 
 	        // check if $U ok
 		
@@ -352,7 +353,7 @@ if ($active == 1) {    // active=1 -> user logged in
 	if ($A == "newalias") {
 
 
-		if ($type == "domain" && (!$quota_on || ($quota_on && ($quota_data["alias_support"]  && $quota_data["nb_alias"] < $quota_data["max_alias"]))) && !$quota_data["new_account_forbidden"]) {
+		if ($type == "domain" && (!$quota_on || ($quota_on && ($quota_data["alias_support"]  && $quota_data["nb_alias"] < $quota_data["max_alias"]))) && !$quota_data["new_alias_forbidden"]) {
 			html_head("$program_name Administration - New Alias");	
 		        html_titlebar($txt_newalias[$lang], $txt,1);
 		        $userinfo[2] = "-";
@@ -390,7 +391,7 @@ if ($active == 1) {    // active=1 -> user logged in
 
 	if ($A == "newuser") {
 	
-		if ($type == "domain" && (!$quota_on || ($quota_on && ($quota_data["users_support"]  && $quota_data["nb_users"] < $quota_data["max_users"]))) && !$quota_data["new_account_forbidden"]) {
+		if ($type == "domain" && (!$quota_on || ($quota_on && ($quota_data["users_support"]  && $quota_data["nb_users"] < $quota_data["max_users"]))) && !$quota_data["new_mailbox_forbidden"]) {
 
 			html_head("$program_name Administration - New User");	
 	        	html_titlebar($txt_newuser[$lang], $txt,1);
@@ -771,7 +772,9 @@ if ($active == 1) {    // active=1 -> user logged in
 
 			// check if domain admin is logged in and if quota are ok		
 	
-			if ($quota_data["new_account_forbidden"] || ($type != "domain") ||
+			if (($action == "newalias" && $quota_data["new_alias_forbidden"]) || 
+			($action == "newuser" && $quota_data["new_mailbox_forbidden"]) || 
+			($type != "domain") ||
 			($quota_on && $action == "newuser" && (!$quota_data["users_support"] || ($quota_data["nb_users"] >= $quota_data["max_users"]))) ||
 			($quota_on && $action == "newalias" && (!$quota_data["alias_support"] || ($quota_data["nb_alias"] >= $quota_data["max_alias"])))) { //xx?
 
@@ -1022,6 +1025,47 @@ if ($active == 1) {    // active=1 -> user logged in
 
 	                html_head("$program_name Administration");
 	                $msg = "<b>" . $results . "</b><br><br>";
+	                $msg .= "<ul>";
+	                $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+	                html_titlebar($txt_delete[$lang], "$msg",0);
+	                html_end();
+	                exit();
+	        }
+
+
+	       // "user_enable/disable"
+
+	        if ($action == "user_enable" || $action == "user_disable") {
+
+			// if quota & settings support is off, show error
+
+			if (($quota_on && !$quota_data["user_quota_support"]) || in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
+
+				$msg = $txt_error_not_allowed[$lang];
+		                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+		                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
+				html_head("$program_name Administration - Error");	
+	        	        html_titlebar($txt_error[$lang], $msg ,0);
+		                html_end();
+				exit();
+			}				
+
+        	
+	                // update settings
+
+			if ($action == "user_disable") { 
+			    $enabled_status = "0"; 
+			    $enabled_msg = $txt_turn_off_delivery_expl[$lang];
+			} else { 
+			    $enabled_status = "1"; 
+			    $enabled_msg = $txt_turn_on_delivery_expl[$lang];
+			}
+
+	                $results = update_userstatus($U, $enabled_status);
+
+	                html_head("$program_name Administration");
+	                $msg = "<b>" . $results . "</b><br><br>";
+			$msg .= "$enabled_msg<br>";
 	                $msg .= "<ul>";
 	                $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 	                html_titlebar($txt_delete[$lang], "$msg",0);

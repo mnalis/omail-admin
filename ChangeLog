@@ -2,10 +2,22 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: ChangeLog,v 1.63 2001/03/19 23:09:56 swix Exp $ 
+$Id: ChangeLog,v 1.64 2001/04/12 20:43:55 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
 
+
+2001-04-12  Olivier Mueller  <om@omnis.ch>
+
+	* improved catchall
+	* new_account_forbidden splited to 2 variables:
+	  new_mailbox_forbidden and new_alias_forbidden
+	* added settings in user mode : enables/disables delivery to local
+	  mailbox (but aliases, if any, will still continue to work). 
+	  Beware: if an account is disabled, and there are no aliases 
+	  defined, the mails will delivered to a black hole (aka lost).
+	  [suggested by jw]
+	
 2001-03-20  Olivier Mueller  <om@omnis.ch>
 
 	* updated help file : thanks to Jim! [jw]

@@ -8,7 +8,7 @@
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 	* Copyright (C) 2000  Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 
-        $Id: func.php,v 1.33 2001/03/18 11:13:29 swix Exp $
+        $Id: func.php,v 1.34 2001/04/12 20:43:55 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -195,7 +195,8 @@ function load_quota_info($domain) {
 					$quota_data["softquota"] = $entry[9] * 1024;
 					$quota_data["hardquota"] = $entry[10] * 1024;
 					$quota_data["msgsize"] = $entry[11] * 1024;
-					$quota_data["new_account_forbidden"] = $entry[12];
+					$quota_data["new_mailbox_forbidden"] = $entry[12];
+					$quota_data["new_alias_forbidden"] = $entry[13];
 
 				
 					// dirty hack, but should be ok for the moment :]  (index.php will be updated soon)
@@ -224,7 +225,8 @@ function load_quota_info($domain) {
 					$quota_data["softquota"] = $entry[9] * 1024;
 					$quota_data["hardquota"] = $entry[10] * 1024;
 					$quota_data["msgsize"] = $entry[11] * 1024;
-					$quota_data["new_account_forbidden"] = $entry[12];
+					$quota_data["new_mailbox_forbidden"] = $entry[12];
+					$quota_data["new_alias_forbidden"] = $entry[13];
 					
 				
 					// dirty hack, but should be ok for the moment :]  (index.php will be updated later)
@@ -408,6 +410,18 @@ function update_userquota($arg_username, $arg_softquota, $arg_hardquota, $arg_ex
 
         if (!$result1[0] && !$result2[0] && !$result3[0] && !$result4[0] && !$result5[0] && !$result6[0]) { return "QUOTA ok : " . $result6[1] ; }
                 else { return "QUOTA error : " . $result6[1] ; }
+}
+
+
+function update_userstatus($arg_username, $arg_enabled) {
+
+        global $type, $domain, $passwd;
+	
+	$result = vchattr($domain, base64_decode($passwd), $arg_username, "MAILBOX_ENABLED", $arg_enabled);
+
+        if (!$result[0]) { return "SETTINGS ok : " . $result[1] ; }
+                else { return "SETTINGS error : " . $result[1] ; }
+		
 }
 
 

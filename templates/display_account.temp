@@ -5,7 +5,7 @@
 <TH>%txt_fwd% ?</TH>
 
 %ifdef_txt_responder%
-
+<TH>%txt_local_delivery% ?</TH>
 <TH><nobr>%txt_action%</TH></TR>
 
 
@@ -20,6 +20,7 @@
 
 %ifdef_autoresponder_status%
 
+<TD>%local_delivery%&nbsp;</TD>
 <TD align=center><nobr>
 %actions%
 </nobr></TD></TR>

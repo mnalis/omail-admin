@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.46 2001/03/18 11:13:29 swix Exp $
+        $Id: strings.php,v 1.47 2001/04/12 20:43:55 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -2932,23 +2932,100 @@ $txt_current_catchall_not_defined = array(
  "ro" => "There is currently no 'catchall email' account set",
  "sv" => "There is currently no 'catchall email' account set");
 
+ $txt_turn_on_delivery = array(
+  "ru" => "fixme_and_update_cvs",
+  "en" => "Turn_On_Delivery",
+  "cz" => "fixme_and_update_cvs",  
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "Activer_l'enregistrement",
+  "de" => "Speicherung_einschalten",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs");
+
+ $txt_turn_on_delivery_expl = array(
+  "ru" => "fixme_and_update_cvs",
+  "en" => "From now the emails will be stored in your POP3-accessible account again.",
+  "cz" => "fixme_and_update_cvs",  
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "A partir de maintenant les messages seront à nouveau enregistrés sur le serveur mail",
+  "de" => "Ab jetzt werden die Mails wieder auf dem Mailserver gespeichert",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs");
+  
+  
+ $txt_turn_off_delivery = array(
+  "ru" => "fixme_and_update_cvs",
+  "en" => "Turn_Off_Delivery",
+  "cz" => "fixme_and_update_cvs",  
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "Désactiver_l'enregistrement",
+  "de" => "Speicherung_ausschalten",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs");
+    
+ $txt_turn_off_delivery_expl = array(
+  "ru" => "fixme_and_update_cvs",
+  "en" => "From now the emails will not be stored in your mailbox anymore. <br><b>Warning:</b> they will be lost if you don't have any forwarders set!",
+  "cz" => "fixme_and_update_cvs",  
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "A partir de maintenant les messages ne seront plus enregistrés sur le serveur. <br><b>Attention:</b> ils seront perdu si vous n'avez pas défini d'adresse de redirection!",
+  "de" => "Ab jetzt werden die Mails nicht mehr auf dem Server gespeichert. <br><b>Achtung:</b> sie werden verloren falls Sie keinen weiterleitung definiert haben!",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs");
+  
+ $txt_local_delivery = array(
+  "ru" => "fixme_and_update_cvs",
+  "en" => "Local Delivery",
+  "cz" => "fixme_and_update_cvs",  
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "Enregistrement local",
+  "de" => "Speicherung",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs");
+
+
 
 // empty array - please also update with new languages :)
 
  $txt_ = array(
-  "ru" => "",
-  "en" => "",
-  "cz" => "",  
-  "ja" => "",
-  "tc" => "",
-  "fr" => "",
-  "de" => "",
-  "da" => "",
-  "es" => "",
-  "nl" => "",
-  "it" => "",
-  "ro" => "",
-  "sv" => "");
+  "ru" => "fixme_and_update_cvs",
+  "en" => "fixme_and_update_cvs",
+  "cz" => "fixme_and_update_cvs",  
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "fixme_and_update_cvs",
+  "de" => "fixme_and_update_cvs",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs");
 
 
 

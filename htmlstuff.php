@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.64 2001/03/06 17:30:45 swix Exp $
+        $Id: htmlstuff.php,v 1.65 2001/04/12 20:43:55 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -551,6 +551,8 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 	$templdata["txt_more_fwd"] = $txt_more_fwd[$lang];
 	$templdata["txt_action"] = $txt_action[$lang];
 	$templdata["txt_any"] = $txt_any[$lang];
+	$templdata["txt_local_delivery"] = $txt_local_delivery[$lang];
+	
 
 	if ( $mb_letter ) {
 	    $templdata["mb_letter"] = $mb_letter;
@@ -696,8 +698,10 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 
 		if ($Enabled) {
 			$templdata[obj][$ii]["colorUsername"] = "green";
+			$templdata[obj][$ii]["local_delivery"] = $yes;
 		} else {
 			$templdata[obj][$ii]["colorUsername"] = "red";
+			$templdata[obj][$ii]["local_delivery"] = $no;
 		}
 
 		if ($ExpiryTime && $ExpiryTime != "-") { 
@@ -749,40 +753,38 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 				$txt_edit[$lang]  . "</a>&nbsp;"; // action
 
   		if ($arg_action != 2 && !(!$arg_action && $mtype == "alias") && !($quota_on && !$quota_data["autoresp_support"])) {
- 			$templdata[obj][$ii]["actions"] .= "&nbsp;&nbsp;<A HREF=\"$script?A=resp&U=" . $username . "&" . SID . "\" onClick=\"oW2(this,'pop')\">"  . 
+ 			$templdata[obj][$ii][actions] .= "&nbsp;&nbsp;<A HREF=\"$script?A=resp&U=" . $username . "&" . SID . "\" onClick=\"oW2(this,'pop')\">"  . 
 				$txt_responder[$lang] . "</a>&nbsp;"; // action
 		}	
 
 		if ((($arg_action == 2 && $config_use_settings_with_quota) || $arg_action == 1) && !($quota_on && !$quota_data["user_quota_support"])) {
-			$templdata[obj][$ii]["actions"] .=  "&nbsp;&nbsp;<A HREF=\"$script?A=quota&U=" . $username . "&" . SID . "\" onClick=\"oW2(this,'pop')\">"  . 
+			$templdata[obj][$ii][actions] .=  "&nbsp;&nbsp;<A HREF=\"$script?A=quota&U=" . $username . "&" . SID . "\" onClick=\"oW2(this,'pop')\">"  . 
 				$txt_settings[$lang] . "</a>&nbsp;"; // action
 		}
 
 		    
 		if ($arg_action) {
 
-
-/*
-			if ($quota_data["catchall_use_allowed"] == "1" || $quota_data["catchall_use_allowed"] == "") {
-
-			    // check status : catchall or not ?
-			
-			    if ($username == $catchall_active) {
-			        $templdata[obj][$ii]["actions"] .=  "&nbsp;&nbsp;<A HREF=\"$script?A=remove_catchall&U=" . $username . "&" . SID . "\" onClick=\"oW(this,'pop')\"><font color=\"red\">"  . 
-    				    $txt_remove_catchall[$lang]  . "</font></a>&nbsp;"; // action
-			    } else {
-				$templdata[obj][$ii]["actions"] .=  "&nbsp;&nbsp;<A HREF=\"$script?A=catchall&U=" . $username . "&" . SID . "\" onClick=\"oW(this,'pop')\">"  . 
-    				    $txt_catchall[$lang]  . "</a>&nbsp;"; // action
-			    }
-			}
-*/
-
-
-			$templdata[obj][$ii]["actions"] .=  "&nbsp;&nbsp;<A HREF=\"$script?A=delete&U=" . $username . "&" . SID . "\" onClick=\"oW(this,'pop')\">"  . 
+			$templdata[obj][$ii][actions] .=  "&nbsp;&nbsp;<A HREF=\"$script?A=delete&U=" . $username . "&" . SID . "\" onClick=\"oW(this,'pop')\">"  . 
 				$txt_delete[$lang]  . "</a>&nbsp;"; // action
 
-
+		} else {
+		
+		
+		    // user mode - display the enable/disable button
+		    if ($Enabled) { 
+			$tmpaction = "user_disable";
+			$tmptxt = $txt_turn_off_delivery[$lang];
+		    } else {
+			$tmpaction = "user_enable";
+			$tmptxt = $txt_turn_on_delivery[$lang];
+		    }
+		    
+		    $templdata[obj][$ii][actions] .=  "&nbsp;&nbsp;<A HREF=\"$script?A=parse&action=$tmpaction&U=" . $username . "&" . SID . "\" onClick=\"oW(this,'pop')\">"  . 
+				$tmptxt  . "</a>&nbsp;"; // action
+		
 		}
+
 	    }
 
 	}
@@ -847,9 +849,15 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 	}
 
 	
-	// new_account_forbidden's support
+	// new_mailbox/alias_forbidden's support
 
-        if ($arg_action != 0 && $quota_data["new_account_forbidden"]) {
+        if ($arg_action == 1 && $quota_data["new_mailbox_forbidden"]) {
+		$templdata["quota_string"] = "&nbsp;";
+		$templdata["global_action_and_url"] = "&nbsp;";
+		
+	}
+
+        if ($arg_action == 2 && $quota_data["new_alias_forbidden"]) {
 		$templdata["quota_string"] = "&nbsp;";
 		$templdata["global_action_and_url"] = "&nbsp;";
 		
