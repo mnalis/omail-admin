@@ -1,11 +1,11 @@
 -----------
-oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
+oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2004  Olivier Mueller <om@omnis.ch>
 -----------
 
 
 oMail-admin TODO
 ================
-$Id: TODO,v 1.25 2001/02/24 20:30:11 swix Exp $ 
+$Id: TODO,v 1.26 2004/02/15 18:05:43 swix Exp $ 
 $Source: /cvsroot/omail/admin2/TODO,v $ 
 
 
@@ -18,11 +18,12 @@ High priority
 [X] make the enabled/disabled feature work (om, 18aug2k)
 [ ] update strings for other languages
 [X] for quantity of mailboxes quota, don't count system or readonly accounts!
+[ ] docs about spamassassin stuff / docs in general
 
 Normal priority
 ---------------
 [.] more translations
-[ ] display mailbox size : unread mails, saved mails (waiting for changes in vmailmgrd, comming soon!)
+[X] display mailbox size : unread mails, saved mails (based on cronjob)
 [X] support for info field           (om, 11aug2k)
 [X] use <select> to setup expiry date on quota edition   (om, 16oct2k)
 [.] add help screen / buttons
@@ -34,6 +35,9 @@ Normal priority
 [ ] case of popup screens & session timeout : close popup on session timeout
 [X] display N accounts per page, better design  (om, 13nov2k)
 [X] add a <select> with list of current mailboxes for forwaders addition  (om, 13nov2k)
+[ ] [Matthias F. Brandstetter] turn on/off autoresponder on a cron basis 
+    -> would require a cron job + some goodies
+[ ] make it work with register_global = off  -> lot of (rewrite)-work necessary :(
 
 Low priority
 ------------

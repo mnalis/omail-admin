@@ -10,7 +10,7 @@
 
         * Copyright (C) 2004  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.54 2004/02/14 23:17:23 swix Exp $
+        $Id: index.php,v 1.55 2004/02/15 18:05:43 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -48,6 +48,15 @@ session_register("mb_start","al_start");
 session_register("mb_letter","al_letter");
 session_register("vm_tcphost","vm_tcphost_port");   // for vmailmgrd-tcp
 session_register("vmailstats");
+
+
+
+// try to improve speed
+
+$vm_list = array();
+$vm_list_loaded = 0;
+$vm_resp_status = array();
+
 
 // clean input values (because of magic quotes...)
 
@@ -348,6 +357,8 @@ if ($active == 1) {    // active=1 -> user logged in
 
 			html_titlebar($txt_menu[$lang] . " - $domain", $txt_menu_domain_descr[$lang] . $txt_menu_add, 0);
 
+			flush();
+
 			if (!$quota_on || ($quota_on && $quota_data["users_support"])) {
                                 if (isset($show_mb_letter)) { $mb_letter = $show_mb_letter; }
 				$mboxes = get_accounts(1);	
@@ -537,7 +548,7 @@ if ($active == 1) {    // active=1 -> user logged in
             html_head("$program_name Administration - Edit");	
     	    html_titlebar($txt_edit_account[$lang], $txt,1);
 	    $userinfo = get_accounts(0,$U);
-	     if (isset($show_mb_letter)) { $mb_letter = $show_mb_letter; }
+	    if (isset($show_mb_letter)) { $mb_letter = $show_mb_letter; }
 	    $mboxlist = get_accounts(3);
 	    html_userform($userinfo[0], "edit", $mboxlist);
 	    html_end();

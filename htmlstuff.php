@@ -4,9 +4,9 @@
 	oMail-admin  -  A PHP4 based Vmailmgrd Web interface
 	-----------
 
-	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
+	* Copyright (C) 2004  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.72 2004/02/14 23:17:23 swix Exp $
+        $Id: htmlstuff.php,v 1.73 2004/02/15 18:05:43 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php

@@ -5,10 +5,10 @@
         oMail-admin  -  A PHP4 based Vmailmgrd Web interface
         -----------
 
-        * Copyright (C) 2000  Simon Häusermann, insign gmbh
+        * Copyright (C) 2000-2004  Simon Häusermann, insign gmbh
   	  Version:		3.51
 
-        $Id: mysql.inc,v 1.1 2003/01/29 21:36:54 swix Exp $
+        $Id: mysql.inc,v 1.2 2004/02/15 18:05:43 swix Exp $
         $Source: /cvsroot/omail/admin2/mysql.inc,v $
 
         mysql.inc

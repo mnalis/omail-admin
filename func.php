@@ -5,10 +5,10 @@
         oMail-admin  -  A PHP4 based Vmailmgrd Web interface
         -----------
 
-        * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
+        * Copyright (C) 2004  Olivier Mueller <om@omnis.ch>
 	* Copyright (C) 2000  Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 
-        $Id: func.php,v 1.37 2003/01/29 22:39:47 swix Exp $
+        $Id: func.php,v 1.38 2004/02/15 18:05:43 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -266,6 +266,8 @@ function get_accounts_sort_by_info($a, $b) {
 function get_accounts($arg_action, $arg_username = "") {
 
 	global $quota_on, $quota_data, $type, $domain, $passwd, $catchall_active, $readonly_accounts_list, $system_accounts_list, $sort_order, $mb_letter, $al_letter;
+	global $vm_list, $vm_list_loaded, $vm_resp_status;
+
 	$new_list = array ();
 
 	// action = 0 : only one mailbox (user mode)
@@ -273,9 +275,17 @@ function get_accounts($arg_action, $arg_username = "") {
 	// action = 2 : all aliases, no resp yet (admin mode) but not "+" if created by omail-admin
 	// action = 3 : all accounts, without anything else (admin mode)  [for catchall detection]
 
+
 	if ($arg_action) {
 
-		$list = listdomain($domain, base64_decode($passwd));
+		if (!$vm_list_loaded) {
+			$vm_list = listdomain($domain, base64_decode($passwd));
+			$vm_list_loaded = 1;
+		}
+
+		$list = $vm_list;
+
+
 		$j = 0;
 
 		if ($quota_on) { 
@@ -294,7 +304,19 @@ function get_accounts($arg_action, $arg_username = "") {
 			if (ord($data11[8]) == 49) { $Enabled = 1; } else { $Enabled = 0; }
 
 			// findout autoresp status (only lookup for mailboxes)
-			if ($mbox && $action != 3) { $resp = load_resp_status($username); }  else { $resp = 0; }
+
+			if ($mbox && $arg_action != 3) { 
+
+				if (!isset($vm_resp_status[$username])) {
+					$resp = load_resp_status($username); 
+					$vm_resp_status[$username] = $resp;
+				} else {
+					$resp = $vm_resp_status[$username];
+				}
+
+			}  else { 
+				$resp = 0; 
+			}
 
                         if (($arg_action == 1) && $mb_letter && !eregi("^[$mb_letter]",$username)) {
                                if ($mbox) {
@@ -330,7 +352,7 @@ function get_accounts($arg_action, $arg_username = "") {
 				}
 			}
 	
-			if (($username == $arg_username) && ($action == 0)) { $new_list[$j++] = $list[$i]; }	
+			if (($username == $arg_username) && ($arg_action == 0)) { $new_list[$j++] = $list[$i]; }	
 
 		}
 
@@ -673,7 +695,7 @@ function parseT ($parseArray, $template, $outputFile = "",$encoding="", $separat
                 }
                 fclose($fp1);
         }
-    return "\n<!----- Template: $template ------>\n".$content;
+    return "\n<!-- --- Template: $template ---- -->\n".$content;
     }
     else
     {

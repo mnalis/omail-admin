@@ -2,7 +2,7 @@
 oMail-admin -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2004  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: INSTALL,v 1.17 2004/02/14 23:17:23 swix Exp $
+$Id: INSTALL,v 1.18 2004/02/15 18:05:43 swix Exp $
 $Source: /cvsroot/omail/admin2/INSTALL,v $
 
 
@@ -49,24 +49,28 @@ oMail - INSTALL
 
   3. check config.php and setup the configuration variables.
 
-  4. if "index.php" is not defined as DirectoryIndex in your Apache
+  4. make sure "register_globals" is set ton On in your php.ini configuration
+     file, or add a "php_flag register_globals on" to the virtual host 
+     setup
+
+  5. if "index.php" is not defined as DirectoryIndex in your Apache
      conf, replace the $script_url = "$SCRIPT_URL"; line in
      config.php by $script_url = "$SCRIPT_URL/index.php"; 
 
-  5. make sure you have installed the autoresponder correctely (look
+  6. make sure you have installed the autoresponder correctely (look
      at the vautoresponder file in the qmail-autoresponder
      distribution...)
 
-  6. same thing for vmailmgr-user-based quotas (cf. vmailmgr docs)
+  7. same thing for vmailmgr-user-based quotas (cf. vmailmgr docs)
 
-  7. if necessary, setup domain-based quotas (look next section in
+  8. if necessary, setup domain-based quotas (look next section in
      INSTALL file)
 
-  8. if you want to display mailbox usage (size of accounts), etc.
+  9. if you want to display mailbox usage (size of accounts), etc.
      you can setup the scripts/vmailstats.pl script. Check the
      readme file in the scripts/ directory.
 
-  9. Well, then it should work correctely. If it's the case, you can
+ 10. Well, then it should work correctely. If it's the case, you can
      jump to step 99.
 
   ...
@@ -104,6 +108,22 @@ oMail - INSTALL
 	nohup /var/service/vmailmgrd/run &
 	and things run fine.... now the only problem is that the
 	stop function stops working!!!
+
+
+  [2] Note for Freebsd, from Rick Updegrove <dislists [a-t] updegrove . net>
+
+	FreeBSD 4.9 run script that works
+	NEEDS nohup or I get a variety of the error noted in the INSTALL FAQ
+
+		umask 0
+		if [ -s /usr/local/etc/vmailmgr/socket-file ]; then
+		   socket_file="`head -1 /usr/local/etc/vmailmgr/socket-file`"
+		else
+		   socket_file=/tmp/.vmailmgrd
+		fi
+
+		exec unixserver -v -- $socket_file nohup vmailmgrd -D -V 2>&1
+
 
 
 

@@ -2,7 +2,7 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2004  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: ChangeLog,v 1.78 2004/02/14 23:17:23 swix Exp $ 
+$Id: ChangeLog,v 1.79 2004/02/15 18:05:43 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
 2004-02-14  Olivier Müller   <om@omnis.ch>
@@ -10,6 +10,10 @@ $Source: /cvsroot/omail/admin2/ChangeLog,v $
 	* added scripts/vmailstats.pl script: generate system wide vmailmgr mailboxes 
 	  statistics, which can then be displayed by omail-admin
 	* updated omail-admin to display domain/maildir stats if the information is available
+	* overall speed improvements: get information from vmailmgrd only when required,
+	  and cache the data if possible.
+	* func.php: patch from Charlie Garrison to correct broken html comments
+	* added translation for Polish [Piotrek]
 
 2003-05-04  Olivier Mueller  <om@omnis.ch>
 

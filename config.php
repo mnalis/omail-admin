@@ -5,9 +5,9 @@
 	oMail-admin  -  A PHP4 based Vmailmgrd Web interface
 	-----------
 
-	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
+	* Copyright (C) 2004  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.67 2004/02/14 23:17:23 swix Exp $ 
+	$Id: config.php,v 1.68 2004/02/15 18:05:43 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -294,8 +294,8 @@ $tb_userpref = "userpref";
 /* you shouldn't have to change the following lines */
 
 // version
-$version = "1.2";
-$cvs_version = '$Id: config.php,v 1.67 2004/02/14 23:17:23 swix Exp $';
+$version = "1.2RC1";
+$cvs_version = '$Id: config.php,v 1.68 2004/02/15 18:05:43 swix Exp $';
 
 // script URL
 
