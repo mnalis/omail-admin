@@ -2,7 +2,7 @@
 Omail  -  A PHP/perl based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----
 
-$Id: README,v 1.1 2000/08/01 01:53:45 swix Exp $ 
+$Id: README,v 1.2 2000/08/01 01:59:26 swix Exp $ 
 $Source: /cvsroot/omail/admin2/README,v $
 
 
@@ -14,7 +14,18 @@ more to come later... :-)
 
 * Project homepage : http://omail.omnis.ch
 
+* CVS repository : 
+
+	cvs -d:pserver:anonymous@cvs.oMail.sourceforge.net:/cvsroot/oMail login 
+	cvs -z3 -d:pserver:anonymous@cvs.oMail.sourceforge.net:/cvsroot/oMail co omail2 
+
+	Or via CVS-web : http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi/admin2/?cvsroot=oMail
+
+* Mailing list : currently using the vmailmgr ML, but creating an own ML for this package
+  would take a minute.
+
 * Work in progress...
+
 
 
 -- Olivier <om@omnis.ch>
