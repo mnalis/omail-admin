@@ -6,7 +6,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.50 2001/04/18 09:08:40 swix Exp $
+        $Id: strings.php,v 1.51 2001/11/11 22:59:55 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
         strings.php
@@ -3408,6 +3408,24 @@ $txt_current_catchall_not_defined = array(
   "id" => "Pengiriman lokal");
 
 
+ $txt_one_per_line = array(
+  "ru" => "fixme_and_update_cvs",
+  "en" => "(one address per line)",
+  "cz" => "fixme_and_update_cvs",
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "(une adresse par ligne)",
+  "de" => "(eine Adresse pro Zeile)",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "pt-br" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs",
+  "id" => "fixme_and_update_cvs");
+
+
 
 // empty array - please also update with new languages :)
 
@@ -3425,7 +3443,8 @@ $txt_current_catchall_not_defined = array(
   "nl" => "fixme_and_update_cvs",
   "it" => "fixme_and_update_cvs",
   "ro" => "fixme_and_update_cvs",
-  "sv" => "fixme_and_update_cvs");
+  "sv" => "fixme_and_update_cvs",
+  "id" => "fixme_and_update_cvs");
 
 
 

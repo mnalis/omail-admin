@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.56 2001/04/12 20:43:55 swix Exp $ 
+	$Id: config.php,v 1.57 2001/11/11 22:59:55 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -82,6 +82,13 @@ $readonly_accounts_list = array( 'postmaster', 'mailer-daemon', 'abuse');
 $program_name = "oMail-admin";
 
 
+// powered_by
+// ----------
+// you can replace that by a link to your homepage or anything... :)
+
+$powered_by = 'Powered by <a href="http://omail.omnis.ch/"><font color="#CCCCCC">omail-Admin</font></a>';
+
+
 // vmailmgrquota file location
 // ---------------------------
 
@@ -121,7 +128,7 @@ $hide_about_button = 0;
 // is also a way to access the vmailmgrd via tcp : to use this feature, set
 // the variable to 1, and set the host(s).
 
-$use_vmailmgrd_tcp = 1;
+$use_vmailmgrd_tcp = 0;
 
 // vmailmgrd_tcp_host
 // ------------------
@@ -230,7 +237,7 @@ $ldap_passwd = "SECRET";
 
 // version
 $version = "0.97.3";
-$cvs_version = '$Id: config.php,v 1.56 2001/04/12 20:43:55 swix Exp $';
+$cvs_version = '$Id: config.php,v 1.57 2001/11/11 22:59:55 swix Exp $';
 
 // script URL
 

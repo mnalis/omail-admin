@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.65 2001/04/12 20:43:55 swix Exp $
+        $Id: htmlstuff.php,v 1.66 2001/11/11 22:59:55 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -194,7 +194,8 @@ function html_titlebar($title,$msg,$popup) {
 
 function html_end() {
 
-	$templdata[""]="";
+	global $powered_by;
+	$templdata["powered_by"]= $powered_by;
 	print parseTemplate($templdata, "templates/html_end.temp");
 
 }
@@ -216,6 +217,7 @@ function html_userform($userinfo, $action, $mboxlist) {
         $templdata["txt_date_of_creation"]=$txt_date_of_creation[$lang];
 	$templdata["txt_firstname"]=$txt_firstname[$lang];
 	$templdata["txt_lastname"]=$txt_lastname[$lang];
+	$templdata["txt_one_per_line"]=$txt_one_per_line[$lang];
 
 	if ($action == "edit") {
 		// find how many forwarders there are
@@ -257,7 +259,7 @@ function html_userform($userinfo, $action, $mboxlist) {
 	if ($action == "newalias") { $templdata["txt_facultatif"]= " (" . $txt_facultatif[$lang] . ") "; }
 	else {  $templdata["txt_facultatif"] = " "; }
 
-	for ($i = 0; $i < ($nb_fwd + 5); $i++) {
+	for ($i = 0; $i < ($nb_fwd); $i++) {
 	
 		if ($type == "user") {
 			$templdata[alias1][$i][txt_fwd] = $txt_fwd[$lang] . " " . ($i + 1);   // no select list...	
@@ -271,6 +273,13 @@ function html_userform($userinfo, $action, $mboxlist) {
 				else { $templdata[alias1][$i][fwdcolor] = "#CCCCCC"; }
 	}	
 
+	if ($nb_fwd) {
+		$tmp = parseTemplate($templdata, "templates/userform_fwd_part.temp");
+		$templdata["fwd_part"] = $tmp;
+	} else {
+		$templdata["fwd_part"] = "";
+	}
+
         $templdata["txt_submit"]=$txt_submit[$lang];
         $templdata["txt_cancel"]=$txt_cancel[$lang];
         $templdata["action"]=$action;
@@ -283,7 +292,7 @@ function html_userform($userinfo, $action, $mboxlist) {
 
 	for ($i=0; $i<sizeof($mboxlist);$i++) {
                 $tmp_account = $mboxlist[$i];
-		if ($tmp_account[0] != "+") {
+		if ($tmp_account[0] != "+" && $tmp_account[0] != $userinfo[0]) {
 	                $templdata["select_account_contents"] .= '<option>' . $tmp_account[0] . '</option>';
 		}
 	}

@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.46 2001/11/11 21:32:09 swix Exp $
+        $Id: index.php,v 1.47 2001/11/11 22:59:55 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -654,8 +654,6 @@ if ($active == 1) {    // active=1 -> user logged in
 
 
 
-
-
 	//
 	// PARSE ACTION
 	//
@@ -675,6 +673,20 @@ if ($active == 1) {    // active=1 -> user logged in
 	                exit();
 	        }
 	
+
+		// add new forwareders to $fwd[] if any
+
+		$newfwd = trim($newfwd);
+		if ($newfwd) {
+			$newarray = explode("\n", $newfwd);
+			while(list ($null, $tmpadr) = each($newarray)) {
+				$tmpadr = trim($tmpadr);
+				if ($tmpadr) {
+					$fwd[] = $tmpadr;
+				}
+			}		
+		}
+
 
 	        // "edit"
 	
