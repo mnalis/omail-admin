@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.14 2000/08/14 06:47:07 swix Exp $
+        $Id: strings.php,v 1.15 2000/08/14 19:40:24 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -17,6 +17,21 @@
 	16.jan.2k   om   Converted the strings from an older version of omail
 	23.jan.2k   om   Some updates
 	06.aug.2k   jc   Added spanish
+
+
+        This program is free software; you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation; either version 2 of the License, or
+        (at your option) any later version.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+  
+        You should have received a copy of the GNU General Public License
+        along with this program; if not, write to the Free Software
+        Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 */
 
@@ -1130,14 +1145,14 @@ $txt_details = array(
  "en" => "User Info",
  "fr" => "User Info",
  "de" => "User Info",
- "es" => "Informaci&ocaute;n del usuario",
+ "es" => "Informaci&oacute;n del usuario",
  "it"=>"");
 
 $txt_goodbye = array( 
  "en" => "Good bye!",
  "fr" => "Au revoir!",
  "de" => "Auf wiedersehen!",
- "es" => "Adi&ocaute;s",
+ "es" => "Adi&oacute;s",
  "it" =>"Ciao!");
 
 $txt_error_quota_expired = array( 
@@ -1151,7 +1166,7 @@ $txt_error_not_allowed = array(
  "en" => "Sorry, you are not allowed to do that",
  "fr" => "Desole, vous n'avez pas les droits pour effectuer cette operation",
  "de" => "Sorry, Sie haben nicht die Berechtigung um diese Operation durchzufuehren",
- "es" => "Lo siento, esta operaci&ocaute;no está permitida",
+ "es" => "Lo siento, esta operaci&oacute;no está permitida",
  "it"=>"");
 
 $txt_quota = array( 

@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.13 2000/08/13 19:57:19 swix Exp $
+        $Id: index.php,v 1.14 2000/08/14 19:40:24 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -15,6 +15,21 @@
 
         16.jan.2k   om   First version
         01.aug.2k   om   Rewrite for PHP4
+
+
+        This program is free software; you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation; either version 2 of the License, or
+        (at your option) any later version.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+  
+        You should have received a copy of the GNU General Public License
+        along with this program; if not, write to the Free Software
+        Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 */
 
@@ -67,7 +82,7 @@ if (!$active) {
 			$active = 0;
 	                $msg = $txt_login_failed[$lang];
 	                $msg .= "<ul><li><a href=\"\" onClick=\"history.back();\">" . $txt_back[$lang]  .  "</a>\n";
-	                $msg .= "<li><a href=\"$script_url?A=login\">" . $txt_login_again[$lang]  .  "</a>\n";
+	                $msg .= "<li><a href=\"$script_url?A=login&" . SID . "\">" . $txt_login_again[$lang]  .  "</a>\n";
 	                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";
 	
 			html_head("oMail Administration");	
@@ -79,7 +94,8 @@ if (!$active) {
 
 }
 
-if ($active == 1) { 
+
+if ($active == 1) {    // active=1 -> user logged in
 
 	if (!check_session($REMOTE_ADDR)) {
 
@@ -89,7 +105,7 @@ if ($active == 1) {
 		session_destroy();
 	
 	        $msg = $txt_session_expired[$lang] . "<br><br>";
-                $msg .= "<li><a href=\"$script_url?A=login\">" . $txt_login_again[$lang]  .  "</a>\n";
+                $msg .= "<li><a href=\"$script_url?A=login&" . SID . "\">" . $txt_login_again[$lang]  .  "</a>\n";
                 $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";
 	
 		html_head("oMail Administration");	
@@ -120,7 +136,7 @@ if ($active == 1) {
 	
 
 	//
-	// DOMAIN MENU
+	// MENU - ACCOUNTS LISTING
 	// 
 
 	if ($A == "menu") {
@@ -153,7 +169,7 @@ if ($active == 1) {
 				// user logged in correctely, but quota/domain info don't allow user login.			
 
 	                	$msg = $txt_error_not_allowed[$lang];
-		                $msg .= "<ul><li><a href=\"$script_url?A=login\">" . $txt_login_again[$lang]  .  "</a>\n";
+		                $msg .= "<ul><li><a href=\"$script_url?A=login&" . SID . "\">" . $txt_login_again[$lang]  .  "</a>\n";
 		                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
 				html_head("oMail Administration");	
 	        	        html_titlebar($txt_error[$lang], $msg ,0);
@@ -174,7 +190,7 @@ if ($active == 1) {
 	// Check arguments
 	// 
 
-	if ($A == "resp" || $A == "edit" || $A == "read" || $A == "delete" || $A == "parse") {
+	if ($A == "resp" || $A == "edit" || $A == "read" || $A == "delete" || $A == "parse" || $A == "quota") {
 
 	        // check if $U ok
 		
@@ -183,7 +199,7 @@ if ($active == 1) {
                         html_head("oMail Administration - Error");
                         $msg = "<b>" . $txt_error_invalid_chars_in_username[$lang] . "</b><br><br>";
 			$msg .= "<ul><li><a href=\"\" onClick=\"history.back();\">" . $txt_back[$lang]  .  "</a>\n";
-                        $msg .= "<li><a href=\"$script?A=menu\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+                        $msg .= "<li><a href=\"$script?A=menu&" . SID. "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 			$msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";
                         html_titlebar($txt_error[$lang], "$msg",0);
                         html_end();
@@ -214,7 +230,7 @@ if ($active == 1) {
 			} else {
 	                	$msg = $txt_error_quota_expired[$lang];
 			}
-	                $msg .= "<ul><li><a href=\"$script?A=menu\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+	                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 	                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
 			html_head("oMail Administration");	
         	        html_titlebar($txt_error[$lang], $msg ,0);
@@ -247,7 +263,7 @@ if ($active == 1) {
 			} else {
 	                	$msg = $txt_error_quota_expired[$lang];
 			}
-	                $msg .= "<ul><li><a href=\"$script?A=menu\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+	                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 	                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
 			html_head("oMail Administration");	
         	        html_titlebar($txt_error[$lang], $msg ,0);
@@ -320,7 +336,7 @@ if ($active == 1) {
 
 		} else {
 			$msg = $txt_error_not_allowed[$lang];
-	                $msg .= "<ul><li><a href=\"$script?A=menu\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+	                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 	                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
 			html_head("oMail Administration");	
         	        html_titlebar($txt_error[$lang], $msg ,0);
@@ -351,7 +367,7 @@ if ($active == 1) {
 
 		} else {
 			$msg = $txt_error_not_allowed[$lang];
-	                $msg .= "<ul><li><a href=\"$script?A=menu\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+	                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 	                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
 			html_head("oMail Administration");	
         	        html_titlebar($txt_error[$lang], $msg ,0);
@@ -378,7 +394,7 @@ if ($active == 1) {
 	                $msg = "<b>" . $txt_error_no_username[$lang] . "</b><br><br>";
 	                $msg .= "<ul>";
 			$msg .= "<ul><li><a href=\"\" onClick=\"history.back();\">" . $txt_back[$lang]  .  "</a>\n";
-	                $msg .= "<li><a href=\"$script?A=menu\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+	                $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 			$msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";
 	                html_titlebar($txt_error[$lang], "$msg",0);
 	                html_end();
@@ -399,7 +415,7 @@ if ($active == 1) {
 	                        $msg = "<b>" . $txt_error_pw_not_same[$lang] . "</b><br><br>";
 	                        $msg .= "<ul>";
 				$msg .= "<ul><li><a href=\"\" onClick=\"history.back();\">" . $txt_back[$lang]  .  "</a>\n";
-	                        $msg .= "<li><a href=\"$script?A=menu\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+	                        $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 				$msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";
 	                        html_titlebar($txt_error[$lang], "$msg",0);
 	                        html_end();
@@ -424,7 +440,7 @@ if ($active == 1) {
 	                html_head("oMail Administration");
 	                $msg = "<b>" . $results . "</b><br><br>";
 	                $msg .= "<ul>";
-	                $msg .= "<li><a href=\"$script?A=menu\" onClick=\"return gO(this,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+	                $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 	                html_titlebar($txt_edit[$lang], "$msg",0);
 	                html_end();
 	                exit();
@@ -448,7 +464,7 @@ if ($active == 1) {
 				} else {
 		                	$msg = $txt_error_quota_expired[$lang];
 				}
-		                $msg .= "<ul><li><a href=\"$script?A=menu\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+		                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 		                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
 				html_head("oMail Administration");	
 	        	        html_titlebar($txt_error[$lang], $msg ,0);
@@ -464,7 +480,7 @@ if ($active == 1) {
 	                        $msg = "<b>" . $txt_error_pw_not_same[$lang] . "</b><br><br>";
 	                        $msg .= "<ul>";
 				$msg .= "<ul><li><a href=\"\" onClick=\"history.back();\">" . $txt_back[$lang]  .  "</a>\n";
-	                        $msg .= "<li><a href=\"$script?A=menu\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+	                        $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 				$msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";
 	                        html_titlebar($txt_error[$lang], "$msg",0);
 	                        html_end();
@@ -479,7 +495,7 @@ if ($active == 1) {
 	                        $msg = "<b>" . $txt_error_pw_needed[$lang] . "</b><br><br>";
 	                        $msg .= "<ul>";
 				$msg .= "<ul><li><a href=\"\" onClick=\"history.back();\">" . $txt_back[$lang]  .  "</a>\n";
-	                        $msg .= "<li><a href=\"$script?A=menu\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+	                        $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 				$msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";
 	                        html_titlebar($txt_error[$lang], "$msg",0);
 	                        html_end();
@@ -495,7 +511,7 @@ if ($active == 1) {
                                 $msg = "<b>" . $txt_error_fwd_needed[$lang] . "</b><br><br>";
                                 $msg .= "<ul>";
 				$msg .= "<ul><li><a href=\"\" onClick=\"history.back();\">" . $txt_back[$lang]  .  "</a>\n";
-                                $msg .= "<li><a href=\"$script?A=menu\" onClick=\"return gO(this,true,true)\">" .
+                                $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" .
                                         $txt_menu[$lang]  .  "</a>\n";
 				$msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";
                                 html_titlebar($txt_error[$lang], "$msg",0);  
@@ -521,7 +537,7 @@ if ($active == 1) {
 	                html_head("oMail Administration");
 	                $msg = "<b>" . $results . "</b><br><br>";
 	                $msg .= "<ul>";	
-	                $msg .= "<li><a href=\"$script?A=menu\" onClick=\"return gO(this,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+	                $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 	                html_titlebar($txt_edit[$lang], "$msg",0);
 	                html_end();
 	                exit();
@@ -551,7 +567,7 @@ if ($active == 1) {
         	        $msg = "<b>" . $results1 . "</b><br>";
         	        $msg .= "<b>" . $results2 . "</b><br><br>";
         	        $msg .= "<ul>";
-        	        $msg .= "<li><a href=\"$script?A=menu\" onClick=\"return gO(this,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+        	        $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$lang]  .  "</a>\n";
         	        html_titlebar($txt_delete[$lang], "$msg",0);
         	        html_end();
         	        exit();
@@ -567,7 +583,7 @@ if ($active == 1) {
 			if ($quota_on && !$quota_data["autoresp_support"]) {
 
 				$msg = $txt_error_not_allowed[$lang];
-		                $msg .= "<ul><li><a href=\"$script?A=menu\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+		                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 		                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
 				html_head("oMail Administration");	
 	        	        html_titlebar($txt_error[$lang], $msg ,0);
@@ -586,7 +602,7 @@ if ($active == 1) {
 	                html_head("oMail Administration");
 	                $msg = "<b>" . $results . "</b><br><br>";
 	                $msg .= "<ul>";
-	                $msg .= "<li><a href=\"$script?A=menu\" onClick=\"return gO(this,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+	                $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 	                html_titlebar($txt_delete[$lang], "$msg",0);
 	                html_end();
 	                exit();
@@ -603,7 +619,7 @@ if ($active == 1) {
 			if ($quota_on && !$quota_data["user_quota_support"]) {
 
 				$msg = $txt_error_not_allowed[$lang];
-		                $msg .= "<ul><li><a href=\"$script?A=menu\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+		                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 		                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
 				html_head("oMail Administration");	
 	        	        html_titlebar($txt_error[$lang], $msg ,0);
@@ -622,7 +638,7 @@ if ($active == 1) {
 	                html_head("oMail Administration");
 	                $msg = "<b>" . $results . "</b><br><br>";
 	                $msg .= "<ul>";
-	                $msg .= "<li><a href=\"$script?A=menu\" onClick=\"return gO(this,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+	                $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 	                html_titlebar($txt_delete[$lang], "$msg",0);
 	                html_end();
 	                exit();
@@ -640,12 +656,14 @@ if ($active == 1) {
 
 	if ($A == "logout") {
 
+
+	        $msg = $txt_goodbye[$lang];
+	        $msg .= "<ul><li><a href=\"$script_url?A=login&setlang=$lang&" . SID . "\">" . $txt_login_again[$lang]  .  "</a>\n";
+		$msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";
+
 		$active = 0;
 		session_destroy();
 
-	        $msg = $txt_goodbye[$lang];
-	        $msg .= "<ul><li><a href=\"$script_url?A=login\">" . $txt_login_again[$lang]  .  "</a>\n";
-		$msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";
 	        html_titlebar($txt_logout[$lang], $msg ,0);
 	        html_end();
 	        exit();

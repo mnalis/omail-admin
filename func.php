@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: func.php,v 1.11 2000/08/13 19:57:19 swix Exp $
+        $Id: func.php,v 1.12 2000/08/14 19:40:24 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -15,6 +15,21 @@
 
         16.jan.2k   om   First version
         01.aug.2k   om   Rewrite for PHP4
+
+
+        This program is free software; you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation; either version 2 of the License, or
+        (at your option) any later version.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+  
+        You should have received a copy of the GNU General Public License
+        along with this program; if not, write to the Free Software
+        Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 */
 
@@ -26,14 +41,13 @@ function check_session($arg_ip) {
 	
 	if ($expire > time()) {
 
+		// ok, we update actual expire time
 		$expire = time() + $expire_after*60;
 
 	} else {
 
 		// exit
-
 		return 0;	
-
 	}
 
 	// 2. ip ?   check if the host is the same (in case of url spoofing...)
@@ -41,7 +55,6 @@ function check_session($arg_ip) {
 	if ($arg_ip != $ip) {
 
 		// ip doesn't match -> exit
-		
 		return 0;
 
 	}
@@ -51,6 +64,7 @@ function check_session($arg_ip) {
 	return 1;
 
 }
+
 
 
 function authenticate($arg_login, $arg_passwd, $arg_ip) {
@@ -78,6 +92,7 @@ function authenticate($arg_login, $arg_passwd, $arg_ip) {
 	// 2. check format of arguments (lenght, regexp)
 
 
+
 	// 3. check if domain exists (in rcpthosts/virtualdomains)
 
 
@@ -100,8 +115,7 @@ function authenticate($arg_login, $arg_passwd, $arg_ip) {
 
 		} else {
 
-			return 0;
-	
+			return 0;	
 		}
 
 	} elseif ($type == "user") {

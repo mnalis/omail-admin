@@ -5,7 +5,7 @@ Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Muell
 
 oMail-admin TODO
 ================
-$Id: TODO,v 1.7 2000/08/13 19:57:19 swix Exp $ 
+$Id: TODO,v 1.8 2000/08/14 19:40:24 swix Exp $ 
 $Source: /cvsroot/omail/admin2/TODO,v $ 
 
 
@@ -28,6 +28,6 @@ Low priority
 ------------
 [ ] display mailbox listing (also need changes in daemon)
 [ ] webmail support
-[ ] add "GPL" standard headers in all source files
+[X] add "GPL" standard headers in all source files    (om, 14aug2k)
 
 

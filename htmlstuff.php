@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.16 2000/08/13 19:57:19 swix Exp $
+        $Id: htmlstuff.php,v 1.17 2000/08/14 19:40:24 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -15,7 +15,22 @@
 
 	16.jan.2k   om   First version
         01.aug.2k   om   Rewrite for PHP4
+
 	
+        This program is free software; you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by
+        the Free Software Foundation; either version 2 of the License, or
+        (at your option) any later version.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+  
+        You should have received a copy of the GNU General Public License
+        along with this program; if not, write to the Free Software
+        Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 */
 
 
@@ -112,12 +127,12 @@ A:hover.nav {  font-family: Verdana, Arial, Helvetica, sans-serif; color: red;}
 
 	<?php if ($A == "menu") {  ?>
 
-<SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
   <!--
   function oW(myLink,windowName)
   {
   if(! window.focus)return;
-  var myWin=window.open("",windowName,"height=550,width=500,dependent=yes,scrollbars=yes");
+  var myWin=window.open("",windowName,"height=550,width=500,dependent=yes,resizable=yes,scrollbars=yes");
   myWin.focus();
   myLink.target=windowName;
   }
@@ -125,7 +140,7 @@ A:hover.nav {  font-family: Verdana, Arial, Helvetica, sans-serif; color: red;}
   function oW2(myLink,windowName)
   {
   if(! window.focus)return;
-  var myWin=window.open("",windowName,"height=610,width=600,dependent=yes,scrollbars=yes");
+  var myWin=window.open("",windowName,"height=610,width=600,dependent=yes,resizable=yes,scrollbars=yes");
   myWin.focus();
   myLink.target=windowName;
   }
@@ -134,7 +149,7 @@ A:hover.nav {  font-family: Verdana, Arial, Helvetica, sans-serif; color: red;}
 
 	<?php } else if ($A != "login" || $A != "" || $A != "checkin") { ?>
 
-<SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
   <!--
   function gO(myLink,closeme,closeonly)
   {
@@ -211,9 +226,7 @@ function html_userform($userinfo, $action) {
 		$nb_fwd = count($aliases);
 	}
 
-	print "<form action=\"" . $script . "?";
-	?><?=SID?><?php   // ugly, but well... another solution ?
-	print "\" method=\"post\">";
+	print "<form action=\"" . $script . "?" . SID . "\" method=\"post\">";
 	print "<table border=0>";	
 	print "<tr><th align=right>" . $txt_username[$lang] . "&nbsp;</th>";	
 
@@ -280,9 +293,7 @@ function html_quotaform($userinfo, $action) {
 
 	list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp)= $userinfo;
 
-	print "<form action=\"" . $script . "?";
-	?><?=SID?><?php   // ugly, but well... another solution ?
-	print "\" method=\"post\">";
+	print "<form action=\"" . $script . "?" . SID . "\" method=\"post\">";
 	print "<table border=0>";	
 
 	print "<tr><th align=right>" . $txt_username[$lang] . "&nbsp;</th>";	
@@ -386,9 +397,8 @@ function html_respform($userinfo, $respinfo, $status) {
 	global $session, $script, $lang, $domain;
 	include("strings.php");
 
-	print "<form action=\"" . $script . "\" method=\"post\">";
+	print "<form action=\"" . $script . "?" . SID . "\" method=\"post\">";
 	print "<table border=0>";	
-	print "<form action=\"" . $script . "\" method=\"post\">";
 	print "<tr><th align=right>" . $txt_username[$lang] . "&nbsp;</th>";	
 	print "<td bgcolor=\"#DDDDDD\" align=left>" . $userinfo[0]. "@$domain&nbsp;</td></tr>";
 	print "<input type=\"hidden\" name=\"U\" value=\"" . $userinfo[0] . "\">";
@@ -452,13 +462,16 @@ function html_delete_confirm($userinfo) {
 	print "<td bgcolor=\"#CCCCCC\" align=\"center\" valign=\"center\">";
 	print "<small><font color=\"red\">";
 
-	print "<form action=\"" . $script . "?<?=SID?>\" method=\"post\">";
+
+	print "<form action=\"" . $script . "?" . SID . "\" method=\"post\">";
 	print "<input type=\"hidden\" name=\"A\" value=\"parse\">";
 	print "<input type=\"hidden\" name=\"action\" value=\"delete_ok\">";
 	print "<input type=\"hidden\" name=\"U\" value=\"" . $userinfo[0] . "\">";
 	print "<br><input type=\"submit\" name=\"submit\" value=\"" . $txt_delete[$lang]. "\"></font>";
 	print "</form></small></td><td bgcolor=\"#CCCCCC\" align=\"center\" valign=\"center\"><small>";
-	print "<form action=\"" . $script . "\" method=\"post\">";
+
+
+	print "<form action=\"" . $script . "?" . SID . "\" method=\"post\">";
 	print "<input type=\"hidden\" name=\"A\" value=\"menu\">";
 	print "<br><input type=\"reset\" name=\"submit\" onClick=\"return gO(this,true,true)\" value=\"" . $txt_cancel[$lang]. "\">";
 	print "</form></small></td></tr>";	
@@ -561,21 +574,21 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 	
 		print "<TD align=\"center\">";
 		
-		print "&nbsp;&nbsp;<A HREF=\"$script?A=edit&U=" . $username . "\" onClick=\"oW(this,'pop')\">"  . 
+		print "&nbsp;&nbsp;<A HREF=\"$script?A=edit&U=" . $username . "&" . SID . "\" onClick=\"oW(this,'pop')\">"  . 
 			$txt_edit[$lang]  . "</a>&nbsp;"; // action
 
 		if ($arg_action != 2 && !(!$arg_action && $mtype == "alias") && !($quota_on && !$quota_data["autoresp_support"])) {
-			print "&nbsp;&nbsp;<A HREF=\"$script?A=resp&U=" . $username . "\" onClick=\"oW2(this,'pop')\">"  . 
+			print "&nbsp;&nbsp;<A HREF=\"$script?A=resp&U=" . $username . "&" . SID . "\" onClick=\"oW2(this,'pop')\">"  . 
 				$txt_responder[$lang] . "</a>&nbsp;"; // action
 		}	
 
 		if ($arg_action == 1 && !($quota_on && !$quota_data["user_quota_support"])) {
-			print "&nbsp;&nbsp;<A HREF=\"$script?A=quota&U=" . $username . "\" onClick=\"oW2(this,'pop')\">"  . 
+			print "&nbsp;&nbsp;<A HREF=\"$script?A=quota&U=" . $username . "&" . SID . "\" onClick=\"oW2(this,'pop')\">"  . 
 				$txt_quota[$lang] . "</a>&nbsp;"; // action
 		}	
 
 		if ($arg_action) {
-			print "&nbsp;&nbsp;<A HREF=\"$script?A=delete&U=" . $username . "\" onClick=\"oW(this,'pop')\">"  . 
+			print "&nbsp;&nbsp;<A HREF=\"$script?A=delete&U=" . $username . "&" . SID . "\" onClick=\"oW(this,'pop')\">"  . 
 				$txt_delete[$lang]  . "</a>&nbsp;"; // action
 		}
 		print "</TD></TR>";
@@ -637,7 +650,7 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 			print "<TH ALIGN=center>";
 		}
 	
-		print "<A HREF=\"$script?A=$tmp_action\" onClick=\"oW(this,'pop')\">"  . $tmp_label  . "</a>&nbsp;</TH></TR>";
+		print "<A HREF=\"$script?A=$tmp_action&" . SID . "\" onClick=\"oW(this,'pop')\">"  . $tmp_label  . "</a>&nbsp;</TH></TR>";
 	}
 
 	print "</table><br>"; 
@@ -670,6 +683,7 @@ Dan Bernstein's <a href="http://www.qmail.org">qmail</a> and Bruce Guenter's <a 
 <li>session expiration after N minutes for security</li>
 <li>domain name based quotas (how many mailboxes/aliases, autoresponder y/n, etc.)
 <li>user based quotas (hard/soft disk quota, message size, expiry)
+<li>Lynx-browser support (and other cookie-free browsers)
 </ul>
 <br></li>
 
@@ -705,7 +719,7 @@ and of course the <a href="CREDITS">Credits</a></li>
 </ul>
 </td></tr></table>
 <br></li>
-<li>CVS Version: $Id: htmlstuff.php,v 1.16 2000/08/13 19:57:19 swix Exp $ <br><br></li>
+<li>CVS Version: $Id: htmlstuff.php,v 1.17 2000/08/14 19:40:24 swix Exp $ <br><br></li>
 
 <li>
 Feel free to use this form for your suggestions, requests and bugfixes:
@@ -714,7 +728,7 @@ Feel free to use this form for your suggestions, requests and bugfixes:
 <input type="hidden" name="subject" value="oMail-admin <?php echo($version); ?> comment form">
 <input type="hidden" name="redirect" value="http://<?php echo($HTTP_HOST); ?><?php echo($REQUEST_URI); ?>">
 <input type="hidden" name="sender" value="<?php echo($REMOTE_ADDR); ?>">
-<input type="hidden" name="sender" value="Version: $Id: htmlstuff.php,v 1.16 2000/08/13 19:57:19 swix Exp $ ">
+<input type="hidden" name="sender" value="Version: $Id: htmlstuff.php,v 1.17 2000/08/14 19:40:24 swix Exp $ ">
 <table border="0">
 <tr><td align="right">Email</td><td><small>
 <input type="text" size="30" name="from_email"></small></td></tr>

@@ -2,9 +2,16 @@
 Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----
 
-$Id: ChangeLog,v 1.11 2000/08/14 06:47:07 swix Exp $ 
+$Id: ChangeLog,v 1.12 2000/08/14 19:40:24 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
+
+2000-08-14  Olivier Mueller  <om@omnis.ch>
+
+	* released oMail-admin version 0.93.2
+	* added "resizable=yes" to the javascripts functions (better for IE)
+	* corrected a few ES typos in strings.php
+	* the whole system is now also supports browsers without cookies (=SID everywhere) : it works with lynx	
 
 2000-08-14  Olivier Mueller  <om@omnis.ch>
 
