@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.60 2001/11/15 17:58:49 swix Exp $ 
+	$Id: config.php,v 1.61 2001/11/17 12:16:15 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -252,8 +252,8 @@ $ldap_passwd = "SECRET";
 /* you shouldn't have to change the following lines */
 
 // version
-$version = "0.98.1";
-$cvs_version = '$Id: config.php,v 1.60 2001/11/15 17:58:49 swix Exp $';
+$version = "0.98.2";
+$cvs_version = '$Id: config.php,v 1.61 2001/11/17 12:16:15 swix Exp $';
 
 // script URL
 
