@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.60 2001/02/24 21:47:30 swix Exp $
+        $Id: htmlstuff.php,v 1.61 2001/02/25 08:29:38 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -841,6 +841,45 @@ function html_about() {
 	while(list ($id,$tmplang) = each ($txt_langname) ) {
 		$templdata["languages"] .= ($tmplang) . " ";
 	}
+
+
+	// get 3 random users of omail-admin
+	
+	$templdata[user_label1] = "Omnis Internet Services, Switzerland";  
+	$templdata[user_url1] = "http://www.omnis.ch";
+	$templdata[user_label2] = "webstyle gmbh, Switzerland";  
+	$templdata[user_url2] = "http://www.webstyle.ch";
+	$templdata[user_label3] = "insign gmbh, Switzerland";  
+	$templdata[user_url3] = "http://www.insign.ch";
+
+	$companies = array();
+	$fp = fopen("USERS", "r");
+	if ($fp) {
+		while (!feof ($fp)) {
+			$line = trim(fgets ($fp, 1024));
+			if ($line) { 
+				array_push($companies, $line);
+			}
+		}
+	}
+	fclose($fp);
+	$nb_cp = count($companies) - 1;
+	srand ((double) microtime() * 1000000);
+	if ($nb_cp > 0) {
+		for ($i = 1; $i<4; $i++) {
+			$random = rand(0,$nb_cp);
+			$label1 = "user_url" . $i;		
+			$label2 = "user_label" . $i;		
+			$expl_tmp = explode("\t", $companies[$random]);
+			$templdata[$label1] = $expl_tmp[1];
+			$templdata[$label2] = $expl_tmp[0];
+			if ($expl_tmp[2]) { 
+				$templdata[$label2] .= ", " . $expl_tmp[2];
+			}			
+		}
+	}	
+	
+
 
 	$templdata["HTTP_HOST"]=$HTTP_HOST;
 	$templdata["REQUEST_URI"]=$REQUEST_URI;

@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.48 2001/02/24 22:41:12 swix Exp $ 
+	$Id: config.php,v 1.49 2001/02/25 08:29:38 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -49,7 +49,7 @@ $show_how_many_accounts = 20;
 // will be displayed on screens with error messages
 // must be set to something else than the default value
 
-$sysadmin_mail = "sysadmin@notdefined.yet";
+$sysadmin_mail = "sysadmin@notdefined.yetx";
 
 
 // default language
@@ -230,7 +230,7 @@ $ldap_passwd = "very_secret";
 
 // version
 $version = "0.97";
-$cvs_version = '$Id: config.php,v 1.48 2001/02/24 22:41:12 swix Exp $';
+$cvs_version = '$Id: config.php,v 1.49 2001/02/25 08:29:38 swix Exp $';
 
 // script URL
 
@@ -245,6 +245,6 @@ if (!$default_lang) { $default_lang = $default_language; }       // default lang
 
 // yes, it's here:  Thanks for using oMail-admin! & Enjoy :)
 
-$splash_screen = 1;
+$splash_screen = 0;
 
 ?>

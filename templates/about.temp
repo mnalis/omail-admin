@@ -66,9 +66,17 @@ and of course the <a href="CREDITS" target="_new">Credits</a></li>
 </ul>
 <br></li>
 
+<li>Some Users of oMail-admin worldwide:  (based on splash-screen feedback, random)
+<ul>
+<li><a href="%user_url1%" target="_new">%user_label1%</a></li>
+<li><a href="%user_url2%" target="_new">%user_label2%</a></li>
+<li><a href="%user_url3%" target="_new">%user_label3%</a></li>
+</ul>
+<br></li>
+
         
 <li>
-Feel free to use this form for your suggestions, requests and bugfixes:<br>
+Feel free to use this form for your suggestions, requests and bugfixes, or use the mailing list:<br>
 <form action="http://www.8304.ch/cgi-bin/formmail.pl" method="post">
 <input type="hidden" name="recipient" value="omail@omnis.ch">
 <input type="hidden" name="subject" value="oMail-admin %version% comment form">
