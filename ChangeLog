@@ -1,0 +1,43 @@
+-----
+Omail  -  A PHP/perl based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
+-----
+
+$Id: ChangeLog,v 1.1 2000/08/02 01:38:58 swix Exp $ 
+$Source: /cvsroot/omail/admin2/ChangeLog,v $
+
+
+
+2000-08-01  Olivier Mueller  <om@omnis.ch>
+
+	* complete redesign : no more vwrap suid perl wrapper and mysql need. only require vmailmgr 0.96.7 and PHP4
+	* login is working for both domain admin (login = domain) and single user (login = email address)
+	* display of account information is working
+	* sorting is working
+	* session support with check of remote host and automatic expiration after N minutes
+
+2000-07-29  Olivier Mueller  <om@omnis.ch>
+
+	* Support for the "+" alias 
+	* Removed bug in the autoresponder function (From: and Subject:)
+	* .qmail-xxxx is also deleted if account with autoresponder is removed
+	* Released version 0.5
+
+2000-02-06  Olivier Mueller  <om@omnis.ch>
+
+	* Added mailbox listing feature
+	* Released version 0.4
+
+2000-02-05  Olivier Mueller  <om@omnis.ch>
+
+	* Added autoresponder feature, based on autorespond by Eric Huss
+	* Installed a live demo
+	* Basic project homepage setup
+	* Released version 0.3
+
+2000-01-23  Olivier Mueller  <om@omnis.ch>
+
+        * Released first public version 0.2
+
+
+
+

@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: func.php,v 1.2 2000/08/01 22:15:39 swix Exp $
+        $Id: func.php,v 1.3 2000/08/02 01:38:58 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -78,7 +78,7 @@ function authenticate($arg_login, $arg_passwd, $arg_ip) {
 	// 2. check format of arguments (lenght, regexp)
 
 
-	// 3. check if domain exists
+	// 3. check if domain exists (in rcpthosts/virtualdomains)
 
 
 	// 4. authenticate
@@ -86,7 +86,7 @@ function authenticate($arg_login, $arg_passwd, $arg_ip) {
 	if ($type == "domain") {
 
 		$test = listdomain($domain, base64_decode($passwd));
-	
+
 		if (is_array($test[0])) {
 
 			SetCookie("cookie_omail_last_domain",$domain, Time()+993600);
@@ -104,9 +104,9 @@ function authenticate($arg_login, $arg_passwd, $arg_ip) {
 
 	} elseif ($type == "user") {
 
-		$test = lookup($domain, $user);  // uh... need to test the pw...
+		$test = vchattr($domain, base64_decode($passwd), $username, "MAILBOX_ENABLED", "1");
 
-		if (0) {
+		if ($test[0] == 0) {
 	
 			SetCookie("cookie_omail_last_domain",$arg_login, Time()+993600);
 			SetCookie("cookie_omail_lang",$lang, Time()+993600);
@@ -128,6 +128,71 @@ function authenticate($arg_login, $arg_passwd, $arg_ip) {
 	}
 
 }
+
+
+
+function get_accounts_sort_by_name($a, $b) {
+
+	list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime)=$a;
+	list($username2, $password2, $mbox2, $alias2, $PersonalInfo2, $HardQuota2, $SoftQuota2, $SizeLimit2, $CountLimit2, $CreationTime2, $ExpiryTime2)=$b;
+	return ($username < $username2) ? -1 : 1; 
+}		
+
+
+
+function get_accounts($arg_action, $arg_username = "") {
+
+	global $type, $domain, $passwd;
+	$new_list = array ();
+
+	if ($arg_action) {
+
+		$list = listdomain($domain, base64_decode($passwd));
+		$j = 0;
+
+	        for ($i = 0; $i <  sizeof($list); $i++) {
+
+	                list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime)=$list[$i];
+	
+			if ($mbox && ($arg_action == 1)) { $new_list[$j++] = $list[$i];  }	
+			if ($alias && ($arg_action == 2)) { $new_list[$j++] = $list[$i]; }	
+			if (($username == $arg_username) && ($action == 0)) { $new_list[$j++] = $list[$i]; }	
+
+		}
+
+		// try to sort on username
+
+		usort($new_list, get_accounts_sort_by_name);
+	
+
+	} else {  // user
+
+		$lookup_data = lookup($domain, $arg_username);
+		$alias = array();
+		$i = -1;
+
+		$tmp_arr =  explode(chr(0), $lookup_data[1]);
+
+		while (list($key,$val) = each($tmp_arr)) {
+
+			if ($i == -1) {
+				$mbox = $val;
+				$i++;
+			} else { 	
+				$alias[$i++] = $val;
+			}			
+		}
+
+		$tmp_array = array($arg_username, "", $mbox, $alias, "User", "", "", "", "", "", "");
+		$new_list[0] = $tmp_array;
+	}
+
+	return $new_list;
+
+}
+
+	
+
 
 
 ?>

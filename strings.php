@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.2 2000/08/01 22:15:39 swix Exp $
+        $Id: strings.php,v 1.3 2000/08/02 01:38:58 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -874,34 +874,34 @@ $txt_mailbox_listing = array(
  "de" => "E-Mails Listing",
  "it"=>"");
 
-$txt_ = array( 
- "en" => "",
- "fr" => "",
- "de" => "",
+$txt_mailboxes_title = array( 
+ "en" => "Mailboxes",
+ "fr" => "Boites aux lettres",
+ "de" => "E-Mail kontos",
  "it"=>"");
 
-$txt_ = array( 
- "en" => "",
- "fr" => "",
- "de" => "",
+$txt_aliases_title = array( 
+ "en" => "Aliases",
+ "fr" => "Alias",
+ "de" => "Alias",
  "it"=>"");
 
-$txt_ = array( 
- "en" => "",
- "fr" => "",
- "de" => "",
+$txt_user_title = array( 
+ "en" => "Your Mail Account",
+ "fr" => "Votre compte mail",
+ "de" => "Mailkonto",
  "it"=>"");
 
-$txt_ = array( 
- "en" => "",
- "fr" => "",
- "de" => "",
+$txt_info = array( 
+ "en" => "Info",
+ "fr" => "Info",
+ "de" => "Info",
  "it"=>"");
 
-$txt_ = array( 
- "en" => "",
- "fr" => "",
- "de" => "",
+$txt_login_failed = array( 
+ "en" => "Login failed : please check login and password",
+ "fr" => "La connexion a échoué : veuillez vérifier le login et votre mot de passe",
+ "de" => "Kein Zugang: bitte Login und Passwort überprüfen",
  "it"=>"");
 
 $txt_ = array( 

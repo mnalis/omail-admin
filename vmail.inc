@@ -1,7 +1,7 @@
 <?
 // Copyright (C) 2000 Mike Bell <mike@mikebell.org>
 // 
-//      $Id: vmail.inc,v 1.2 2000/08/01 22:15:39 swix Exp $
+//      $Id: vmail.inc,v 1.3 2000/08/02 01:38:58 swix Exp $
 //      $Source: /cvsroot/omail/admin2/vmail.inc,v $
 //
 // Examples available at http://mailtest.mikebell.org/
@@ -240,7 +240,7 @@ return vm_daemon_raw($command);
 
 function lookup($domain, $user){
        $temp = vm_daemon_raw(array("lookup", $domain, $user));
-return explode(chr(0), $temp);
+return $temp;
 }
  
 

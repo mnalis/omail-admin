@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.2 2000/08/01 22:15:39 swix Exp $
+        $Id: htmlstuff.php,v 1.3 2000/08/02 01:38:58 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -88,9 +88,10 @@ if ($cookie_omail_last_domain) { print htmlentities($cookie_omail_last_domain); 
 
 function html_head($title) {
 
-	global $A, $domain;
+	global $A, $domain, $cvs_version, $version;
 
-	print "<HTML><HEAD><TITLE>$title</TITLE>";
+	print "<HTML><HEAD><TITLE>$title</TITLE>\n";
+	print "<!-- oMail-admin version $version - $cvs_version - " . session_id() . "-->\n";
 	?>
 <style type="text/css">
 //<!--
@@ -376,6 +377,112 @@ function html_error($title, $msg) {
         global $script, $lang, $domain;
         include("strings.php");
 
+}
+
+
+
+
+function html_display_mailboxes($mboxlist, $arg_action) {
+
+	// action :  	1 = mailbox
+	//		2 = alias
+	//		0 = user   (no new user line, no delete)
+
+
+	global $session, $script, $lang, $domain;
+	include("strings.php");
+
+	switch ($arg_action) {
+		case 1:
+			print "<h1>" . $txt_mailboxes_title[$lang] . "</h1>";
+			break;
+		case 2:
+			print "<h1>" . $txt_aliases_title[$lang] . "</h1>";
+			break;
+		case 0:
+			print "<h1>" . $txt_user_title[$lang] . "</h1>";
+			break;
+	}
+
+	print "<table border=0><TR><TH>N°</TH>";
+	print "<TH>" . $txt_email[$lang] . "</TH>" .
+		"<TH>" . $txt_info[$lang] . "</TH>" .
+		"<TH>" . $txt_fwd[$lang] . "1</TH>" .
+		"<TH>" . $txt_fwd[$lang] . "2</TH>" .
+		"<TH>" . $txt_fwd[$lang] . "3</TH>" .
+		"<TH>" . $txt_more_fwd[$lang] . "?</TH>" .
+		"<TH>" . $txt_responder[$lang] . "?</TH>";
+
+	if ($arg_action) {
+		print "<TH COLSPAN=3>" . $txt_action[$lang] . "</TH></TR>";
+	} else {
+		print "<TH COLSPAN=2>" . $txt_action[$lang] . "</TH></TR>";
+	}		
+			
+	$yes = "<font color=\"green\">" . $txt_yes[$lang] . "</font>";
+	$no = "<font color=\"red\">" . $txt_no[$lang] . "</font>";
+	$total_size = 0;
+
+	for ($i = 0; $i <  sizeof($mboxlist); $i++) {
+
+		list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime)=$mboxlist[$i];
+
+		if ($i/2 == floor($i/2)) { 
+			print "<tr bgcolor=\"#DDDDDD\">"; 
+		} else { 
+			print "<tr bgcolor=\"#CCCCCC\">"; 
+		}			
+
+		print "<TD>" . ($i+1)  . "&nbsp;</TD>"; // num
+
+		print "<TD><B>" . $username  . "</B>&nbsp;</TD>"; // namae
+		print "<TD><B>" . $PersonalInfo  . "</B>&nbsp;</TD>"; // namae
+		print "<TD>" . $alias[0]  . "&nbsp;</TD>"; // fwd1
+		print "<TD>" . $alias[1] . "&nbsp;</TD>"; // fwd2
+		print "<TD>" . $alias[2] . "&nbsp;</TD>"; // fwd3
+
+		print "<TD>";
+		if ($alias[3]) { print $yes; } else { print $no; } 
+		print "&nbsp;</TD>"; // alias?
+
+		print "<TD>";
+		if (0) { print $yes; } else { print $no; } 
+		print "&nbsp;</TD>"; // responder?
+
+		// convert the username to an html escaped string (because of user "+") 
+
+		$username = urlencode($username);
+
+		print "<TD><A HREF=\"$script?A=edit&U=" . $username . "\" onClick=\"oW(this,'pop')\">"  . 
+			$txt_edit[$lang]  . "</a>&nbsp;</TD>"; // action
+		print "<TD><A HREF=\"$script?A=resp&U=" . $username . "\" onClick=\"oW2(this,'pop')\">"  . 
+			$txt_responder[$lang] . "</a>&nbsp;</TD>"; // action
+		if ($arg_action) {
+			print "<TD><A HREF=\"$script?A=delete&U=" . $username . "\" onClick=\"oW(this,'pop')\">"  . 
+				$txt_delete[$lang]  . "</a>&nbsp;</TD>"; // action
+		}
+		print "</TR>";
+
+	}
+			
+
+	switch ($arg_action) {
+		case 1:
+			$tmp_label = $txt_newuser[$lang];
+			break;
+		case 2:
+			$tmp_label = $txt_newalias[$lang];
+			break;
+	}
+
+
+	if ($arg_action != 0) {
+		print "<tr><th COLSPAN=8 ALIGN=right>&nbsp;&nbsp;</th>";
+		print "<TH COLSPAN=3 ALIGN=center>" .
+			"<A HREF=\"$script?A=newuser\" onClick=\"oW(this,'pop')\">"  . $txt_newuser[$lang]  . "</a>&nbsp;</TH></TR>";
+	}
+
+	print "</table><br>"; 
 
 }
 
