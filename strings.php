@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.20 2000/09/24 00:29:06 swix Exp $
+        $Id: strings.php,v 1.21 2000/10/12 20:55:19 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -18,7 +18,7 @@
 	06.aug.2k   jc   Added spanish
 	20.aug.2k   nv   Added italian
 	19.sep.2k   ak   Added russian
-
+	12.oct.2k   kg	 Added Danish
 
         This program is free software; you can redistribute it and/or modify
         it under the terms of the GNU General Public License as published by
@@ -39,6 +39,7 @@
 
 $txt_langname=array(	"fr"=>"Français",
                         "de"=>"Deutsch",
+			"da"=>"Dansk",
                         "en"=>"English",
 			"es"=>"Castellano",
                         "it"=>"Italiano",
@@ -47,6 +48,7 @@ $txt_langname=array(	"fr"=>"Français",
 $txt_charset=array(     "ru"=>"KOI8-R",
                         "fr"=>"",
                         "de"=>"",
+			"da"=>"",
                         "en"=>"",
 			"es"=>"",
                         "it"=>"");
@@ -54,6 +56,7 @@ $txt_charset=array(     "ru"=>"KOI8-R",
 $txt_login=array(	"ru"=>"ìÏÇÉÎ",
                         "fr"=>"Login",
 			"de"=>"Login",
+			"da"=>"Login",
 			"en"=>"Login",
 			"es"=>"Login",
 			"it"=>"Login");
@@ -61,6 +64,7 @@ $txt_login=array(	"ru"=>"ìÏÇÉÎ",
 $txt_passwd=array(      "ru"=>"ðÁÒÏÌØ",
                         "fr"=>"Mot de passe",
 			"de"=>"Passwort",
+			"da"=>"Password",
 			"en"=>"Password",
 			"es"=>"Contrase&ntilde;a",
 			"it"=>"Password");
@@ -68,6 +72,7 @@ $txt_passwd=array(      "ru"=>"ðÁÒÏÌØ",
 $txt_title=array(	"ru"=>"ôÉÔÕÌ(ú×ÁÎÉÅ)",
                         "fr"=>"Titre",
 			"de"=>"Anrede",
+			"da"=>"Titel",
 			"en"=>"Title",
 			"es"=>"T¡tulo",
 			"it"=>"Titolo");
@@ -75,6 +80,7 @@ $txt_title=array(	"ru"=>"ôÉÔÕÌ(ú×ÁÎÉÅ)",
 $txt_firstname=array(	"ru"=>"éÍÑ",
 			"fr"=>"Prénom",
 			"de"=>"Vorname",
+			"da"=>"Fornavn",
 			"en"=>"Firstname",
 			"es"=>"Nombre",
 			"it"=>"Nome");
@@ -82,6 +88,7 @@ $txt_firstname=array(	"ru"=>"éÍÑ",
 $txt_lastname=array(	"ru"=>"æÁÍÉÌÉÑ",
 			"fr"=>"Nom",
 			"de"=>"Name",
+			"da"=>"Efternavn",
 			"en"=>"Lastname",
 			"es"=>"Apellido",
 			"it"=>"Cognome");
@@ -89,6 +96,7 @@ $txt_lastname=array(	"ru"=>"æÁÍÉÌÉÑ",
 $txt_adresse=array(	"ru"=>"áÄÒÅÓ",
                         "fr"=>"Adresse",
 			"de"=>"Adresse",
+			"da"=>"Adresse",
 			"en"=>"Address",
 			"es"=>"Direcci&oacute;n",
 			"it"=>"Indirizzo");
@@ -96,6 +104,7 @@ $txt_adresse=array(	"ru"=>"áÄÒÅÓ",
 $txt_postalcode=array(	"ru"=>"ðÏÞÔ.éÎÄÅËÓ",
 			"fr"=>"CP",
 			"de"=>"PLZ",
+			"da"=>"Postnr.",
 			"en"=>"ZIP",
 			"es"=>"CP",
 			"it"=>"CAP");
@@ -103,6 +112,7 @@ $txt_postalcode=array(	"ru"=>"ðÏÞÔ.éÎÄÅËÓ",
 $txt_city=array(	"ru"=>"çÏÒÏÄ",
                         "fr"=>"Localité",
 			"de"=>"Ort",
+			"da"=>"By",
 			"en"=>"City",
 			"es"=>"Ciudad",
 			"it"=>"Localit&agrave;");
@@ -110,6 +120,7 @@ $txt_city=array(	"ru"=>"çÏÒÏÄ",
 $txt_country=array(	"ru"=>"óÔÒÁÎÁ",
                         "fr"=>"Pays",
 			"de"=>"Land",
+			"da"=>"Land",
 			"en"=>"Country",
 			"es"=>"Pa&iacute;is",
 			"it"=>"Stato");
@@ -117,6 +128,7 @@ $txt_country=array(	"ru"=>"óÔÒÁÎÁ",
 $txt_phone=array(	"ru"=>"ôÅÌÅÆÏÎ",
                         "fr"=>"Téléphone",
 			"de"=>"Telefon",
+			"da"=>"Telefon",
 			"en"=>"Phone",
 			"es"=>"Teléfono",
 			"it"=>"Telefono");
@@ -124,6 +136,7 @@ $txt_phone=array(	"ru"=>"ôÅÌÅÆÏÎ",
 $txt_fax=array(		"ru"=>"æÁËÓ",
                         "fr"=>"Téléfax",
 			"de"=>"Fax",
+			"da"=>"Fax",
 			"en"=>"Fax",
 			"es"=>"Fax",
 			"it"=>"Fax");
@@ -131,6 +144,7 @@ $txt_fax=array(		"ru"=>"æÁËÓ",
 $txt_lang=array(	"ru"=>"ñÚÙË",
                         "fr"=>"Langue",
 			"de"=>"Sprache",
+			"da"=>"Sprog",
 			"en"=>"Language",
 			"es"=>"Idioma",
 			"it"=>"Lingua");
@@ -138,6 +152,7 @@ $txt_lang=array(	"ru"=>"ñÚÙË",
 $txt_langs=array(	"ru"=>"òÕÓÓËÉÊ",
                         "fr"=>"Francais",
 			"de"=>"Deutsch",
+			"da"=>"Dansk",
 			"en"=>"English",
 			"es"=>"Castellano",
 			"it"=>"Italiano");
@@ -145,6 +160,7 @@ $txt_langs=array(	"ru"=>"òÕÓÓËÉÊ",
 $txt_homepage=array(	"ru"=>"URL",        // :)
                         "fr"=>"Homepage",
 			"de"=>"Homepage",
+			"da"=>"Homepage",
 			"en"=>"Homepage",
 			"es"=>"Homepage",
 			"it"=>"homepage");
@@ -152,6 +168,7 @@ $txt_homepage=array(	"ru"=>"URL",        // :)
 $txt_company=array(	"ru"=>"ïÒÇÁÎÉÚÁÃÉÑ",
                         "fr"=>"Entreprise",
 			"de"=>"Firma",
+			"da"=>"Firma",
 			"en"=>"Company",
 			"es"=>"Empresa",
 			"it"=>"Firma");
@@ -159,6 +176,7 @@ $txt_company=array(	"ru"=>"ïÒÇÁÎÉÚÁÃÉÑ",
 $txt_position=array(	"ru"=>"äÏÌÖÎÏÓÔØ",
                         "fr"=>"Fonction",
 			"de"=>"Funktion",
+			"da"=>"Stilling",
 			"en"=>"Position",
 			"es"=>"Posici&oacute;n",
 			"it"=>"Posizione");
@@ -166,6 +184,7 @@ $txt_position=array(	"ru"=>"äÏÌÖÎÏÓÔØ",
 $txt_reason=array(	"ru"=>"ðÒÉÞÉÎÁ",
                         "fr"=>"Raison",
 			"de"=>"Grund",
+			"da"=>"Grund",
 			"en"=>"Reason",
 			"es"=>"Raz&oacute;n",
 			"it"=>"Ragione sociale");
@@ -173,6 +192,7 @@ $txt_reason=array(	"ru"=>"ðÒÉÞÉÎÁ",
 $txt_notes=array(	"ru"=>"ðÒÉÍÅÞÁÎÉÅ",
                         "fr"=>"Notes",
 			"de"=>"Notizen",
+			"da"=>"Noter",
 			"en"=>"Notes",
 			"es"=>"Notas",
 			"it"=>"Note");
@@ -180,6 +200,7 @@ $txt_notes=array(	"ru"=>"ðÒÉÍÅÞÁÎÉÅ",
 $txt_alias=array(	"ru"=>"áÌÉÁÓ",
                         "fr"=>"Alias",
 			"de"=>"Alias",
+			"da"=>"Alias",
 			"en"=>"Alias",
 			"es"=>"Alias",
 			"it"=>"Alias");
@@ -187,6 +208,7 @@ $txt_alias=array(	"ru"=>"áÌÉÁÓ",
 $txt_fwd=array(		"ru"=>"Fwd",
                         "fr"=>"Fwd",
 			"de"=>"Fwd",
+			"da"=>"Fwd",
 			"en"=>"Fwd",
 			"es"=>"Fwd",
 			"it"=>"Fwd");
@@ -194,6 +216,7 @@ $txt_fwd=array(		"ru"=>"Fwd",
 $txt_destination=array(	"ru"=>"Destination",
                         "fr"=>"Destination",
 			"de"=>"Weiterleitung an",
+			"da"=>"Destination",
 			"en"=>"Destination",
 			"es"=>"Destino",
 			"it"=>"Destinatario");
@@ -201,6 +224,7 @@ $txt_destination=array(	"ru"=>"Destination",
 $txt_email=array(	"ru"=>"Email",
                         "fr"=>"E-mail",
 			"de"=>"E-Mail",
+			"da"=>"E-Mail",
 			"en"=>"Email",
 			"es"=>"E-mail",
 			"it"=>"E-mail");
@@ -208,6 +232,7 @@ $txt_email=array(	"ru"=>"Email",
 $txt_edit=array(	"ru"=>"éÚÍÅÎÉÔØ",
                         "fr"=>"Modifier",
 			"de"=>"Aendern",
+			"da"=>"Rediger",
 			"en"=>"Edit",
 			"es"=>"Editar",
 			"it"=>"Modifica");
@@ -215,6 +240,7 @@ $txt_edit=array(	"ru"=>"éÚÍÅÎÉÔØ",
 $txt_delete=array(	"ru"=>"õÄÁÌÉÔØ",
                         "fr"=>"Effacer",
 			"de"=>"Loeschen",
+			"da"=>"Slet",
 			"en"=>"Delete",
 			"es"=>"Eliminar",
 			"it"=>"Elimina");
@@ -222,6 +248,7 @@ $txt_delete=array(	"ru"=>"õÄÁÌÉÔØ",
 $txt_cancel=array(	"ru"=>"ðÒÅÒ×ÁÔØ",
                         "fr"=>"Annuler",
 			"de"=>"Annulieren",
+			"da"=>"Annuler",
 			"en"=>"Cancel Operation",
 			"es"=>"Cancelar",
 			"it"=>"Annulla");
@@ -229,6 +256,7 @@ $txt_cancel=array(	"ru"=>"ðÒÅÒ×ÁÔØ",
 $txt_activate=array(	"ru"=>"áËÔÉ×ÉÒÏ×ÁÔØ",
                         "fr"=>"Activer",
 			"de"=>"Aktivieren",
+			"da"=>"Aktiver",
 			"en"=>"Activate",
 			"es"=>"Activar",
 			"it"=>"Attiva");
@@ -236,6 +264,7 @@ $txt_activate=array(	"ru"=>"áËÔÉ×ÉÒÏ×ÁÔØ",
 $txt_account_name=array("ru"=>"óÞÅÔ",
                         "fr"=>"Nom du compte",
 			"de"=>"Konto name",
+			"da"=>"Konto navn",
 			"en"=>"Account name",
 			"es"=>"Nombre de Cuenta",
 			"it"=>"Account");
@@ -243,6 +272,7 @@ $txt_account_name=array("ru"=>"óÞÅÔ",
 $txt_account_type=array("ru"=>"ôÉÐ",
                         "fr"=>"Sorte de compte",
 			"de"=>"Kontoart",
+			"da"=>"Kontoart",
 			"en"=>"Account type",
 			"es"=>"Tipo de Cuenta",
 			"it"=>"Tipo di Account");
@@ -250,6 +280,7 @@ $txt_account_type=array("ru"=>"ôÉÐ",
 $txt_domain=array(	"ru"=>"äÏÍÅÎ",
                         "fr"=>"Domaine",
 			"de"=>"Domain",
+			"da"=>"Domæne",
 			"en"=>"Domain",
 			"es"=>"Dominio",
 			"it"=>"Dominio");
@@ -257,6 +288,7 @@ $txt_domain=array(	"ru"=>"äÏÍÅÎ",
 $txt_domain_or_email=array(	"ru"=>"áÄÒÅÓ Email",
                         "fr"=>"Adresse mail ou Domaine",
 			"de"=>"E-Mail Adresse oder Domain-Name",
+			"da"=>"E-Mail Adresse eller Domæne Navn",
 			"en"=>"Email Address or Domain Name",
 			"es"=>"E-mail o Dominio",
 			"it"=>"Indirizzo E-mail o Dominio");
@@ -264,6 +296,7 @@ $txt_domain_or_email=array(	"ru"=>"áÄÒÅÓ Email",
 $txt_status=array(	"ru"=>"óÔÁÔÕÓ",
                         "fr"=>"Etat",
 			"de"=>"Zustand",
+			"da"=>"Status",
 			"en"=>"Status",
 			"es"=>"Estado",
 			"it"=>"Stato");
@@ -271,6 +304,7 @@ $txt_status=array(	"ru"=>"óÔÁÔÕÓ",
 $txt_login=array(	"ru"=>"ìÏÇÉÎ",
                         "fr"=>"Login",
 			"de"=>"Login",
+			"da"=>"Login",
 			"en"=>"Login",
 			"es"=>"Login",
 			"it"=>"Login");
@@ -278,6 +312,7 @@ $txt_login=array(	"ru"=>"ìÏÇÉÎ",
 $txt_delete=array(	"ru"=>"õÄÁÌÉÔØ",
                         "fr"=>"Effacer",
 			"de"=>"Loeschen",
+			"da"=>"Slet",
 			"en"=>"Delete",
 			"es"=>"Borrar",
 			"it"=>"Elimina");
@@ -285,6 +320,7 @@ $txt_delete=array(	"ru"=>"õÄÁÌÉÔØ",
 $txt_info=array(	"ru"=>"éÎÆÏ",
                         "fr"=>"Info",
 			"de"=>"Info",
+			"da"=>"Info",
 			"en"=>"Info",
 			"es"=>"Info",
 			"it"=>"Info");
@@ -292,6 +328,7 @@ $txt_info=array(	"ru"=>"éÎÆÏ",
 $txt_action=array(	"ru"=>"äÅÊÓÔ×ÉÅ",
                         "fr"=>"Action",
 			"de"=>"Aktion",
+			"da"=>"Aktion",
 			"en"=>"Action",
 			"es"=>"Acción",
 			"it"=>"Azione");
@@ -299,6 +336,7 @@ $txt_action=array(	"ru"=>"äÅÊÓÔ×ÉÅ",
 $txt_no_accounts=array(	"ru"=>"îÅÔ ÔÁËÏÇÏ ÐÏÌØÚÏ×ÁÔÅÌÑ",
                         "fr"=>"Aucun comptes enregistr&eacute;s.",
 			"de"=>"Keine registrierte Konto",
+			"da"=>"Ingen registrede Konto",
 			"en"=>"No registred accounts",
 			"es"=>"Ninguna cuenta registrada",
 			"it"=>"Non ci sono account");
@@ -306,6 +344,7 @@ $txt_no_accounts=array(	"ru"=>"îÅÔ ÔÁËÏÇÏ ÐÏÌØÚÏ×ÁÔÅÌÑ",
 $txt_no_domains=array(	"ru"=>"îÅÔ ÔÁËÏÇÏ ÄÏÍÅÎÁ",
                         "fr"=>"Aucun domaines enregistr&eacute;s",
 			"de"=>"Keine registrierte Domains",
+			"da"=>"Ingen registrede Domæner",
 			"en"=>"No registred domains",
 			"es"=>"Ningún dominio registrado",
 			"it"=>"Non ci sono domini");
@@ -313,6 +352,7 @@ $txt_no_domains=array(	"ru"=>"îÅÔ ÔÁËÏÇÏ ÄÏÍÅÎÁ",
 $txt_new=array(		"ru"=>"îÏ×ÙÊ",
                         "fr"=>"Nouveau",
 			"de"=>"Neu",
+			"da"=>"Ny",
 			"en"=>"New",
 			"es"=>"Nuevo",
 			"it"=>"Nuovo");
@@ -320,6 +360,7 @@ $txt_new=array(		"ru"=>"îÏ×ÙÊ",
 $txt_avail_domain=array(	"ru"=>"÷ÏÚÍÏÖÎÙÅ ÄÏÍÅÎÙ",
                         "fr"=>"Domaines disponibles",
 			"de"=>"Moeglich Domains",
+			"da"=>"Oprettede Domæner",
 			"en"=>"Available domains",
 			"es"=>"Dominios disponibles",
 			"it"=>"Domini disponibili");
@@ -327,6 +368,7 @@ $txt_avail_domain=array(	"ru"=>"÷ÏÚÍÏÖÎÙÅ ÄÏÍÅÎÙ",
 $txt_own_domains=array(	"ru"=>"÷ÁÛÉ ÄÏÍÅÎÙ",
                         "fr"=>"Vos propres domaines",
 			"de"=>"Ihre eigene Domains",
+			"da"=>"Deres egne Domæner",
 			"en"=>"Your own domains",
 			"es"=>"Tus propios dominios",
 			"it"=>"I tuoi domini");
@@ -334,6 +376,7 @@ $txt_own_domains=array(	"ru"=>"÷ÁÛÉ ÄÏÍÅÎÙ",
 $txt_open_domains=array(	 "ru"=>"ïÔËÒÙÔÙÅ ÄÏÍÅÎÙ",
                         "fr"=>"Les domaines publics",
 			"de"=>"Die offene Domains",
+			"da"=>"Åbne Domæner",
 			"en"=>"The open domains",
 			"es"=>"Los dominios públicos",
 			"it"=>"Domini pubblici");
@@ -341,6 +384,7 @@ $txt_open_domains=array(	 "ru"=>"ïÔËÒÙÔÙÅ ÄÏÍÅÎÙ",
 $txt_no_domain=array(	"ru"=>"îÅÔ ÄÏÍÅÎÏ×",
                         "fr"=>"Pas de domaine",
 			"de"=>"Keine Domains",
+			"da"=>"Ingen Domæner",
 			"en"=>"No Domains",
 			"es"=>"Sin dominios",
 			"it"=>"Non c'&egrave; alcun dominio");
@@ -348,6 +392,7 @@ $txt_no_domain=array(	"ru"=>"îÅÔ ÄÏÍÅÎÏ×",
 $txt_please_choose=array(	 "ru"=>"ðÏÖÁÌÕÊÓÔÁ ×ÙÂÅÒÉÔÅ",
                         "fr"=>"Faites votre choix",
 			"de"=>"Bitte waehlen",
+			"da"=>"Vælg venligst",
 			"en"=>"Please choose",
 			"es"=>"Elige",
 			"it"=>"Scegli");
@@ -355,6 +400,7 @@ $txt_please_choose=array(	 "ru"=>"ðÏÖÁÌÕÊÓÔÁ ×ÙÂÅÒÉÔÅ",
 $txt_subdomain_name=array(	"ru"=>"éÍÑ ÐÏÄÄÏÍÅÎÁ",
                         "fr"=>"Nom du sous-domaine",
 			"de"=>"Subdomain Name",
+			"da"=>"Subdomain Name",
 			"en"=>"Subdomain Name",
 			"es"=>"Subdominio",
 			"it"=>"Sottodominio");
@@ -362,44 +408,17 @@ $txt_subdomain_name=array(	"ru"=>"éÍÑ ÐÏÄÄÏÍÅÎÁ",
 $txt_authorized_chars=array(	 "ru"=>"éÓÐÏÌØÚÕÊÔÅ ÔÏÌØËÏ: a-z, 0-9 É '-'",
                         "fr"=>"Caracteres autorises : a-z, 0-9 et '-'",
 			"de"=>"Zugelassen sind nur a-z, 0-9 und '-'",
+			"da"=>"Benyt venligst kun a-z, 0-9 eller '-'",
 			"en"=>"Only use a-z, 0-9 and '-'",
 			"es"=>"Usá sólo a-z, 0-9 y '-'",
 			"it"=>"Usa solo a-z, 0-9 e '-'");
-
-$txt_=array(		"ru"=>"",
-                        "fr"=>"",
-			"de"=>"",
-			"en"=>"",
-			"it"=>"");
-
-$txt_=array(		"ru"=>"",
-                        "fr"=>"",
-			"de"=>"",
-			"en"=>"",
-			"it"=>"");
-
-
-//$txt_=array(		"ru"=>"",
-//                      "fr"=>"",
-//			"de"=>"",
-//			"en"=>"",
-//			"it"=>"");
-//
-
-
-
-	//
-	// stings for oMail2 - converted to php3 by om on 17.jan.2k
-	//
-
-	// Credits : M.Zenhausern for the german translation & corrections
-	// 
 
 
 $txt_current_language = array( "ru"=>"òÕÓÓËÉÊ",
  "en" => "English",
  "fr" => "Français",
  "de" => "Deutsch",
+ "da" => "Dansk",
  "es" => "Castellano",
  "it"=>"Italiano");
 
@@ -408,6 +427,7 @@ $txt_hello = array(
  "en" => "Hello",
  "fr" => "Bonjour",
  "de" => "Hallo",
+ "da" => "Hallo",
  "es" => "Hola",
  "it"=>"Salve");
 
@@ -416,6 +436,7 @@ $txt_menu = array(
  "en" => "Menu",
  "fr" => "Menu",
  "de" => "Menu",
+ "da" => "Menu",
  "es" => "Menú",
  "it" => "Menu");
 
@@ -424,6 +445,7 @@ $txt_welcome = array(
  "en" => "Welcome!",
  "fr" => "Bienvenue!",
  "de" => "Willkommen!",
+ "da" => "Velkommen!",
  "es" => "Welcome!",
  "it"=>"Welcome!");
 
@@ -432,6 +454,7 @@ $txt_menu_domain_descr = array(
  "en" => "Welcome in the domain administration main menu",
  "fr" => "Bienvenue dans le menu principal de l'adminstration de votre domaine",
  "de" => "Willkomen im Maildomain Administration Hauptmenu ",
+ "da" => "Velkommen til Administrations menuen",
  "es" => "Bienvenido al menú de administraci&oacute;n de dominios",
  "it"=>"Benvenuto al menu principale per la gestione del dominio");
 
@@ -440,6 +463,7 @@ $txt_menu_account_descr = array(
  "en" => "Welcome your mail account administration main menu",
  "fr" => "Bienvenue dans le menu principal de l'adminstration de votre compte Mel",
  "de" => "Willkomen im Mailkonto Administration Hauptmenu ",
+ "da" => "Velkommen til Administrations menu for Mailkonto",
  "es" => "Bienvenido al menú de administraci&oacute;n de cuenta de correo",
  "it"=>"Benvenuto al menu principale per la gestione del tuo account di posta");
 
@@ -450,6 +474,7 @@ $txt_edit = array(
  "en" => "Edit",
  "fr" => "Editer",
  "de" => "Editieren",
+ "da" => "Rediger",
  "es" => "Editar",
  "it"=>"Modifica");
 
@@ -458,6 +483,7 @@ $txt_mailbox = array(
  "en" => "Mailbox",
  "fr" => "Messages",
  "de" => "E-Mail",
+ "da" => "E-Mail",
  "es" => "Casilla",
  "it"=>"Casella");
 
@@ -466,6 +492,7 @@ $txt_list = array(
  "en" => "List",
  "fr" => "Liste",
  "de" => "Zurück",
+ "da" => "Tilbage",
  "es" => "Lista",
  "it"=>"Lista");
 
@@ -474,6 +501,7 @@ $txt_add_user = array(
  "en" => "Add_User",
  "fr" => "Ajouter_compte",
  "de" => "Neuer Account",
+ "da" => "Ny konto",
  "es" => "Agregar usuario",
  "it"=>"Aggiungi account");
 
@@ -482,6 +510,7 @@ $txt_add_alias = array(
  "en" => "Add_Alias",
  "fr" => "Ajouter_alias",
  "de" => "Neuer Alias",
+ "da" => "Ny Alias",
  "es" => "Agregar Alias",
  "it"=>"Aggiungi Alias");
 
@@ -490,6 +519,7 @@ $txt_delete = array(
  "en" => "Delete",
  "fr" => "Effacer",
  "de" => "Löschen",
+ "da" => "Slet",
  "es" => "Eliminar",
  "it"=>"Elimina");
 
@@ -498,6 +528,7 @@ $txt_info = array(
  "en" => "Info",
  "fr" => "Info",
  "de" => "Info",
+ "da" => "Info",
  "es" => "Info",
  "it"=>"Info");
 
@@ -506,6 +537,7 @@ $txt_login = array(
  "en" => "Login",
  "fr" => "Annonce",
  "de" => "Anmeldung",
+ "da" => "Login",
  "es" => "Ingresar",
  "it"=>"Login");
 
@@ -514,6 +546,7 @@ $txt_login_again = array(
  "en" => "Login again",
  "fr" => "Nouvelle annonce",
  "de" => "Neue Anmeldung",
+ "da" => "Login igen",
  "es" => "Reingresar",
  "it"=>"Esegui nuovamente il Login");
 
@@ -522,6 +555,7 @@ $txt_please_login = array(
  "en" => "Please Identify Yourself with your domain and password.",
  "fr" => "Veillez vous identifier a l'aide du nom de domaine et de votre mot de passe",
  "de" => "Bitte melden Sie sich ein mit Ihren Domain Name und Passwort",
+ "da" => "Identificer Dem venligst med domæne & password",
  "es" => "Por favor ingrese su nombre de usuario o dominio y contrase&ntilde;a",
  "it"=>"Per favore inserisci il tuo dominio e la password.");
 
@@ -530,6 +564,7 @@ $txt_update_list = array(
  "en" => "Update_List",
  "fr" => "Reactualiser_Liste",
  "de" => "Liste aktualisieren",
+ "da" => "Opdater Liste",
  "es" => "Actualizar",
  "it"=>"Aggiorna_Lista");
 
@@ -537,6 +572,7 @@ $txt_pw_chg_ok = array( "ru"=>"ðÁÒÏÌØ ÕÓÐÅÛÎÏ ÉÚÍÅÎÅÎ",
  "en" => "Password has been changed sucessfully",
  "fr" => "Le mot de passe a été changé avec succès",
  "de" => "Passwort wurde erfolgreich geändert",
+ "da" => "Passwordet er blevet ændret",
  "es" => "El password ha sido cambiado con &eacute;xito",
  "it"=>"La password &egrave; stata correttamente cambiata");
 
@@ -545,6 +581,7 @@ $txt_password_str = array(
  "en" => "Password",
  "fr" => "Mot de passe",
  "de" => "Passwort",
+ "da" => "Password",
  "es" => "Contrase&ntilde;a",
  "it"=>"Password");
 
@@ -553,6 +590,7 @@ $txt_domain_name = array(
  "en" => "Domain",
  "fr" => "Domaine",
  "de" => "Domain",
+ "da" => "Domæne",
  "es" => "Dominio",
  "it"=>"Dominio");
 
@@ -561,6 +599,7 @@ $txt_dom_ident = array(
  "en" => "Domain Authentication",
  "fr" => "Identification du Domaine",
  "de" => "E-Mail Administration",
+ "da" => "E-Mail Administration",
  "es" => "Autentificación de dominio",
  "it"=>"Autentificazione");
 
@@ -569,6 +608,7 @@ $txt_secu_fail_dname = array(
  "en" => "Security Failure : domain name must have the form domain.ext",
  "fr" => "Erreur de sécurité : le nom de domaine doit etre de la forme domaine.ext",
  "de" => "Sicherheitsfehler : Domain Name muss der Form domain.ext sein",
+ "da" => "Fejl! Domænet skal have form som domæne.ext",
  "es" => "Alerta de seguridad: El dominio de ser de la forma dominio.ext",
  "it"=>"Errore: il dominio deve essere della forma dominio.tld");
 
@@ -577,6 +617,7 @@ $txt_action_menu_title = array(
  "en" => "Menu for domain",
  "fr" => "Menu pour domaine",
  "de" => "Menu für Domain",
+ "da" => "Menu for Domæne",
  "es" => "Menú para el dominio",
  "it"=>"Menu del dominio");
 
@@ -585,6 +626,7 @@ $txt_err_action_not_found = array(
  "en" => "Action not found",
  "fr" => "Action non trouvée",
  "de" => "Befehl nicht gefunden",
+ "da" => "Aktion ikke fundet",
  "es" => "Comando no encontrado",
  "it"=>"Comando errato");
 
@@ -593,6 +635,7 @@ $txt_title_info = array(
  "en" => "Entry for user",
  "fr" => "Enregistrement concernant",
  "de" => "Benutzer Info für",
+ "da" => "Info for",
  "es" => "Entrada para el usuario",
  "it"=>"Scheda dell'utente");
 
@@ -601,6 +644,7 @@ $txt_real_name = array(
  "en" => "Real Name",
  "fr" => "Nom complet",
  "de" => "Name",
+ "da" => "Navn",
  "es" => "Nombre y Apellido",
  "it"=>"Nome e Cognome");
 
@@ -609,6 +653,7 @@ $txt_email_adr = array(
  "en" => "Email Address",
  "fr" => "Adresse Mel",
  "de" => "E-Mail Adresse",
+ "da" => "E-Mail Adresse",
  "es" => "Dirección de correo",
  "it"=>"Indirizzo E-Mail");
 
@@ -617,6 +662,7 @@ $txt_account_type = array(
  "en" => "Account Type",
  "fr" => "Genre de compte",
  "de" => "Kontoart",
+ "da" => "Kontoart",
  "es" => "Tipo de cuenta",
  "it"=>"Tipo di Account");
 
@@ -625,6 +671,7 @@ $txt_mailbox_size = array(
  "en" => "Size",
  "fr" => "Taille",
  "de" => "Grösse",
+ "da" => "Størrelse",
  "es" => "Tama&ntilde;o",
  "it"=>"Dimensione");
 
@@ -633,6 +680,7 @@ $txt_numb_of_msg = array(
  "en" => "Number of Messages",
  "fr" => "Nombre de messages",
  "de" => "Anzahl E-Mails",
+ "da" => "Antal E-Mails",
  "es" => "Cantidad de Mensajes",
  "it"=>"Numero di messaggi");
 
@@ -641,6 +689,7 @@ $txt_read_mails = array(
  "en" => "Old Mails",
  "fr" => "Anciens Mails",
  "de" => "Alte Mails",
+ "da" => "Gamle Mails",
  "es" => "Mensajes viejos",
  "it"=>"Messaggi vecchi");
 
@@ -649,6 +698,7 @@ $txt_unread_mails = array(
  "en" => "Unread Mails",
  "fr" => "Nouveaux Mails",
  "de" => "Neue Mails",
+ "da" => "Nye Mails",
  "es" => "Mensajes nuevos",
  "it"=>"Messaggi nuovi");
 
@@ -657,6 +707,7 @@ $txt_read = array(
  "en" => "Read",
  "fr" => "Lire",
  "de" => "Lesen",
+ "da" => "Læst",
  "es" => "Leer",
  "it"=>"Letti");
 
@@ -665,6 +716,7 @@ $txt_last_mail_arrived = array(
  "en" => "Last Mail came on",
  "fr" => "Dernière arrivée de mel",
  "de" => "Neueste E-Mail",
+ "da" => "Seneste E-Mail",
  "es" => "Último correo",
  "it"=>"Ultimo messaggio ricevuto il");
 
@@ -673,6 +725,7 @@ $txt_last_mailbox_access = array(
  "en" => "Last Mailbox access",
  "fr" => "Dernier accès à la boîte",
  "de" => "Letzte Zugriff",
+ "da" => "Sidst der har været adgang til Mailkonto",
  "es" => "Último chequeo",
  "it"=>"Ultimo accesso alla casella avvenuto il");
 
@@ -681,6 +734,7 @@ $txt_quota = array(
  "en" => "Quota",
  "fr" => "Limites",
  "de" => "Grenzen",
+ "da" => "Quota",
  "es" => "Quota",
  "it"=>"Quota");
 
@@ -689,6 +743,7 @@ $txt_title_edit = array(
  "en" => "Account Edit for user",
  "fr" => "Modification des données pour",
  "de" => "Konto Daten ändern für",
+ "da" => "Rediger konto for bruger", 
  "es" => "Edición de cuenta para",
  "it"=>"Modifica dell'account di");
 
@@ -697,6 +752,7 @@ $txt_username = array(
  "en" => "Username",
  "fr" => "Nom d'utilisateur",
  "de" => "Benutzername",
+ "da" => "Brugernavn",
  "es" => "Nombre de usuario",
  "it"=>"Nome Utente");
 
@@ -705,6 +761,7 @@ $txt_old = array(
  "en" => "Old",
  "fr" => "Ancien",
  "de" => "Altes",
+ "da" => "Gammel",
  "es" => "Viejos",
  "it"=>"Vecchio");
 
@@ -713,6 +770,7 @@ $txt_new = array(
  "en" => "New",
  "fr" => "Nouveau",
  "de" => "Neues",
+ "da" => "Ny",
  "es" => "Nuevos",
  "it"=>"Nuovo");
 
@@ -721,6 +779,7 @@ $txt_newuser = array(
  "en" => "New Mailbox",
  "fr" => "Nouvelle Boite",
  "de" => "Neue Mailbox",
+ "da" => "Ny Mailkonto",
  "es" => "Nuevo usuario",
  "it"=>"Nuova casella");
 
@@ -729,6 +788,7 @@ $txt_newalias = array(
  "en" => "New Alias",
  "fr" => "Nouvel Alias",
  "de" => "Neue Alias",
+ "da" => "Nyt Alias",
  "es" => "Nuevo alias",
  "it"=>"Nuovo Alias");
 
@@ -737,6 +797,7 @@ $txt_and_again = array(
  "en" => "And again",
  "fr" => "Vérification",
  "de" => "Nochmals",
+ "da" => "Gentag",
  "es" => "Verificación",
  "it"=>"Verifica");
 
@@ -745,6 +806,7 @@ $txt_edit_result = array(
  "en" => "Edit User Setup : Result",
  "fr" => "Modification des données : resultats",
  "de" => "Konto Daten Änderung : Ergebnis",
+ "da" => "Redigering af Bruger : Resultat",
  "es" => "Modificación de usuario: Resultado",
  "it"=>"Modifica dell'account: Risultato");
 
@@ -753,6 +815,7 @@ $txt_entry_for_user = array(
  "en" => "Entry for user",
  "fr" => "Données concernant",
  "de" => "Daten von",
+ "da" => "Adgang for bruger",
  "es" => "Entrada para el usuario",
  "it"=>"Scheda dell'utente");
 
@@ -761,6 +824,7 @@ $txt_title_mailbox = array(
  "en" => "Mailbox of",
  "fr" => "Boite aux lettres de",
  "de" => "Briefkasten von",
+ "da" => "Mailkonto for",
  "es" => "Casilla de",
  "it"=>"Casella E-Mail di");
 
@@ -769,6 +833,7 @@ $txt_delete_account = array(
  "en" => "Account Deletion",
  "fr" => "Effacage de compte",
  "de" => "Konto löschen",
+ "da" => "Slet konto",
  "es" => "Eliminar cuenta",
  "it"=>"Elimina Account");
 
@@ -777,6 +842,7 @@ $txt_confirm_delete = array(
  "en" => "Delete Request : Please confirm...",
  "fr" => "Effacement demandé : veuillez confirmer...",
  "de" => "L Ö S C H E N",
+ "da" => "Sletter : Bekræft venligst",
  "es" => "Eliminar cuenta: Por favor confirme...",
  "it"=>"Eliminazione: Per favore conferma...");
 
@@ -785,6 +851,7 @@ $txt_delete_account_confirm = array(
  "en" => "Are you sure you want to delete this account?",
  "fr" => "Etes-vous certain de vouloir effacer le compte suivant?",
  "de" => "Bitte bestätigen Sie die Löschung des folgenden Konto:",
+ "da" => "Er De sikker på at slette denne konto?",
  "es" => "¿Está seguro que desea eliminar esta cuenta?",
  "it"=>"Sei sicuro di voler cancellare questo account?");
 
@@ -793,6 +860,7 @@ $txt_delete_for_user = array(
  "en" => "for user",
  "fr" => "pour l'utilisateur",
  "de" => "",
+ "da" => "For bruger",
  "es" => "para el usuario",
  "it"=>"per l'utente");
 
@@ -801,6 +869,7 @@ $txt_delete_remove_now = array(
  "en" => "will remove it now, <I>definitely</I>",
  "fr" => "va detruire le compte, <I>irremédiablement</I>",
  "de" => "Löscht das Konto unwiederruflich",
+ "da" => "Sletter nu, <I>Kan ikke genskabes</I>",
  "es" => "la eliminará ahora <I>definitivamente</I>",
  "it"=>"lo canceller&agrave; ora <I>definitivamente</I>");
 
@@ -809,6 +878,7 @@ $txt_delete_backto_list = array(
  "en" => "will bring you back to the list, <I>without</i> deleting anything",
  "fr" => "vous ramenera à la liste, <i>sans</i> rien effacer",
  "de" => "Zurück zur Liste, ohne eine Löschung vorzunehmen",
+ "da" => "Tilbage, <I>uden</I> at slette",
  "es" => "te llevará de regreso a la lista, <I>sin</I> eliminar nada",
  "it"=>"ti riporter&agrave; alla lista <I>senza</I> cancellare nulla");
 
@@ -817,6 +887,7 @@ $txt_deleted_sucessfully = array(
  "en" => "deleted sucessfully",
  "fr" => "a été effacé avec succès",
  "de" => "ist gelöscht worden",
+ "da" => "er slettet",
  "es" => "exitosamente eliminada",
  "it"=>"cancellato con successo");
 
@@ -825,6 +896,7 @@ $txt_delete_result = array(
  "en" => "Delete Request : Result",
  "fr" => "Effacement : Resultat",
  "de" => "Löschung (?) : Ergebnis",
+ "da" => "Slet (?) : Resultat",
  "es" => "Eliminar cuenta: Resultado",
  "it"=>"Eliminazione dell'account: Risultato");
 
@@ -833,6 +905,7 @@ $txt_delete_deletion = array(
  "en" => "Deletion of",
  "fr" => "Effacement de",
  "de" => "Löschung von",
+ "da" => "Slettet af",
  "es" => "Eliminación de",
  "it"=>"Eliminazione di");
 
@@ -841,6 +914,7 @@ $txt_for_user = array(
  "en" => "for user",
  "fr" => "pour le compte",
  "de" => "Für Account",
+ "da" => "For Konto",
  "es" => "para el usuario",
  "it"=>"per l'utente");
 
@@ -849,6 +923,7 @@ $txt_title_list = array(
  "en" => "Listing for domain",
  "fr" => "List pour le domaine",
  "de" => "Listing fürs Domain",
+ "da" => "Listing for Domæne",
  "es" => "Listado para el dominio",
  "it"=>"Lista del dominio");
 
@@ -857,6 +932,7 @@ $txt_domain_info = array(
  "en" => "Domain Information",
  "fr" => "Informations sur le domaine",
  "de" => "Domaininformationen",
+ "da" => "Domæneinformation",
  "es" => "Información de Dominio",
  "it"=>"Informazione sul dominio");
 
@@ -865,6 +941,7 @@ $txt_date_of_creation = array(
  "en" => "Date of creation",
  "fr" => "Date de mise en place",
  "de" => "Accountsetup Datum",
+ "da" => "Oprettet d.",
  "es" => "Fecha de creación",
  "it"=>"Data di creazione");
 
@@ -873,6 +950,7 @@ $txt_last_change = array(
  "en" => "Last Change",
  "fr" => "Dernier changement",
  "de" => "Letzte Änderung",
+ "da" => "Sidst ændret",
  "es" => "Último cambio",
  "it"=>"Ultima modifica");
 
@@ -881,6 +959,7 @@ $txt_how_many_mailbox = array(
  "en" => "How many Mailboxes",
  "fr" => "Combien de Comptes",
  "de" => "Wieviele Konto",
+ "da" => "Hvor mange konti",
  "es" => "Cuántas casillas",
  "it"=>"Quante caselle di posta");
 
@@ -889,6 +968,7 @@ $txt_how_many_alias = array(
  "en" => "How many Aliases",
  "fr" => "Combiens d'Alias",
  "de" => "Vieviele Aliase",
+ "da" => "Hvor mange Aliases",
  "es" => "Cúantos Aliases",
  "it"=>"Quanti alias");
 
@@ -897,6 +977,7 @@ $txt_total_size = array(
  "en" => "Total Size of Mailboxes",
  "fr" => "Taille totale des Boites aux lettres",
  "de" => "Gesamte Briefkastensgrösse",
+ "da" => "Samlet størrelse af Mailkontis",
  "es" => "Tamaño total de las casillas",
  "it"=>"Dimensione totale delle caselle di posta");
 
@@ -905,6 +986,7 @@ $txt_biggest_mailbox = array(
  "en" => "Biggest Mailbox",
  "fr" => "Compte le plus encombrant",
  "de" => "Grösste Briefkasten",
+ "da" => "Største Mailkonto",
  "es" => "Casilla más grande",
  "it"=>"Massima dimensione di una casella di posta");
 
@@ -913,6 +995,7 @@ $txt_mailboxes = array(
  "en" => "Mailboxes",
  "fr" => "Boites aux lettres",
  "de" => "Liste aller Accounts",
+ "da" => "Mailkonti",
  "es" => "Casillas",
  "it"=>"Caselle di posta");
 
@@ -921,6 +1004,7 @@ $txt_smallmailboxes = array(
  "en" => "mailboxes",
  "fr" => "boites aux lettres",
  "de" => "accounts",
+ "da" => "mailkonti",
  "es" => "casillas",
  "it"=>"caselle di posta");
 
@@ -929,6 +1013,7 @@ $txt_aliases = array(
  "en" => "Aliases",
  "fr" => "Aliases",
  "de" => "Liste aller Alias",
+ "da" => "Aliases",
  "es" => "Aliases",
  "it"=>"Alias");
 
@@ -937,6 +1022,7 @@ $txt_smallaliases = array(
  "en" => "aliases",
  "fr" => "aliases",
  "de" => "alias",
+ "da" => "aliases",
  "es" => "aliases",
  "it"=>"alias");
 
@@ -945,6 +1031,7 @@ $txt_back_to_begining = array(
  "en" => "Back to the beginning...",
  "fr" => "Retour au d&eacute;but...",
  "de" => "Zurück zum Anfang...",
+ "da" => "Tilbage til begyndelsen",
  "es" => "Volver al inicio...",
  "it"=>"Torna all'inizio...");
 
@@ -953,6 +1040,7 @@ $txt_you_have_to_be_sysadmin_for_that = array(
  "en" => "Sorry, you have to be sysadmin to do that!",
  "fr" => "D&eacute;sol&eacute; vous devez etre administrateur pour ca!",
  "de" => "Geht nicht: Sie m&uuml;ssen Administrator sein f&uuml;r das!",
+ "da" => "Du skal være systemadministrator",
  "es" => "¡Debes ser el administrador de sistema para hacer eso!",
  "it"=>"Hai bisogno dei privilegi di amministratore per farlo!");
 
@@ -961,6 +1049,7 @@ $txt_user_already_exists = array(
  "en" => "Sorry, user already exists, please choose another one!",
  "fr" => "D&eacute;sol&eacute; mais ce nom est deja utilise!",
  "de" => "Folgender Fehler ist aufgetreten : Benutzer existiert schon",
+ "da" => "Brugeren eksisterer allerede, vælg venligst en anden!",
  "es" => "¡El usuario ya existe!",
  "it"=>"L'utente esiste gi&agrave;. Scegli un altro nome.");
 
@@ -969,6 +1058,7 @@ $txt_user_doesnt_exists = array(
  "en" => "Sorry, user not found",
  "fr" => "Desole, aucun user avec ce nom",
  "de" => "Folgender Fehler ist aufgetreten : Benutzer existiert nicht",
+ "da" => "Bruger ikke fundet.",
  "es" => "No se ha encontrado el usuario",
  "it"=>"Utente non trovato");
 
@@ -977,6 +1067,7 @@ $txt_err_dom_not_registred = array(
  "en" => "Domain not registred on server",
  "fr" => "Domaine non enregistré sur le serveur",
  "de" => "Domain nicht auf dem Server gespeichert",
+ "da" => "Domænet er ikke registreret på serveren",
  "es" => "Este dominio no se halla en el servidor",
  "it"=>"Quel dominio non &egrave; disponibile su questo server");
 
@@ -985,6 +1076,7 @@ $txt_bad_passwd_for_domain = array(
  "en" => "Bad Password for Domain manager",
  "fr" => "Mot de passe erroné pour l'administrateur du domaine",
  "de" => "Falsches Passwort für Domainadministrator",
+ "da" => "Passwordet er ikke gyldigt",
  "es" => "Contrase&ntilde;a inválida para administrador de dominios",
  "it"=>"Password per l'amministrazione del dominio errata");
 
@@ -993,12 +1085,14 @@ $txt_error = array(
  "en" => "Error",
  "fr" => "Erreur",
  "de" => "Fehler",
+ "da" => "Fejl",
  "es" => "Error",
  "it"=>"Errore");
 
 $txt_more_fwd=array(	"ru"=>"åÝÅ Fwd",
 			"fr"=>"Plus de Fwd",
 			"de"=>"Mehr Fwd",
+			"da"=>"Mere Fwd",
 			"en"=>"More Fwd",
 			 "es" => "Más Fwd",
 			"it"=>"Altri Fwd");
@@ -1006,6 +1100,7 @@ $txt_more_fwd=array(	"ru"=>"åÝÅ Fwd",
 $txt_responder=array(	"ru"=>"á×ÔÏÏÔ×ÅÔ",
 			"fr"=>"Repondeur",
 			"de"=>"Beantworter",
+			"da"=>"Ferie",
 			"en"=>"Vacation",
 			 "es" => "Autoresponder",
 			"it"=>"Autoresponder");
@@ -1013,6 +1108,7 @@ $txt_responder=array(	"ru"=>"á×ÔÏÏÔ×ÅÔ",
 $txt_directory=array(	"ru"=>"ðÁÐËÁ",
 			"fr"=>"Repertoire",
 			"de"=>"Verzeichnis",
+			"da"=>"Mappe",
 			"en"=>"Directory",
 			"es" => "Directorio",
 			"it"=>"Cartella");
@@ -1023,6 +1119,7 @@ $txt_newalias = array(
  "en" => "New Mail Alias",
  "fr" => "Nouvelle Adresse de Redirection",
  "de" => "Neue Weiterleitungsadresse",
+ "da" => "Ny Alias",
  "es" => "Nuevo Alias",
  "it"=>"Nuovo Alias");
 
@@ -1031,6 +1128,7 @@ $txt_newuser = array(
  "en" => "New Mailbox Account",
  "fr" => "Nouvelle Boite aux lettres",
  "de" => "Neue Mailbox",
+ "da" => "Ny Mailkonto",
  "es" => "Nuevo usuario",
  "it"=>"Nuova Mailbox");
 
@@ -1039,6 +1137,7 @@ $txt_delete_msg = array(
  "en" => "Deletion of Account",
  "fr" => "Effacement du compte",
  "de" => "Konto erloeschung",
+ "da" => "Konto slettet",
  "es" => "Eliminar cuenta",
  "it"=>"Eliminazione dell'account");
 
@@ -1047,6 +1146,7 @@ $txt_edit_account = array(
  "en" => "Account Edition",
  "fr" => "Modification des informations du compte",
  "de" => "Kontoinformations Aenderung",
+ "da" => "Redigere konto",
  "es" => "Editar cuenta",
  "it"=>"Modifica dell'account");
 
@@ -1055,6 +1155,7 @@ $txt_read_mail = array(
  "en" => "Mail Reading",
  "fr" => "Lecture des Mails",
  "de" => "Mails Lesen",
+ "da" => "Læs Mail",
  "es" => "Lectura de E-mails",
  "it"=>"Lettura della posta");
 
@@ -1063,6 +1164,7 @@ $txt_logout = array(
  "en" => "Logout",
  "fr" => "Quitter",
  "de" => "Ausloggen",
+ "da" => "Logout",
  "es" => "Salir",
  "it"=>"Esci");
 
@@ -1071,6 +1173,7 @@ $txt_close = array(
  "en" => "Close",
  "fr" => "Fermer",
  "de" => "Schliessen",
+ "da" => "Luk",
  "es" => "Cerrar",
  "it"=>"Chiudi");
 
@@ -1079,6 +1182,7 @@ $txt_refresh_menu = array(
  "en" => "Refresh Menu",
  "fr" => "R&eacute;actualiser",
  "de" => "Aktualisieren",
+ "da" => "Opdater Menu",
  "es" => "Actualizar el menú",
  "it"=>"Aggiorna Menu");
 
@@ -1087,6 +1191,7 @@ $txt_session_expired = array(
  "en" => "Session expired",
  "fr" => "Session trop ancienne",
  "de" => "Session zu alt",
+ "da" => "Sessionen er udløbet",
  "es" => "La sesión ha expirado",
  "it"=>"Timeout Sessione");
 
@@ -1095,6 +1200,7 @@ $txt_submit = array(
  "en" => "Submit",
  "fr" => "Enregistrer",
  "de" => "Speichern",
+ "da" => "Send",
  "es" => "Enviar",
  "it"=>"Invia");
 
@@ -1102,6 +1208,7 @@ $txt_error_no_username = array(
 "ru"=>"îÕÖÎÏ ××ÅÓÔÉ ÉÍÑ!", 
  "en" => "You have to mention a username!",
  "de" => "Vous devez indiquer un nom!",
+ "da" => "Angiv brugernavn",
  "fr" => "Sie m&uuml;ssen einen Konto Name eingeben!",
  "es" => "¡Debes ingresar un nombre de usuario!",
  "it"=>"Devi specificare un nome utente!");
@@ -1111,6 +1218,7 @@ $txt_error_invalid_chars_in_username = array(
  "en" => "Non valid chars in username (ok: A-Z, 0-9, _, -)!",
  "fr" => "Characters non autorises dans le nom (ok: A-Z, 0-9, _, -)!",
  "de" => "Verbotene Chars in username (ok: A-Z, 0-9, _, -)!",
+ "da" => "Ugyldige tegn (ok: A-Z, 0-9, _, -)!",
  "es" => "Caractéres inválidos (Sólo a-Z, 0-9, _, -)",
  "it"=>"Il nome utente contiene caratteri non validi (usa solo: A-Z, 0-9, _, -)! ");
 
@@ -1119,6 +1227,7 @@ $txt_error_pw_not_same = array(
  "en" => "You have to type twice the same password",
  "fr" => "Vous devez indiquer deux fois le meme mot de passe",
  "de" => "Sie mussen zweimal das gleiche Passwort eintippen",
+ "da" => "Tast password 2 gange",
  "es" => "Debes ingresar la contrase&ntilde;a 2 veces",
  "it"=>"Le due password immesse non coincidono");
 
@@ -1127,6 +1236,7 @@ $txt_error_pw_needed = array(
  "en" => "You have to type a password",
  "fr" => "Vous devez indiquer un mot de passe",
  "de" => "Sie mussen einen Passwort eintippen",
+ "da" => "Password skal indtastes",
  "es" => "Debes ingresar una contrase&ntilde;a",
  "it"=>"Devi specificare una password");
 
@@ -1135,6 +1245,7 @@ $txt_error_fwd_needed = array(
  "en" => "You have to type at least one forwarder",
  "fr" => "Vous devez indiquer au moins une adresse de redirection",
  "de" => "Sie mussen eine Weiterleitungadresse eingeben",
+ "da" => "Tast venligst en forwarder",
  "es" => "Debes ingresar al menos un forward",
  "it"=>"Devi specificare almeno un indirizzo di forward");
 
@@ -1143,6 +1254,7 @@ $txt_yes = array(
  "en" => "Yes",
  "fr" => "Oui",
  "de" => "Ja",
+ "da" => "Ja",
  "es" => "Si",
  "it"=>"Si");
 
@@ -1151,6 +1263,7 @@ $txt_no = array(
  "en" => "No",
  "fr" => "Non",
  "de" => "Nein",
+ "da" => "Nej",
  "es" => "No",
  "it"=>"No");
 
@@ -1159,6 +1272,7 @@ $txt_activated = array(
  "en" => "On",
  "fr" => "Activé",
  "de" => "Eingeschaltet",
+ "da" => "Aktiver",
  "es" => "Activado",
  "it"=>"Attivato");
 
@@ -1167,6 +1281,7 @@ $txt_inactived = array(
  "en" => "Off",
  "fr" => "Declenche",
  "de" => "Ausgeschaltet",
+ "da" => "Deaktiver",
  "es" => "Desactivado",
  "it"=>"Disattivato");
 
@@ -1175,6 +1290,7 @@ $txt_subject = array(
  "en" => "Subject",
  "fr" => "Sujet",
  "de" => "Betreff",
+ "da" => "Emne",
  "es" => "Asunto",
  "it"=>"Oggetto");
 
@@ -1183,6 +1299,7 @@ $txt_from = array(
  "en" => "From",
  "fr" => "Expediteur",
  "de" => "Absender",
+ "da" => "Fra",
  "es" => "De",
  "it"=>"Da");
 
@@ -1191,6 +1308,7 @@ $txt_text = array(
  "en" => "Text",
  "fr" => "Texte",
  "de" => "Text",
+ "da" => "Tekst",
  "es" => "Texto",
  "it"=>"Testo");
 
@@ -1199,6 +1317,7 @@ $txt_autoanswertext = array(
  "en" => "Autoreply Text",
  "fr" => "Texte du repondeur",
  "de" => "Beantwortertext",
+ "da" => "Tekst til Autoreply",
  "es" => "Mensaje del Autoresponder",
  "it"=>"Risposta automatica");
 
@@ -1207,6 +1326,7 @@ $txt_date = array(
  "en" => "Date",
  "fr" => "Date",
  "de" => "Datum",
+ "da" => "Dato",
  "es" => "Fecha",
  "it"=>"Data");
 
@@ -1215,6 +1335,7 @@ $txt_size = array(
  "en" => "Size",
  "fr" => "Taille",
  "de" => "Groesse",
+ "da" => "Størrelse",
  "es" => "Tamaño",
  "it"=>"Dimensione");
 
@@ -1223,6 +1344,7 @@ $txt_mailbox_listing = array(
  "en" => "Mailbox Listing",
  "fr" => "Liste des Mails",
  "de" => "E-Mails Listing",
+ "da" => "E-Mails liste",
  "es" => "Lista de E-mails",
  "it"=>"Lista delle caselle di posta");
 
@@ -1231,6 +1353,7 @@ $txt_mailboxes_title = array(
  "en" => "Mailboxes",
  "fr" => "Boites aux lettres",
  "de" => "E-Mail kontos",
+ "da" => "E-Mail kontis",
  "es" => "Casillas",
  "it"=>"Caselle di posta");
 
@@ -1239,6 +1362,7 @@ $txt_aliases_title = array(
  "en" => "Aliases",
  "fr" => "Alias",
  "de" => "Alias",
+ "da" => "Aliases",
  "es" => "Aliases",
  "it"=>"Alias");
 
@@ -1247,6 +1371,7 @@ $txt_user_title = array(
  "en" => "Your Mail Account",
  "fr" => "Votre compte mail",
  "de" => "Mailkonto",
+ "da" => "Mailkonto",
  "es" => "Tu cuenta de E-mail",
  "it"=>"Il tuo account di posta");
 
@@ -1255,6 +1380,7 @@ $txt_info = array(
  "en" => "Info",
  "fr" => "Info",
  "de" => "Info",
+ "da" => "Info",
  "es" => "Info",
  "it"=>"Info");
 
@@ -1263,6 +1389,7 @@ $txt_login_failed = array(
  "en" => "Login failed : please check login and password",
  "fr" => "La connexion a échoué : veuillez vérifier le login et votre mot de passe",
  "de" => "Kein Zugang: bitte Login und Passwort überprüfen",
+ "da" => "Ingen adgang; Kontroller venligst Deres Login og Password",
  "es" => "Login incorrecto : Por favor verifique su nombre de usuario y contrase&ntilde;a",
  "it"=>"Login errato: per favore controlla il nome utente e la password");
 
@@ -1271,6 +1398,7 @@ $txt_facultatif = array(
  "en" => "optional",
  "fr" => "facultatif",
  "de" => "nicht obligatorisch",
+ "da" => "Ikke obligatorisk",
  "es" => "opcional",
  "it"=>"facoltativo");
 
@@ -1279,6 +1407,7 @@ $txt_autoresp_subj = array(
  "en" => "Automatic Answer - Out of office",
  "fr" => "Réponse automatique - Actuellement non atteignable",
  "de" => "Automatische Antwort - Zur Zeit nicht erreichbar",
+ "da" => "Automatisk svar - Ikke hjemme",
  "es" => "Respuesta automática",
  "it"=>"Risposta automatica - Non sono in ufficio");
 
@@ -1287,6 +1416,7 @@ $txt_autoresp_body = array(
  "en" => "Just got your mail with subject '%S'\n\nI'm not there. I'll answer your mail when I'll be back.\n\n",
  "fr" => "Je viens de recevoir votre mail à propos de '%S'\n\nJ'y répondrai à mon retour.\n\n",
  "de" => "Habe Ihren mail betreffend '%S' erhalten.\n\nEine Antwort erhalten Sie wenn ich zurück bin.\n\n",
+ "da" => "Har modtaget Deres E-Mail '%S'. \n\nJeg vil svare når jeg kommer tilbage. \n\n",
  "es" => "He recibido tu mensaje titulado '%S'.\n. En este momento no estoy aquí. Te contestaré cuando regrese.\n\n",
  "it"=>"Ho appena ricevuto il tuo messaggio con oggetto '%S'\n\nNon sono qua. Ti risponder&ograve; appena torno.\n\n");
 
@@ -1295,6 +1425,7 @@ $txt_mail_sysadmin = array(
  "en" => "Mail System Administrator",
  "fr" => "Enoyer un mail au responsable du système",
  "de" => "Mail an Sysadmin",
+ "da" => "Mail System Administrator",
  "es" => "Enviar un E-mail al administrador",
  "it"=>"Scrivi all'amministratore del sistema");
 
@@ -1303,6 +1434,7 @@ $txt_back = array(
  "en" => "Back",
  "fr" => "Retour",
  "de" => "Zurück",
+ "da" => "Tilbage",
  "es" => "Atrás",
  "it"=>"Indietro");
 
@@ -1311,6 +1443,7 @@ $txt_about = array(
  "en" => "About",
  "fr" => "À propos",
  "de" => "Info",
+ "da" => "Info",
  "es" => "Acerca de",
  "it"=>"About");
 
@@ -1319,6 +1452,7 @@ $txt_details = array(
  "en" => "User Info",
  "fr" => "User Info",
  "de" => "User Info",
+ "da" => "Bruger Info",
  "es" => "Informaci&oacute;n del usuario",
  "it"=>"Informazione utente");
 
@@ -1327,6 +1461,7 @@ $txt_goodbye = array(
  "en" => "Good bye!",
  "fr" => "Au revoir!",
  "de" => "Auf wiedersehen!",
+ "da" => "På gensyn",
  "es" => "Adi&oacute;s",
  "it" =>"Ciao!");
 
@@ -1335,6 +1470,7 @@ $txt_error_quota_expired = array(
  "en" => "Not allowed : your quota is expired",
  "fr" => "Non autorise : votre quota est depasse",
  "de" => "Nicht erlaubt : Ihr Quota ist ueberschritten",
+ "da" => "Ikke muligt : Deres Quota er overskredet",
  "es" => "Prohibido: La quota ha expirado",
  "it" =>"Errore : hai superato il tuo quota");
 
@@ -1343,6 +1479,7 @@ $txt_error_not_allowed = array(
  "en" => "Sorry, you are not allowed to do that",
  "fr" => "Desole, vous n'avez pas les droits pour effectuer cette operation",
  "de" => "Sorry, Sie haben nicht die Berechtigung um diese Operation durchzufuehren",
+ "da" => "Desværre, De har ikke tilladelse til dette",
  "es" => "Lo siento, esta operaci&oacute;no está permitida",
  "it"=>"Mi dispiace, non hai i privilegi per farlo");
 
@@ -1351,6 +1488,7 @@ $txt_quota = array(
  "en" => "Quota",
  "fr" => "Quota",
  "de" => "Quota",
+ "da" => "Quota",
  "es" => "Quota",
  "it" => "Quota");
 
@@ -1359,6 +1497,7 @@ $txt_maximum = array(
  "en" => "maximum",
  "fr" => "maximum",
  "de" => "maximal",
+ "da" => "maximum",
  "es" => "maximo",
  "it" =>"massimo");
 
@@ -1367,6 +1506,7 @@ $txt_current = array(
  "en" => "current",
  "fr" => "actuellement",
  "de" => "zur Zeit",
+ "da" => "Nuværende",
  "es" => "actual",
  "it" =>"attuale");
 
@@ -1375,6 +1515,7 @@ $txt_used = array(
  "en" => "used",
  "fr" => "utilis&eacute;",
  "de" => "belegt",
+ "da" => "brugt",
  "es" => "usados",
  "it" =>"usato");
 
@@ -1383,6 +1524,7 @@ $txt_hardquota = array(
  "en" => "Hard quota",
  "fr" => "Limitation dure",
  "de" => "Hartes Quota",
+ "da" => "Hard Quota",
  "es" => "Quota dura",
  "it" =>"Hard Quota");
 
@@ -1391,6 +1533,7 @@ $txt_softquota = array(
  "en" => "Soft quota",
  "fr" => "Limitation legere",
  "de" => "Leichtes Quota",
+ "da" => "Soft Quota",
  "es" => "Quota blanda",
  "it" =>"Soft quota");
 
@@ -1399,6 +1542,7 @@ $txt_msgsize = array(
  "en" => "Message size",
  "fr" => "Taille de message",
  "de" => "Mailgroesse",
+ "da" => "Størrelse på konto",
  "es" => "Tama&ntilde;o del mensaje",
  "it" =>"Dimensione messaggio");
 
@@ -1407,6 +1551,7 @@ $txt_msgcount = array(
  "en" => "Message count",
  "fr" => "Nombre de messages",
  "de" => "Anzahl E-Mails",
+ "da" => "Antal E-Mails",
  "es" => "Cantidad de mensajes",
  "it" =>"Numero di messaggi");
 
@@ -1415,6 +1560,7 @@ $txt_expiry = array(
  "en" => "Expiry",
  "fr" => "Expiration",
  "de" => "Enddatum",
+ "da" => "Slut Dato",
  "es" => "Expiraci&oacuten",
  "it" =>"Scade");
 
@@ -1423,6 +1569,7 @@ $txt_settings = array(
  "en" => "Settings",
  "fr" => "Config",
  "de" => "Config",
+ "da" => "Indstillinger",
  "es" => "Config",
  "it" =>"Config");
 
@@ -1431,15 +1578,9 @@ $txt_ = array(
  "en" => "",
  "fr" => "",
  "de" => "",
+ "da" => "",
  "es" => "",
  "it" =>"");
 
-$txt_ = array( 
- "ru" => "",
- "en" => "",
- "fr" => "",
- "de" => "",
- "es" => "",
- "it" =>"");
 
 ?>

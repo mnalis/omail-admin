@@ -2,13 +2,14 @@
 Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----
 
-$Id: ChangeLog,v 1.21 2000/10/12 20:35:44 swix Exp $ 
+$Id: ChangeLog,v 1.22 2000/10/12 20:55:19 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
 
 2000-10-12  Olivier Mueller  <om@omnis.ch>
 
 	* htmlstuff.php: fixed a typo which hid the "settings" action button
+	* strings.php: added translation for danish [kg]
 
 2000-09-25  Olivier Mueller  <om@omnis.ch>
 

@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.26 2000/10/12 20:35:44 swix Exp $ 
+	$Id: config.php,v 1.27 2000/10/12 20:55:19 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -107,8 +107,8 @@ $hide_about_button = 0;
 
 // version
 
-$version = "0.96pre1";
-$cvs_version = '$Id: config.php,v 1.26 2000/10/12 20:35:44 swix Exp $';
+$version = "0.96pre2";
+$cvs_version = '$Id: config.php,v 1.27 2000/10/12 20:55:19 swix Exp $';
 
 // script URL
 
