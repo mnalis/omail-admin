@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.24 2000/09/23 11:13:47 swix Exp $
+        $Id: htmlstuff.php,v 1.25 2000/09/23 12:05:55 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -772,14 +772,14 @@ Thanks in advance for your support!
 <input type="text" size="40" name="from_email"></small></td></tr>
 
 <tr><td align="right">City, Country:</td><td><small>
-<input type="text" size="40" name="country"></small></td></tr>
+<input type="text" size="40" name="country">  (must be filled)</small></td></tr>
 
 <tr><td align="right">Splash screen:</td><td><small>
 <select name="splashScreen"><option>I find this splash screen ok, no problem</option>
 <option>Yuk, please remove this annoying splash screen from the next versions!</option></select></small></td></tr>
 
 <tr><td align="right">May I list you on the omail-admin homepage?</td><td><small>
-<select name="develML"><option>No, please don't</option>
+<select name="listCompanyUrl"><option>No, please don't</option>
 <option>Yes, you can list our company on your homepage as omail-admin user</option></select></small></td></tr>
 
 <tr><td align="right">Announcements (a few times a year):</td><td><small>
@@ -835,12 +835,12 @@ Thanks in advance for your support!
 <tr><td colspan="2" align="center"><small><br><input type="submit" value="Submit form! Thanks for your participation!"></small></td></tr>
 </table>
 
-<input type="hidden" name="recipient" value="omail@omnis.ch">
+<input type="hidden" name="recipient" value="omail-splash@omnis.ch">
 <input type="hidden" name="subject" value="omail-admin <?php echo($version); ?> splash form">
 <input type="hidden" name="redirect" value="http://<?php echo($HTTP_HOST); ?><?php echo($REQUEST_URI); ?>">
 <input type="hidden" name="sender" value="<?php echo($REMOTE_ADDR); ?>"><input type="hidden" name="language" value="<?php echo($HTTP_ACCEPT_LANGUAGE); ?>">
 <input type="hidden" name="version" value="<?php echo($cvs_version); ?>">
-
+<input type="hidden" name="required" value="country">
 </form>
 </li>
 </ul></td></tr>
