@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.34 2000/11/30 21:59:15 swix Exp $
+        $Id: strings.php,v 1.35 2000/11/30 23:48:08 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -817,7 +817,7 @@ $txt_please_login = array(
  "fr" => "Veillez vous identifier a l'aide du nom de domaine et de votre mot de passe",
   "de" => "M&ouml;chten Sie die Konten und Aliase einer Domain administrieren, 
            so melden Sie sich bitte mit dem Domainnamen (z.B. <i>testdomain.de</i>) und 
-    	   dem dazugeh&ouml;rigen Passwort an. <br> Wollen Sie
+    	   dem dazugeh&ouml;rigen Passwort an. Wollen Sie
 	   ein bestimmtes Mailkonto verwalten, so geben Sie die E-Mail-Adresse (z.B.
 	   <i>hans@testdomain.de</i>) und das zugeh&ouml;rige Passwort ein.",
  "da" => "Identificer Dem venligst med domæne & password",

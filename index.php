@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.32 2000/11/30 06:04:08 swix Exp $
+        $Id: index.php,v 1.33 2000/11/30 23:48:08 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -165,15 +165,13 @@ if ($active == 1) {    // active=1 -> user logged in
 	if ($A == "login") { $A = "menu"; }  // we're already logged in! So we show the menu instead.
 	if ($A == "checkin") { $A = "menu"; }  // we're already logged in! So we show the menu instead.
 
-	html_head("$program_name Administration");	
-
 	//
 	// ABOUT
 	//
 
 	if ($A == "about") {
 	
-		html_head("$program_name Administration - about");
+		html_head("$program_name Administration - About");
 		html_titlebar($txt_about[$lang], "", "");
 		html_about();
 		html_end();
@@ -217,6 +215,8 @@ if ($active == 1) {    // active=1 -> user logged in
 
 	if ($A == "menu") {
 
+
+		html_head("$program_name Administration - Menu");	
 
 		if ($type == "domain") {
 
@@ -313,6 +313,7 @@ if ($active == 1) {    // active=1 -> user logged in
 
 
 		if ($type == "domain" && (!$quota_on || ($quota_on && ($quota_data["alias_support"]  && $quota_data["nb_alias"] < $quota_data["max_alias"])))) {
+			html_head("$program_name Administration - New Alias");	
 		        html_titlebar($txt_newalias[$lang], $txt,1);
 		        $userinfo[2] = "-";
 			$quota_data["nb_alias"] = 0;
@@ -329,7 +330,7 @@ if ($active == 1) {    // active=1 -> user logged in
 			}
 	                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 	                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
-			html_head("$program_name Administration");	
+			html_head("$program_name Administration - Error");	
         	        html_titlebar($txt_error[$lang], $msg ,0);
 	                html_end();
 			exit();
@@ -350,6 +351,7 @@ if ($active == 1) {    // active=1 -> user logged in
 	
 		if ($type == "domain" && (!$quota_on || ($quota_on && ($quota_data["users_support"]  && $quota_data["nb_users"] < $quota_data["max_users"])))) {
 
+			html_head("$program_name Administration - New User");	
 	        	html_titlebar($txt_newuser[$lang], $txt,1);
 	        	$userinfo[2] = "-";
 			$quota_data["nb_users"] = 0;
@@ -367,7 +369,7 @@ if ($active == 1) {    // active=1 -> user logged in
 			}
 	                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 	                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
-			html_head("$program_name Administration");	
+			html_head("$program_name Administration - Error");	
         	        html_titlebar($txt_error[$lang], $msg ,0);
 	                html_end();
 			exit();
@@ -385,6 +387,7 @@ if ($active == 1) {    // active=1 -> user logged in
 
 	    if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
 
+		html_head("$program_name Administration - Error");	
 		$msg = $txt_error_not_allowed[$lang];
                 $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
                 $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
@@ -392,8 +395,9 @@ if ($active == 1) {    // active=1 -> user logged in
                 html_end();
 		exit();
 
-	    } 
-	    
+	    }
+
+            html_head("$program_name Administration - Edit");	
     	    html_titlebar($txt_edit_account[$lang], $txt,1);
 	    $userinfo = get_accounts(0,$U);
 	    $mboxlist = get_accounts(3);
@@ -415,14 +419,15 @@ if ($active == 1) {    // active=1 -> user logged in
 		$msg = $txt_error_not_allowed[$lang];
                 $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
                 $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
+		html_head("$program_name Administration - Error");	
     	        html_titlebar($txt_error[$lang], $msg ,0);
                 html_end();
 		exit();
 
 	    } 
 
+	    html_head("$program_name Administration - Delete Account");	
 	    html_titlebar($txt_delete_account[$lang], $txt_delete_account_confirm[$lang],1);
-
 	    $userinfo = get_accounts(0,$U);
 	    html_delete_confirm($userinfo[0]);
 	    html_end();
@@ -444,11 +449,14 @@ if ($active == 1) {    // active=1 -> user logged in
 		$msg = $txt_error_not_allowed[$lang];
                 $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
                 $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
+		html_head("$program_name Administration - Error");	
     	        html_titlebar($txt_error[$lang], $msg ,0);
                 html_end();
 		exit();
 
 	    } 
+
+ 	    html_head("$program_name Administration - Catchall");	
 
 	    if ($A == "catchall") {
 	        html_titlebar($txt_catchall[$lang], $txt_catchall_confirm[$lang],1);
@@ -516,6 +524,8 @@ if ($active == 1) {    // active=1 -> user logged in
 	if ($A == "resp") {
                 
 		if (!$quota_on || ($quota_on && $quota_data["autoresp_support"]) && !in_array($U, $readonly_accounts_list) && !in_array($U, $system_accounts_list)) {
+
+			html_head("$program_name Administration - Autoresponder");	
 	
 		        html_titlebar($txt_edit_account[$lang], $txt,1);
 		        $user = get_accounts(0, $U);
@@ -543,7 +553,7 @@ if ($active == 1) {    // active=1 -> user logged in
 			$msg = $txt_error_not_allowed[$lang];
 	                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 	                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
-			html_head("$program_name Administration");	
+			html_head("$program_name Administration - Error");	
         	        html_titlebar($txt_error[$lang], $msg ,0);
 	                html_end();
 			exit();
@@ -562,8 +572,8 @@ if ($active == 1) {    // active=1 -> user logged in
                 
 		if ((!$quota_on || ($quota_on && $quota_data["user_quota_support"]) || ($type != "domain")) && !in_array($U, $readonly_accounts_list) && !in_array($U, $system_accounts_list)) {
 	
+			html_head("$program_name Administration - Quotas");	
 		        html_titlebar($txt_quota_account[$lang], $txt,1);
-
 		        $userinfo = get_accounts(0,$U);
 		        html_quotaform($userinfo[0], "edit");
 		        html_end();
@@ -571,10 +581,11 @@ if ($active == 1) {    // active=1 -> user logged in
 
 
 		} else {
+
 			$msg = $txt_error_not_allowed[$lang];
 	                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 	                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
-			html_head("$program_name Administration");	
+			html_head("$program_name Administration - Error");	
         	        html_titlebar($txt_error[$lang], $msg ,0);
 	                html_end();
 			exit();
@@ -615,6 +626,7 @@ if ($active == 1) {    // active=1 -> user logged in
 
 			if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
     
+		            html_head("$program_name Administration - Error");
     			    $msg = $txt_error_not_allowed[$lang];
             		    $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
             		    $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
@@ -675,6 +687,7 @@ if ($active == 1) {    // active=1 -> user logged in
 
 			if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
     
+	                    html_head("$program_name Administration - Error");
     			    $msg = $txt_error_not_allowed[$lang];
             		    $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
             		    $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
@@ -784,6 +797,7 @@ if ($active == 1) {    // active=1 -> user logged in
 
 			if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
     
+  	                    html_head("$program_name Administration - Error");
     			    $msg = $txt_error_not_allowed[$lang];
             		    $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
             		    $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
@@ -826,10 +840,10 @@ if ($active == 1) {    // active=1 -> user logged in
 
 			if ($quota_on && !$quota_data["autoresp_support"]) {
 
+	                	html_head("$program_name Administration - Error");
 				$msg = $txt_error_not_allowed[$lang];
 		                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 		                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
-				html_head("$program_name Administration");	
 	        	        html_titlebar($txt_error[$lang], $msg ,0);
 		                html_end();
 				exit();
@@ -869,7 +883,7 @@ if ($active == 1) {    // active=1 -> user logged in
 				$msg = $txt_error_not_allowed[$lang];
 		                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 		                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
-				html_head("$program_name Administration");	
+				html_head("$program_name Administration - Error");	
 	        	        html_titlebar($txt_error[$lang], $msg ,0);
 		                html_end();
 				exit();
@@ -910,6 +924,7 @@ if ($active == 1) {    // active=1 -> user logged in
     			    $msg = $txt_error_not_allowed[$lang];
             		    $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
             		    $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
+			    html_head("$program_name Administration - Error");	
     	    		    html_titlebar($txt_error[$lang], $msg ,0);
             		    html_end();
 			    exit();
@@ -949,6 +964,7 @@ if ($active == 1) {    // active=1 -> user logged in
     			    $msg = $txt_error_not_allowed[$lang];
             		    $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
             		    $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
+			    html_head("$program_name Administration - Error");	
     	    		    html_titlebar($txt_error[$lang], $msg ,0);
             		    html_end();
 			    exit();
@@ -990,6 +1006,7 @@ if ($active == 1) {    // active=1 -> user logged in
 		$active = 0;
 		session_destroy();
 
+		html_head("$program_name Administration - Logout");	
 	        html_titlebar($txt_logout[$lang], $msg ,0);
 	        html_end();
 	        exit();

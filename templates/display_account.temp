@@ -2,9 +2,7 @@
 <table border=0><TR><TH>N°</TH>
 <TH>%txt_email%</TH>
 <TH>%txt_info%</TH>
-<TH>%txt_fwd% 1</TH>
-<TH>%txt_fwd% 2</TH>
-<TH>%txt_more_fwd%?</TH>
+<TH>%txt_fwd% ?</TH>
 
 %ifdef_txt_responder%
 
@@ -18,8 +16,6 @@
 <TD><B><FONT COLOR=%colorUsername%> %username%  </FONT></B>&nbsp;</TD> 
 
 <TD><nobr> %PersonalInfo%  </nobr>&nbsp;</TD> 
-<TD> %alias0% &nbsp;</TD> 
-<TD> %alias1% &nbsp;</TD> 
 <TD> %more_alias% &nbsp;</TD>
 
 %ifdef_autoresponder_status%

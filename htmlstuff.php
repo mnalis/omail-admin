@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.54 2000/11/30 21:59:15 swix Exp $
+        $Id: htmlstuff.php,v 1.55 2000/11/30 23:48:08 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -632,9 +632,9 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 		$templdata[obj][$ii]["alias1"] = $alias[1];
 		$templdata[obj][$ii]["alias2"] = $alias[2];
 
-		if ($alias[2]) { $templdata[obj][$ii]["more_alias"] = $yes; } 
-		    else { $templdata[obj][$ii]["more_alias"] = $no; } 
 
+		if (sizeof($alias) > 0) { $templdata[obj][$ii]["more_alias"] = $yes . "  (" . trim(sizeof($alias)) . ")"; } 
+		    else { $templdata[obj][$ii]["more_alias"] = $no; } 
 
 		if ($arg_action != 2 && !(!$arg_action && $mtype == "alias") && !($quota_on && !$quota_data["autoresp_support"])) {
 			$templdata[obj][$ii]["ifdef_autoresponder_status"] = "<TD>";
@@ -723,6 +723,7 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 					$percent = round((100*$quota_data["nb_users"])/$quota_data["max_users"]);
 					if ($percent == 100) { 	
 						$percent = '<font color="red">' . $percent . '%</font>';
+						$tmp_label = $tmp_action = "";	// hide the "new account" button
 					} else {
 						$percent = '<font color="green">' . $percent . '%</font>';
 					}
@@ -734,6 +735,7 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 					$percent = round((100*$quota_data["nb_alias"])/$quota_data["max_alias"]);
 					if ($percent == 100) { 	
 						$percent = '<font color="red">' . $percent . '%</font>';
+						$tmp_label = $tmp_action = "";	// hide the "new account" button
 					} else {
 						$percent = '<font color="green">' . $percent . '%</font>';
 					}
@@ -745,13 +747,12 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 		} // if quota_on
 	
 		if ($arg_action != 2 && !($quota_on && !$quota_data["autoresp_support"])) {
-			$templdata["nbcols"] .= "7";
+			$templdata["nbcols"] .= "5";
 		} else { 
-			$templdata["nbcols"] .= "6"; 
+			$templdata["nbcols"] .= "4"; 
 		}
 		
 		$templdata["quota_string"] .= $quota_string;
-    
 		$templdata["global_action_and_url"] .= "<A HREF=\"$script?A=$tmp_action&" . SID . "\" onClick=\"oW(this,'pop')\">"  . $tmp_label  . "</a>&nbsp;</TH></TR>";
 	}
 

@@ -2,15 +2,20 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: ChangeLog,v 1.43 2000/11/30 21:59:15 swix Exp $ 
+$Id: ChangeLog,v 1.44 2000/11/30 23:48:08 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
 2000-11-30  Olivier Mueller  <om@omnis.ch>
 
+	* released version 0.96pre9
 	* added correct charset for japanese
 	* index.php: bugfix for newuser/alias [hs]
 	* htmlstuff.php: bugfix in html_head [hs] [om] 
 	* added correct charset for chinese
+	* removed the forwarders from the menu screen (took to much space)
+	* the "create accont" links are shown only if quota are not overridden
+	* removed and added a few html_head() calls in index.php (should solve the Header() bug)
+	* a few cosmetic changes (now looks ok in both NS and IE)
 	
 2000-11-29  Olivier Mueller  <om@omnis.ch>
 
