@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.42 2000/10/16 19:05:19 swix Exp $
+        $Id: htmlstuff.php,v 1.43 2000/10/16 19:41:56 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -509,7 +509,7 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 		$templdata[obj][$ii]["alias1"] = $alias[1];
 		$templdata[obj][$ii]["alias2"] = $alias[2];
 
-		if ($alias[3]) { $templdata[obj][$ii]["more_alias"] = $yes; } 
+		if ($alias[2]) { $templdata[obj][$ii]["more_alias"] = $yes; } 
 		    else { $templdata[obj][$ii]["more_alias"] = $no; } 
 
 
