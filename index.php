@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.41 2001/03/03 22:56:42 swix Exp $
+        $Id: index.php,v 1.42 2001/03/06 17:30:45 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -258,10 +258,10 @@ if ($active == 1) {    // active=1 -> user logged in
 			if ($catchall_active) {
 			    $txt_menu_add = "<br>" . $txt_current_catchall_account_is[$lang] . ": <b>$catchall_active@$domain</b>";
 			    $txt_menu_add .= ' [ <a href="' . $script_url . '?A=create_catchall&U='.$catchall_active.'" onClick="oW(this,\'pop\')">' . $txt_edit[$lang] . '</a> ]';
-			    $txt_menu_add .= ' [ <a href="' . $script_url . '?A=remove_catchall&U='.$catchall_active.'" onClick="oW(this,\'pop\')">' . $txt_delete[$lang] . '</a> ]';
+			    // $txt_menu_add .= ' [ <a href="' . $script_url . '?A=remove_catchall&U='.$catchall_active.'" onClick="oW(this,\'pop\')">' . $txt_delete[$lang] . '</a> ]';
 			} else {
 			    $txt_menu_add = "<br>" . $txt_current_catchall_not_defined[$lang] ;
-			    $txt_menu_add .= ' [ <a href="'. $script_url . '?A=create_catchall" onClick="oW(this,\'pop\')">' . $txt_edit[$lang] . '</a> ]';
+			    $txt_menu_add .= ' [ <a href="'. $script_url . '?A=create_catchall&U=" onClick="oW(this,\'pop\')">' . $txt_edit[$lang] . '</a> ]';
 			}	
 
 
@@ -499,7 +499,7 @@ if ($active == 1) {    // active=1 -> user logged in
 	if ($A == "catchall" || $A == "remove_catchall" || $A == "create_catchall") {
 
 
-	    if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
+	    if ((in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) && $U != "") {
 
 		$msg = $txt_error_not_allowed[$lang];
                 $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
@@ -535,7 +535,7 @@ if ($active == 1) {    // active=1 -> user logged in
 		    $nb_fwd = count($aliases);
 
 	    	    if (!($catchallinfo[2])) { 
-		        $msg .= "The Catchal account is an alias with $nb_fwd forwarders."; 
+		        $msg .= "The Catchall account is an alias with $nb_fwd forwarders."; 
 		    } else { 
 		        $msg .= "The Catchall account is a real mailbox with $nb_fwd forwarders."; 
 		        $msg .= "<br>If you replace it, all the mails of account \"+\" will be deleted"; 

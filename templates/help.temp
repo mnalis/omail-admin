@@ -1,14 +1,26 @@
-
 <table border=0 bgcolor="eeeeee" width="90%"> 
 <tr><td>
 <p>
 <br>
-Hey cool, so you'd like to help us filling this page ?  :)
+<li>Features:
+<ul>
+<li>Create/edit/delete/enable/disable mailboxes and aliases</li>
+<li>Administrator (all rights) and single user (can only change his own account) access</li>
+<li>Full autoresponder support (edit/enable/disable)</li>
+<li>Session expiration set up for security</li>
+<li>Domain name based quotas (how many mailboxes/aliases, autoresponder y/n, etc.)</li>
+<li>User based quotas (hard/soft disk quota, message size, expiry)</li>
+<li>Lynx-browser support (and other cookie-free browsers)</li>
+</ul>
+<br></li>
+<br>
+<li>Help:
+<ul>
+<li>Coming Soon. If you'd like to help, please come on the <a href="http://omail.omnis.ch" target="_new">project homepage</A>
+and subscribe to the mailing lists!.
+</li>
+</ul>
+<br></li>
 </p>
-<p>
-Then please tell us about that on the <a href="http://omail.omnis.ch" target="_new">mailing list!</A>
-</p>
-<p>
-<i>--Olivier</i><br><br></p>
 </td></tr>
 </table>

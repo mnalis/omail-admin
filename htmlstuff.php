@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.63 2001/03/03 22:56:42 swix Exp $
+        $Id: htmlstuff.php,v 1.64 2001/03/06 17:30:45 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -473,6 +473,7 @@ function html_catchall_create($msg, $mboxlist) {
         $templdata["txt_action"]=$txt_action[$lang];
         $templdata["txt_catchall"]=$txt_catchall[$lang];
         $templdata["txt_setup_catchall"]=$txt_setup_catchall[$lang];
+        $templdata["txt_remove_catchall"]=$txt_remove_catchall[$lang];
 
         $templdata["msg"]=$msg;
 

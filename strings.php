@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.44 2001/03/03 22:56:42 swix Exp $
+        $Id: strings.php,v 1.45 2001/03/06 17:30:45 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -536,18 +536,18 @@ $txt_delete=array(	"ru"=>"õÄÁÌÉÔØ",
 			"sv"=>"Ta bort");
 
 $txt_info=array(	"ru"=>"éÎÆÏ",
-                        "fr"=>"Info",
-			"de"=>"Info",
-			"da"=>"Info",
-			"en"=>"Info",
-			"cz"=>"Info",
+                        "fr"=>"Note",
+			"de"=>"Note",
+			"da"=>"Note",
+			"en"=>"Note",
+			"cz"=>"Note",
 			"ja"=>"¥¤¥ó¥Õ¥©¥á¡¼¥·¥ç¥ó",
-			"tc"=>"Info",
-			"es"=>"Info",
-			"nl"=>"Info",
-			"it"=>"Info",
-                        "ro"=>"Info",
-			"sv"=>"Info");
+			"tc"=>"Note",
+			"es"=>"Note",
+			"nl"=>"Note",
+			"it"=>"Note",
+                        "ro"=>"Note",
+			"sv"=>"Note");
 
 $txt_action=array(	"ru"=>"äÅÊÓÔ×ÉÅ",
                         "fr"=>"Action",
@@ -567,7 +567,7 @@ $txt_no_accounts=array(	"ru"=>"îÅÔ ÔÁËÏÇÏ ÐÏÌØÚÏ×ÁÔÅÌÑ",
                         "fr"=>"Aucun compte enregistr&eacute;.",
 			"de"=>"Keine Konten eingerichtet",
 			"da"=>"Ingen registrede kontis",
-			"en"=>"No registred accounts",
+			"en"=>"No registered accounts",
 			"cz"=>"Neexistující registrované úèty",
 			"ja"=>"Ì¤ÅÐÏ¿¤Î¥¢¥«¥¦¥ó¥È",
 			"tc"=>"µL¤wµù¥U±b¸¹",
@@ -581,7 +581,7 @@ $txt_no_domains=array(	"ru"=>"îÅÔ ÔÁËÏÇÏ ÄÏÍÅÎÁ",
                         "fr"=>"Aucun domaine enregistr&eacute;",
 			"de"=>"Keine Domains registriert",
 			"da"=>"Ingen registrede Domæner",
-			"en"=>"No registred domains",
+			"en"=>"No registered domains",
 			"cz"=>"Neexistující registrované domény",
 			"ja"=>"Ì¤ÅÐÏ¿¤Î¥É¥á¥¤¥ó",
 			"tc"=>"µL¤wµù¥Udomains",
@@ -623,7 +623,7 @@ $txt_own_domains=array(	"ru"=>"÷ÁÛÉ ÄÏÍÅÎÙ",
                         "fr"=>"Vos domaines",
 			"de"=>"Ihre eigenen Domains",
 			"da"=>"Deres egne Domæner",
-			"en"=>"Your own domains",
+			"en"=>"Your domains",
 			"cz"=>"Vlastní domény",
 			"ja"=>"¤¢¤Ê¤¿¼«¿È¤Î¥É¥á¥¤¥ó",
 			"tc"=>"¥»¨­domains",
@@ -637,7 +637,7 @@ $txt_open_domains=array(	 "ru"=>"ïÔËÒÙÔÙÅ ÄÏÍÅÎÙ",
                         "fr"=>"Les domaines publics",
 			"de"=>"&Ouml;ffentlich zug&auml;ngliche Domains",
 			"da"=>"Åbne Domæner",
-			"en"=>"The open domains",
+			"en"=>"Open domains",
 			"cz"=>"Pøístupné domény",
 			"ja"=>"¥ª¡¼¥×¥óÃæ¤Î¥É¥á¥¤¥ó",
 			"tc"=>"¶}©ñ¤§domains",
@@ -782,7 +782,7 @@ $txt_menu_domain_descr = array(
 
 $txt_menu_account_descr = array(
  "ru" => "äÏÂÒÏ ÐÏÖÁÌÏ×ÁÔØ × ÇÌÁ×ÎÏÅ ÍÅÎÀ ÕÐÒÁ×ÌÅÎÉÑ ×ÁÛÉÍ ÐÏÞÔÏ×ÙÍ ÑÝÉËÏÍ",
- "en" => "Welcome your mail account administration main menu",
+ "en" => "Welcome to your mail account administration main menu",
  "cz" => "Vítejte v nabídce správy svého úètu",
  "ja" => "¥á¡¼¥ë¥¢¥«¥¦¥ó¥È´ÉÍý¥á¥Ë¥å¡¼",
  "tc" => "Åwªï¶i¤J­Ó¤H±b¸¹ºÞ²z¿ï³æ",
@@ -890,18 +890,18 @@ $txt_delete = array(
 
 $txt_info = array(
 "ru"=>"éÎÆÏ", 
- "en" => "Info",
- "cz" => "Info",
+ "en" => "Note",
+ "cz" => "Note",
  "ja" => "¥¤¥ó¥Õ¥©¥á¡¼¥·¥ç¥ó",
- "tc" => "Info",
- "fr" => "Info",
- "de" => "Info",
- "da" => "Info",
- "es" => "Info",
- "nl"=>"Info",
- "it"=>"Info",
- "ro"=>"Info",
- "sv"=>"Info");
+ "tc" => "Note",
+ "fr" => "Note",
+ "de" => "Note",
+ "da" => "Note",
+ "es" => "Note",
+ "nl"=>"Note",
+ "it"=>"Note",
+ "ro"=>"Note",
+ "sv"=>"Note");
 
 
 $txt_login = array( 
@@ -936,7 +936,7 @@ $txt_login_again = array(
 
 $txt_please_login = array(
 "ru"=>"ðÏÖÁÌÕÊÓÔÁ ÉÄÅÎÔÉÆÉÃÉÒÕÊÔÅ ÓÅÂÑ, ÉÓÐÏÌØÚÕÑ ×ÁÛ ÐÏÞÔÏ×ÙÊ ÌÏÇÉÎ, ÄÏÍÅÎ É ÐÁÒÏÌØ", 
- "en" => "Please Identify Yourself with your domain and password.",
+ "en" => "Please login to access your mail account administration main menu.",
  "cz" => "Uveïte prosím svoji doménu a heslo.",
  "ja" => "¥É¥á¥¤¥ó¤È¥Ñ¥¹¥ï¡¼¥É¤òÆþÎÏ²¼¤µ¤¤¡£",
  "tc" => "½Ð¿é¤Jdomain©M±K½X",
@@ -1210,7 +1210,7 @@ $txt_read = array(
 
 $txt_last_mail_arrived = array(
 "ru"=>"îÏ×ÁÑ ÐÏÞÔÁ ÐÒÉÛÌÁ ×", 
- "en" => "Last Mail came on",
+ "en" => "Last email arrived",
  "cz" => "Doruèené pøíjmení",
  "ja" => "ºÇ¸å¤Î¥á¡¼¥ë¤ò¼õ¿® on",
  "tc" => "³Ì«á¨ì¹F¶l¥ó",
@@ -1255,7 +1255,7 @@ $txt_quota = array(
 
 $txt_title_edit = array(
  "ru" => "éÚÍÅÎÅÎÉÅ ÄÁÎÎÙÈ ÐÏÌØÚÏ×ÁÔÅÌÑ", 
- "en" => "Account Edit for user",
+ "en" => "Edit account for user",
  "cz" => "Úprava úètu uživatele",
  "ja" => "¥æ¡¼¥¶ÍÑ¥¢¥«¥¦¥ó¥ÈÊÔ½¸",
  "tc" => "­×§ï¨Ï¥ÎªÌ±b¸¹",
@@ -1856,7 +1856,7 @@ $txt_responder=array(	"ru"=>"á×ÔÏÏÔ×ÅÔ",
 			"fr"=>"Répondeur",
 			"de"=>"Autoresponder",
 			"da"=>"Ferie",
-			"en"=>"Vacation",
+			"en"=>"Autoreply",
 			"cz"=>"Automatická odpovìï",
 			"ja"=>"µÙÆü",
 			"tc"=>"¦Û°Ê¦^À³",
@@ -1928,7 +1928,7 @@ $txt_delete_msg = array(
 
 $txt_edit_account = array(
 "ru"=>"éÚÍÅÎÅÎÉÅ ÐÁÒÁÍÅÔÒÏ× ÑÝÉËÁ", 
- "en" => "Account Edition",
+ "en" => "Edit Account",
  "cz" => "Úprava úètu",
  "ja" => "¥¢¥«¥¦¥ó¥È¤ÎÊÔ½¸",
  "tc" => "±b¸¹½s¿è",
@@ -2047,7 +2047,7 @@ $txt_submit = array(
 
 $txt_error_no_username = array(
 "ru"=>"îÕÖÎÏ ××ÅÓÔÉ ÉÍÑ!", 
- "en" => "You have to mention a username!",
+ "en" => "Please enter a username.",
  "cz" => "Musíte uvést jméno uživatele!",
  "ja" => "¥æ¡¼¥¶Ì¾¤Î»ØÄê¤¬É¬Í×¤Ç¤¹!",
  "tc" => "§A¥²¶·¿é¤J¤@­Ó¨Ï¥ÎªÌ¦WºÙ!",
@@ -2077,7 +2077,7 @@ $txt_error_invalid_chars_in_username = array(
 
 $txt_error_pw_not_same = array(
 "ru"=>"÷Ù ÄÏÌÖÎÙ ××ÅÓÔÉ Ä×Á ÒÁÚÁ ÔÏÔ ÖÅ ÐÁÒÏÌØ",
- "en" => "You have to type twice the same password",
+ "en" => "Please enter password twice for confirmation.",
  "cz" => "Musíte zopakovat stejné heslo ješte jednou",
  "ja" => "³ÎÇ§¤Î¤¿¤á¡¢¥Ñ¥¹¥ï¡¼¥ÉÍó£²²Õ½ê¤ËÉ¬¤ºÆ±¤¸¥Ñ¥¹¥ï¡¼¥É¤òÆþÎÏ¤·¤Æ²¼¤µ¤¤¡£",
  "tc" => "§A¥²¶·¿é¤J¨â¦¸¤@¼Ëªº±K½X",
@@ -2092,7 +2092,7 @@ $txt_error_pw_not_same = array(
 
 $txt_error_pw_needed = array( 
 "ru"=>"÷Ù ÄÏÌÖÎÙ ××ÅÓÔÉ ÐÁÒÏÌØ",
- "en" => "You have to type a password",
+ "en" => "Please enter a password",
  "cz" => "Heslo musí být zadáno",
  "ja" => "¥Ñ¥¹¥ï¡¼¥É¤òÆþÎÏ¤·¤Æ²¼¤µ¤¤¡£",
  "tc" => "§A¥²¶·¿é¤J±K½X",
@@ -2107,7 +2107,7 @@ $txt_error_pw_needed = array(
 
 $txt_error_fwd_needed = array(
 "ru"=>"îÕÖÅÎ ÈÏÔÑ ÂÙ ÏÄÉÎ ÁÄÒÅÓ ÐÅÒÅÓÙÌËÉ", 
- "en" => "You have to type at least one forwarder",
+ "en" => "You must enter at least one forwarder",
  "cz" => "Musíte uvést alespoò jeden forward",
  "ja" => "¾¯¤Ê¤¯¤È¤â°ì¤Ä¤ÎÅ¾Á÷Àè¤ò»ØÄê¤·¤Ê¤±¤ì¤Ð¤Ê¤é¤Ê¤¤",
  "tc" => "§A¥²¶·¿é¤J¦Ü¤Ö¤@­ÓÂà±HªÌ",
@@ -2332,18 +2332,18 @@ $txt_user_title = array(
 
 $txt_info = array( 
  "ru"=>"éÎÆÏ",
- "en" => "Info",
- "cz" => "Info",
+ "en" => "Note",
+ "cz" => "Note",
  "ja" => "¥¤¥ó¥Õ¥©¥á¡¼¥·¥ç¥ó",
- "tc" => "Info",
- "fr" => "Info",
- "de" => "Info",
- "da" => "Info",
- "es" => "Info",
-"nl"=>"Info",
- "it"=>"Info",
- "ro" => "Info",
- "sv" => "Info");
+ "tc" => "Note",
+ "fr" => "Note",
+ "de" => "Note",
+ "da" => "Note",
+ "es" => "Note",
+"nl"=>"Note",
+ "it"=>"Note",
+ "ro" => "Note",
+ "sv" => "Note");
 
 $txt_login_failed = array( 
 "ru"=>"÷ ÄÏÓÔÕÐÅ ÏÔËÁÚÁÎÏ: ðÏÖÁÌÕÊÓÔÁ, ÐÒÏ×ÅÒØÔÅ ÌÏÇÉÎ É ÐÁÒÏÌØ", 
@@ -2392,7 +2392,7 @@ $txt_autoresp_subj = array(
 
 $txt_autoresp_body = array(
  "ru"=>"ðÏÌÕÞÅÎÏ ÷ÁÛÅ ÐÉÓØÍÏ Ó ÔÅÍÏÊ '%S'\n\n ÷ ÄÁÎÎÙÊ ÍÏÍÅÎÔ ÍÅÎÑ ÎÅÔ ÎÁ ÍÅÓÔÅ. ñ ÏÔ×ÅÞÕ ÎÁ ÷ÁÛÅ ÐÉÓØÍÏ, ËÁË ÔÏÌØËÏ ×ÅÒÎÕÓØ.",
- "en" => "Just got your mail with subject '%S'\n\nI'm not there. I'll answer your mail when I'll be back.\n\n",
+ "en" => "I just received your email subject '%S'\n\nI am away but will reply to your email when I return.\n\n",
  "cz" => "Vaše zpráva s pøedmìtem '%S' byla doruèena\n\nBohužel nejsme pøítomni. Ozveme se vám co nejdøíve.\n\n",
  "ja" => "¤¢¤Ê¤¿¤Î¥á¡¼¥ë¡ÖÉ½Âê¡§'%S'¡×¤Ï¼õ¤±¼è¤ê¤Þ¤·¤¿¡£¤·¤«¤·¡¢»ä¤Ï½Ð¼Ò¤·¤Æ¤ª¤ê¤Þ¤»¤ó¤Î¤Ç¡¢¸åÆü²óÅú¤òº¹¤·¾å¤²¤Þ¤¹¡£\n\n",
  "tc" => "­è±µÀò¼ÐÃD¬°'%S'\n\nªº¶l¥ó§Ú²{¦b¨Ã¤£¦b.·í§Ú¦^¨Ó¤§«á±N¾¨³t¦^´_«H¥ó\n\n",
@@ -2452,7 +2452,7 @@ $txt_about = array(
 
 $txt_details = array(
 "ru"=>"éÎÆÏÒÍÁÃÉÑ ÐÏÌØÚÏ×ÁÔÅÌÑ", 
- "en" => "User Info",
+ "en" => "User Note",
  "cz" => "Informace o uživateli",
  "ja" => "¥æ¡¼¥¶¡¦¥¤¥ó¥Õ¥©¥á¡¼¥·¥ç¥ó",
  "tc" => "¨Ï¥ÎªÌ¸ê®Æ",
@@ -2737,9 +2737,9 @@ $txt_system_account = array(
 
 $txt_current_catchall_account_is = array(
  "ru" => "current_catchall_account_is",
- "en" => "Current 'catch all emails' account is",
+ "en" => "Current 'catchall emails' account is",
  "cz" => "Aktuální poèet úètù pøijímajích vše je",
- "ja" => "Current 'catch all emails' account is",
+ "ja" => "Current 'catchall emails' account is",
  "tc" => "¥Ø«ecatchall±b¸¹¬°",
  "fr" => "Le compte réceptionant tous les emails non définis (<i>catchall</i>) est",
  "de" => "Das aktuelle Catchall-Konto is",
@@ -2918,19 +2918,19 @@ $txt_last = array(
   "sv" => "Mailserver");
 
 $txt_current_catchall_not_defined = array(
- "ru" => "There are currently no accounts which catch all email sent to undefined emails (<i>catchall</i>)",
- "en" => "There are currently no accounts which catch all email sent to undefined emails (<i>catchall</i>)",
- "cz" => "There are currently no accounts which catch all email sent to undefined emails (<i>catchall</i>)",
- "ja" => "There are currently no accounts which catch all email sent to undefined emails (<i>catchall</i>)",
- "tc" => "There are currently no accounts which catch all email sent to undefined emails (<i>catchall</i>)",
+ "ru" => "There is currently no 'catchall email' account set",
+ "en" => "There is currently no 'catchall email' account set",
+ "cz" => "There is currently no 'catchall email' account set",
+ "ja" => "There is currently no 'catchall email' account set",
+ "tc" => "There is currently no 'catchall email' account set",
  "fr" => "Il n'y a pas de compte réceptionant les emails envoyés à des adresses non définies (<i>catchall</i>)",
- "de" => "There are currently no accounts which catch all email sent to undefined emails (<i>catchall</i>)",
- "da" => "There are currently no accounts which catch all email sent to undefined emails (<i>catchall</i>)",
- "es" => "There are currently no accounts which catch all email sent to undefined emails (<i>catchall</i>)",
- "nl" => "There are currently no accounts which catch all email sent to undefined emails (<i>catchall</i>)",
- "it" => "There are currently no accounts which catch all email sent to undefined emails (<i>catchall</i>)",
- "ro" => "There are currently no accounts which catch all email sent to undefined emails (<i>catchall</i>)",
- "sv" => "There are currently no accounts which catch all email sent to undefined emails (<i>catchall</i>)");
+ "de" => "There is currently no 'catchall email' account set",
+ "da" => "There is currently no 'catchall email' account set",
+ "es" => "There is currently no 'catchall email' account set",
+ "nl" => "There is currently no 'catchall email' account set",
+ "it" => "There is currently no 'catchall email' account set",
+ "ro" => "There is currently no 'catchall email' account set",
+ "sv" => "There is currently no 'catchall email' account set");
 
 
 // empty array - please also update with new languages :)
