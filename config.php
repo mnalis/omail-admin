@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.49 2001/02/25 08:29:38 swix Exp $ 
+	$Id: config.php,v 1.50 2001/02/25 10:24:28 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -150,8 +150,8 @@ $vmailmgrd_tcp_host_method = 2;
 
 $vmailmgrd_tcp_hosts_list=array(
                         "Localhost"=>"127.0.0.1",
-                        "Omega"=>"10.0.0.1",
-                        "Pegasus"=>"192.168.0.99"
+                        "Omega"=>"127.1.2.3",
+                        "Pegasus"=>"127.0.3.1"
 			);
 
 // vmailmgrd_tcp_hosts_dir  [2]
@@ -230,7 +230,7 @@ $ldap_passwd = "very_secret";
 
 // version
 $version = "0.97";
-$cvs_version = '$Id: config.php,v 1.49 2001/02/25 08:29:38 swix Exp $';
+$cvs_version = '$Id: config.php,v 1.50 2001/02/25 10:24:28 swix Exp $';
 
 // script URL
 
