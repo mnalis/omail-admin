@@ -8,7 +8,7 @@
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 	* Copyright (C) 2000  Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 
-        $Id: func.php,v 1.18 2000/10/15 21:43:44 swix Exp $
+        $Id: func.php,v 1.19 2000/10/15 23:13:33 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -476,7 +476,7 @@ function save_resp_file($arg_username, $arg_resptext, $arg_status) {
 
 function get_catchall_account() {
 
-	global $catchall_active
+	global $catchall_active;
 
 	$catchall_active = "";   // reset
 
