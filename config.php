@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.50 2001/02/25 10:24:28 swix Exp $ 
+	$Id: config.php,v 1.51 2001/03/03 21:23:29 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -121,7 +121,7 @@ $hide_about_button = 0;
 // is also a way to access the vmailmgrd via tcp : to use this feature, set
 // the variable to 1, and set the host(s).
 
-$use_vmailmgrd_tcp = 0;
+$use_vmailmgrd_tcp = 1;
 
 // vmailmgrd_tcp_host
 // ------------------
@@ -138,7 +138,7 @@ $vmailmgrd_tcp_host = "127.0.0.1";
 //	1 : use the vmailmgrd_tcp_hosts_list method
 //	2 : use the vmailmgrd_tcp_hosts_dir method
 
-$vmailmgrd_tcp_host_method = 2;
+$vmailmgrd_tcp_host_method = 1;
 
 
 // vmailmgrd_tcp_hosts_list  [1]
@@ -150,8 +150,8 @@ $vmailmgrd_tcp_host_method = 2;
 
 $vmailmgrd_tcp_hosts_list=array(
                         "Localhost"=>"127.0.0.1",
-                        "Omega"=>"127.1.2.3",
-                        "Pegasus"=>"127.0.3.1"
+                        "Omega"=>"127.1.2.1",
+                        "Pegasus"=>"127.0.0.1"
 			);
 
 // vmailmgrd_tcp_hosts_dir  [2]
@@ -229,8 +229,8 @@ $ldap_passwd = "very_secret";
 /* you shouldn't have to change the following lines */
 
 // version
-$version = "0.97";
-$cvs_version = '$Id: config.php,v 1.50 2001/02/25 10:24:28 swix Exp $';
+$version = "0.97.2";
+$cvs_version = '$Id: config.php,v 1.51 2001/03/03 21:23:29 swix Exp $';
 
 // script URL
 

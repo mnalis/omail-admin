@@ -29,6 +29,28 @@ A:hover.nav {  font-family: Verdana, Arial, Helvetica, sans-serif; color: red;}
   if (closeme)window.close();
   return false;
   }
+  function oW(myLink,windowName)
+  {
+  if(! window.focus)return;
+  var myWin=window.open("",windowName,"height=550,width=600,dependent=yes,resizable=yes,scrollbars=yes");
+  myWin.focus();
+  myLink.target=windowName;
+  }
+  function oW2(myLink,windowName)
+  {
+  if(! window.focus)return;
+  var myWin=window.open("",windowName,"height=610,width=600,dependent=yes,resizable=yes,scrollbars=yes");
+  myWin.focus();
+  myLink.target=windowName;
+  }
+  function oW3(myLink,windowName)
+  {
+  if(! window.focus)return;
+  var myWin=window.open("",windowName,"height=650,width=700,dependent=yes,resizable=yes,scrollbars=yes");
+  myWin.focus();
+  myLink.target=windowName;
+  }
+
   //-->
 </SCRIPT>
 

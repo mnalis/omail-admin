@@ -8,7 +8,7 @@
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 	* Copyright (C) 2000  Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 
-        $Id: func.php,v 1.30 2001/02/24 21:47:30 swix Exp $
+        $Id: func.php,v 1.31 2001/03/03 21:23:29 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -68,7 +68,7 @@ function check_session($arg_ip) {
 
 
 
-function authenticate($arg_login, $arg_passwd, $arg_ip) {
+function authenticate($arg_login, $arg_passwd, $arg_ip, $tcphostname) {
 
 	global $type, $domain, $username, $passwd, $lang, $expire, $ip, $expire_after, $catchall_active, $mb_start, $al_start;
 
@@ -112,6 +112,9 @@ function authenticate($arg_login, $arg_passwd, $arg_ip) {
 
 			SetCookie("cookie_omail_last_login","", Time()+993600);
 			SetCookie("cookie_omail_last_domain",$domain, Time()+993600);
+			if ($tcphostname) {
+				SetCookie("cookie_omail_last_server",$tcphostname, Time()+993600);
+			}
 			SetCookie("cookie_omail_lang",$lang, Time()+993600);
 			$expire = time() + $expire_after*60;	
 			$ip = $arg_ip;

@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.61 2001/02/25 08:29:38 swix Exp $
+        $Id: htmlstuff.php,v 1.62 2001/03/03 21:23:29 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -38,6 +38,7 @@ function html_login() {
 
 	global $script_url, $A, $lang, $version, $cookie_omail_last_login, $cookie_omail_last_domain, $domains_list;
 	global $use_vmailmgrd_tcp, $vmailmgrd_tcp_host_method, $vmailmgrd_tcp_hosts_list;
+	global $cookie_omail_last_server;
 	include("strings.php");
 
         $templdata["script"]=$script;
@@ -100,7 +101,12 @@ function html_login() {
 		$templdata["tcphost_select_list"] = "";	
 		reset($vmailmgrd_tcp_hosts_list);
 		while(list ($id,$tmp) = each ($vmailmgrd_tcp_hosts_list)) {
-			$templdata["tcphost_select_list"] .= "<option>$id</option>";
+
+			if ($cookie_omail_last_server == $id) {
+				$templdata["tcphost_select_list"] .= "<option selected>$id</option>";
+			} else {
+				$templdata["tcphost_select_list"] .= "<option>$id</option>";
+			}
 		}
 
 	        print parseTemplate($templdata, "templates/login_with_host.temp");
@@ -127,11 +133,7 @@ function html_head($title) {
 	$templdata["lang"]=$lang;
 	$templdata["title"]=$title;
 
-	if ($A == "menu") {  
-		print parseTemplate($templdata, "templates/html_header_menu.temp");
-	} else {
-		print parseTemplate($templdata, "templates/html_header_standard.temp");
-	} 
+	print parseTemplate($templdata, "templates/html_header_standard.temp");
 }
 
 
@@ -154,7 +156,7 @@ function html_titlebar($title,$msg,$popup) {
 		$array[buttonlabels][1][onClick] = 'onClick="return gO(this,true)"';
 		$array[buttonlabels][2][url] = $script . "?A=help&" . SID;
 		$array[buttonlabels][2][txt] = $txt_help[$lang];
-		$array[buttonlabels][2][onClick] = 'onClick="return gO(this,true)"';
+		$array[buttonlabels][2][onClick] = "onClick=\"oW(this,'pop2')\"";
 	} elseif ($A == "menu") { 	
 		$array[buttonlabels][0][url] = $script . "?" . SID;
 		$array[buttonlabels][0][txt] = $txt_refresh_menu[$lang];
@@ -164,23 +166,23 @@ function html_titlebar($title,$msg,$popup) {
 		$array[buttonlabels][1][onClick] = '';
 		$array[buttonlabels][2][url] = $script . "?A=help&" . SID;
 		$array[buttonlabels][2][txt] = $txt_help[$lang];
-		$array[buttonlabels][2][onClick] = 'onClick="return gO(this,true,true)"';
+		$array[buttonlabels][2][onClick] = "onClick=\"oW(this,'pop2')\"";
 		if (!$hide_about_button) {
 			$array[buttonlabels][3][url] = $script . "?A=about&" . SID;
 			$array[buttonlabels][3][txt] = $txt_about[$lang];
-			$array[buttonlabels][3][onClick] = '';
+			$array[buttonlabels][3][onClick] = "onClick=\"oW3(this,'pop2')\"";
 		}
 	} elseif (($A == "login" || $A == "" || $A == "splash") && !$hide_about_button) {
 		$array[buttonlabels][0][url] = $script . "?A=about&" . SID;
 		$array[buttonlabels][0][txt] = $txt_about[$lang];
-		$array[buttonlabels][0][onClick] = '';
+		$array[buttonlabels][0][onClick] = "onClick=\"oW3(this,'pop2')\"";
 		$array[buttonlabels][1][url] = $script . "?A=help&" . SID;
 		$array[buttonlabels][1][txt] = $txt_help[$lang];
-		$array[buttonlabels][1][onClick] = 'onClick="return gO(this,true,true)"';
+		$array[buttonlabels][1][onClick] = "onClick=\"oW(this,'pop2')\"";
 	} elseif ($A == "about" || $A == "help") { 
 		$array[buttonlabels][0][url] = $script . "?" . SID;
-		$array[buttonlabels][0][txt] = $txt_back[$lang];
-		$array[buttonlabels][0][onClick] = '';
+		$array[buttonlabels][0][txt] = $txt_close[$lang];
+		$array[buttonlabels][0][onClick] = 'onClick="return gO(this,true,true)"';
 	} else {
 		$array[buttonlabels][0]='';
 	}

@@ -2,8 +2,15 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: ChangeLog,v 1.57 2001/02/25 18:01:36 swix Exp $ 
+$Id: ChangeLog,v 1.58 2001/03/03 21:23:29 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
+
+2001-03-03  Olivier Mueller  <om@omnis.ch>
+
+	* server name (if using vmailmgrd-tcp & mode = 2) is now also 
+	  saved in a cookie
+	* help & about screen are now opened in a new window
+	* removed one of the html_header template (not needed anymore)
 
 2001-02-25  Olivier Mueller  <om@omnis.ch>
 

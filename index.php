@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.39 2001/02/24 21:47:30 swix Exp $
+        $Id: index.php,v 1.40 2001/03/03 21:23:29 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -148,7 +148,7 @@ if (!$active) {
 		}
 
 
-		if ($form_passwd && $form_login && authenticate($form_login, $form_passwd, $REMOTE_ADDR)) {
+		if ($form_passwd && $form_login && authenticate($form_login, $form_passwd, $REMOTE_ADDR, $form_tcphost)) {
 
 			// login and password can't be left empty!
 
