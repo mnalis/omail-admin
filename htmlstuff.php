@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.31 2000/09/24 00:55:45 swix Exp $
+        $Id: htmlstuff.php,v 1.32 2000/09/24 11:19:46 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -296,49 +296,32 @@ function html_respform($userinfo, $respinfo, $status) {
 	global $session, $script, $lang, $domain;
 	include("strings.php");
 
-	print "<form action=\"" . $script . "?" . SID . "\" method=\"post\">";
-	print "<table border=0>";	
-	print "<tr><th align=right>" . $txt_username[$lang] . "&nbsp;</th>";	
-	print "<td bgcolor=\"#DDDDDD\" align=left>" . $userinfo[0]. "@$domain&nbsp;</td></tr>";
-	print "<input type=\"hidden\" name=\"U\" value=\"" . $userinfo[0] . "\">";
+        $templdata["script"]=$script;
+        $templdata["SID"]=SID;
+        $templdata["txt_username"]=$txt_username[$lang];
+        $templdata["userinfo0"]=$userinfo[0];
+        $templdata["domain"]=$domain;
 
-	print "<tr><th align=right>" . $txt_responder[$lang] . "&nbsp;</th>";	
-	print "<td bgcolor=\"#CCCCCC\" align=left>";
-	
-	if ($status == 1) { $checked_yes = "SELECTED"; $checked_no = ""; }
-		else { $checked_yes = ""; $checked_no = "SELECTED"; }
+	if ($status == 1) { $templdata["checked_yes"] = "SELECTED"; $templdata["checked_no"] = ""; }
+		else { $templdata["checked_no"] = "SELECTED"; $templdata["checked_yes"] = ""; }
 
-	print "<select name=\"responder\">";
-	print "<option value=\"1\" $checked_yes>" . $txt_activated[$lang] . "</option>";	
-	print "<option value=\"0\" $checked_no>" . $txt_inactived[$lang] . "</option>";	
-	print "</select></td></tr>";
+        $templdata["txt_submit"]=$txt_submit[$lang];
+        $templdata["txt_cancel"]=$txt_cancel[$lang];
 
-	print "<tr><th>&nbsp;</th><td bgcolor=\"#DDDDDD\"><b>" . $txt_autoanswertext[$lang] . ":</b>&nbsp;</td></tr>";
-	
-	print "<tr><th align=right>" . $txt_from[$lang] . "&nbsp;</th>";	
-	print "<td bgcolor=\"CCCCCC\" align=left><input type=\"text\" name=\"from\" value=\"" . $respinfo["from"] .
-		 "\" size=\"50\">&nbsp;</td></tr>";
+        $templdata["txt_responder"]=$txt_responder[$lang];
+        $templdata["txt_activated"]=$txt_activated[$lang];
+        $templdata["txt_inactived"]=$txt_inactived[$lang];
+        $templdata["txt_autoanswertext"]=$txt_autoanswertext[$lang];
+        $templdata["txt_from"]=$txt_from[$lang];
+        $templdata["txt_subject"]=$txt_subject[$lang];
+        $templdata["txt_text"]=$txt_text[$lang];
 
-	print "<tr><th align=right>" . $txt_subject[$lang] . "&nbsp;</th>";	
-	print "<td bgcolor=\"CCCCCC\" align=left><input type=\"text\" name=\"subject\" value=\"" . $respinfo["subject"] .
-		 "\" size=\"50\">&nbsp;</td></tr>";
-	
-	print "<tr><th align=right>" . $txt_text[$lang] . "&nbsp;</th>";	
-	print "<td bgcolor=\"DDDDDD\" align=left><font size=\"-1\"><textarea name=\"body\" cols=\"50\" rows=\"13\">" .
-		$respinfo["body"] . "</textarea></font>&nbsp;</td></tr>";
-	
+        $templdata["respinfofrom"]=$respinfo["from"];
+        $templdata["respinfosubject"]=$respinfo["subject"];
+        $templdata["respinfobody"]=$respinfo["body"];
 
-	print "<tr><th align=right>" . $txt_submit[$lang] . "&nbsp;</th>";	
+        print parseTemplate($templdata, "templates/respform.temp");
 
-	print "<td bgcolor=\"#CCCCCC\" align=left>";
-	print "<input type=\"hidden\" name=\"A\" value=\"parse\">";
-	print "<input type=\"hidden\" name=\"action\" value=\"responder\">";
-	print "<input type=\"submit\" value=\"" . $txt_submit[$lang]. "\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-	print "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-	print "<input type=\"reset\" value=\"" . $txt_cancel[$lang]. "\" onClick=\"return gO(this,true,true)\">&nbsp;</td></tr>";
-
-	print "</table>";	
-	print "</form>";	
 }
 
 
