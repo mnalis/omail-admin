@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.37 2000/09/26 23:34:52 swix Exp $
+        $Id: htmlstuff.php,v 1.38 2000/10/12 20:35:44 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -456,7 +456,7 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 		}	
 
 		if ((($arg_action == 2 && $config_use_settings_with_quota) || $arg_action == 1) && !($quota_on && !$quota_data["user_quota_support"])) {
-			$templdata[obj][$ii]["action"] .=  "&nbsp;&nbsp;<A HREF=\"$script?A=quota&U=" . $username . "&" . SID . "\" onClick=\"oW2(this,'pop')\">"  . 
+			$templdata[obj][$ii]["actions"] .=  "&nbsp;&nbsp;<A HREF=\"$script?A=quota&U=" . $username . "&" . SID . "\" onClick=\"oW2(this,'pop')\">"  . 
 				$txt_settings[$lang] . "</a>&nbsp;"; // action
 		}
 
