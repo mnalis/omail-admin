@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.7 2000/08/02 15:04:53 swix Exp $
+        $Id: strings.php,v 1.8 2000/08/03 00:12:35 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -780,8 +780,8 @@ $txt_session_expired = array(
 
 $txt_submit = array( 
  "en" => "Submit",
- "fr" => "Envoyer",
- "de" => "Abschicken",
+ "fr" => "Executer",
+ "de" => "Ausführen",
  "it"=>"");
 
 $txt_error_no_username = array( 
@@ -944,6 +944,66 @@ $txt_about = array(
  "en" => "About",
  "fr" => "À propos",
  "de" => "Info",
+ "it"=>"");
+
+$txt_ = array( 
+ "en" => "",
+ "fr" => "",
+ "de" => "",
+ "it"=>"");
+
+$txt_ = array( 
+ "en" => "",
+ "fr" => "",
+ "de" => "",
+ "it"=>"");
+
+$txt_ = array( 
+ "en" => "",
+ "fr" => "",
+ "de" => "",
+ "it"=>"");
+
+$txt_ = array( 
+ "en" => "",
+ "fr" => "",
+ "de" => "",
+ "it"=>"");
+
+$txt_ = array( 
+ "en" => "",
+ "fr" => "",
+ "de" => "",
+ "it"=>"");
+
+$txt_ = array( 
+ "en" => "",
+ "fr" => "",
+ "de" => "",
+ "it"=>"");
+
+$txt_ = array( 
+ "en" => "",
+ "fr" => "",
+ "de" => "",
+ "it"=>"");
+
+$txt_ = array( 
+ "en" => "",
+ "fr" => "",
+ "de" => "",
+ "it"=>"");
+
+$txt_ = array( 
+ "en" => "",
+ "fr" => "",
+ "de" => "",
+ "it"=>"");
+
+$txt_ = array( 
+ "en" => "",
+ "fr" => "",
+ "de" => "",
  "it"=>"");
 
 $txt_ = array( 

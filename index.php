@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.8 2000/08/02 23:07:45 swix Exp $
+        $Id: index.php,v 1.9 2000/08/03 00:12:35 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -86,7 +86,6 @@ if ($active == 1) {
 		session_destroy();
 	
 	        $msg = $txt_session_expired[$lang] . "<br><br>";
-	        $msg .= "<ul><li><a href=\"$script_url?A=login\" onClick=\"return gO(this,true)\">" . $txt_login_again[$lang]  .  "</a>\n";
                 $msg .= "<li><a href=\"$script_url?A=login\">" . $txt_login_again[$lang]  .  "</a>\n";
                 $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";
 	

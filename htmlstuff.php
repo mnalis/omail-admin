@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.8 2000/08/02 23:07:45 swix Exp $
+        $Id: htmlstuff.php,v 1.9 2000/08/03 00:12:35 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -391,8 +391,6 @@ function html_error($title, $msg) {
 }
 
 
-
-
 function html_display_mailboxes($mboxlist, $arg_action) {
 
 	// action :  	1 = mailbox
@@ -412,23 +410,30 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 			break;
 		case 0:
 			print "<h1>" . $txt_user_title[$lang] . "</h1>";
+			$tmp_user = $mboxlist[0];
+			if ($tmp_user[2]) { $mtype = "mbox"; } else { $mtype = "alias"; }
 			break;
 	}
 
 	print "<table border=0><TR><TH>N°</TH>";
 	print "<TH>" . $txt_email[$lang] . "</TH>" .
-		"<TH>" . $txt_info[$lang] . "</TH>" .
+	//	"<TH>" . $txt_info[$lang] . "</TH>" .
 		"<TH>" . $txt_fwd[$lang] . "1</TH>" .
 		"<TH>" . $txt_fwd[$lang] . "2</TH>" .
 		"<TH>" . $txt_fwd[$lang] . "3</TH>" .
-		"<TH>" . $txt_more_fwd[$lang] . "?</TH>" .
-		"<TH>" . $txt_responder[$lang] . "?</TH>";
+		"<TH>" . $txt_more_fwd[$lang] . "?</TH>";
 
-	if ($arg_action) {
+	if ($arg_action != 2 && !(!$arg_action && $mtype == "alias")) {
+		print "<TH>" . $txt_responder[$lang] . "?</TH>";
+	}
+
+	if ($arg_action && $arg_action != 2) {
 		print "<TH COLSPAN=3>" . $txt_action[$lang] . "</TH></TR>";
-	} else {
+	} elseif ($arg_action == 2 || (!$arg_action && $mtype == "mbox")) {
 		print "<TH COLSPAN=2>" . $txt_action[$lang] . "</TH></TR>";
-	}		
+	} else {
+		print "<TH>" . $txt_action[$lang] . "</TH></TR>";
+	}
 			
 	$yes = "<font color=\"green\">" . $txt_yes[$lang] . "</font>";
 	$no = "<font color=\"red\">" . $txt_no[$lang] . "</font>";
@@ -453,7 +458,7 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 		print "<TD>" . ($i+1)  . "&nbsp;</TD>"; // num
 
 		print "<TD><B>" . $username  . "</B>&nbsp;</TD>"; // namae
-		print "<TD><B>" . $PersonalInfo  . "</B>&nbsp;</TD>"; // namae
+	//	print "<TD><nobr>" . $PersonalInfo  . "</nobr>&nbsp;</TD>"; // namae
 		print "<TD>" . $alias[0]  . "&nbsp;</TD>"; // fwd1
 		print "<TD>" . $alias[1] . "&nbsp;</TD>"; // fwd2
 		print "<TD>" . $alias[2] . "&nbsp;</TD>"; // fwd3
@@ -462,9 +467,11 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 		if ($alias[3]) { print $yes; } else { print $no; } 
 		print "&nbsp;</TD>"; // alias?
 
-		print "<TD>";
-		if ($resp) { print $activated; } else { print $inactived; } 
-		print "&nbsp;</TD>"; // responder?
+		if ($arg_action != 2 && !(!$arg_action && $mtype == "alias")) {
+			print "<TD>";
+			if ($resp) { print $activated; } else { print $inactived; } 
+			print "&nbsp;</TD>"; // responder?
+		}
 
 		// convert the username to an html escaped string (because of user "+") 
 
@@ -472,8 +479,12 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 
 		print "<TD><A HREF=\"$script?A=edit&U=" . $username . "\" onClick=\"oW(this,'pop')\">"  . 
 			$txt_edit[$lang]  . "</a>&nbsp;</TD>"; // action
-		print "<TD><A HREF=\"$script?A=resp&U=" . $username . "\" onClick=\"oW2(this,'pop')\">"  . 
-			$txt_responder[$lang] . "</a>&nbsp;</TD>"; // action
+
+		if ($arg_action != 2 && !(!$arg_action && $mtype == "alias")) {
+			print "<TD><A HREF=\"$script?A=resp&U=" . $username . "\" onClick=\"oW2(this,'pop')\">"  . 
+				$txt_responder[$lang] . "</a>&nbsp;</TD>"; // action
+		}	
+
 		if ($arg_action) {
 			print "<TD><A HREF=\"$script?A=delete&U=" . $username . "\" onClick=\"oW(this,'pop')\">"  . 
 				$txt_delete[$lang]  . "</a>&nbsp;</TD>"; // action
@@ -496,11 +507,16 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 
 
 	if ($arg_action != 0) {
-		print "<tr><th COLSPAN=8 ALIGN=right>&nbsp;&nbsp;</th>";
-
 	
-		print "<TH COLSPAN=3 ALIGN=center>" .
-			"<A HREF=\"$script?A=$tmp_action\" onClick=\"oW(this,'pop')\">"  . $tmp_label  . "</a>&nbsp;</TH></TR>";
+		if ($arg_action != 2) {
+			print "<tr><th COLSPAN=7 ALIGN=right>&nbsp;&nbsp;</th>";
+			print "<TH COLSPAN=3 ALIGN=center>";
+		} else { 
+			print "<tr><th COLSPAN=6 ALIGN=right>&nbsp;&nbsp;</th>";
+			print "<TH COLSPAN=2 ALIGN=center>";
+		}
+	
+		print "<A HREF=\"$script?A=$tmp_action\" onClick=\"oW(this,'pop')\">"  . $tmp_label  . "</a>&nbsp;</TH></TR>";
 	}
 
 	print "</table><br>"; 
@@ -520,7 +536,7 @@ function html_about() {
 <tr><td>
 <br>
 <ul>
-<li>oMail-admin <?php echo($version); ?> is a PHP4-based Web-administration solution for mail servers based on Dan Berstein's <a href="http://www.qmail.org">qmail</a>
+<li>oMail-admin <?php echo($version); ?> is a PHP4-based Web-administration solution for mail servers based on Dan Bernstein's <a href="http://www.qmail.org">qmail</a>
 and Bruce Guenter's <a href="http://www.em.ca/~bruceg/vmailmgr/">vmailmgr</a>.<br><br></li>
 
 <li>Features:
@@ -564,7 +580,7 @@ highly recommended. -->
 </ul>
 </td></tr></table>
 <br></li>
-<li>CVS Version: $Id: htmlstuff.php,v 1.8 2000/08/02 23:07:45 swix Exp $ <br><br></li>
+<li>CVS Version: $Id: htmlstuff.php,v 1.9 2000/08/03 00:12:35 swix Exp $ <br><br></li>
 
 <li>
 Feel free to use this form for your suggestions, requests and bugfixes:
@@ -573,7 +589,7 @@ Feel free to use this form for your suggestions, requests and bugfixes:
 <input type="hidden" name="subject" value="oMail-admin $version comment form">
 <input type="hidden" name="redirect" value="http://$ENV{'HTTP_HOST'}$ENV{'REQUEST_URI'}">
 <input type="hidden" name="sender" value="$ENV{'REMOTE_ADDR'}">
-<input type="hidden" name="sender" value="Version: $Id: htmlstuff.php,v 1.8 2000/08/02 23:07:45 swix Exp $ ">
+<input type="hidden" name="sender" value="Version: $Id: htmlstuff.php,v 1.9 2000/08/03 00:12:35 swix Exp $ ">
 <table border="0">
 <tr><td align="right">Email</td><td><small>
 <input type="text" size="30" name="from_email"></small></td></tr>
