@@ -2,7 +2,7 @@
 Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----
 
-$Id: CREDITS,v 1.3 2000/08/21 05:01:40 swix Exp $ 
+$Id: CREDITS,v 1.4 2000/09/17 00:04:43 swix Exp $ 
 $Source: /cvsroot/omail/admin2/CREDITS,v $
 
 
@@ -23,6 +23,6 @@ CREDITS, in chronological order
 [jc] - Joel Alan Chornik <joel@abcweb.com.ar>
 	* translation to spanish
 
-[] - ? <nervous@nervous.it>
+[nv] - Nervous <nervous@nervous.it>
 	* translation to italian
 

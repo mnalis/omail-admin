@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.14 2000/09/16 16:14:22 swix Exp $ 
+	$Id: config.php,v 1.15 2000/09/17 00:04:43 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -30,7 +30,7 @@
 // expire session after 
 // -------------------- 
 
-$expire_after = "13"; // minutes
+$expire_after = "20"; // minutes
 
 
 // sysadmin mail
@@ -59,7 +59,6 @@ $vmailmgrquota_file = "/var/qmail/control/vmailmgrquotas";
 $config_use_settings_with_quota = 0;
 
 
-
 /* END OF USER CONFIGURATION */
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -79,7 +78,7 @@ $config_use_settings_with_quota = 0;
 // version
 
 $version = "0.95";
-$cvs_version = '$Id: config.php,v 1.14 2000/09/16 16:14:22 swix Exp $';
+$cvs_version = '$Id: config.php,v 1.15 2000/09/17 00:04:43 swix Exp $';
 
 // script URL
 
@@ -92,5 +91,7 @@ if ($cookie_omail_lang && !$default_lang) { $default_lang = htmlentities($cookie
 if (!$default_lang) { $default_lang = $default_language; }       // default language
 
 
+// yes, it's here:  Enjoy :)
+$splash_screen = 1;
 
 ?>

@@ -2,7 +2,7 @@
 Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----
 
-$Id: INSTALL,v 1.6 2000/08/12 22:53:13 swix Exp $
+$Id: INSTALL,v 1.7 2000/09/17 00:04:43 swix Exp $
 $Source: /cvsroot/omail/admin2/INSTALL,v $
 
 
@@ -49,14 +49,9 @@ oMail - INSTALL
   5. make sure you have "magic_quotes_gpc = Off" in your php.ini  (usually in /usr/local/lib/)
      (just important if there are "'` in the autoresponder message)
 
-  6. if necessary, setup quotas (look next section in INSTALL file)
+  6. if necessary, setup domain-based quotas (look next section in INSTALL file)
 
   7. Well, then it should work out of the box.
-
-
-  If you make it work on your server, I would be glad to hear from you! 
-  Just send a little mail to: omail@omnis.ch. And please, if you translate
-  it to another language, please do send me the updated strings.php file!
 
 
 
@@ -70,5 +65,24 @@ oMail - INSTALL
 
 
 
---Olivier, 13.aug.2k
+* FAQ
+  ---
+
+ [1] Error Message: Protocol version is 0, not the 2 as this script expects.
+
+     This seems to be a common deamon problem, and appears only with rpm installations.
+     Here the answer from Ambar Roy:
+
+	this seems to be the same 255,"" problem that everyone is getting when they
+	use rpms to install the vmailmgr daemon.... and the solution is quite   
+	simple... in the /etc/rc.d/init.d/vmailmgrd file change the line that reads:
+	svc start vmailmgrd
+	to something like:
+	nohup /var/service/vmailmgrd/run &
+	and things run fine.... now the only problem is that the stop function stops
+	working!!!
+
+
+
+--Olivier, 16.sep.2k
 

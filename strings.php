@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.17 2000/08/21 05:01:40 swix Exp $
+        $Id: strings.php,v 1.18 2000/09/17 00:04:43 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -364,6 +364,13 @@ $txt_menu = array(
  "de" => "Menu",
  "es" => "Menú",
  "it"=>"Menu");
+
+$txt_welcome = array( 
+ "en" => "Welcome!",
+ "fr" => "Bienvenue!",
+ "de" => "Willkommen!",
+ "es" => "Welcome!",
+ "it"=>"Welcome!");
 
 $txt_menu_domain_descr = array( 
  "en" => "Welcome in the domain administration main menu",

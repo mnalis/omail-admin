@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.21 2000/09/16 16:14:22 swix Exp $
+        $Id: htmlstuff.php,v 1.22 2000/09/17 00:04:43 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -190,7 +190,7 @@ function html_titlebar($title,$msg,$popup) {
 [ <A HREF="<?php echo($script); ?>?A=about&<?=SID?>"><?php echo($txt_about[$lang]); ?></A> ]
 <?php } elseif ($A == "login" || $A == "") { ?>
 [ <A HREF="<?php echo($script); ?>?A=about&<?=SID?>"><?php echo($txt_about[$lang]); ?></A> ]
-<?php } elseif ($A == "about") { ?>
+<?php } elseif (($A == "about") || ($A == "splash")) { ?>
 [ <A HREF="<?php echo($script); ?>?<?=SID?>"><?php echo($txt_back[$lang]); ?></A> ]
 <?php } ?></nobr>&nbsp;
 </TD>
@@ -690,7 +690,7 @@ Dan Bernstein's <a href="http://www.qmail.org">qmail</a> and Bruce Guenter's <a 
 <br></li>
 
 <li>This a <a href="http://www.gnu.org/copyleft/gpl.html">GPL</a> project, currently maintained by 
-<a href="mailto:om@omnis.ch">Olivier M&uuml;ller</a>, Z&uuml;rich, Switzerland. <br><br></li>
+<a href="mailto:om@omnis.ch?SUBJECT=[omail-admin]">Olivier M&uuml;ller</a>, Z&uuml;rich, Switzerland. <br><br></li>
 
 <li>Supported languages:<font color="blue">
 <?php
@@ -704,24 +704,24 @@ Dan Bernstein's <a href="http://www.qmail.org">qmail</a> and Bruce Guenter's <a 
 <li>oMail-admin is programmed in <a href="http://www.php.net">PHP</a>, and rely on vmail.inc written
 by Mike Bell.<br><br></li>
 
-<li>If you are interested by this project, you will find more information on following webpages. 
-<!-- Subscribing
-to the <a href="http://sourceforge.net/mail/?group_id=3658">mailing lists</a> is also
-highly recommended. -->
+<li>If you are interested by this project, you will find more information on following webpages. <br>
+Subscribing to the <a href="http://sourceforge.net/mail/?group_id=3658">mailing list</a> is also
+highly recommended. 
 
 <table border="0"><tr><td>
 <ul>
 <li><a href="http://sourceforge.net/project/filelist.php?group_id=3658">oMail-admin download page</a></li>
 <li><a href="http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi/admin2/?cvsroot=oMail">oMail-admin public CVS tree</a></li>
-<!-- <li><a href="http://sourceforge.net/mail/?group_id=3658">Mailing lists (subscribe/archives)</a></li> -->
+<li><a href="http://sourceforge.net/mail/?group_id=3658">Mailing list (subscribe/archives). Please use omail-admin-dev!</a></li> 
 <li><a href="http://omail.omnis.ch">The oMail-admin project homepage</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
 <li><a href="http://admin.omnis.ch/admin2">Live Demo : login: <I>test.com</I>, and password: <I>test</I></a></li>
 <li><a href="TODO">Todo List</a>, <a href="ChangeLog">ChangeLog</a>, <a href="README">README</a>, <a href="INSTALL">INSTALL</a>, 
 and of course the <a href="CREDITS">Credits</a></li>
+<li><A HREF="<?php echo($script); ?>?A=splash&<?=SID?>">Splash screen with comments form</A></li>
 </ul>
 </td></tr></table>
 <br></li>
-<li>CVS Version: $Id: htmlstuff.php,v 1.21 2000/09/16 16:14:22 swix Exp $ <br><br></li>
+<li>CVS Version: <?php echo($cvs_version); ?> <br><br></li>
 
 <li>Sponsors:
 <ul>
@@ -742,7 +742,7 @@ Feel free to use this form for your suggestions, requests and bugfixes:
 <input type="hidden" name="redirect" value="http://<?php echo($HTTP_HOST); ?><?php echo($REQUEST_URI); ?>">
 <input type="hidden" name="sender" value="<?php echo($REMOTE_ADDR); ?>">
 <input type="hidden" name="language" value="<?php echo($HTTP_ACCEPT_LANGUAGE); ?>">
-<input type="hidden" name="version" value="Version: $Id: htmlstuff.php,v 1.21 2000/09/16 16:14:22 swix Exp $ ">
+<input type="hidden" name="version" value="<?php echo($cvs_version); ?>">
 <table border="0">
 <tr><td align="right">Email</td><td><small>
 <input type="text" size="30" name="from_email"></small></td></tr>
@@ -758,6 +758,134 @@ Feel free to use this form for your suggestions, requests and bugfixes:
 <br>
 </td></tr></table><!-- logo: to be created -->
 <p><img src="http://omail.omnis.ch/logo.gif?<?php echo(urlencode($version)); ?>" height="1" width="1"></p>
+	<?php
+
+}
+
+
+
+
+
+function html_splash() {
+
+	global $A, $domain, $cvs_version, $version, $lang, $HTTP_HOST, $REQUEST_URI, $REMOTE_ADDR, $HTTP_ACCEPT_LANGUAGE;
+	include("strings.php");
+
+	?>
+
+<table bgcolor="#eeeeee" width="80%">
+<tr><td>
+<br>
+<ul>
+<li><font color="blue"><b>Welcome to oMail-admin <?php echo($version); ?> ! </b><br><br></font></li>
+
+<li>This is a kind of "splash screen". To turn it off, 2 little simple things : <br><br>
+<ul>
+<li>Make sure that the <b>$sysadmin_mail</b> variable in config.php is set to something else
+than <i>sysadmin@notdefined.yet</i></li>
+<li>And simply set the <b>$splash_screen</b> variable to <i>0</i> (at the very end of config.php).
+</li>
+</ul><br><br></li>
+
+<li>
+I would be glad if you could take a few seconds to fill up this form : it would greatly<br>
+help me improve the scripts, and see how many and which kind of people are using it.<br>
+Thanks in advance for your support!  
+<br><br>All fields are of course completely optional. It's up to you :) I will keep these infos private in any case (no spam).
+
+<form action="http://www.8304.ch/cgi-bin/formmail.pl" method="post">
+<table border="0">
+
+<tr><td align="right">Name:</td><td><small>
+<input type="text" size="30" name="name"></small></td></tr>
+
+<tr><td align="right">Company:</td><td><small>
+<input type="text" size="30" name="company"></small></td></tr>
+
+<tr><td align="right">Company URL:</td><td><small>
+<input type="text" size="40" name="company_url" value="http://"></small></td></tr>
+ 
+<tr><td align="right">Email:</td><td><small>
+<input type="text" size="40" name="from_email"></small></td></tr>
+
+<tr><td align="right">City, Country:</td><td><small>
+<input type="text" size="40" name="country"></small></td></tr>
+
+<tr><td align="right">Splash screen:</td><td><small>
+<select name="splashScreen"><option>I find this splash screen ok, no problem</option>
+<option>Yuk, please remove this annoying splash screen from the next versions!</option></select></small></td></tr>
+
+<tr><td align="right">May I list you on the omail-admin homepage?</td><td><small>
+<select name="develML"><option>No, please don't</option>
+<option>Yes, you can list our company on your homepage as omail-admin user</option></select></small></td></tr>
+
+<tr><td align="right">Announcements (a few times a year):</td><td><small>
+<select name="announcementsML"><option>Yes, please send me a mail on new major release and bugfixes</option>
+<option>No, no announcements please, I know www.freshmeat.net :)</option></select></small></td></tr>
+
+<tr><td align="right">Devel Mailing List (low trafic):</td><td><small>
+<select name="develML"><option>No subscription please.</option>
+<option>Yes, please subscribe me to the devel mailing list</option></select></small></td></tr>
+
+<tr><td align="right">How long are you using omail-admin?</td><td><small>
+<select name="howlong">
+<option> - </option>
+<option>it's my first try</option>
+<option>a few weeks</option>
+<option>a few months</option>
+<option>more than 6 months</option>
+</select>
+</small></td></tr>
+
+<tr><td align="right">Use of omail-admin:</td><td><small>
+<select name="use">
+<option> - </option>
+<option>For a lots of different domains (ISP mail server)</option>
+<option>Just for one or a few domains (Company mail server)</option>
+</select>
+</small></td></tr>
+
+<tr><td align="right">Average nb of users:</td><td><small>
+<select name="nb_of_users">
+<option> - </option>
+<option>Less than 10 mailboxes/alias per domain</option>
+<option>Between 10 and 50 mailboxes/alias per domain</option>
+<option>More than 50 mailboxes/alias per domain (web interface should be improved...)</option>
+</select>
+</small></td></tr>
+
+
+<tr><td align="right"><br>Currently supported languages are:</td><td><br><small>
+<?php
+        reset($txt_langname);
+        while(list ($id,$tmplang) = each ($txt_langname) ) {
+                echo ($tmplang) . " ";
+        }
+?>
+</small></td></tr>
+<tr><td align="right">Which other language would you need?</td><td><small>
+<input type="text" size="30" name="new_language"></small></td></tr>
+
+<tr><td align="right" valign="top"><br>Other comments and feature requests:</td><td>
+<small><textarea name="comment" cols="40" rows="5"></textarea></small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+
+<tr><td colspan="2" align="center"><small><br><input type="submit" value="Submit form! Thanks for your participation!"></small></td></tr>
+</table>
+
+<input type="hidden" name="recipient" value="omail@omnis.ch">
+<input type="hidden" name="subject" value="omail-admin <?php echo($version); ?> splash form">
+<input type="hidden" name="redirect" value="http://<?php echo($HTTP_HOST); ?><?php echo($REQUEST_URI); ?>">
+<input type="hidden" name="sender" value="<?php echo($REMOTE_ADDR); ?>"><input type="hidden" name="language" value="<?php echo($HTTP_ACCEPT_LANGUAGE); ?>">
+<input type="hidden" name="version" value="<?php echo($cvs_version); ?>">
+
+</form>
+</li>
+</ul></td></tr>
+</table>
+
+<br>
+</td></tr></table><!-- logo: to be created -->
+<p><img src="http://omail.omnis.ch/logo_splash.gif?<?php echo(urlencode($version)); ?>" height="1" width="1"></p>
 	<?php
 
 }

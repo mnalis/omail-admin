@@ -2,13 +2,17 @@
 Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----
 
-$Id: ChangeLog,v 1.15 2000/09/16 16:14:22 swix Exp $ 
+$Id: ChangeLog,v 1.16 2000/09/17 00:04:43 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
 2000-09-16  Olivier Mueller  <om@omnis.ch>
 
 	* released oMail-admin version 0.95
 	* README: updated mailing list information + corrected cvs tree location
+	* INSTALL: added FAQ section
+	* added "First use" splash-screen for statistic purpose.
+	* Templates support is in progress : should be included in next version
+	* A few fixes (html, typos)
 
 2000-08-20  Olivier Mueller  <om@omnis.ch>
 
