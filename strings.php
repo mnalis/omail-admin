@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.4 2000/08/02 02:40:37 swix Exp $
+        $Id: strings.php,v 1.5 2000/08/02 11:57:28 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -806,6 +806,12 @@ $txt_error_pw_needed = array(
  "en" => "You have to type a password",
  "fr" => "Vous devez indiquer un mot de passe",
  "de" => "Sie mussen einen Passwort eintippen",
+ "it"=>"");
+
+$txt_error_fwd_needed = array( 
+ "en" => "You have to type at least one forwarder",
+ "fr" => "Vous devez indiquer au moins une adresse de redirection",
+ "de" => "Sie mussen eine Weiterleitungadresse eingeben",
  "it"=>"");
 
 $txt_yes = array( 

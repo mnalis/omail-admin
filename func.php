@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: func.php,v 1.4 2000/08/02 02:40:37 swix Exp $
+        $Id: func.php,v 1.5 2000/08/02 11:57:28 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -197,52 +197,69 @@ function update_passwd($arg_username, $arg_passwd) {
 
         global $type, $domain, $passwd;
 
-	vchpass($domain, base64_decode($passwd), $arg_username, $arg_passwd);
+	$result = vchpass($domain, base64_decode($passwd), $arg_username, $arg_passwd);
 
-        if ($result[0]) { return "ok - " . $result[1]; }
-                else { return "error - " . $result[1]; }
+	// update session password if necessary
+	if ($type == "user") { $passwd = base64_encode($arg_passwd); }  
+
+        if (!$result[0]) { return "PASSW ok : " . $result[1] ; }
+                else { return "PASSW error : " . $result[1] ; }
+
 }
 
 function update_account($arg_username, $arg_fwd) {
 
         global $type, $domain, $passwd;
 
+	// check forwarders
 
+	$nb_fwd = count($arg_fwd);
+        $new_fwd = array ();
+        $j = 0;
+        if ($nb_fwd) {
+		for($i = 0; $i<$nb_fwd; $i++) {   
+			if ($arg_fwd[$i]) {
+				$new_fwd[$j++] = $arg_fwd[$i];
+			}
+		}
+	}   
 
-        if ($result) { return "ok - $result"; }
-                else { return "error"; }
+	$result = vchforward($domain, base64_decode($passwd), $arg_username, $new_fwd);
+
+        if (!$result[0]) { return "UPDATE ok : " . $result[1] ; }
+                else { return "UPDATE error : " . $result[1] ; }
+
 }
 
-function create_account($arg_username, $arg_fwd) {
+function create_account($arg_username, $arg_passwd, $arg_fwd) {
 
         global $type, $domain, $passwd;
 
+	$result = vadduser($domain, base64_decode($passwd), $arg_username, $arg_passwd, $arg_fwd);
 
-
-        if ($result) { return "ok - $result"; }
-                else { return "error"; }
+        if (!$result[0]) { return "NEWUSER ok : " . $result[1] ; }
+                else { return "NEWUSER error : " . $result[1] ; }
 }
 
-function create_alias($arg_username, $arg_fwd) {
+function create_alias($arg_username, $arg_passwd, $arg_fwd) {
 
         global $type, $domain, $passwd;
 
+	$result = vaddalias($domain, base64_decode($passwd), $arg_username, $arg_passwd, $arg_fwd);
 
-
-        if ($result) { return "ok - $result"; }
-                else { return "error"; }
+        if (!$result[0]) { return "NEWALIAS ok : " . $result[1] ; }
+                else { return "NEWALIAS error : " . $result[1] ; }
 }
 
-function delete_account($arg_username, $arg_type) {
+function delete_account($arg_username) {
 
         global $type, $domain, $passwd;
 
+	$result = vdeluser($domain, base64_decode($passwd), $arg_username);
 
-
-        if ($result) { return "ok - $result"; }
-                else { return "error"; }
+        if (!$result[0]) { return "DELETE ok :  " . $result[1] ; }
+                else { return "DELETE error : " . $result[1] ; }
 }
-
 
 
 

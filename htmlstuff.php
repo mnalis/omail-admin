@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.4 2000/08/02 02:40:37 swix Exp $
+        $Id: htmlstuff.php,v 1.5 2000/08/02 11:57:28 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -347,7 +347,7 @@ function html_respform($userinfo, $respinfo) {
 
 
 
-function html_delete_confirm($userinfo, $type) {
+function html_delete_confirm($userinfo) {
 
 	global $session, $script, $lang, $domain;
 	include("strings.php");
@@ -357,7 +357,7 @@ function html_delete_confirm($userinfo, $type) {
 	print "<br><table border=0>";	
 	print "<tr><th align=right>" . $txt_username[$lang] . "&nbsp;</th>";	
 
-	print "<td colspan=\"2\" bgcolor=\"#DDDDDD\" align=left>" . $userinfo[1]. "@$domain&nbsp;</td></tr>";
+	print "<td colspan=\"2\" bgcolor=\"#DDDDDD\" align=left>" . $userinfo[0]. "@$domain&nbsp;</td></tr>";
 
 
 	print "<tr><th align=right>" . $txt_action[$lang] . "&nbsp;</th>";	
@@ -367,8 +367,7 @@ function html_delete_confirm($userinfo, $type) {
 	print "<form action=\"" . $script . "?<?=SID?>\" method=\"post\">";
 	print "<input type=\"hidden\" name=\"A\" value=\"parse\">";
 	print "<input type=\"hidden\" name=\"action\" value=\"delete_ok\">";
-	print "<input type=\"hidden\" name=\"type\" value=\"". $type . "\">";
-	print "<input type=\"hidden\" name=\"username\" value=\"" . $userinfo[1] . "\">";
+	print "<input type=\"hidden\" name=\"U\" value=\"" . $userinfo[0] . "\">";
 	print "<br><input type=\"submit\" name=\"submit\" value=\"" . $txt_delete[$lang]. "\"></font>";
 	print "</form></small></td><td bgcolor=\"#CCCCCC\" align=\"center\" valign=\"top\"><small>";
 	print "<form action=\"" . $script . "\" method=\"post\">";

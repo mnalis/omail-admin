@@ -2,10 +2,15 @@
 Omail  -  A PHP/perl based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----
 
-$Id: ChangeLog,v 1.2 2000/08/02 02:40:36 swix Exp $ 
+$Id: ChangeLog,v 1.3 2000/08/02 11:57:28 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
 
+2000-08-02  Olivier Mueller  <om@omnis.ch>
+
+	* all edit functions are working (passwd change, fwd change)
+	* new user & new alias
+	* delete account
 
 2000-08-01  Olivier Mueller  <om@omnis.ch>
 

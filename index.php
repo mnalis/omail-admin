@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.4 2000/08/02 02:40:37 swix Exp $
+        $Id: index.php,v 1.5 2000/08/02 11:57:28 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -192,6 +192,24 @@ if ($active == 1) {
 
 
 	//
+	// DELETE ACCOUNT 
+	// 
+	
+	if ($A == "delete") {
+
+	        html_titlebar($txt_delete_account[$lang], $txt_delete_account_confirm[$lang],1);
+
+	        $userinfo = get_accounts(0,$U);
+	        html_delete_confirm($userinfo[0]);
+	        html_end();
+	        exit();
+	}
+
+
+
+
+
+	//
 	// PARSE ACTION
 	//
 
@@ -237,19 +255,7 @@ if ($active == 1) {
 	
 	
 	                // update forwarders
-	
-	                $nb_fwd = count($fwd);
-	                if ($nb_fwd) {
-	                        $fwd_list = $fwd[0];
-	
-	                        for ($i = 1; $i < $nb_fwd; $i++) {
-	                                if ($fwd[$i]) {
-	                                        $fwd_list .= " " . trim(addslashes($fwd[$i]));
-	                                }
-	                        }
-	
-	                        $results .= "<br>" . update_account($U, $fwd_list);
-	                }
+                        $results .= "<br>" . update_account($U, $fwd);
 	        
 	
 	
@@ -268,10 +274,7 @@ if ($active == 1) {
 	
 	        if ($action == "newuser" || $action == "newalias") {
 	        
-	                // check args format... addslashed everywhere, etc...
-	
-	
-	                // if passwd -> change password  
+	                // check args format... addslashed everywhere, etc...	
 
 	                if (!($passwd1 == $passwd2)) {
 	                        html_head("oMail Administration - Error");
@@ -301,33 +304,29 @@ if ($active == 1) {
 	                } 
         
 	                
-	                // create list of forwarders
+	                // create empty list of forwarders if necessary
 
-	                $fwd_list = "";
-	
-	                $nb_fwd = count($fwd);
-	                if ($nb_fwd) {
-	                        $fwd_list = $fwd[0];
-	
-	                        for ($i = 1; $i < $nb_fwd; $i++) {
-	
-	                                if ($fwd[$i]) {
-	                                        $fwd_list .= " " . trim(addslashes($fwd[$i]));
-	                                }
-	                        }
+	                if (!$fwd[0] && $action == "newalias") {  // alias needs at least one fwd
+			                                
+                                html_head("oMail Administration - Error");
+                                $msg = "<b>" . $txt_error_fwd_needed[$lang] . "</b><br><br>";
+                                $msg .= "<ul>";
+                                $msg .= "<li><a href=\"$script?A=menu\" onClick=\"return gO(this,true,true)\">" .
+                                        $txt_menu[$lang]  .  "</a>\n";
+                                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail . "\">Mail Sysadmin</a>\n</ul>";
+                                html_titlebar($txt_error[$lang], "$msg",0);  
+                                html_end();
+                                exit();
 	                }
         
 	                
 	                if ($action == "newuser") {
-	                        // $results = create_account($U, $passwd1, $fwd_list);
-	                        $results = create_account($U, $fwd_list);
-	                        $results .= "<br>" . update_passwd($U, $passwd1);
+	                        $results = "<br>" . create_account($U, $passwd1, $fwd);
 	                }
 
 
 	                if ($action == "newalias") {
-	                        $results = create_alias($U, $fwd_list);
-	                        if ($passwd1) { $results .= "<br>" . update_passwd($U, $passwd1); }
+	                        $results = create_alias($U, $passwd1, $fwd);
 	                }
 
 
@@ -353,12 +352,12 @@ if ($active == 1) {
 	                // delete autoresponder if any
 
 
-	                $temp_resp_file = $temp_directory . "/vtemp_del_" . $U . "_" . $session;
-	                $results1 = update_responder("0", $U, "", "", "", $temp_resp_file);
+	            //    $temp_resp_file = $temp_directory . "/vtemp_del_" . $U . "_" . $session;
+	            //    $results1 = update_responder("0", $U, "", "", "", $temp_resp_file);
 	
 	                // let vwrap copy the current resp file to a temp file, readable by all
 	
-	                $results2 = delete_account($U, $type);  // T = type : alias, mailbox 
+	                $results2 = delete_account($U);  // T = type : alias, mailbox 
 	                                                           // needed to know if it is necessary to backup or not
 
 
