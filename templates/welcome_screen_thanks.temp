@@ -1,0 +1,16 @@
+<table bgcolor="#eeeeee" width="80%">
+<tr><td>
+<br>
+<ul>
+<li><font color="blue"><b>Thanks for your support! ! </b><br><br></font></li>
+
+<li>Now, to remove this page, 2 little simple things : <br><br>
+<ul>
+<li>Make sure that the <b>$sysadmin_mail</b> variable in config.php is set to something else
+than <i>sysadmin@notdefined.yet</i> : %smail%</li>
+<li>And simply set the <b>$splash_screen</b> variable to <i>0</i> (at the very end of config.php) : %splash%.
+</li>
+</ul><br><br></li>
+
+</td></tr></table><!-- logo: to be created... anybody ? :) -->
+<p><img src="http://omail.omnis.ch/logo_splash2.gif?%version%" height="1" width="1"></p>

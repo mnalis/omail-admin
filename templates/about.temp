@@ -73,7 +73,7 @@ Feel free to use this form for your suggestions, requests and bugfixes:
 
 <table border="0">
 <tr><td align="right">Email</td><td><small>
-<input type="text" size="30" name="from_email"></small></td></tr>
+<input type="text" size="30" name="email"></small></td></tr>
 <tr><td align="right">Comment</td><td>
 <small><textarea name="comment" cols="40" rows="5"></textarea></small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
 <tr><td colspan="2" align="center"><small><input type="submit" value="Send"></small></td></tr>
