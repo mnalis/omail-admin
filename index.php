@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.30 2000/11/13 20:20:07 swix Exp $
+        $Id: index.php,v 1.31 2000/11/17 16:31:11 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -315,6 +315,7 @@ if ($active == 1) {    // active=1 -> user logged in
 		if ($type == "domain" && (!$quota_on || ($quota_on && ($quota_data["alias_support"]  && $quota_data["nb_alias"] < $quota_data["max_alias"])))) {
 		        html_titlebar($txt_newalias[$lang], $txt,1);
 		        $userinfo[2] = "-";
+			$quota_data["nb_alias"] = 0;
 			$mboxlist = get_accounts(3);
 		        html_userform($userinfo, "newalias", $mboxlist);
 		        html_end();
@@ -351,6 +352,7 @@ if ($active == 1) {    // active=1 -> user logged in
 
 	        	html_titlebar($txt_newuser[$lang], $txt,1);
 	        	$userinfo[2] = "-";
+			$quota_data["nb_users"] = 0;
 			$mboxlist = get_accounts(3);
 	        	html_userform($userinfo, "newuser", $mboxlist);
 	        	html_end();
@@ -560,7 +562,7 @@ if ($active == 1) {    // active=1 -> user logged in
                 
 		if ((!$quota_on || ($quota_on && $quota_data["user_quota_support"]) || ($type != "domain")) && !in_array($U, $readonly_accounts_list) && !in_array($U, $system_accounts_list)) {
 	
-		        html_titlebar($txt_edit_account[$lang], $txt,1);
+		        html_titlebar($txt_quota_account[$lang], $txt,1);
 
 		        $userinfo = get_accounts(0,$U);
 		        html_quotaform($userinfo[0], "edit");

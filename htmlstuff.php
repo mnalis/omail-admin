@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.47 2000/11/14 00:01:28 swix Exp $
+        $Id: htmlstuff.php,v 1.48 2000/11/17 16:31:11 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -280,13 +280,16 @@ function html_quotaform($userinfo, $action) {
         $templdata["txt_activated"]=$txt_activated[$lang];
         $templdata["txt_inactived"]=$txt_inactived[$lang];
         $templdata["txt_hardquota"]=$txt_hardquota[$lang];
-        $templdata["HardQuota"]=$HardQuota;
+	if ( $HardQuota == '-' ) { $templdata["HardQuota"]=$HardQuota; }
+		else { $templdata["HardQuota"]=$HardQuota/1024; }
         $templdata["txt_softquota"]=$txt_softquota[$lang];
-        $templdata["SoftQuota"]=$SoftQuota;
+	if ( $SoftQuota == '-' ) { $templdata["SoftQuota"]=$SoftQuota; }
+		else { $templdata["SoftQuota"]=$SoftQuota/1024; }
         $templdata["txt_msgcount"]=$txt_msgcount[$lang];
         $templdata["CountLimit"]=$CountLimit;
         $templdata["txt_msgsize"]=$txt_msgsize[$lang];
-        $templdata["SizeLimit"]=$SizeLimit;
+	if ($SizeLimit == '-') { $templdata["SizeLimit"]=$SizeLimit; }
+		else { $templdata["SizeLimit"]=$SizeLimit/1024; }
         $templdata["txt_expiry"]=$txt_expiry[$lang];
         $templdata["ExpiryTimeString"]="";
 
@@ -527,20 +530,20 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 		if ($cur_next > $cur_last) { $cur_next = $cur_last; }
 		if ($cur_prev <= 0) { $cur_prev = 1; }
 
-		$templdata["txt_first"] = "<<<";
-		$templdata["txt_prev"] = "<--";
-		$templdata["txt_next"] = "-->";	
-		$templdata["txt_last"] = ">>>>";
-
-		$templdata["txt_first_off"] = "<<<";
-		$templdata["txt_prev_off"] = "<--";
-		$templdata["txt_next_off"] = "-->";
-		$templdata["txt_last_off"] = ">>>>";
-	
-		$templdata["url_first"] = $script . "?A=menu&new_" . $cur_letter . "_start=1&" . SID; 
-		$templdata["url_prev"] = $script . "?A=menu&new_" . $cur_letter . "_start=$cur_prev&" . SID;
-		$templdata["url_next"] = $script . "?A=menu&new_" . $cur_letter . "_start=$cur_next&" . SID;
-		$templdata["url_last"] = $script . "?A=menu&new_" . $cur_letter . "_start=$cur_last&" . SID;
+                $templdata["txt_first"] = $txt_first[$lang];
+                $templdata["txt_prev"] = $txt_prev[$lang];
+                $templdata["txt_next"] = $txt_next[$lang];
+                $templdata["txt_last"] = $txt_last[$lang];
+  
+                $templdata["txt_first_off"] = $txt_first_off[$lang];
+                $templdata["txt_prev_off"] = $txt_prev_off[$lang];
+                $templdata["txt_next_off"] = $txt_next_off[$lang];
+                $templdata["txt_last_off"] = $txt_last_off[$lang];
+  
+                $templdata["url_first"] = $script . "?A=menu&new_" . $cur_letter . "_start=1&" . SID; 
+                $templdata["url_prev"] = $script . "?A=menu&new_" . $cur_letter . "_start=$cur_prev&" . SID;
+                $templdata["url_next"] = $script . "?A=menu&new_" . $cur_letter . "_start=$cur_next&" . SID;
+                $templdata["url_last"] = $script . "?A=menu&new_" . $cur_letter . "_start=$cur_last&" . SID;
 
 		// hide buttons if necessary
 

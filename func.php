@@ -8,7 +8,7 @@
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 	* Copyright (C) 2000  Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 
-        $Id: func.php,v 1.23 2000/11/13 20:20:07 swix Exp $
+        $Id: func.php,v 1.24 2000/11/17 16:31:11 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -187,11 +187,18 @@ function load_quota_info($domain) {
 					$quota_data["autoresp_support"] = $entry[6];
 					$quota_data["user_quota_support"] = $entry[7];
 					$quota_data["catchall_use_allowed"] = $entry[8];
+					$quota_data["softquota"] = $entry[9] * 1024;
+					$quota_data["hardquota"] = $entry[10] * 1024;
+					$quota_data["msgsize"] = $entry[11] * 1024;
+
 
 				
 					// dirty hack, but should be ok for the moment :]  (index.php will be updated soon)
 					if (!$quota_data["max_users"]) { $quota_data["max_users"] = 99999999; } 
 					if (!$quota_data["max_alias"]) { $quota_data["max_alias"] = 99999999; } 
+					if (!$quota_data["softquota"]) { $quota_data["softquota"] = '-'; }
+					if (!$quota_data["hardquota"]) { $quota_data["hardquota"] = '-'; }
+					if (!$quota_data["msgsize"]) { $quota_data["msgsize"] = '-'; }
 				}					
 
 				// catch default domain, but only if quota_on not yet set.
@@ -209,11 +216,17 @@ function load_quota_info($domain) {
 					$quota_data["autoresp_support"] = $entry[6];
 					$quota_data["user_quota_support"] = $entry[7];
 					$quota_data["catchall_use_allowed"] = $entry[8];
+					$quota_data["softquota"] = $entry[9] * 1024;
+					$quota_data["hardquota"] = $entry[10] * 1024;
+					$quota_data["msgsize"] = $entry[11] * 1024;
 					
 				
 					// dirty hack, but should be ok for the moment :]  (index.php will be updated later)
 					if (!$quota_data["max_users"]) { $quota_data["max_users"] = 99999999; } 
 					if (!$quota_data["max_alias"]) { $quota_data["max_alias"] = 99999999; } 
+					if (!$quota_data["softquota"]) { $quota_data["softquota"] = '-'; }
+					if (!$quota_data["hardquota"]) { $quota_data["hardquota"] = '-'; }
+					if (!$quota_data["msgsize"]) { $quota_data["msgsize"] = '-'; }
 				}					
 			}
 		}
@@ -350,10 +363,15 @@ function update_userdetail($arg_username, $arg_detail) {
 function update_userquota($arg_username, $arg_softquota, $arg_hardquota, $arg_expiry, $arg_msgcount, $arg_msgsize, $arg_enabled) {
 
         global $type, $domain, $passwd;
+	
+	if ($arg_softquota == "" || $arg_softquota == "0") { $arg_softquota = "-" ; }
+	if ($arg_hardquota == "" || $arg_hardquota == "0") { $arg_hardquota = "-" ; }
+	if ($arg_msgsize == "" || $arg_msgsize == "0") { $arg_msgsize = "-" ; }
+	if ($arg_msgcount == "" || $arg_msgcount == "0") { $arg_msgcount = "-" ; }
 
-	$result1 = vchattr($domain, base64_decode($passwd), $arg_username, "HARDQUOTA", $arg_hardquota);
-	$result2 = vchattr($domain, base64_decode($passwd), $arg_username, "SOFTQUOTA", $arg_softquota);
-	$result3 = vchattr($domain, base64_decode($passwd), $arg_username, "MSGSIZE", $arg_msgsize);
+	$result1 = vchattr($domain, base64_decode($passwd), $arg_username, "HARDQUOTA", ($arg_hardquota*1024));
+	$result2 = vchattr($domain, base64_decode($passwd), $arg_username, "SOFTQUOTA", ($arg_softquota*1024));
+	$result3 = vchattr($domain, base64_decode($passwd), $arg_username, "MSGSIZE", ($arg_msgsize*1024));
 	$result4 = vchattr($domain, base64_decode($passwd), $arg_username, "MSGCOUNT", $arg_msgcount);
 	$result5 = vchattr($domain, base64_decode($passwd), $arg_username, "EXPIRY", $arg_expiry);
 	$result6 = vchattr($domain, base64_decode($passwd), $arg_username, "MAILBOX_ENABLED", $arg_enabled);

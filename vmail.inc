@@ -1,7 +1,7 @@
 <?
 // Copyright (C) 2000 Mike Bell <mike@mikebell.org>
 // 
-//      $Id: vmail.inc,v 1.6 2000/10/21 23:21:18 swix Exp $
+//      $Id: vmail.inc,v 1.7 2000/11/17 16:31:11 swix Exp $
 //      $Source: /cvsroot/omail/admin2/vmail.inc,v $
 //
 //  [om]  added lookup command on 03aug2k
@@ -165,6 +165,7 @@ function lookup($domain, $user, $password){
    integer exit code and message. */
 
 function vadduser($domain, $password, $username, $userpass, $forwards){
+global $quota_data;
 if ($domain=="") return array(1, "Empty domain");
 if ($password=="") return array(1, "Empty domain password");
 if ($username=="") return array(1, "Empty username");
@@ -173,7 +174,11 @@ if ($userpass=="") return array(1, "No user password supplied");
 	               $userpass, $username);
 	for ($x=0; $x < sizeof($forwards); $x++)
 		if ($forwards[$x]!="") $command[]=$forwards[$x];
-return vm_daemon_raw($command);
+$result=vm_daemon_raw($command);
+vchattr($domain, $password, $username, "HARDQUOTA", $quota_data["hardquota"]);
+vchattr($domain, $password, $username, "SOFTQUOTA", $quota_data["softquota"]);
+vchattr($domain, $password, $username, "MSGSIZE", $quota_data["msgsize"]);
+return $result;
 }
 
 /* vaddalias, takes domain name, password, username, userpassword, and an
