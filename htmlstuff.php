@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.62 2001/03/03 21:23:29 swix Exp $
+        $Id: htmlstuff.php,v 1.63 2001/03/03 22:56:42 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -283,7 +283,9 @@ function html_userform($userinfo, $action, $mboxlist) {
 
 	for ($i=0; $i<sizeof($mboxlist);$i++) {
                 $tmp_account = $mboxlist[$i];
-		$templdata["select_account_contents"] .= '<option>' . $tmp_account[0] . '</option>';		
+		if ($tmp_account[0] != "+") {
+	                $templdata["select_account_contents"] .= '<option>' . $tmp_account[0] . '</option>';
+		}
 	}
 
 	if ($use_ldap) {
@@ -445,6 +447,36 @@ function html_catchall_confirm($userinfo, $msg) {
         $templdata["msg"]=$msg;
 
         print parseTemplate($templdata, "templates/catchall_confirm.temp");
+}
+
+
+function html_catchall_create($msg, $mboxlist) {
+
+	global $session, $script, $lang, $domain;
+	include("strings.php");
+
+        for ($i=0; $i<sizeof($mboxlist);$i++) {
+                $tmp_account = $mboxlist[$i];
+		if ($tmp_account[0] != "+") {
+	                $templdata["select_account_contents"] .= '<option>' . $tmp_account[0] . '</option>';
+		}
+        }
+
+        $templdata["script"]=$script;
+        $templdata["SID"]=SID;
+        $templdata["txt_username"]=$txt_username[$lang];
+        $templdata["userinfo0"]=$userinfo[0];
+        $templdata["domain"]=$domain;
+
+        $templdata["txt_submit"]=$txt_submit[$lang];
+        $templdata["txt_cancel"]=$txt_cancel[$lang];
+        $templdata["txt_action"]=$txt_action[$lang];
+        $templdata["txt_catchall"]=$txt_catchall[$lang];
+        $templdata["txt_setup_catchall"]=$txt_setup_catchall[$lang];
+
+        $templdata["msg"]=$msg;
+
+        print parseTemplate($templdata, "templates/catchall_create.temp");
 }
 
 
@@ -728,6 +760,8 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 		    
 		if ($arg_action) {
 
+
+/*
 			if ($quota_data["catchall_use_allowed"] == "1" || $quota_data["catchall_use_allowed"] == "") {
 
 			    // check status : catchall or not ?
@@ -740,6 +774,7 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
     				    $txt_catchall[$lang]  . "</a>&nbsp;"; // action
 			    }
 			}
+*/
 
 
 			$templdata[obj][$ii]["actions"] .=  "&nbsp;&nbsp;<A HREF=\"$script?A=delete&U=" . $username . "&" . SID . "\" onClick=\"oW(this,'pop')\">"  . 

@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.40 2001/03/03 21:23:29 swix Exp $
+        $Id: index.php,v 1.41 2001/03/03 22:56:42 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -257,7 +257,13 @@ if ($active == 1) {    // active=1 -> user logged in
 
 			if ($catchall_active) {
 			    $txt_menu_add = "<br>" . $txt_current_catchall_account_is[$lang] . ": <b>$catchall_active@$domain</b>";
-			}
+			    $txt_menu_add .= ' [ <a href="' . $script_url . '?A=create_catchall&U='.$catchall_active.'" onClick="oW(this,\'pop\')">' . $txt_edit[$lang] . '</a> ]';
+			    $txt_menu_add .= ' [ <a href="' . $script_url . '?A=remove_catchall&U='.$catchall_active.'" onClick="oW(this,\'pop\')">' . $txt_delete[$lang] . '</a> ]';
+			} else {
+			    $txt_menu_add = "<br>" . $txt_current_catchall_not_defined[$lang] ;
+			    $txt_menu_add .= ' [ <a href="'. $script_url . '?A=create_catchall" onClick="oW(this,\'pop\')">' . $txt_edit[$lang] . '</a> ]';
+			}	
+
 
 			html_titlebar($txt_menu[$lang] . " - $domain", $txt_menu_domain_descr[$lang] . $txt_menu_add, 0);
 
@@ -322,7 +328,7 @@ if ($active == 1) {    // active=1 -> user logged in
 	// Check arguments
 	// 
 
-	if ($A == "resp" || $A == "edit" || $A == "read" || $A == "delete" || $A == "parse" || $A == "quota" || $A == "catchall" || $A == "catchall_remove") {
+	if ($A == "resp" || $A == "edit" || $A == "read" || $A == "delete" || $A == "parse" || $A == "quota" || $A == "catchall" || $A == "catchall_remove" || $A == "remove_catchall") {
 
 	        // check if $U ok
 		
@@ -490,7 +496,7 @@ if ($active == 1) {    // active=1 -> user logged in
 	// SETUP/REMOVE CATCHALL ACCOUNT   (ask for confirmation)
 	// 
 	
-	if ($A == "catchall" || $A == "remove_catchall") {
+	if ($A == "catchall" || $A == "remove_catchall" || $A == "create_catchall") {
 
 
 	    if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
@@ -557,6 +563,8 @@ if ($active == 1) {    // active=1 -> user logged in
 	    if ($A == "catchall") {
 	        $userinfo = get_accounts(0,$U);
     	        html_catchall_confirm($userinfo[0], $msg);
+	    } elseif ($A == "create_catchall") {
+    	        html_catchall_create($msg, $tmpinfo);   // tmpinfo = accountslist
 	    } else {    
 	        html_catchall_remove_confirm($msg);
 	    }

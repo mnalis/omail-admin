@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.51 2001/03/03 21:23:29 swix Exp $ 
+	$Id: config.php,v 1.52 2001/03/03 22:56:42 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -72,7 +72,7 @@ $system_accounts_list = array( );
 // accounts which will be shown, but will remain uneditable 
 // (no edit, create, delete or login)
 
-$readonly_accounts_list = array( '', '', '');
+$readonly_accounts_list = array( 'aaa', 'test2');
 //$readonly_accounts_list = array( 'postmaster', 'mailer-daemon' );
 
 // program_name
@@ -230,7 +230,7 @@ $ldap_passwd = "very_secret";
 
 // version
 $version = "0.97.2";
-$cvs_version = '$Id: config.php,v 1.51 2001/03/03 21:23:29 swix Exp $';
+$cvs_version = '$Id: config.php,v 1.52 2001/03/03 22:56:42 swix Exp $';
 
 // script URL
 

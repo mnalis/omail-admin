@@ -1,0 +1,27 @@
+<br><table border=0>
+
+<tr><th colspan="3">%msg%</th></tr>
+
+<tr><th align=right>%txt_username%&nbsp;</th>
+
+<form action="%script%?%SID%" method="post">
+<td colspan="2" bgcolor="#DDDDDD" align=left>
+<select name="U">%select_account_contents%</select>@%domain% &nbsp;
+</td></tr>
+
+
+<tr><th align=right>%txt_action%&nbsp;</th>
+<td bgcolor="#CCCCCC" align="center" valign="center">
+<small><font color="red">
+
+<input type="hidden" name="A" value="parse">
+<input type="hidden" name="action" value="catchall_ok">
+<br><input type="submit" name="submit" value="%txt_setup_catchall%"></font>
+</form></small></td><td bgcolor="#CCCCCC" align="center" valign="center"><small>
+
+<form action="%script%?%SID" method="post">
+<input type="hidden" name="A" value="menu">
+<br><input type="reset" name="submit" onClick="return gO(this,true,true)" value="%txt_cancel%">
+</form></small></td></tr>
+</table>
+

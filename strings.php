@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.43 2001/02/25 10:28:49 swix Exp $
+        $Id: strings.php,v 1.44 2001/03/03 22:56:42 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -768,7 +768,7 @@ $txt_welcome = array(
 
 $txt_menu_domain_descr = array(
  "ru" => "äÏÂÒÏ ÐÏÖÁÌÏ×ÁÔØ × ÇÌÁ×ÎÏÅ ÍÅÎÀ ÁÄÍÉÎÉÓÔÒÁÔÏÒÁ ÄÏÍÅÎÁ", 
- "en" => "Welcome in the domain administration main menu",
+ "en" => "Welcome to the domain administration main menu",
  "cz" => "Vítejte v nabídce správy domén",
  "ja" => "¥É¥á¥¤¥ó´ÉÍý¥á¥Ë¥å¡¼",
  "fr" => "Bienvenue dans le menu principal de l'administration de votre domaine",
@@ -2916,6 +2916,21 @@ $txt_last = array(
   "it" => "Mailserver",
   "ro" => "Mailserver",
   "sv" => "Mailserver");
+
+$txt_current_catchall_not_defined = array(
+ "ru" => "There are currently no accounts which catch all email sent to undefined emails (<i>catchall</i>)",
+ "en" => "There are currently no accounts which catch all email sent to undefined emails (<i>catchall</i>)",
+ "cz" => "There are currently no accounts which catch all email sent to undefined emails (<i>catchall</i>)",
+ "ja" => "There are currently no accounts which catch all email sent to undefined emails (<i>catchall</i>)",
+ "tc" => "There are currently no accounts which catch all email sent to undefined emails (<i>catchall</i>)",
+ "fr" => "Il n'y a pas de compte réceptionant les emails envoyés à des adresses non définies (<i>catchall</i>)",
+ "de" => "There are currently no accounts which catch all email sent to undefined emails (<i>catchall</i>)",
+ "da" => "There are currently no accounts which catch all email sent to undefined emails (<i>catchall</i>)",
+ "es" => "There are currently no accounts which catch all email sent to undefined emails (<i>catchall</i>)",
+ "nl" => "There are currently no accounts which catch all email sent to undefined emails (<i>catchall</i>)",
+ "it" => "There are currently no accounts which catch all email sent to undefined emails (<i>catchall</i>)",
+ "ro" => "There are currently no accounts which catch all email sent to undefined emails (<i>catchall</i>)",
+ "sv" => "There are currently no accounts which catch all email sent to undefined emails (<i>catchall</i>)");
 
 
 // empty array - please also update with new languages :)
