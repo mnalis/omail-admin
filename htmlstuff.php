@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.50 2000/11/17 16:47:59 swix Exp $
+        $Id: htmlstuff.php,v 1.51 2000/11/17 16:55:45 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -228,7 +228,12 @@ function html_userform($userinfo, $action, $mboxlist) {
 
 	for ($i = 0; $i < ($nb_fwd + 5); $i++) {
 	
-		$templdata[alias1][$i][txt_fwd] = $txt_fwd[$lang] . " " . ($i + 2);	
+		if ($type == "user") {
+			$templdata[alias1][$i][txt_fwd] = $txt_fwd[$lang] . " " . ($i + 1);   // no select list...	
+		} else {
+			$templdata[alias1][$i][txt_fwd] = $txt_fwd[$lang] . " " . ($i + 2);	
+		}
+
 		$templdata[alias1][$i][aliases] = $aliases[$i];	
 
 		if ($i/2 == floor($i/2)) { $templdata[alias1][$i][fwdcolor] = "#DDDDDD"; }
@@ -244,12 +249,17 @@ function html_userform($userinfo, $action, $mboxlist) {
 
 	$templdata["txt_fwd1"] =  $txt_fwd[$lang];
 	$templdata["select_account_contents"] = '<option value=""> - </option>';
+
 	for ($i=0; $i<sizeof($mboxlist);$i++) {
                 $tmp_account = $mboxlist[$i];
 		$templdata["select_account_contents"] .= '<option>' . $tmp_account[0] . '</option>';		
 	}
 
-	print parseTemplate($templdata, "templates/userform.temp");
+	if ($type = "user") {
+		print parseTemplate($templdata, "templates/userform_userlogin.temp");
+	} else {
+		print parseTemplate($templdata, "templates/userform.temp");
+	}
 }
 
 
