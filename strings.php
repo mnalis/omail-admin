@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.35 2000/11/30 23:48:08 swix Exp $
+        $Id: strings.php,v 1.36 2001/01/08 00:25:42 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -23,7 +23,7 @@
 	29.nov.2k   ri	    Added Dutch
 	29.nov.2k   hs      Added Japanese
 	29.nov.2k   mg      Added Chinese
-
+	08.jan.01   th      Added Swedish
 
         This program is free software; you can redistribute it and/or modify
         it under the terms of the GNU General Public License as published by
@@ -52,7 +52,8 @@ $txt_langname=array(	"fr"=>"FranГais",
 			"nl"=>"Nederlands",
                         "it"=>"Italiano",
                         "ro"=>"Romana",
-			"ru"=>"Russian");
+			"ru"=>"Russian",
+			"sv"=>"Svenska");
 
 $txt_charset=array(     "ru"=>"KOI8-R",
                         "fr"=>"",
@@ -64,7 +65,8 @@ $txt_charset=array(     "ru"=>"KOI8-R",
 			"es"=>"",
 			"nl"=>"",
                         "it"=>"",
- 			"ro"=>"");
+ 			"ro"=>"",
+			"sv"=>"");
 
 $txt_login=array(	"ru"=>"Логин",
                         "fr"=>"Login",
@@ -76,7 +78,8 @@ $txt_login=array(	"ru"=>"Логин",
 			"es"=>"Login",
 			"nl"=>"Aanmelden",
 			"it"=>"Login",
-                        "ro"=>"Login");
+                        "ro"=>"Login",
+			"sv"=>"Inloggning");
 
 $txt_passwd=array(      "ru"=>"Пароль",
                         "fr"=>"Mot de passe",
@@ -88,7 +91,8 @@ $txt_passwd=array(      "ru"=>"Пароль",
 			"es"=>"Contrase&ntilde;a",
 			"nl"=>"Wachtwoord",
 			"it"=>"Password",
-                        "ro"=>"Parola");
+                        "ro"=>"Parola",
+			"sv"=>"LЖsenord");
 
 $txt_title=array(	"ru"=>"Титул(Звание)",
                         "fr"=>"Titre",
@@ -100,7 +104,8 @@ $txt_title=array(	"ru"=>"Титул(Звание)",
 			"es"=>"T║tulo",
 			"nl"=>"Titel",
 			"it"=>"Titolo",
-                        "ro"=>"Titlu");
+                        "ro"=>"Titlu",
+			"sv"=>"Titel");
 
 $txt_firstname=array(	"ru"=>"Имя",
 			"fr"=>"PrИnom",
@@ -112,7 +117,8 @@ $txt_firstname=array(	"ru"=>"Имя",
 			"es"=>"Nombre",
 			"nl"=>"Voornaam",
 			"it"=>"Nome",
-                        "ro"=>"Prenume");
+                        "ro"=>"Prenume",
+			"sv"=>"FЖrnamn");
 
 $txt_lastname=array(	"ru"=>"Фамилия",
 			"fr"=>"Nom",
@@ -124,7 +130,8 @@ $txt_lastname=array(	"ru"=>"Фамилия",
 			"es"=>"Apellido",
 			"nl"=>"Achternaam",
 			"it"=>"Cognome",
-                        "ro"=>"Nume");
+                        "ro"=>"Nume",
+			"sv"=>"Efternamn");
 
 $txt_adresse=array(	"ru"=>"Адрес",
                         "fr"=>"Adresse",
@@ -136,7 +143,8 @@ $txt_adresse=array(	"ru"=>"Адрес",
 			"es"=>"Direcci&oacute;n",
 			"nl"=>"Adres",
 			"it"=>"Indirizzo",
-                        "ro"=>"Adresa");
+                        "ro"=>"Adresa",
+			"sv"=>"Adress");
 
 $txt_postalcode=array(	"ru"=>"Почт.Индекс",
 			"fr"=>"CP",
@@ -148,7 +156,8 @@ $txt_postalcode=array(	"ru"=>"Почт.Индекс",
 			"es"=>"CP",
 			"nl"=>"Postcode",
 			"it"=>"CAP",
-                        "ro"=>"Cod");
+                        "ro"=>"Cod",
+			"sv"=>"Postnr");
 
 
 $txt_city=array(	"ru"=>"Город",
@@ -161,7 +170,8 @@ $txt_city=array(	"ru"=>"Город",
 			"es"=>"Ciudad",
 			"nl"=>"Stad",
 			"it"=>"Localit&agrave;",
-                        "ro"=>"Oras");
+                        "ro"=>"Oras",
+			"sv"=>"Stad");
 
 $txt_country=array(	"ru"=>"Страна",
                         "fr"=>"Pays",
@@ -173,7 +183,8 @@ $txt_country=array(	"ru"=>"Страна",
 			"es"=>"Pa&iacute;is",
 			"nl"=>"Land",
 			"it"=>"Stato",
-                        "ro"=>"Tara");
+                        "ro"=>"Tara",
+			"sv"=>"Land");
 
 
 $txt_phone=array(	"ru"=>"Телефон",
@@ -186,7 +197,8 @@ $txt_phone=array(	"ru"=>"Телефон",
 			"es"=>"TelИfono",
 			"nl"=>"Telefoon",
 			"it"=>"Telefono",
-                        "ro"=>"Telefon");
+                        "ro"=>"Telefon",
+			"sv"=>"Telefon");
 
 $txt_fax=array(		"ru"=>"Факс",
                         "fr"=>"Fax",
@@ -198,7 +210,8 @@ $txt_fax=array(		"ru"=>"Факс",
 			"es"=>"Fax",
 			"nl"=>"Fax",
 			"it"=>"Fax",
-                        "ro"=>"Fax");
+                        "ro"=>"Fax",
+                        "sv"=>"Fax");
 
 $txt_lang=array(	"ru"=>"Язык",
                         "fr"=>"Langue",
@@ -210,7 +223,8 @@ $txt_lang=array(	"ru"=>"Язык",
 			"es"=>"Idioma",
 			"nl"=>"Taal",
 			"it"=>"Lingua",
-                        "ro"=>"Limba");
+                        "ro"=>"Limba",
+			"sv"=>"SprЕk");
 
 $txt_langs=array(	"ru"=>"Русский",
                         "fr"=>"FranГais",
@@ -222,7 +236,8 @@ $txt_langs=array(	"ru"=>"Русский",
 			"es"=>"Castellano",
 			"nl"=>"Nederlands",
 			"it"=>"Italiano",
-                        "ro"=>"Romana");
+                        "ro"=>"Romana",
+			"sv"=>"Svenska");
 
 $txt_homepage=array(	"ru"=>"URL",        // :)
                         "fr"=>"Homepage",
@@ -234,7 +249,8 @@ $txt_homepage=array(	"ru"=>"URL",        // :)
 			"es"=>"Homepage",
 			"nl"=>"Homepage",
 			"it"=>"homepage",
-                        "ro"=>"Homepage");
+                        "ro"=>"Homepage",
+			"sv"=>"Hemsida");
 
 $txt_company=array(	"ru"=>"Организация",
                         "fr"=>"Entreprise",
@@ -246,7 +262,8 @@ $txt_company=array(	"ru"=>"Организация",
 			"es"=>"Empresa",
 			"nl"=>"Bedrijf",
 			"it"=>"Firma",
-                        "ro"=>"Firma");
+                        "ro"=>"Firma",
+			"sv"=>"FЖretag");
 
 $txt_position=array(	"ru"=>"Должность",
                         "fr"=>"Fonction",
@@ -258,7 +275,8 @@ $txt_position=array(	"ru"=>"Должность",
 			"es"=>"Posici&oacute;n",
 			"nl"=>"Functie",
 			"it"=>"Posizione",
-                        "ro"=>"Functie");
+                        "ro"=>"Functie",
+			"sv"=>"Funktion");
 
 $txt_reason=array(	"ru"=>"Причина",
                         "fr"=>"Raison sociale",
@@ -270,7 +288,8 @@ $txt_reason=array(	"ru"=>"Причина",
 			"es"=>"Raz&oacute;n",
 			"nl"=>"Reden",
 			"it"=>"Ragione sociale",
-                        "ro"=>"Motiv");
+                        "ro"=>"Motiv",
+			"sv"=>"SkДl");
 
 $txt_notes=array(	"ru"=>"Примечание",
                         "fr"=>"Notes",
@@ -282,7 +301,8 @@ $txt_notes=array(	"ru"=>"Примечание",
 			"es"=>"Notas",
 			"nl"=>"Notitie",
                         "it"=>"Note",
-                        "ro"=>"Note");
+                        "ro"=>"Note",
+			"sv"=>"Anteckningar");
 
 $txt_alias=array(	"ru"=>"Алиас",
                         "fr"=>"Alias",
@@ -294,7 +314,8 @@ $txt_alias=array(	"ru"=>"Алиас",
 			"es"=>"Alias",
 			"nl"=>"Alias",
 			"it"=>"Alias",
-                        "ro"=>"Alias");
+                        "ro"=>"Alias",
+			"sv"=>"Alias");
 
 $txt_fwd=array(		"ru"=>"Fwd",
                         "fr"=>"Fwd",
@@ -306,7 +327,8 @@ $txt_fwd=array(		"ru"=>"Fwd",
 			"es"=>"Fwd",
 			"nl"=>"Fwd",
 			"it"=>"Fwd",
-                        "ro"=>"Fwd");
+                        "ro"=>"Fwd",
+			"sv"=>"Fwd");
 
 $txt_destination=array(	"ru"=>"Destination",
                         "fr"=>"Destination",
@@ -318,7 +340,8 @@ $txt_destination=array(	"ru"=>"Destination",
 			"es"=>"Destino",
 			"nl"=>"Bestemming",
 			"it"=>"Destinatario",
-                        "ro"=>"Destinatar");
+                        "ro"=>"Destinatar",
+			"sv"=>"Destionation");
 
 $txt_email=array(	"ru"=>"Email",
                         "fr"=>"E-mail",
@@ -330,7 +353,8 @@ $txt_email=array(	"ru"=>"Email",
 			"es"=>"E-mail",
 			"nl"=>"E-mail",
 			"it"=>"E-mail",
-                        "ro"=>"E-mail");
+                        "ro"=>"E-mail",
+			"sv"=>"E-post");
 
 $txt_edit=array(	"ru"=>"Изменить",
                         "fr"=>"Modifier",
@@ -342,7 +366,8 @@ $txt_edit=array(	"ru"=>"Изменить",
 			"es"=>"Editar",
 			"nl"=>"Aanpassen",
 			"it"=>"Modifica",
-                        "ro"=>"Modifica");
+                        "ro"=>"Modifica",
+			"sv"=>"Redigera");
 
 $txt_delete=array(	"ru"=>"Удалить",
                         "fr"=>"Supprimer",
@@ -354,7 +379,8 @@ $txt_delete=array(	"ru"=>"Удалить",
 			"es"=>"Eliminar",
 			"nl"=>"Verwijderen",
 			"it"=>"Elimina",
-                        "ro"=>"Sterge");
+                        "ro"=>"Sterge",
+			"sv"=>"Ta bort");
 
 $txt_cancel=array(	"ru"=>"Прервать",
                         "fr"=>"Annuler",
@@ -366,7 +392,8 @@ $txt_cancel=array(	"ru"=>"Прервать",
 			"es"=>"Cancelar",
 			"nl"=>"Annuleren",
 			"it"=>"Annulla",
-                        "ro"=>"Anuleaza");
+                        "ro"=>"Anuleaza",
+			"sv"=>"Avbryt");
 
 $txt_activate=array(	"ru"=>"Активировать",
                         "fr"=>"Activer",
@@ -378,7 +405,8 @@ $txt_activate=array(	"ru"=>"Активировать",
 			"es"=>"Activar",
 			"nl"=>"Activeren",
 			"it"=>"Attiva",
-                        "ro"=>"Activeaza");
+                        "ro"=>"Activeaza",
+			"sv"=>"Aktivera");
 
 $txt_account_name=array("ru"=>"Счет",
                         "fr"=>"Nom du compte",
@@ -390,7 +418,8 @@ $txt_account_name=array("ru"=>"Счет",
 			"es"=>"Nombre de Cuenta",
 			"nl"=>"Account naam",
 			"it"=>"Account",
-                        "ro"=>"Nume de Cont");
+                        "ro"=>"Nume de Cont",
+			"sv"=>"Kontonamn");
 
 $txt_account_type=array("ru"=>"Тип",
                         "fr"=>"Type de compte",
@@ -402,7 +431,8 @@ $txt_account_type=array("ru"=>"Тип",
 			"es"=>"Tipo de Cuenta",
 			"nl"=>"Account soort",
 			"it"=>"Tipo di Account",
-                        "ro"=>"Tipul contului");
+                        "ro"=>"Tipul contului",
+			"sv"=>"Typ av konto");
 
 $txt_domain=array(	"ru"=>"Домен",
                         "fr"=>"Domaine",
@@ -414,7 +444,8 @@ $txt_domain=array(	"ru"=>"Домен",
 			"es"=>"Dominio",
 			"nl"=>"Domein",
 			"it"=>"Dominio",
-                        "ro"=>"Domeniu");
+                        "ro"=>"Domeniu",
+			"sv"=>"DomДnnamn");
 
 $txt_domain_or_email=array(	"ru"=>"Адрес Email",
                         "fr"=>"Adresse e-mail ou Domaine",
@@ -426,7 +457,8 @@ $txt_domain_or_email=array(	"ru"=>"Адрес Email",
 			"es"=>"E-mail o Dominio",
 			"nl"=>"E-mail adres of Domein naam",
 			"it"=>"Indirizzo E-mail o Dominio",
-                        "ro"=>"Adresa de E-mail");
+                        "ro"=>"Adresa de E-mail",
+			"sv"=>"DomДnnamn eller e-post-adress");
 
 $txt_status=array(	"ru"=>"Статус",
                         "fr"=>"Etat",
@@ -438,7 +470,8 @@ $txt_status=array(	"ru"=>"Статус",
 			"es"=>"Estado",
 			"nl"=>"Status",
 			"it"=>"Stato",
-                        "ro"=>"Status");
+                        "ro"=>"Status",
+			"sv"=>"Status");
 
 $txt_login=array(	"ru"=>"Логин",
                         "fr"=>"Login",
@@ -450,7 +483,8 @@ $txt_login=array(	"ru"=>"Логин",
 			"es"=>"Login",
 			"nl"=>"Inloggen",
 			"it"=>"Login",
-                        "ro"=>"Login");
+                        "ro"=>"Login",
+			"sv"=>"AnvДndarnamn");
 
 $txt_delete=array(	"ru"=>"Удалить",
                         "fr"=>"Effacer",
@@ -462,7 +496,8 @@ $txt_delete=array(	"ru"=>"Удалить",
 			"es"=>"Borrar",
 			"nl"=>"Verwijderen",
 			"it"=>"Elimina",
-                        "ro"=>"Sterge");
+                        "ro"=>"Sterge",
+			"sv"=>"Ta bort");
 
 $txt_info=array(	"ru"=>"Инфо",
                         "fr"=>"Info",
@@ -474,7 +509,8 @@ $txt_info=array(	"ru"=>"Инфо",
 			"es"=>"Info",
 			"nl"=>"Info",
 			"it"=>"Info",
-                        "ro"=>"Info");
+                        "ro"=>"Info",
+			"sv"=>"Info");
 
 $txt_action=array(	"ru"=>"Действие",
                         "fr"=>"Action",
@@ -486,7 +522,8 @@ $txt_action=array(	"ru"=>"Действие",
 			"es"=>"AcciСn",
 			"nl"=>"Actie",
 			"it"=>"Azione",
-                        "ro"=>"Actiune");
+                        "ro"=>"Actiune",
+			"sv"=>"Funktion");
 
 $txt_no_accounts=array(	"ru"=>"Нет такого пользователя",
                         "fr"=>"Aucun compte enregistr&eacute;.",
@@ -498,7 +535,8 @@ $txt_no_accounts=array(	"ru"=>"Нет такого пользователя",
 			"es"=>"Ninguna cuenta registrada",
 			"nl"=>"Geen geregistreerde accounts",
 			"it"=>"Non ci sono account",
-                        "ro"=>"Nu exista conturi inregistrate");
+                        "ro"=>"Nu exista conturi inregistrate",
+			"sv"=>"Inget konto finns registrerat");
 
 $txt_no_domains=array(	"ru"=>"Нет такого домена",
                         "fr"=>"Aucun domaine enregistr&eacute;",
@@ -510,7 +548,8 @@ $txt_no_domains=array(	"ru"=>"Нет такого домена",
 			"es"=>"NingЗn dominio registrado",
 			"nl"=>"Geen geregistreerde domeinen",
 			"it"=>"Non ci sono domini",
-                        "ro"=>"Nu exista domenii inregistrate");
+                        "ro"=>"Nu exista domenii inregistrate",
+			"sv"=>"Inget domДnnamn finns registrerat");
 
 $txt_new=array(		"ru"=>"Новый",
                         "fr"=>"Nouveau",
@@ -522,7 +561,8 @@ $txt_new=array(		"ru"=>"Новый",
 			"es"=>"Nuevo",
 			"nl"=>"Nieuw",
 			"it"=>"Nuovo",
-                        "ro"=>"Nou");
+                        "ro"=>"Nou",
+			"sv"=>"Ny");
 
 $txt_avail_domain=array(	"ru"=>"Возможные домены",
                         "fr"=>"Domaines disponibles",
@@ -534,7 +574,8 @@ $txt_avail_domain=array(	"ru"=>"Возможные домены",
 			"es"=>"Dominios disponibles",
 			"nl"=>"Beschikbare domeinen",
 			"it"=>"Domini disponibili",
-                        "ro"=>"Domenii disponibile");
+                        "ro"=>"Domenii disponibile",
+			"sv"=>"TillgДngliga domДnnamn");
 
 $txt_own_domains=array(	"ru"=>"Ваши домены",
                         "fr"=>"Vos domaines",
@@ -546,7 +587,8 @@ $txt_own_domains=array(	"ru"=>"Ваши домены",
 			"es"=>"Tus propios dominios",
 			"nl"=>"Uw eigen domeinen",
 			"it"=>"I tuoi domini",
-                        "ro"=>"Domeniile dumneavoastra");
+                        "ro"=>"Domeniile dumneavoastra",
+			"sv"=>"Dina egna domДnnamn");
 
 $txt_open_domains=array(	 "ru"=>"Открытые домены",
                         "fr"=>"Les domaines publics",
@@ -558,7 +600,8 @@ $txt_open_domains=array(	 "ru"=>"Открытые домены",
 			"es"=>"Los dominios pЗblicos",
 			"nl"=>"De open domeinen",
 			"it"=>"Domini pubblici",
-                        "ro"=>"Domenii publice");
+                        "ro"=>"Domenii publice",
+			"sv"=>"жppna domДnnamn");
 
 $txt_no_domain=array(	"ru"=>"Нет доменов",
                         "fr"=>"Pas de domaine",
@@ -570,7 +613,8 @@ $txt_no_domain=array(	"ru"=>"Нет доменов",
 			"es"=>"Sin dominios",
 			"nl"=>"Geen domeinen",
 			"it"=>"Non c'&egrave; alcun dominio",
-                        "ro"=>"Nici un domeniu");
+                        "ro"=>"Nici un domeniu",
+			"sv"=>"Inget domДnnamn");
 
 $txt_please_choose=array(	 "ru"=>"Пожалуйста выберите",
                         "fr"=>"Faites votre choix",
@@ -582,7 +626,8 @@ $txt_please_choose=array(	 "ru"=>"Пожалуйста выберите",
 			"es"=>"Elige",
 			"nl"=>"Maake een keuze",
 			"it"=>"Scegli",
-                        "ro"=>"Alegeti");
+                        "ro"=>"Alegeti",
+			"sv"=>"V.v. vДlj");
 
 $txt_subdomain_name=array(	"ru"=>"Имя поддомена",
                         "fr"=>"Nom du sous-domaine",
@@ -594,7 +639,8 @@ $txt_subdomain_name=array(	"ru"=>"Имя поддомена",
 			"es"=>"Subdominio",
 			"nl"=>"Subdomeinnaam",
 			"it"=>"Sottodominio",
-                        "ro"=>"Numele subdomeniului");
+                        "ro"=>"Numele subdomeniului",
+			"sv"=>"Namn pЕ underdomДn");
 
 
 $txt_authorized_chars=array(	 "ru"=>"Используйте только: a-z, 0-9 и '-'",
@@ -607,7 +653,8 @@ $txt_authorized_chars=array(	 "ru"=>"Используйте только: a-z, 0-9 и '-'",
 			"es"=>"UsА sСlo a-z, 0-9 y '-'",
 			"nl"=>"Gebruik alleen a-z, 0-9 en '-'",
 			"it"=>"Usa solo a-z, 0-9 e '-'",
-                        "ro"=>"Folositi numai a-z, 0-9 si '-'");
+                        "ro"=>"Folositi numai a-z, 0-9 si '-'",
+			"sv"=>"V.v. anvДnd endast a-z o-9 och '-'");
 
 
 
@@ -621,7 +668,8 @@ $txt_current_language = array( "ru"=>"Русский",
  "es" => "Castellano",
  "nl"=>"Nederlands",
  "it"=>"Italiano",
- "ro"=>"Romana");
+ "ro"=>"Romana",
+ "sv"=>"Svenska");
 
 
 $txt_hello = array( 
@@ -635,7 +683,8 @@ $txt_hello = array(
  "es" => "Hola",
  "nl"=>"Hallo",
  "it"=>"Salve",
- "ro"=>"Salut");
+ "ro"=>"Salut",
+ "sv"=>"Hej");
 
 $txt_menu = array( 
  "ru" => "Меню",
@@ -648,7 +697,8 @@ $txt_menu = array(
  "es" => "MenЗ",
  "nl"=>"Menu",
  "it" => "Menu",
- "ro"=>"Meniu");
+ "ro"=>"Meniu",
+ "sv"=>"Meny");
 
 $txt_welcome = array(
  "ru" => "Добро пожаловать",
@@ -661,7 +711,8 @@ $txt_welcome = array(
  "es" => "Welcome!",
  "nl"=>"Welkom",
  "it"=>"Welcome!",
- "ro"=>"Bine ati venit!");
+ "ro"=>"Bine ati venit!",
+ "sv"=>"VДlkommen");
 
 $txt_menu_domain_descr = array(
  "ru" => "Добро пожаловать в главное меню администратора домена", 
@@ -673,7 +724,8 @@ $txt_menu_domain_descr = array(
  "es" => "Bienvenido al menЗ de administraci&oacute;n de dominios",
  "nl"=>"Welkom in het domeinbeheer hoofdmenu",
  "it"=>"Benvenuto al menu principale per la gestione del dominio",
- "ro"=>"Bine ati venit in meniul principal de administrare a domeniului");
+ "ro"=>"Bine ati venit in meniul principal de administrare a domeniului",
+ "sv"=>"VДlkommen till huvudmenyn fЖr administration av dina e-post-konton");
 
 $txt_menu_account_descr = array(
  "ru" => "Добро пожаловать в главное меню управления вашим почтовым ящиком",
@@ -686,7 +738,8 @@ $txt_menu_account_descr = array(
  "es" => "Bienvenido al menЗ de administraci&oacute;n de cuenta de correo",
  "nl"=>"Welkom in uw mailaccountbeheer hoofdmenu",
  "it"=>"Benvenuto al menu principale per la gestione del tuo account di posta",
- "ro"=>"Bine ati venit in meniul principal de administrare al contului dumneavoastra");
+ "ro"=>"Bine ati venit in meniul principal de administrare al contului dumneavoastra",
+ "sv"=>"VДlkommen till administrationsmenyn fЖr ditt / dina e-post-konton");
 
 
 $txt_edit = array(
@@ -700,7 +753,8 @@ $txt_edit = array(
  "es" => "Editar",
  "nl"=>"Aanpassen",
  "it"=>"Modifica",
- "ro"=>"Modifica");
+ "ro"=>"Modifica",
+ "sv"=>"дndra");
 
 
 $txt_mailbox = array(
@@ -714,7 +768,8 @@ $txt_mailbox = array(
  "es" => "Casilla",
  "nl"=>"Postbus",
  "it"=>"Casella",
- "ro"=>"Mesaje");
+ "ro"=>"Mesaje",
+ "sv"=>"E-post-konto");
 
 $txt_list = array( 
  "ru"=>"Список",
@@ -727,7 +782,8 @@ $txt_list = array(
  "es" => "Lista",
  "nl"=>"Lijst",
  "it"=>"Lista",
- "ro"=>"Lista");
+ "ro"=>"Lista",
+ "sv"=>"Lista");
 
 $txt_add_user = array( 
 "ru"=>"Новый ящик",
@@ -740,7 +796,8 @@ $txt_add_user = array(
  "es" => "Agregar usuario",
  "nl"=>"Toevoegen gebruiker",
  "it"=>"Aggiungi account",
- "ro"=>"Adauga utilizator");
+ "ro"=>"Adauga utilizator",
+ "sv"=>"Nytt konto");
 
 $txt_add_alias = array(
 "ru"=>"Новый алиас", 
@@ -753,7 +810,8 @@ $txt_add_alias = array(
  "es" => "Agregar Alias",
  "nl"=>"Toevoegen Alias",
  "it"=>"Aggiungi Alias",
- "ro"=>"Adauga Alias");
+ "ro"=>"Adauga Alias",
+ "sv"=>"Nytt alias");
 
 $txt_delete = array(
 "ru"=>"Удалить",
@@ -766,7 +824,8 @@ $txt_delete = array(
  "es" => "Eliminar",
  "nl"=>"Verwijderen",
  "it"=>"Elimina",
- "ro"=>"Sterge");
+ "ro"=>"Sterge",
+ "sv"=>"Ta bort");
 
 
 $txt_info = array(
@@ -780,7 +839,8 @@ $txt_info = array(
  "es" => "Info",
  "nl"=>"Info",
  "it"=>"Info",
- "ro"=>"Info");
+ "ro"=>"Info",
+ "sv"=>"Info");
 
 
 $txt_login = array( 
@@ -794,7 +854,8 @@ $txt_login = array(
  "es" => "Ingresar",
  "nl"=>"Aanmelden",
  "it"=>"Login",
- "ro"=>"Login");
+ "ro"=>"Login",
+ "sv"=>"Logga in");
 
 $txt_login_again = array(
 "ru"=>"Войти снова", 
@@ -807,7 +868,8 @@ $txt_login_again = array(
  "es" => "Reingresar",
  "nl"=>"Opnieuw aanmelden",
  "it"=>"Esegui nuovamente il Login",
- "ro"=>"Re-login");
+ "ro"=>"Re-login",
+ "sv"=>"Logga in igen");
 
 $txt_please_login = array(
 "ru"=>"Пожалуйста идентифицируйте себя, используя ваш почтовый логин, домен и пароль", 
@@ -824,7 +886,8 @@ $txt_please_login = array(
  "es" => "Por favor ingrese su nombre de usuario o dominio y contrase&ntilde;a",
  "nl"=>"Meld u aan met uw domeinnaam en wachtwoord",
  "it"=>"Per favore inserisci il tuo dominio e la password.",
- "ro"=>"Introduceti domeniul si parola");
+ "ro"=>"Introduceti domeniul si parola",
+ "sv"=>"V.v. logga in med ditt domДnnamn och lЖsenord");
 
 $txt_update_list = array( 
  "ru"=>"Обновить",
@@ -837,7 +900,8 @@ $txt_update_list = array(
  "es" => "Actualizar",
  "nl"=>"Lijst verversen",
  "it"=>"Aggiorna_Lista",
- "ro"=>"Reactualizare lista");
+ "ro"=>"Reactualizare lista",
+ "sv"=>"Uppdatera lista");
 
 $txt_pw_chg_ok = array( "ru"=>"Пароль успешно изменен", 
  "en" => "Password has been changed sucessfully",
@@ -849,7 +913,8 @@ $txt_pw_chg_ok = array( "ru"=>"Пароль успешно изменен",
  "es" => "El password ha sido cambiado con &eacute;xito",
  "nl"=>"Wachtwoord is sucessvol gewijzigd",
  "it"=>"La password &egrave; stata correttamente cambiata",
- "ro"=>"Parola a fost schimbata cu success");
+ "ro"=>"Parola a fost schimbata cu success",
+ "sv"=>"LЖsenordet har Дndrats");
 
 $txt_password_str = array( 
 "ru"=>"Пароль",
@@ -862,7 +927,8 @@ $txt_password_str = array(
  "es" => "Contrase&ntilde;a",
  "nl"=>"Wachtwoord",
  "it"=>"Password",
- "ro"=>"Parola");
+ "ro"=>"Parola",
+ "sv"=>"LЖsenord");
 
 $txt_domain_name = array( 
 "ru"=>"Домен",
@@ -875,7 +941,8 @@ $txt_domain_name = array(
  "es" => "Dominio",
  "nl"=>"Domein",
  "it"=>"Dominio",
- "ro"=>"Domeniu");
+ "ro"=>"Domeniu",
+ "sv"=>"DomДnnamn");
 
 
 $txt_dom_ident = array(
@@ -889,7 +956,8 @@ $txt_dom_ident = array(
  "es" => "AutentificaciСn de dominio",
  "nl"=>"Domein authenticatie",
  "it"=>"Autenticazione",
- "ro"=>"Autentificarea Domeniului");
+ "ro"=>"Autentificarea Domeniului",
+ "sv"=>"DomДnnamnsidentifiering");
 
 $txt_secu_fail_dname = array(
 "ru"=>"Ошибка: Имя домена должно быть в форме domain.ext", 
@@ -902,7 +970,8 @@ $txt_secu_fail_dname = array(
  "es" => "Alerta de seguridad: El dominio de ser de la forma dominio.ext",
  "nl"=>"Algemene beschermingsfout: Complete domeinnaam moet opgegeven worden",
  "it"=>"Errore: il dominio deve essere della forma dominio.tld",
- "ro"=>"Eroare: numele domeniul trebuie sa fie de forma domeniu.ext");
+ "ro"=>"Eroare: numele domeniul trebuie sa fie de forma domeniu.ext",
+ "sv"=>"Fel: domДnnamnet ska skrivas pЕ formen domДnnamn.nu");
 
 $txt_action_menu_title = array(
 "ru"=>"Меню домена",
@@ -915,7 +984,8 @@ $txt_action_menu_title = array(
  "es" => "MenЗ para el dominio",
  "nl"=>"Menu voor domein",
  "it"=>"Menu del dominio",
- "ro"=>"Meniu pentru domeniu");
+ "ro"=>"Meniu pentru domeniu",
+ "sv"=>"Meny fЖr domДnnamn");
 
 $txt_err_action_not_found = array(
 "ru"=>"Действие не найдено", 
@@ -928,7 +998,8 @@ $txt_err_action_not_found = array(
  "es" => "Comando no encontrado",
  "nl"=>"Opdracht niet gevonden",
  "it"=>"Comando errato",
- "ro"=>"Comanda gresita");
+ "ro"=>"Comanda gresita",
+ "sv"=>"Kommandot kunde inte hittas");
 
 $txt_title_info = array(
 "ru"=>"Запись пользователя",
@@ -941,7 +1012,8 @@ $txt_title_info = array(
  "es" => "Entrada para el usuario",
  "nl"=>"Gebruikers informatie",
  "it"=>"Scheda dell'utente",
- "ro" => "Date despre utilizator");
+ "ro" => "Date despre utilizator",
+ "sv" => "Information fЖr");
 
 $txt_real_name = array(
  "ru"=>"Имя",
@@ -954,7 +1026,8 @@ $txt_real_name = array(
  "es" => "Nombre y Apellido",
  "nl"=>"Naam",
  "it"=>"Nome e Cognome",
- "ro" => "Nume complet");
+ "ro" => "Nume complet",
+ "sv" => "Namn");
 
 $txt_email_adr = array(
  "ru"=>"Адрес Email", 
@@ -967,7 +1040,8 @@ $txt_email_adr = array(
  "es" => "DirecciСn de correo",
 "nl"=>"Email Adres",
  "it"=>"Indirizzo E-Mail",
- "ro" => "Adresa de E-mail");
+ "ro" => "Adresa de E-mail",
+ "sv" => "E-post-adress");
 
 $txt_account_type = array(
  "ru"=>"Тип", 
@@ -980,7 +1054,8 @@ $txt_account_type = array(
  "es" => "Tipo de cuenta",
  "nl"=>"Account soort",
  "it"=>"Tipo di Account",
- "ro" => "Tipul contului");
+ "ro" => "Tipul contului",
+ "sv" => "Kontotyp");
 
 $txt_mailbox_size = array(
 "ru"=>"Размер",
@@ -993,7 +1068,8 @@ $txt_mailbox_size = array(
  "es" => "Tama&ntilde;o",
 "nl"=>"Grootte",
  "it"=>"Dimensione",
- "ro" => "Dimensiune");
+ "ro" => "Dimensiune",
+ "sv" => "Storlek");
 
 $txt_numb_of_msg = array(
  "ru"=>"Количество писем", 
@@ -1006,7 +1082,8 @@ $txt_numb_of_msg = array(
  "es" => "Cantidad de Mensajes",
 "nl"=>"Aantal Berichten",
  "it"=>"Numero di messaggi",
- "ro" => "Numarul mesajelor");
+ "ro" => "Numarul mesajelor",
+ "sv" =>"Antal meddelanden");
 
 $txt_read_mails = array(
 "ru"=>"Старых писем",
@@ -1019,7 +1096,8 @@ $txt_read_mails = array(
  "es" => "Mensajes viejos",
 "nl"=>"Oude Berichten",
  "it"=>"Messaggi vecchi",
- "ro" => "Mesaje vechi");
+ "ro" => "Mesaje vechi",
+ "sv" => "Gamla meddelanden");
 
 $txt_unread_mails = array(
 "ru"=>"Новых писем",
@@ -1032,7 +1110,8 @@ $txt_unread_mails = array(
  "es" => "Mensajes nuevos",
 "nl"=>"Ongelezen berichten",
  "it"=>"Messaggi nuovi",
- "ro" => "Mesaje noi");
+ "ro" => "Mesaje noi",
+ "sv" => "OlДsta meddelanden");
 
 $txt_read = array(
 "ru"=>"Читать",
@@ -1045,7 +1124,8 @@ $txt_read = array(
  "es" => "Leer",
 "nl"=>"Lees",
  "it"=>"Letti",
- "ro" => "Citeste"); 
+ "ro" => "Citeste",
+ "sv" => "LДs"); 
 
 $txt_last_mail_arrived = array(
 "ru"=>"Новая почта пришла в", 
@@ -1058,7 +1138,8 @@ $txt_last_mail_arrived = array(
  "es" => "зltimo correo",
 "nl"=>"Laatste Bericht gearriveerd op",
  "it"=>"Ultimo messaggio ricevuto il",
- "ro" => "Ultimul mesaj primit la");
+ "ro" => "Ultimul mesaj primit la",
+ "sv" => "Nyaste meddelandet kom");
 
 $txt_last_mailbox_access = array(
 "ru"=>"Последнее обращение к ящику", 
@@ -1071,7 +1152,8 @@ $txt_last_mailbox_access = array(
  "es" => "зltimo chequeo",
 "nl"=>"Laatste toegang tot postbus",
  "it"=>"Ultimo accesso alla casella avvenuto il",
- "ro" => "Ultimul access la Mailbox"); 
+ "ro" => "Ultimul access la Mailbox",
+ "sv" => "Sista anvДndning av e-post-konto"); 
 
 $txt_quota = array(
 "ru"=>"Ограничение",
@@ -1084,7 +1166,8 @@ $txt_quota = array(
  "es" => "Quota",
 "nl"=>"Limiet",
  "it"=>"Quota",
- "ro" => "Limita");
+ "ro" => "Limita",
+ "sv" => "UtrymmesbegrДnsning");
 
 $txt_title_edit = array(
  "ru" => "Изменение данных пользователя", 
@@ -1097,7 +1180,8 @@ $txt_title_edit = array(
  "es" => "EdiciСn de cuenta para",
 "nl"=>"Account aanpassing voor gebruiker",
  "it"=>"Modifica dell'account di",
- "ro" => "Modifica cont pentru");
+ "ro" => "Modifica cont pentru",
+ "sv" =>"дndra kontonamn fЖr anvДndare");
 
 $txt_username = array(
 "ru"=>"Логин",
@@ -1110,7 +1194,8 @@ $txt_username = array(
  "es" => "Nombre de usuario",
 "nl"=>"Gebruikersnaam",
  "it"=>"Nome Utente",
- "ro" => "Nume utilizator"); 
+ "ro" => "Nume utilizator",
+ "sv" => "AnvДndarnamn"); 
 
 $txt_old = array(
  "ru"=>"Старый", 
@@ -1123,7 +1208,8 @@ $txt_old = array(
  "es" => "Viejos",
 "nl"=>"Oud",
  "it"=>"Vecchio",
- "ro" => "Vechi");
+ "ro" => "Vechi",
+ "sv" => "Gammal");
 
 $txt_new = array(
  "ru" => "Новый",
@@ -1136,7 +1222,8 @@ $txt_new = array(
  "es" => "Nuevos",
 "nl"=>"Nieuw",
  "it"=>"Nuovo",
- "ro" => "Noi");
+ "ro" => "Noi",
+ "sv" => "Ny");
 
 $txt_newuser = array( 
 "ru"=>"Новый ящик",
@@ -1149,7 +1236,8 @@ $txt_newuser = array(
  "es" => "Nuevo usuario",
 "nl"=>"Nieuwe Postbus",
  "it"=>"Nuova casella",
- "ro" => "Mailbox nou");
+ "ro" => "Mailbox nou",
+ "sv" => "Nytt e-post-konto");
 
 $txt_newalias = array(
 "ru"=>"Новый алиас", 
@@ -1162,7 +1250,8 @@ $txt_newalias = array(
  "es" => "Nuevo alias",
 "nl"=>"Nieuwe Alias",
  "it"=>"Nuovo Alias",
- "ro" => "Alias nou");
+ "ro" => "Alias nou",
+ "sv" => "Nytt alias");
 
 $txt_and_again = array( 
 "ru"=>"Еще раз",
@@ -1175,7 +1264,8 @@ $txt_and_again = array(
  "es" => "VerificaciСn",
 "nl"=>"Nogmaals",
  "it"=>"Verifica",
- "ro" => "Verifica");
+ "ro" => "Verifica",
+ "sv" => "Repetera en gЕng till");
 
 $txt_edit_result = array(
 "ru"=>"Изменение настроек пользователя : Результат", 
@@ -1188,7 +1278,8 @@ $txt_edit_result = array(
  "es" => "ModificaciСn de usuario: Resultado",
 "nl"=>"Aanpassen gebruikersinstellingen: Resultaat",
  "it"=>"Modifica dell'account: Risultato",
- "ro" => "Modificarea contului: rezultat");
+ "ro" => "Modificarea contului: rezultat",
+ "sv" => "дndring av konto: Resultat");
 
 $txt_entry_for_user = array( 
 "ru"=>"Запись пользователя",
@@ -1201,7 +1292,8 @@ $txt_entry_for_user = array(
  "es" => "Entrada para el usuario",
 "nl"=>"Gebruikersinformatie",
  "it"=>"Scheda dell'utente",
- "ro" => "Date utilizator");
+ "ro" => "Date utilizator",
+ "sv" => "InstДllningar fЖr konto");
 
 $txt_title_mailbox = array(
 "ru"=>"Ящик",
@@ -1214,7 +1306,8 @@ $txt_title_mailbox = array(
  "es" => "Casilla de",
 "nl"=>"Postbus van",
  "it"=>"Casella E-Mail di",
- "ro" => "Mailbox pentru");
+ "ro" => "Mailbox pentru",
+ "sv" => "E-post-konto fЖr");
 
 $txt_delete_account = array( 
 "ru"=>"Удаление",
@@ -1227,7 +1320,8 @@ $txt_delete_account = array(
  "es" => "Eliminar cuenta",
 "nl"=>"Account verwijdering",
  "it"=>"Elimina Account",
- "ro" => "Sterge cont");
+ "ro" => "Sterge cont",
+ "sv" => "Ta bort konto");
 
 $txt_confirm_delete = array( 
 "ru"=>"Подтвердите удаление...",
@@ -1240,7 +1334,8 @@ $txt_confirm_delete = array(
  "es" => "Eliminar cuenta: Por favor confirme...",
 "nl"=>"Verwijderen: Bevestigen AUB...",
  "it"=>"Eliminazione: Per favore conferma...",
- "ro" => "Stergere cont: Confirmati"); 
+ "ro" => "Stergere cont: Confirmati",
+ "sv" => "Ta bort: v.v. bekrДfta"); 
 
 $txt_delete_account_confirm = array(
 "ru"=>"Вы уверены, что хотите удалить его?", 
@@ -1253,7 +1348,8 @@ $txt_delete_account_confirm = array(
  "es" => "©EstА seguro que desea eliminar esta cuenta?",
 "nl"=>"Zeker weten dat dit account verwijderd moet worden?",
  "it"=>"Sei sicuro di voler cancellare questo account?",
- "ro" => "Sunteti sigur ca vreti sa stergeti contul?");
+ "ro" => "Sunteti sigur ca vreti sa stergeti contul?",
+ "sv" =>"дr du sДker pЕ att du vill ta bort detta konto?");
 
 $txt_delete_for_user = array( 
  "ru"=>"для пользователя",
@@ -1266,7 +1362,8 @@ $txt_delete_for_user = array(
  "es" => "para el usuario",
 "nl"=>"voor gebruiker",
  "it"=>"per l'utente",
- "ro" => "pentru utilizatorul");
+ "ro" => "pentru utilizatorul",
+ "sv" => "fЖr anvДndare");
 
 $txt_delete_remove_now = array(
 "ru"=>"будет <I>безвозвратно</I> удален", 
@@ -1279,7 +1376,8 @@ $txt_delete_remove_now = array(
  "es" => "la eliminarА ahora <I>definitivamente</I>",
 "nl"=>"wordt nu <I>definitief</I> verwijderd",
  "it"=>"lo canceller&agrave; ora <I>definitivamente</I>",
- "ro" => "va fi sters acum, <I>definitiv</I>");
+ "ro" => "va fi sters acum, <I>definitiv</I>",
+ "sv" => "Tar bort kontot nu, <I>kan ej Еterskapas</I>");
 
 $txt_delete_backto_list = array(
 "ru"=>"перейдет к списку <I>без</I> удаления",
@@ -1292,7 +1390,8 @@ $txt_delete_backto_list = array(
  "es" => "te llevarА de regreso a la lista, <I>sin</I> eliminar nada",
 "nl"=>"wordt terug gebracht naar de lijst, <I>zonder</I> iets te verwijderen",
  "it"=>"ti riporter&agrave; alla lista <I>senza</I> cancellare nulla",
- "ro" => "va trimite la lista, <I>fara</I> a sterge nimic");
+ "ro" => "va trimite la lista, <I>fara</I> a sterge nimic",
+ "sv" => "Tillbaka, <I>utan</I> att ta bort");
 
 $txt_deleted_sucessfully = array(
 "ru"=>"успешно удален",
@@ -1305,7 +1404,8 @@ $txt_deleted_sucessfully = array(
  "es" => "exitosamente eliminada",
 "nl"=>"sucessvol verwijderd",
  "it"=>"cancellato con successo",
- "ro" => "stergerea a fost efectuata");
+ "ro" => "stergerea a fost efectuata",
+ "sv" => "Дr borttaget");
 
 $txt_delete_result = array(
  "ru" => "Запрос на удаление : Результат",
@@ -1318,7 +1418,8 @@ $txt_delete_result = array(
  "es" => "Eliminar cuenta: Resultado",
 "nl"=>"Verwijder verzoek: Resultaat",
  "it"=>"Eliminazione dell'account: Risultato",
- "ro" => "Stergere: Resultat");
+ "ro" => "Stergere: Resultat",
+ "sv" =>"Ta bort: Resultat");
 
 $txt_delete_deletion = array(
 "ru"=>"Удаление",
@@ -1331,7 +1432,8 @@ $txt_delete_deletion = array(
  "es" => "EliminaciСn de",
 "nl"=>"Verwijdering van",
  "it"=>"Eliminazione di",
- "ro" => "Stergerea lui");
+ "ro" => "Stergerea lui",
+ "sv" => "Borttagning av");
 
 $txt_for_user = array(
  "ru"=>"для пользователя", 
@@ -1344,7 +1446,8 @@ $txt_for_user = array(
  "es" => "para el usuario",
 "nl"=>"voor gebruiker",
  "it"=>"per l'utente",
- "ro" => "pentru utilizatorul");
+ "ro" => "pentru utilizatorul",
+ "sv" => "fЖr anvДndare");
 
 $txt_title_list = array(
 "ru"=>"Список для домена",
@@ -1357,7 +1460,8 @@ $txt_title_list = array(
  "es" => "Listado para el dominio",
 "nl"=>"Overzicht voor domein",
  "it"=>"Lista del dominio",
- "ro" => "Listing pentru domeniul");
+ "ro" => "Listing pentru domeniul",
+ "sv" =>"Lista pЕ domДnnamn");
 
 $txt_domain_info = array(
 "ru"=>"Информация о домене",
@@ -1370,7 +1474,8 @@ $txt_domain_info = array(
  "es" => "InformaciСn de Dominio",
 "nl"=>"Domein Informatie",
  "it"=>"Informazione sul dominio",
- "ro" => "Informatii despre domeniul");
+ "ro" => "Informatii despre domeniul",
+ "sv" =>"Information om domДnnamn");
 
 $txt_date_of_creation = array(
 "ru"=>"Дата создания", 
@@ -1383,7 +1488,8 @@ $txt_date_of_creation = array(
  "es" => "Fecha de creaciСn",
 "nl"=>"Aanmaakdatum",
  "it"=>"Data di creazione",
- "ro" => "Data crearii");
+ "ro" => "Data crearii",
+ "sv" => "Skapat");
 
 $txt_last_change = array(
 "ru"=>"Последнее изменение", 
@@ -1396,7 +1502,8 @@ $txt_last_change = array(
  "es" => "зltimo cambio",
 "nl"=>"Laatst gewijzigd",
  "it"=>"Ultima modifica",
- "ro" => "Ultima modificare");
+ "ro" => "Ultima modificare",
+ "sv" =>"Senaste Дndring");
 
 $txt_how_many_mailbox = array(
 "ru"=>"Количество ящиков", 
@@ -1409,7 +1516,8 @@ $txt_how_many_mailbox = array(
  "es" => "CuАntas casillas",
 "nl"=>"Hoeveel postbussen",
  "it"=>"Quante caselle di posta",
- "ro" => "Cate casute postale");
+ "ro" => "Cate casute postale",
+ "sv" => "Hur mЕnga e-post-konton");
 
 $txt_how_many_alias = array(
 "ru"=>"Количество алиасов", 
@@ -1422,7 +1530,8 @@ $txt_how_many_alias = array(
  "es" => "CЗantos Aliases",
 "nl"=>"Hoeveel aliassen",
  "it"=>"Quanti alias",
- "ro" => "Cate alias-uri");
+ "ro" => "Cate alias-uri",
+ "sv" =>"Hur mЕnga alias");
 
 $txt_total_size = array( 
 "ru"=>"Общий размер ящиков",
@@ -1435,7 +1544,8 @@ $txt_total_size = array(
  "es" => "TamaЯo total de las casillas",
 "nl"=>"Totale grootte van de postbussen",
  "it"=>"Dimensione totale delle caselle di posta",
- "ro" => "Dimensiunea totala a casutelor postale");
+ "ro" => "Dimensiunea totala a casutelor postale",
+ "sv" =>"Total storlek fЖr e-post-konton");
 
 $txt_biggest_mailbox = array(
 "ru"=>"Самый тяжелый ящик", 
@@ -1448,7 +1558,8 @@ $txt_biggest_mailbox = array(
  "es" => "Casilla mАs grande",
 "nl"=>"Grootste Postbus",
  "it"=>"Massima dimensione di una casella di posta",
- "ro" => "Cea mai mare casuta postala");
+ "ro" => "Cea mai mare casuta postala",
+ "sv" =>"StЖrsta e-post-konto");
 
 $txt_mailboxes = array(
 "ru"=>"Ящики",
@@ -1461,7 +1572,8 @@ $txt_mailboxes = array(
  "es" => "Casillas",
 "nl"=>"Postbussen",
  "it"=>"Caselle di posta",
- "ro" => "Casute postale");
+ "ro" => "Casute postale",
+ "sv" => "E-post-konton");
 
 $txt_smallmailboxes = array(
  "ru"=>"ящиков", 
@@ -1474,7 +1586,8 @@ $txt_smallmailboxes = array(
  "es" => "casillas",
 "nl"=>"postbussen",
  "it"=>"caselle di posta",
- "ro" => "casute postale");
+ "ro" => "casute postale",
+ "sv" => "e-post-konton");
 
 $txt_aliases = array(
 "ru"=>"Алиасы", 
@@ -1487,7 +1600,8 @@ $txt_aliases = array(
  "es" => "Aliases",
 "nl"=>"Aliassen",
  "it"=>"Alias",
- "ro" => "Alias-uri");
+ "ro" => "Alias-uri",
+ "sv" => "Alias");
 
 $txt_smallaliases = array(
 "ru"=>"алиасов", 
@@ -1500,7 +1614,8 @@ $txt_smallaliases = array(
  "es" => "aliases",
 "nl"=>"aliassen",
  "it"=>"alias",
- "ro" => "aliasuri");
+ "ro" => "aliasuri",
+ "sv" =>"alias");
 
 $txt_back_to_begining = array(
 "ru"=>"В начало...", 
@@ -1513,7 +1628,8 @@ $txt_back_to_begining = array(
  "es" => "Volver al inicio...",
 "nl"=>"Terug naar het begin...",
  "it"=>"Torna all'inizio...",
- "ro" => "Inapoi...");
+ "ro" => "Inapoi...",
+ "sv" => "Tillbaka till bЖrjan");
 
 $txt_you_have_to_be_sysadmin_for_that = array(
 "ru"=>"Извините, правей не хватает!", 
@@ -1526,7 +1642,8 @@ $txt_you_have_to_be_sysadmin_for_that = array(
  "es" => "║Debes ser el administrador de sistema para hacer eso!",
 "nl"=>"U heeft systeembeheer rechten nodig hiervoor",
  "it"=>"Hai bisogno dei privilegi di amministratore per farlo!",
- "ro" => "Trebuie sa fiti administrator pentru a putea face asta!");
+ "ro" => "Trebuie sa fiti administrator pentru a putea face asta!",
+ "sv" =>"TyvДrr mЕste du vara systemansvarig fЖr att kunna utfЖra detta");
 
 $txt_user_already_exists = array(
 "ru"=>"Извините. такой уже есть",
@@ -1539,7 +1656,8 @@ $txt_user_already_exists = array(
  "es" => "║El usuario ya existe!",
 "nl"=>"Gebruiker bestaat reeds, kies een andere!",
  "it"=>"L'utente esiste gi&agrave;. Scegli un altro nome.",
- "ro" => "Nume de utilizator deja existent, alegeti altul!");
+ "ro" => "Nume de utilizator deja existent, alegeti altul!",
+ "sv" => "AnvДndarnamn finns redan, v.v. vДlj ett annat");
 
 $txt_user_doesnt_exists = array(
 "ru"=>"Извините, такой не найден",
@@ -1552,7 +1670,8 @@ $txt_user_doesnt_exists = array(
  "es" => "No se ha encontrado el usuario",
 "nl"=>"Gebruiker niet gevonden",
  "it"=>"Utente non trovato",
- "ro" => "Utilizatorul nu exista");
+ "ro" => "Utilizatorul nu exista",
+ "sv" =>"AnvДndДrnamnet kan inte hittas");
 
 $txt_err_dom_not_registred = array(
 "ru"=>"Нет такого домена", 
@@ -1565,7 +1684,8 @@ $txt_err_dom_not_registred = array(
  "es" => "Este dominio no se halla en el servidor",
 "nl"=>"Domein niet geregistreerd op deze server",
  "it"=>"Quel dominio non &egrave; disponibile su questo server",
- "ro" => "Domeniul nu exista pe server");
+ "ro" => "Domeniul nu exista pe server",
+ "sv" => "DomДnnamnet Дr inte registrerat pЕ servern");
 
 $txt_bad_passwd_for_domain = array(
 "ru"=>"Неправильный пароль для управления доменом", 
@@ -1578,7 +1698,8 @@ $txt_bad_passwd_for_domain = array(
  "es" => "Contrase&ntilde;a invАlida para administrador de dominios",
 "nl"=>"Foutief wachtwoord voor Domeinbeheerder",
  "it"=>"Password per l'amministrazione del dominio errata",
- "ro" => "Parola gresita pentru administratorul domeniului");
+ "ro" => "Parola gresita pentru administratorul domeniului",
+ "sv" => "Fel lЖsenord fЖr domДnadministration");
 
 $txt_error = array(
  "ru"=>"Ошибка",
@@ -1591,7 +1712,8 @@ $txt_error = array(
  "es" => "Error",
 "nl"=>"Algemene beschermingsfout",
  "it"=>"Errore",
- "ro" => "Eroare");
+ "ro" => "Eroare",
+ "sv" => "Fel");
 
 $txt_more_fwd=array(	"ru"=>"Еще Fwd",
 			"fr"=>"Plus de Fwd",
@@ -1603,7 +1725,8 @@ $txt_more_fwd=array(	"ru"=>"Еще Fwd",
 			 "es" => "MАs Fwd",
 			"nl"=>"Meer Fwd",
 			"it"=>"Altri Fwd",
-                         "ro" => "Alte Fwd");
+                         "ro" => "Alte Fwd",
+			"sv" => "Fler Fwd");
 
 $txt_responder=array(	"ru"=>"Автоответ",
 			"fr"=>"RИpondeur",
@@ -1615,7 +1738,8 @@ $txt_responder=array(	"ru"=>"Автоответ",
 			 "es" => "Autoresponder",
 			"nl"=>"Auto-antwoord",
 			"it"=>"Autoresponder",
-                         "ro" => "Auto-raspuns");
+                         "ro" => "Auto-raspuns",
+			"sv" =>"Automatiskt svar");
 
 $txt_directory=array(	"ru"=>"Папка",
 			"fr"=>"RИpertoire",
@@ -1627,7 +1751,8 @@ $txt_directory=array(	"ru"=>"Папка",
 			"es" => "Directorio",
 			"nl"=>"Directorie",
 			"it"=>"Cartella",
-                         "ro" => "Director");
+                         "ro" => "Director",
+			"sv"=>"Katalog");
 
 
 $txt_newalias = array( 
@@ -1641,7 +1766,8 @@ $txt_newalias = array(
  "es" => "Nuevo Alias",
 "nl"=>"Nieuw Alias",
  "it"=>"Nuovo Alias",
- "ro" => "Alias nou");
+ "ro" => "Alias nou",
+ "sv" =>"Nytt alias");
 
 $txt_newuser = array(
 "ru"=>"Новый ящик", 
@@ -1654,7 +1780,8 @@ $txt_newuser = array(
  "es" => "Nuevo usuario",
 "nl"=>"Nieuw Postbus Account",
  "it"=>"Nuova Mailbox",
- "ro" => "Mailbox nou");
+ "ro" => "Mailbox nou",
+ "sv" => "Nytt e-post-konto");
 
 $txt_delete_msg = array( 
 "ru"=>"Удаление ящика",
@@ -1667,7 +1794,8 @@ $txt_delete_msg = array(
  "es" => "Eliminar cuenta",
 "nl"=>"Verwijdering van Account",
  "it"=>"Eliminazione dell'account",
- "ro" => "Stergerea contului");
+ "ro" => "Stergerea contului",
+ "sv" => "Borttagning av konto");
 
 $txt_edit_account = array(
 "ru"=>"Изменение параметров ящика", 
@@ -1680,7 +1808,8 @@ $txt_edit_account = array(
  "es" => "Editar cuenta",
 "nl"=>"Account Aanpassen",
  "it"=>"Modifica dell'account",
- "ro" => "Modificarea contului");
+ "ro" => "Modificarea contului",
+ "sv" => "дndra konto");
 
 $txt_quota_account = array(
 "ru"=>"Изменение параметров ящика", 
@@ -1692,7 +1821,8 @@ $txt_quota_account = array(
  "es" => "Editar cuenta",
 "nl"=>"Account Instellingen",
  "it"=>"Modifica dell'account",
- "ro" => "Modificarea contului");
+ "ro" => "Modificarea contului",
+ "sv" => "дndring av kontoinstДllningar");
 
 $txt_read_mail = array( 
 "ru"=>"Чтение почты",
@@ -1705,7 +1835,8 @@ $txt_read_mail = array(
  "es" => "Lectura de E-mails",
 "nl"=>"Mail lezen",
  "it"=>"Lettura della posta",
- "ro" => "Citire e-mail");
+ "ro" => "Citire e-mail",
+ "sv" => "LДs e-post-meddelanden");
 
 $txt_logout = array( 
 "ru"=>"Выход",
@@ -1718,7 +1849,8 @@ $txt_logout = array(
  "es" => "Salir",
 "nl"=>"Afmelden",
  "it"=>"Esci",
- "ro" => "Logout");
+ "ro" => "Logout",
+ "sv" => "Logga ut");
 
 $txt_close = array(
 "ru"=>"Закрыть", 
@@ -1731,7 +1863,8 @@ $txt_close = array(
  "es" => "Cerrar",
 "nl"=>"Sluiten",
  "it"=>"Chiudi",
- "ro" => "Inchide");
+ "ro" => "Inchide",
+ "sv" => "StДng");
 
 $txt_refresh_menu = array(
 "ru"=>"Обновить меню", 
@@ -1744,7 +1877,8 @@ $txt_refresh_menu = array(
  "es" => "Actualizar el menЗ",
 "nl"=>"Menu verversen",
  "it"=>"Aggiorna Menu",
- "ro" => "Reactualizare meniu");
+ "ro" => "Reactualizare meniu",
+ "sv" => "Uppdatera meny");
 
 $txt_session_expired = array(
 "ru"=>"Время сессии закончилось", 
@@ -1757,7 +1891,8 @@ $txt_session_expired = array(
  "es" => "La sesiСn ha expirado",
 "nl"=>"Sessie verlopen",
  "it"=>"Timeout Sessione",
- "ro" => "Sesiunea a expirat"); 
+ "ro" => "Sesiunea a expirat",
+ "sv" => "Utloggning p.g.a. inaktivitet"); 
 
 $txt_submit = array(
 "ru"=>"Подтвердить",
@@ -1770,7 +1905,8 @@ $txt_submit = array(
  "es" => "Enviar",
 "nl"=>"Opslaan",
  "it"=>"Invia",
- "ro" => "Inregistrare");
+ "ro" => "Inregistrare",
+ "sv" => "Skicka");
 
 $txt_error_no_username = array(
 "ru"=>"Нужно ввести имя!", 
@@ -1783,7 +1919,8 @@ $txt_error_no_username = array(
  "es" => "║Debes ingresar un nombre de usuario!",
 "nl"=>"Er moet een gebruikersnaam ingevoerd worden",
  "it"=>"Devi specificare un nome utente!",
- "ro" => "Trebuie sa introduceti un nume de utilizator!");
+ "ro" => "Trebuie sa introduceti un nume de utilizator!",
+ "sv" => "Fel: inget anvДndarnamn har angivits!");
 
 $txt_error_invalid_chars_in_username = array(
 "ru"=>"Запрещенные символы в имени (можно: A-Z, 0-9, _, -)!", 
@@ -1796,7 +1933,8 @@ $txt_error_invalid_chars_in_username = array(
  "es" => "CaractИres invАlidos (SСlo a-Z, 0-9, _, -)",
 "nl"=>"Ongeldige tekens in gebruikersnaam (alleen: A-Z, 0-9, _, -)!",
  "it"=>"Il nome utente contiene caratteri non validi (usa solo: A-Z, 0-9, _, -)!",
- "ro" => "Caractere invalide in numele utilizatorului (ok: A-Z, 0-9, _, -)!");
+ "ro" => "Caractere invalide in numele utilizatorului (ok: A-Z, 0-9, _,-)!",
+ "sv" => "Ogiltiga tecken i anvДndarnamn (Bara a-z, 0-9, _, -)");
 
 $txt_error_pw_not_same = array(
 "ru"=>"Вы должны ввести два раза тот же пароль",
@@ -1809,7 +1947,8 @@ $txt_error_pw_not_same = array(
  "es" => "Debes ingresar la contrase&ntilde;a 2 veces",
 "nl"=>"Het wachtwoord moet twee keer ingevoerd worden",
  "it"=>"Le due password immesse non coincidono",
- "ro" => "Trebuie sa introduceti aceeasi parola de doua ori");
+ "ro" => "Trebuie sa introduceti aceeasi parola de doua ori",
+ "sv" => "Skriv lЖsenordet tvЕ gЕnger");
 
 $txt_error_pw_needed = array( 
 "ru"=>"Вы должны ввести пароль",
@@ -1822,7 +1961,8 @@ $txt_error_pw_needed = array(
  "es" => "Debes ingresar una contrase&ntilde;a",
 "nl"=>"Er moet een wachtwoord ingevoerd worden",
  "it"=>"Devi specificare una password",
- "ro" => "Trebuie sa introduceti o parola");
+ "ro" => "Trebuie sa introduceti o parola",
+ "sv" => "Du mЕste skriva in ett lЖsenord");
 
 $txt_error_fwd_needed = array(
 "ru"=>"Нужен хотя бы один адрес пересылки", 
@@ -1835,7 +1975,8 @@ $txt_error_fwd_needed = array(
  "es" => "Debes ingresar al menos un forward",
 "nl"=>"Er moet op zijn minst een forwardadres opgegeven worden",
  "it"=>"Devi specificare almeno un indirizzo di forward",
- "ro" => "Trebuie sa introduceti cel putin un forward");
+ "ro" => "Trebuie sa introduceti cel putin un forward",
+ "sv" => "Du mЕste skriva in minst en forward");
 
 $txt_yes = array( 
 "ru"=>"Да",
@@ -1848,7 +1989,8 @@ $txt_yes = array(
  "es" => "Si",
 "nl"=>"Ja",
  "it"=>"Si",
- "ro" => "Da");
+ "ro" => "Da",
+ "sv" => "Ja");
 
 $txt_no = array(
 "ru"=>"Нет", 
@@ -1861,7 +2003,8 @@ $txt_no = array(
  "es" => "No",
 "nl"=>"Nee",
  "it"=>"No",
- "ro" => "Nu");
+ "ro" => "Nu",
+ "sv" => "Nej");
 
 $txt_activated = array(
 "ru"=>"Включен", 
@@ -1874,7 +2017,8 @@ $txt_activated = array(
  "es" => "Activado",
 "nl"=>"Actief",
  "it"=>"Attivato",
- "ro" => "Activat");
+ "ro" => "Activat",
+ "sv" => "Aktiverad");
 
 $txt_inactived = array(
  "ru"=>"Выключен", 
@@ -1887,7 +2031,8 @@ $txt_inactived = array(
  "es" => "Desactivado",
 "nl"=>"Inactief",
  "it"=>"Disattivato",
- "ro" => "Dezactivat");
+ "ro" => "Dezactivat",
+ "sv" => "Inaktiverad");
 
 $txt_subject = array(
  "ru"=>"Тема", 
@@ -1900,7 +2045,8 @@ $txt_subject = array(
  "es" => "Asunto",
 "nl"=>"Onderwerp",
  "it"=>"Oggetto",
- "ro" => "Subiect");
+ "ro" => "Subiect",
+ "sv" => "Rubrik");
 
 $txt_from = array(
 "ru"=>"От", 
@@ -1913,7 +2059,8 @@ $txt_from = array(
  "es" => "De",
 "nl"=>"Van",
  "it"=>"Da",
- "ro" => "De la");
+ "ro" => "De la",
+ "sv" => "FrЕn");
 
 $txt_text = array(
 "ru"=>"Текст", 
@@ -1926,7 +2073,8 @@ $txt_text = array(
  "es" => "Texto",
 "nl"=>"Tekst",
  "it"=>"Testo",
- "ro" => "Text");
+ "ro" => "Text",
+ "sv" => "Text");
 
 $txt_autoanswertext = array(
 "ru"=>"Текст автоответа", 
@@ -1939,7 +2087,8 @@ $txt_autoanswertext = array(
  "es" => "Mensaje del Autoresponder",
 "nl"=>"Auto-antwoord tekst",
  "it"=>"Risposta automatica",
- "ro" => "Auto-raspuns");
+ "ro" => "Auto-raspuns",
+ "sv" => "Text fЖr automatiskt svar");
 
 $txt_date = array( 
 "ru"=>"Дата",
@@ -1952,7 +2101,8 @@ $txt_date = array(
  "es" => "Fecha",
 "nl"=>"Datum",
  "it"=>"Data",
- "ro" => "Data");
+ "ro" => "Data",
+ "sv" => "Datum");
 
 $txt_size = array( 
 "ru"=>"Размер",
@@ -1965,7 +2115,8 @@ $txt_size = array(
  "es" => "TamaЯo",
 "nl"=>"Grootte",
  "it"=>"Dimensione",
- "ro" => "Dimensiune");
+ "ro" => "Dimensiune",
+ "sv" => "Storlek");
 
 $txt_mailbox_listing = array(
  "ru"=>"Список ящиков", 
@@ -1978,7 +2129,8 @@ $txt_mailbox_listing = array(
  "es" => "Lista de E-mails",
 "nl"=>"Postbus lijst",
  "it"=>"Lista delle caselle di posta",
- "ro" => "Listing casute postale");
+ "ro" => "Listing casute postale",
+ "sv" => "Lista pЕ e-post");
 
 $txt_mailboxes_title = array(
 "ru"=>"Ящики", 
@@ -1991,7 +2143,8 @@ $txt_mailboxes_title = array(
  "es" => "Casillas",
 "nl"=>"Postbussen",
  "it"=>"Caselle di posta",
- "ro" => "Casute postale");
+ "ro" => "Casute postale",
+ "sv" => "E-post-konton");
 
 $txt_aliases_title = array(
 "ru"=>"Алиасы", 
@@ -2004,7 +2157,8 @@ $txt_aliases_title = array(
  "es" => "Aliases",
 "nl"=>"Aliassen",
  "it"=>"Alias",
- "ro" => "Alias-uri");
+ "ro" => "Alias-uri",
+ "sv" => "Alias");
 
 $txt_user_title = array(
 "ru"=>"Ваш почтовый ящик", 
@@ -2017,7 +2171,8 @@ $txt_user_title = array(
  "es" => "Tu cuenta de E-mail",
 "nl"=>"Uw E-mail account",
  "it"=>"Il tuo account di posta",
- "ro" => "Contul dumneavoastra de E-mail");
+ "ro" => "Contul dumneavoastra de E-mail",
+ "sv" => "Ditt e-post-konto");
 
 $txt_info = array( 
  "ru"=>"Инфо",
@@ -2030,7 +2185,8 @@ $txt_info = array(
  "es" => "Info",
 "nl"=>"Info",
  "it"=>"Info",
- "ro" => "Info");
+ "ro" => "Info",
+ "sv" => "Info");
 
 $txt_login_failed = array( 
 "ru"=>"В доступе отказано: Пожалуйста, проверьте логин и пароль", 
@@ -2043,7 +2199,8 @@ $txt_login_failed = array(
  "es" => "Login incorrecto : Por favor verifique su nombre de usuario y contrase&ntilde;a",
 "nl"=>"Aanmelden mislukt: controleer uw aanmeldnaam en wachtwoord",
  "it"=>"Login errato: per favore controlla il nome utente e la password",
- "ro" => "Login esuat: verificati numele de utilizator si parola"); 
+ "ro" => "Login esuat: verificati numele de utilizator si parola",
+ "sv" => "Inloggning misslyckades: V.v. kontrollera login och lЖsenord"); 
 
 $txt_facultatif = array( 
 "ru"=>"необязательно",
@@ -2056,7 +2213,8 @@ $txt_facultatif = array(
  "es" => "opcional",
 "nl"=>"optioneel",
  "it"=>"facoltativo",
- "ro" => "optional");
+ "ro" => "optional",
+ "sv" => "frivillig");
 
 $txt_autoresp_subj = array(
 "ru"=>"Автоответ.", 
@@ -2069,7 +2227,8 @@ $txt_autoresp_subj = array(
  "es" => "Respuesta automАtica",
 "nl"=>"Auto-antwoord - Tijdelijk afwezig",
  "it"=>"Risposta automatica - Non sono in ufficio",
- "ro" => "Auto-raspuns - dezactivat");
+ "ro" => "Auto-raspuns - dezactivat",
+ "sv" => "Automatiskt svar - ej inne");
 
 $txt_autoresp_body = array(
  "ru"=>"Получено Ваше письмо с темой '%S'\n\n В данный момент меня нет на месте. Я отвечу на Ваше письмо, как только вернусь.",
@@ -2082,7 +2241,8 @@ $txt_autoresp_body = array(
  "es" => "He recibido tu mensaje titulado '%S'.\n. En este momento no estoy aquМ. Te contestarИ cuando regrese.\n\n",
 "nl"=>"Ik heb zojuist je e-mail met als onderwerp '%S'\nontvangen.\n\nOp het moment ben ik afwezig. Ik zal je e-mail\nbeantwoorden zodra ik weer terug ben.\n\n",
  "it"=>"Ho appena ricevuto il tuo messaggio con oggetto '%S'\n\nNon sono qua. Ti risponder&ograve; appena torno.\n\n",
- "ro" => "Tocmai am primit mesajul dumneavoastra cu subiectul '%S'\n\nMomentan nu sunt aici. Voi raspunde mesajului cand ma voi intoarce.\n\n");
+ "ro" => "Tocmai am primit mesajul dumneavoastra cu subiectul '%S'\n\nMomentan nu sunt aici. Voi raspunde mesajului cand ma voi intoarce.\n\n",
+ "sv" => "Jag har mottagit ditt e-post-meddelande '%S'\n. Jag kommer att svara pЕ det nДr jag Дr tillbaks.\n\n");
 
 $txt_mail_sysadmin = array( 
  "ru"=>"Отправить письмо администратору",
@@ -2095,7 +2255,8 @@ $txt_mail_sysadmin = array(
  "es" => "Enviar un E-mail al administrador",
 "nl"=>"Stuur een bericht naar de systeembeheerder",
  "it"=>"Scrivi all'amministratore del sistema",
- "ro" => "Scrieti Administratorului");
+ "ro" => "Scrieti Administratorului",
+ "sv" => "Skicka e-post till systemadministratЖren");
 
 $txt_back = array( 
  "ru"=>"Назад",
@@ -2108,7 +2269,8 @@ $txt_back = array(
  "es" => "AtrАs",
 "nl"=>"Terug",
  "it"=>"Indietro",
- "ro" => "Inapoi");
+ "ro" => "Inapoi",
+ "sv" => "Tillbaka");
 
 $txt_about = array( 
  "ru"=>"О системе",
@@ -2121,7 +2283,8 @@ $txt_about = array(
  "es" => "Acerca de",
 "nl"=>"Over",
  "it"=>"About",
- "ro" => "Despre");
+ "ro" => "Despre",
+ "sv" => "Om");
 
 $txt_details = array(
 "ru"=>"Информация пользователя", 
@@ -2134,7 +2297,8 @@ $txt_details = array(
  "es" => "Informaci&oacute;n del usuario",
 "nl"=>"Gebruikersinformatie",
  "it"=>"Informazione utente",
- "ro" => "Nume utilizator");
+ "ro" => "Nume utilizator",
+ "sv" => "AnvДndarinformation");
 
 $txt_goodbye = array( 
  "ru"=>"До свидания!",
@@ -2147,7 +2311,8 @@ $txt_goodbye = array(
  "es" => "Adi&oacute;s",
 "nl"=>"Tot Ziens!!!",
  "it" =>"Ciao!",
- "ro" => "La revedere!");
+ "ro" => "La revedere!",
+ "sv" => "Hej dЕ!");
 
 $txt_error_quota_expired = array(
 "ru"=>"Не доступно : Ваш лимит исчерпан", 
@@ -2160,7 +2325,8 @@ $txt_error_quota_expired = array(
  "es" => "Prohibido: La quota ha expirado",
 "nl"=>"Niet toegestaan: uw limiet is bereikt",
  "it" =>"Errore : hai superato il tuo quota",
- "ro" => "Eroare: quota a expirat");
+ "ro" => "Eroare: quota a expirat",
+ "sv" => "Fel: din utrymmesbegrДnsning Дr Жverskriden");
 
 $txt_error_not_allowed = array( 
  "ru"=>"Извините, Вам это не доступно",
@@ -2173,7 +2339,8 @@ $txt_error_not_allowed = array(
  "es" => "Lo siento, esta operaci&oacute;no estА permitida",
 "nl"=>"Het is niet toegestaan om dat te doen",
  "it"=>"Mi dispiace, non hai i privilegi per farlo",
- "ro" => "Nu sunteti autorizat sa faceti asta");
+ "ro" => "Nu sunteti autorizat sa faceti asta",
+ "sv" => "TyvДrr har du inte tillЕtelse till detta");
 
 $txt_quota = array( 
  "ru" => "Ограничение", 
@@ -2186,7 +2353,8 @@ $txt_quota = array(
  "es" => "Quota",
 "nl"=>"Limiet",
  "it" => "Quota",
- "ro" => "Quota");
+ "ro" => "Quota",
+ "sv" => "UtrymmesbegrДnsning");
 
 $txt_maximum = array( 
  "ru"=>"максимум",
@@ -2199,7 +2367,8 @@ $txt_maximum = array(
  "es" => "maximo",
 "nl"=>"maximaal",
  "it" =>"massimo",
- "ro" => "maxim");
+ "ro" => "maxim",
+ "sv" => "maximalt");
 
 $txt_current = array(
  "ru"=>"текущий", 
@@ -2212,7 +2381,8 @@ $txt_current = array(
  "es" => "actual",
 "nl"=>"huidig",
  "it" =>"attuale",
- "ro" => "actual");
+ "ro" => "actual",
+ "sv" => "nuvarande");
 
 $txt_used = array(
  "ru"=>"использовано", 
@@ -2225,7 +2395,8 @@ $txt_used = array(
  "es" => "usados",
 "nl"=>"gebruikt",
  "it" =>"usato",
- "ro" => "folosit");
+ "ro" => "folosit",
+ "sv" => "anvДnt");
 
 $txt_hardquota = array(
  "ru"=>"Максимальный лимит", 
@@ -2238,7 +2409,8 @@ $txt_hardquota = array(
  "es" => "Quota dura",
 "nl"=>"Harde Limiet",
  "it" =>"Hard Quota",
- "ro" => "Quota dura");
+ "ro" => "Quota dura",
+ "sv" => "HЕrd utrymmesbegrДnsning");
 
 $txt_softquota = array(
 "ru"=>"Предупреждение",
@@ -2251,7 +2423,8 @@ $txt_softquota = array(
  "es" => "Quota blanda",
 "nl"=>"Zachte Limiet",
  "it" =>"Soft quota",
- "ro" => "Quota lejera");
+ "ro" => "Quota lejera", 
+ "sv" => "Mjuk utrymmesbegrДnsning");
 
 $txt_msgsize = array( 
 "ru"=>"Размер писем", 
@@ -2264,7 +2437,8 @@ $txt_msgsize = array(
  "es" => "Tama&ntilde;o del mensaje",
 "nl"=>"Bericht Grootte",
  "it" =>"Dimensione messaggio",
- "ro" => "Dimensiunea mesajului");
+ "ro" => "Dimensiunea mesajului",
+ "sv" => "Storlek pЕ meddelande");
 
 $txt_msgcount = array(
 "ru"=>"Количество писем", 
@@ -2277,7 +2451,8 @@ $txt_msgcount = array(
  "es" => "Cantidad de mensajes",
 "nl"=>"Aantal berichten",
  "it" =>"Numero di messaggi",
- "ro" => "Numarul mesajelor");
+ "ro" => "Numarul mesajelor",
+ "sv" => "Antal meddelanden");
 
 $txt_expiry = array( 
 "ru"=>"Срок действия",
@@ -2290,7 +2465,8 @@ $txt_expiry = array(
  "es" => "Expiraci&oacuten",
 "nl"=>"Vervaldatum",
  "it" =>"Scade",
- "ro" => "Expira"); 
+ "ro" => "Expira",
+ "sv" => "Slutdatum"); 
 
 $txt_settings = array(
  "ru" => "Настройки", 
@@ -2303,7 +2479,8 @@ $txt_settings = array(
  "es" => "Config",
 "nl"=>"Instellingen",
  "it" =>"Config",
- "ro" => "Setari");
+ "ro" => "Setari",
+ "sv" => "InstДllningar");
 
 $txt_catchall = array(
  "ru" => "Catchall",
@@ -2316,7 +2493,8 @@ $txt_catchall = array(
  "es" => "Catchall",
 "nl"=>"Catchall",
  "it" => "Catchall",
- "ro" => "Catchall");
+ "ro" => "Catchall",
+ "sv" => "Tar allt");
 
 $txt_setup_catchall = array(
  "ru" => "Setup catchall",
@@ -2329,7 +2507,8 @@ $txt_setup_catchall = array(
  "es" => "Setup catchall",
  "nl" =>"Catchall instellen",
  "it" => "Imposta catchall",
- "ro" => "Setup catchall");
+ "ro" => "Setup catchall",
+ "sv" => "InstДllningar fЖr tar allt");
 
 $txt_remove_catchall = array(
  "ru" => "Remove catchall",
@@ -2342,7 +2521,8 @@ $txt_remove_catchall = array(
  "es" => "Remove catchall",
  "nl" => "Verwijder catchall",
  "it" => "Rimuovi catchall",
- "ro" => "Dezactiveaza catchall");
+ "ro" => "Dezactiveaza catchall",
+ "sv" => "Ta bort tar allt");
 
 $txt_catchall_confirm = array(
  "ru" => "Catchall confirmation",
@@ -2355,7 +2535,8 @@ $txt_catchall_confirm = array(
  "es" => "Catchall confirmation",
  "nl" => "Catchall bevestiging",
  "it" => "Conferma Catchall",
- "ro" => "Confirma catchall");
+ "ro" => "Confirma catchall",
+ "sv" => "Ta allt bekrДftelse");
 
 $txt_system_account = array(
  "ru" => "System account",
@@ -2368,7 +2549,8 @@ $txt_system_account = array(
  "es" => "System account",
  "nl" => "Systeem account",
  "it" => "Account di sistema",
- "ro" => "Contul sistemului");
+ "ro" => "Contul sistemului",
+ "sv" => "Systemkonto");
 
 $txt_current_catchall_account_is = array(
  "ru" => "current_catchall_account_is",
@@ -2381,7 +2563,8 @@ $txt_current_catchall_account_is = array(
  "es" => "current_catchall_account_is",
  "nl" => "huidig catchall account is",
  "it" => "L'account che fa da catchall attualmente &egrave",
- "ro" => "Contul catchall curent este");
+ "ro" => "Contul catchall curent este",
+ "sv" => "Nuvarande 'tar all e-post' konto Дr");
 
 $txt_help = array(
  "ru" => "Help",
@@ -2394,7 +2577,8 @@ $txt_help = array(
  "es" => "Help",
  "nl" => "Help",
  "it" => "Aiuto",
- "ro" => "Help");
+ "ro" => "Help",
+ "sv" => "HjДlp");
 
 $txt_prev = array(
   "ru" => "<--",
@@ -2407,7 +2591,8 @@ $txt_prev = array(
   "es" => "<--",
   "nl" => "Vorige",
   "it" => "<--",
-  "ro" => "<--");
+  "ro" => "<--",
+  "sv" => "<--");
  
  $txt_prev_off = array(
   "ru" => "<--",
@@ -2420,7 +2605,8 @@ $txt_prev = array(
   "es" => "<--",
   "nl" => "Vorige",
   "it" => "<--",
-  "ro" => "<--");
+  "ro" => "<--",
+  "sv" => "<--");
  
  $txt_next = array(
   "ru" => "-->",
@@ -2433,7 +2619,8 @@ $txt_prev = array(
   "es" => "-->",
   "nl" => "Volgende",
   "it" => "-->",
-  "ro" => "-->");
+  "ro" => "-->",
+  "sv" => "-->");
  
  $txt_next_off = array(
   "ru" => "-->",
@@ -2446,7 +2633,8 @@ $txt_prev = array(
   "es" => "-->",
   "nl" => "Volgende",
   "it" => "-->",
-  "ro" => "-->");
+  "ro" => "-->",
+  "sv" => "-->");
 
  $txt_first = array(
   "ru" => "<<<",
@@ -2459,7 +2647,8 @@ $txt_prev = array(
   "es" => "<<<",
   "nl" => "Eerste",
   "it" => "<<<",
-  "ro" => "<<<");
+  "ro" => "<<<",
+  "sv" => "<<<");
  
  $txt_first_off = array(
   "ru" => "<<<",
@@ -2472,7 +2661,8 @@ $txt_prev = array(
   "es" => "<<<",
   "nl" => "Eerste",
   "it" => "<<<",
-  "ro" => "<<<");
+  "ro" => "<<<",
+  "sv" => "<<<");
  
 $txt_last = array(
   "ru" => ">>>",
@@ -2485,7 +2675,8 @@ $txt_last = array(
   "es" => ">>>",
   "nl" => "Laatste",
   "it" => ">>>",
-  "ro" => ">>>");
+  "ro" => ">>>",
+  "sv" => ">>>");
  
  $txt_last_off = array(
   "ru" => ">>>",
@@ -2498,7 +2689,8 @@ $txt_last = array(
   "es" => ">>>",
   "nl" => "Laatste",
   "it" => ">>>",
-  "ro" => ">>>");
+  "ro" => ">>>",
+  "sv" => ">>>");
 
 $txt_ = array(
  "ru" => "",
@@ -2509,7 +2701,8 @@ $txt_ = array(
  "da" => "",
  "es" => "",
  "it" => "",
- "ro" => "");
+ "ro" => "",
+ "sv" => "");
 
 $txt_ = array(
  "ru" => "",
@@ -2520,7 +2713,8 @@ $txt_ = array(
  "da" => "",
  "es" => "",
  "it" => "",
- "ro" => "");
+ "ro" => "",
+ "sv" => "");
 
 $txt_ = array(
  "ru" => "",
@@ -2531,6 +2725,7 @@ $txt_ = array(
  "da" => "",
  "es" => "",
  "it" => "",
- "ro" => "");
+ "ro" => "",
+ "sv" => "");
 
 ?>
