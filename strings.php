@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.23 2000/10/16 15:45:45 swix Exp $
+        $Id: strings.php,v 1.24 2000/10/18 08:25:00 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -1627,13 +1627,13 @@ $txt_current_catchall_account_is = array(
  "es" => "current_catchall_account_is",
  "it" => "current_catchall_account_is");
 
-$txt_ = array(
- "ru" => "",
- "en" => "",
- "fr" => "",
- "de" => "",
- "da" => "",
- "es" => "",
+$txt_help = array(
+ "ru" => "Help",
+ "en" => "Help",
+ "fr" => "Aide",
+ "de" => "Hilfe",
+ "da" => "Help",
+ "es" => "Help",
  "it" => "");
 
 $txt_ = array(

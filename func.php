@@ -8,7 +8,7 @@
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 	* Copyright (C) 2000  Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 
-        $Id: func.php,v 1.20 2000/10/16 15:45:45 swix Exp $
+        $Id: func.php,v 1.21 2000/10/18 08:25:00 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -221,14 +221,22 @@ function get_accounts_sort_by_name($a, $b) {
 
 	list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled)=$a;
 	list($username2, $password2, $mbox2, $alias2, $PersonalInfo2, $HardQuota2, $SoftQuota2, $SizeLimit2, $CountLimit2, $CreationTime2, $ExpiryTime2, $resp, $Enabled)=$b;
-	return ($username < $username2) ? -1 : 1; 
+	return (strtolower($username) < strtolower($username2)) ? -1 : 1; 
+}		
+
+
+function get_accounts_sort_by_info($a, $b) {
+
+	list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled)=$a;
+	list($username2, $password2, $mbox2, $alias2, $PersonalInfo2, $HardQuota2, $SoftQuota2, $SizeLimit2, $CountLimit2, $CreationTime2, $ExpiryTime2, $resp, $Enabled)=$b;
+	return (strtolower($PersonalInfo) < strtolower($PersonalInfo2)) ? -1 : 1; 
 }		
 
 
 
 function get_accounts($arg_action, $arg_username = "") {
 
-	global $quota_on, $quota_data, $type, $domain, $passwd, $catchall_active, $readonly_accounts_list, $system_accounts_list;
+	global $quota_on, $quota_data, $type, $domain, $passwd, $catchall_active, $readonly_accounts_list, $system_accounts_list, $sort_order;
 	$new_list = array ();
 
 	// action = 0 : only one mailbox (user mode)
@@ -283,8 +291,11 @@ function get_accounts($arg_action, $arg_username = "") {
 
 		// try to sort on username
 
-		usort($new_list, get_accounts_sort_by_name);
-	
+		if ($sort_order == "info") {
+			usort($new_list, get_accounts_sort_by_info);
+		} else {
+			usort($new_list, get_accounts_sort_by_name);
+		}
 
 	} else {  // user
 

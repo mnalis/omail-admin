@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.27 2000/10/16 23:21:55 swix Exp $
+        $Id: index.php,v 1.28 2000/10/18 08:25:00 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -44,7 +44,7 @@ include("htmlstuff.php");
 
 session_start();
 session_register("username","domain","passwd","type","ip","expire","lang","active");
-session_register("quota_on","quota_data","catchall_active");
+session_register("quota_on","quota_data","catchall_active", "sort_order");
 
 if (!$lang) { 
 
@@ -83,6 +83,14 @@ if (!$active) {
 		html_head("$program_name Administration - about");
 		html_titlebar($txt_about[$lang], "", "");
 		html_about();
+		html_end();
+		exit();
+
+	} elseif ($A == "help") {
+	
+		html_head("$program_name Administration - Help");
+		html_titlebar($txt_help[$lang], "", "");
+		html_help();
 		html_end();
 		exit();
 
@@ -173,6 +181,21 @@ if ($active == 1) {    // active=1 -> user logged in
 
 
 	//
+	// HELP
+	//
+
+	if ($A == "help") {
+	
+		html_head("$program_name Administration - Help");
+		html_titlebar($txt_help[$lang], "", "");
+		html_help();
+		html_end();
+		exit();
+
+	}
+
+
+	//
 	// SPLASH
 	//
 
@@ -194,6 +217,8 @@ if ($active == 1) {    // active=1 -> user logged in
 
 
 		if ($type == "domain") {
+
+			if ($form_sort == "info") { $sort_order = "info"; } else { $sort_order = "username"; }
 
 			if ($catchall_active) {
 			    $txt_menu_add = "<br>" . $txt_current_catchall_account_is[$lang] . ": <b>$catchall_active@$domain</b>";

@@ -1,7 +1,7 @@
 <h1>%title%</h1>
 <table border=0><TR><TH>N°</TH>
-<TH>%txt_email%</TH>
-<TH>%txt_info%</TH>
+<TH><A HREF="%url_email%">%txt_email%</A></TH>
+<TH><A HREF="%url_info%">%txt_info%</A></TH>
 <TH>%txt_fwd% 1</TH>
 <TH>%txt_fwd% 2</TH>
 <TH>%txt_more_fwd%?</TH>

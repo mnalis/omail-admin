@@ -5,7 +5,7 @@ Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Muell
 
 oMail-admin TODO
 ================
-$Id: TODO,v 1.20 2000/10/16 19:05:19 swix Exp $ 
+$Id: TODO,v 1.21 2000/10/18 08:25:00 swix Exp $ 
 $Source: /cvsroot/omail/admin2/TODO,v $ 
 
 
@@ -17,7 +17,7 @@ High priority
 [X] remove autoresponder info and button for aliases  (om, 03aug2k)
 [X] make the enabled/disabled feature work (om, 18aug2k)
 [ ] update strings for other languages
-[ ] for quantity of mailboxes quota, don't count system or readonly accounts!
+[X] for quantity of mailboxes quota, don't count system or readonly accounts!
 
 Normal priority
 ---------------
