@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.13 2000/08/11 13:15:28 swix Exp $
+        $Id: htmlstuff.php,v 1.14 2000/08/12 22:53:13 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -87,7 +87,7 @@ if ($cookie_omail_last_domain) { print htmlentities($cookie_omail_last_domain); 
 
 function html_head($title) {
 
-	global $A, $domain, $cvs_version, $version;
+	global $quota_on, $quota_data, $A, $domain, $cvs_version, $version;
 
 	print "<HTML><HEAD><TITLE>$title</TITLE>\n";
 	print "<!-- oMail-admin version $version - $cvs_version - " . session_id() . "-->\n";
@@ -157,7 +157,7 @@ A:hover.nav {  font-family: Verdana, Arial, Helvetica, sans-serif; color: red;}
 
 function html_titlebar($title,$msg,$popup) {
 	
-	global $script, $A, $lang, $version;
+	global $quota_on, $quota_data, $script, $A, $lang, $version;
 	include("strings.php");
 
 	?>
@@ -200,7 +200,7 @@ function html_end() {
 
 function html_userform($userinfo, $action) {
 
-	global $session, $script, $lang, $domain, $type;
+	global $quota_on, $quota_data, $session, $script, $lang, $domain, $type;
 	include("strings.php");
 
 	$fwd = 0;
@@ -275,7 +275,7 @@ function html_userform($userinfo, $action) {
 
 function html_listmailbox($result) {
 
-	global $session, $script, $lang, $domain;
+	global $quota_on, $quota_data, $session, $script, $lang, $domain;
 	include("strings.php");
 
 	print "<br><table border=0>";	
@@ -408,8 +408,11 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 	//		2 = alias
 	//		0 = user   (no new user line, no delete)
 
+	// if autoresp_support = 0 -> don't show autorespond button... and check if colspan are ok...
 
-	global $session, $script, $lang, $domain;
+
+
+	global $quota_on, $quota_data, $session, $script, $lang, $domain;
 	include("strings.php");
 
 	switch ($arg_action) {
@@ -434,13 +437,13 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 		"<TH>" . $txt_fwd[$lang] . "3</TH>" .
 		"<TH>" . $txt_more_fwd[$lang] . "?</TH>";
 
-	if ($arg_action != 2 && !(!$arg_action && $mtype == "alias")) {
+	if ($arg_action != 2 && !(!$arg_action && $mtype == "alias")  && !($quota_on && !$quota_data["autoresp_support"])) {
 		print "<TH>" . $txt_responder[$lang] . "?</TH>";
 	}
 
-	if ($arg_action && $arg_action != 2) {
+	if ($arg_action && $arg_action != 2 && !($quota_on && !$quota_data["autoresp_support"])) {
 		print "<TH COLSPAN=3>" . $txt_action[$lang] . "</TH></TR>";
-	} elseif ($arg_action == 2 || (!$arg_action && $mtype == "mbox")) {
+	} elseif ($arg_action == 2 || (!$arg_action && $mtype == "mbox") || ($quota_on && !$quota_data["autoresp_support"])) {
 		print "<TH COLSPAN=2>" . $txt_action[$lang] . "</TH></TR>";
 	} else {
 		print "<TH>" . $txt_action[$lang] . "</TH></TR>";
@@ -478,7 +481,7 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 		if ($alias[3]) { print $yes; } else { print $no; } 
 		print "&nbsp;</TD>"; // alias?
 
-		if ($arg_action != 2 && !(!$arg_action && $mtype == "alias")) {
+		if ($arg_action != 2 && !(!$arg_action && $mtype == "alias") && !($quota_on && !$quota_data["autoresp_support"])) {
 			print "<TD>";
 			if ($resp) { print $activated; } else { print $inactived; } 
 			print "&nbsp;</TD>"; // responder?
@@ -491,7 +494,7 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 		print "<TD><A HREF=\"$script?A=edit&U=" . $username . "\" onClick=\"oW(this,'pop')\">"  . 
 			$txt_edit[$lang]  . "</a>&nbsp;</TD>"; // action
 
-		if ($arg_action != 2 && !(!$arg_action && $mtype == "alias")) {
+		if ($arg_action != 2 && !(!$arg_action && $mtype == "alias") && !($quota_on && !$quota_data["autoresp_support"])) {
 			print "<TD><A HREF=\"$script?A=resp&U=" . $username . "\" onClick=\"oW2(this,'pop')\">"  . 
 				$txt_responder[$lang] . "</a>&nbsp;</TD>"; // action
 		}	
@@ -519,7 +522,7 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 
 	if ($arg_action != 0) {
 	
-		if ($arg_action != 2) {
+		if ($arg_action != 2 && !($quota_on && !$quota_data["autoresp_support"])) {
 			print "<tr><th COLSPAN=8 ALIGN=right>&nbsp;&nbsp;</th>";
 			print "<TH COLSPAN=3 ALIGN=center>";
 		} else { 
@@ -558,6 +561,7 @@ and Bruce Guenter's <a href="http://www.em.ca/~bruceg/vmailmgr/">vmailmgr</a> (v
 <li>full autoresponder support (edit/enable/disable)</li>
 <li>can be used by non unix-gurus users</li>
 <li>session expiration after N minutes for security</li>
+<li>domain name based quotas (how many mailboxes/aliases, autoresponder y/n, etc.)
 </ul>
 <br></li>
 
@@ -593,7 +597,7 @@ and of course the <a href="CREDITS">Credits</a></li>
 </ul>
 </td></tr></table>
 <br></li>
-<li>CVS Version: $Id: htmlstuff.php,v 1.13 2000/08/11 13:15:28 swix Exp $ <br><br></li>
+<li>CVS Version: $Id: htmlstuff.php,v 1.14 2000/08/12 22:53:13 swix Exp $ <br><br></li>
 
 <li>
 Feel free to use this form for your suggestions, requests and bugfixes:
@@ -602,7 +606,7 @@ Feel free to use this form for your suggestions, requests and bugfixes:
 <input type="hidden" name="subject" value="oMail-admin <?php echo($version); ?> comment form">
 <input type="hidden" name="redirect" value="http://<?php echo($HTTP_HOST); ?><?php echo($REQUEST_URI); ?>">
 <input type="hidden" name="sender" value="<?php echo($REMOTE_ADDR); ?>">
-<input type="hidden" name="sender" value="Version: $Id: htmlstuff.php,v 1.13 2000/08/11 13:15:28 swix Exp $ ">
+<input type="hidden" name="sender" value="Version: $Id: htmlstuff.php,v 1.14 2000/08/12 22:53:13 swix Exp $ ">
 <table border="0">
 <tr><td align="right">Email</td><td><small>
 <input type="text" size="30" name="from_email"></small></td></tr>

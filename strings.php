@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.11 2000/08/11 13:15:28 swix Exp $
+        $Id: strings.php,v 1.12 2000/08/12 22:53:13 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -349,12 +349,20 @@ $txt_menu = array(
  "es" => "Menú",
  "it"=>"");
 
-$txt_menu_descr = array( 
+$txt_menu_domain_descr = array( 
  "en" => "Welcome in the domain administration main menu",
  "fr" => "Bienvenue dans le menu principal de l'adminstration de votre domaine",
  "de" => "Willkomen im Maildomain Administration Hauptmenu ",
  "es" => "Bienvenido al menú de administración de dominios",
  "it"=>"");
+
+$txt_menu_account_descr = array( 
+ "en" => "Welcome your mail account administration main menu",
+ "fr" => "Bienvenue dans le menu principal de l'adminstration de votre compte Mel",
+ "de" => "Willkomen im Mailkonto Administration Hauptmenu ",
+ "es" => "Bienvenido al menú de administración de [mailaccount]",
+ "it"=>"");
+
 
 
 $txt_edit = array( 
@@ -1111,71 +1119,53 @@ $txt_details = array(
  "es" => "User Info",
  "it"=>"");
 
-$txt_ = array( 
- "en" => "",
- "fr" => "",
- "de" => "",
+$txt_goodbye = array( 
+ "en" => "Good bye!",
+ "fr" => "Au revoir!",
+ "de" => "Auf wiedersehen!",
+ "es" => "Ciao!",
+ "it" =>"Ciao!");
+
+$txt_error_quota_expired = array( 
+ "en" => "Not allowed : your quota is expired",
+ "fr" => "Non autorise : votre quota est depasse",
+ "de" => "Nicht erlaubt : Ihr Quota ist ueberschritten",
+ "es" => "Not allowed : your quota is expired",
+ "it" =>"");
+
+$txt_error_not_allowed = array( 
+ "en" => "Sorry, you are not allowed to do that",
+ "fr" => "Desole, vous n'avez pas les droits pour effectuer cette operation",
+ "de" => "Sorry, Sie haben nicht die Berechtigung um diese Operation durchzufuehren",
+ "es" => "Sorry, you are not allowed to do that",
  "it"=>"");
 
 $txt_ = array( 
  "en" => "",
  "fr" => "",
  "de" => "",
+ "es" => "",
  "it"=>"");
 
 $txt_ = array( 
  "en" => "",
  "fr" => "",
  "de" => "",
+ "es" => "",
  "it"=>"");
 
 $txt_ = array( 
  "en" => "",
  "fr" => "",
  "de" => "",
+ "es" => "",
  "it"=>"");
 
 $txt_ = array( 
  "en" => "",
  "fr" => "",
  "de" => "",
+ "es" => "",
  "it"=>"");
-
-$txt_ = array( 
- "en" => "",
- "fr" => "",
- "de" => "",
- "it"=>"");
-
-$txt_ = array( 
- "en" => "",
- "fr" => "",
- "de" => "",
- "it"=>"");
-
-$txt_ = array( 
- "en" => "",
- "fr" => "",
- "de" => "",
- "it"=>"");
-
-$txt_ = array( 
- "en" => "",
- "fr" => "",
- "de" => "",
- "it"=>"");
-
-$txt_ = array( 
- "en" => "",
- "fr" => "",
- "de" => "",
- "it"=>"");
-
-$txt_ = array( 
- "en" => "",
- "fr" => "",
- "de" => "",
- "it"=>"");
-
 
 ?>

@@ -1,0 +1,33 @@
+# vmailmgrquotas
+# --------------
+# configuration file for oMail-admin
+# 
+# $Id: vmailmgrquotas,v 1.1 2000/08/12 22:53:13 swix Exp $ 
+# $Source: /cvsroot/omail/admin2/vmailmgrquotas,v $ 
+# 
+# to be copied in /var/qmail/control or /etc/vmailmgr (to be set in config.php!) 
+#
+# 
+# Syntax:
+# -------
+# lines beginning with "#", "\n", " " are ignored.
+# 
+# format:
+# domain.ext|max_allowd_users|max_allowed_alias|users_support|alias_support|user_login_allowed|autoresp_allowed
+# 
+# default : no limits, support for everything
+# 0 = no/undefined, 1 = yes
+
+#
+# default configuration  (optional!)
+#
+#default|99|22|1|1|1|1
+
+
+#
+# configuration for specific domains
+#
+omnis.ch|0|2|1|1|1|1
+test.com|0|0|1|1|1|1
+
+

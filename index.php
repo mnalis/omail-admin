@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.11 2000/08/11 13:15:28 swix Exp $
+        $Id: index.php,v 1.12 2000/08/12 22:53:13 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -29,6 +29,7 @@ include("htmlstuff.php");
 
 session_start();
 session_register("username","domain","passwd","type","ip","expire","lang","active");
+session_register("quota_on","quota_data");
 
 if (!$lang) { $lang = $default_lang; }
 
@@ -54,7 +55,9 @@ if (!$active) {
 
 	} else {
 
-		if (authenticate($form_login, $form_passwd, $REMOTE_ADDR)) {
+		if ($form_passwd && $form_login && authenticate($form_login, $form_passwd, $REMOTE_ADDR)) {
+
+			// login and password can't be left empty!
 
 			$active = 1;
 			$A = "menu";
@@ -122,20 +125,43 @@ if ($active == 1) {
 
 	if ($A == "menu") {
 
-		html_titlebar($txt_menu[$lang] . " - $domain", $txt_menu_descr[$lang] . $txt_menu_add, 0);
 
 		if ($type == "domain") {
 
-			$mboxes = get_accounts(1);	
-			html_display_mailboxes($mboxes,1);
+			html_titlebar($txt_menu[$lang] . " - $domain", $txt_menu_domain_descr[$lang] . $txt_menu_add, 0);
 
-			$aliases = get_accounts(2);
-			html_display_mailboxes($aliases,2);
+			if (!$quota_on || ($quota_on && $quota_data["users_support"])) {
+				$mboxes = get_accounts(1);	
+				html_display_mailboxes($mboxes,1);
+			}
+
+			if (!$quota_on || ($quota_on && $quota_data["alias_support"])) {
+				$aliases = get_accounts(2);
+				html_display_mailboxes($aliases,2);
+			}
 
 		} else {
 
-			$testuser = get_accounts(0,$username);
-			html_display_mailboxes($testuser,0);
+			if (!$quota_on || ($quota_on && $quota_data["user_login_allowed"])) {
+
+				html_titlebar($txt_menu[$lang] . " - $domain", $txt_menu_account_descr[$lang] . $txt_menu_add, 0);
+				$testuser = get_accounts(0,$username);
+				html_display_mailboxes($testuser,0);
+
+			} else {
+		
+				// user logged in correctely, but quota/domain info don't allow user login.			
+
+	                	$msg = $txt_error_not_allowed[$lang];
+		                $msg .= "<ul><li><a href=\"$script_url?A=login\">" . $txt_login_again[$lang]  .  "</a>\n";
+		                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
+				html_head("oMail Administration");	
+	        	        html_titlebar($txt_error[$lang], $msg ,0);
+		                html_end();
+				$active = 0;
+				session_destroy();
+				exit();
+			}				
 		}
 
 		html_end();
@@ -156,7 +182,6 @@ if ($active == 1) {
 
                         html_head("oMail Administration - Error");
                         $msg = "<b>" . $txt_error_invalid_chars_in_username[$lang] . "</b><br><br>";
-                        $msg .= "<ul>";
 			$msg .= "<ul><li><a href=\"\" onClick=\"history.back();\">" . $txt_back[$lang]  .  "</a>\n";
                         $msg .= "<li><a href=\"$script?A=menu\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 			$msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";
@@ -175,11 +200,32 @@ if ($active == 1) {
 
 	if ($A == "newalias") {
 
-	        html_titlebar($txt_newalias[$lang], $txt,1);
-	        $userinfo[2] = "-";
-	        html_userform($userinfo, "newalias");
-	        html_end();
-	        exit();
+
+		if ($type == "domain" && (!$quota_on || ($quota_on && ($quota_data["alias_support"]  && $quota_data["nb_alias"] < $quota_data["max_alias"])))) {
+		        html_titlebar($txt_newalias[$lang], $txt,1);
+		        $userinfo[2] = "-";
+		        html_userform($userinfo, "newalias");
+		        html_end();
+		        exit();
+
+		} else {
+			if ($type != "domain") { 
+				$msg = $txt_error_not_allowed[$lang];
+			} else {
+	                	$msg = $txt_error_quota_expired[$lang];
+			}
+	                $msg .= "<ul><li><a href=\"$script?A=menu\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+	                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
+			html_head("oMail Administration");	
+        	        html_titlebar($txt_error[$lang], $msg ,0);
+	                html_end();
+			exit();
+		}				
+
+
+
+
+
 	}
 
 
@@ -189,11 +235,25 @@ if ($active == 1) {
 
 	if ($A == "newuser") {
 	
-        	html_titlebar($txt_newuser[$lang], $txt,1);
-        	$userinfo[2] = "-";
-        	html_userform($userinfo, "newuser");
-        	html_end();
-        	exit();
+		if ($type == "domain" && (!$quota_on || ($quota_on && ($quota_data["users_support"]  && $quota_data["nb_users"] < $quota_data["max_users"])))) {
+	        	html_titlebar($txt_newuser[$lang], $txt,1);
+	        	$userinfo[2] = "-";
+	        	html_userform($userinfo, "newuser");
+	        	html_end();
+	        	exit();
+		} else {
+			if ($type != "domain") { 
+				$msg = $txt_error_not_allowed[$lang];
+			} else {
+	                	$msg = $txt_error_quota_expired[$lang];
+			}
+	                $msg .= "<ul><li><a href=\"$script?A=menu\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+	                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
+			html_head("oMail Administration");	
+        	        html_titlebar($txt_error[$lang], $msg ,0);
+	                html_end();
+			exit();
+		}				
 	}
 
 
@@ -234,25 +294,40 @@ if ($active == 1) {
 
 	if ($A == "resp") {
                 
-	        html_titlebar($txt_edit_account[$lang], $txt,1);
-	        $user = get_accounts(0, $U);
-		$userinfo = $user[0];
+		if (!$quota_on || ($quota_on && $quota_data["autoresp_support"])) {
+	
+		        html_titlebar($txt_edit_account[$lang], $txt,1);
+		        $user = get_accounts(0, $U);
+			$userinfo = $user[0];
+	
+		        $respinfo = load_resp_file($U, $userinfo[11]);  // userinfo[11] = responder yes/no  
+	
+			if ($userinfo[11] || $respinfo[0] == 0) {
+				
+				list($respinfo["from"],$respinfo["subject"],$respinfo["body"]) = parse_resp_file($respinfo[1]);
+	
+			} else {
+				$respinfo["from"] = $U . "@" . $domain;
+				$respinfo["subject"] = $txt_autoresp_subj[$lang];
+				$respinfo["body"] = $txt_autoresp_body[$lang];
+			}	
+	
+		        html_respform($userinfo, $respinfo, $userinfo[11]);
+		        html_end();
+		        exit();
 
-	        $respinfo = load_resp_file($U, $userinfo[11]);  // userinfo[11] = responder yes/no  
 
-		if ($userinfo[11] || $respinfo[0] == 0) {
-			
-			list($respinfo["from"],$respinfo["subject"],$respinfo["body"]) = parse_resp_file($respinfo[1]);
 
 		} else {
-			$respinfo["from"] = $U . "@" . $domain;
-			$respinfo["subject"] = $txt_autoresp_subj[$lang];
-			$respinfo["body"] = $txt_autoresp_body[$lang];
-		}	
+			$msg = $txt_error_not_allowed[$lang];
+	                $msg .= "<ul><li><a href=\"$script?A=menu\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+	                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
+			html_head("oMail Administration");	
+        	        html_titlebar($txt_error[$lang], $msg ,0);
+	                html_end();
+			exit();
+		}				
 
-	        html_respform($userinfo, $respinfo, $userinfo[11]);
-	        html_end();
-	        exit();
 	}
 
 
@@ -329,6 +404,27 @@ if ($active == 1) {
 	        // "newalias"
 	
 	        if ($action == "newuser" || $action == "newalias") {
+
+
+			// check if domain admin is logged in and if quota are ok		
+	
+			if (($type != "domain") ||
+			($quota_on && $action == "newuser" && (!$quota_data["users_support"] || ($quota_data["nb_users"] >= $quota_data["max_users"]))) ||
+			($quota_on && $action == "newalias" && (!$quota_data["alias_support"] || ($quota_data["nb_alias"] >= $quota_data["max_alias"])))) {
+
+				if ($type != "domain") { 
+					$msg = $txt_error_not_allowed[$lang];
+				} else {
+		                	$msg = $txt_error_quota_expired[$lang];
+				}
+		                $msg .= "<ul><li><a href=\"$script?A=menu\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+		                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
+				html_head("oMail Administration");	
+	        	        html_titlebar($txt_error[$lang], $msg ,0);
+		                html_end();
+				exit();
+			}				
+
 	        
 	                // check args format... addslashed everywhere, etc...	
 
@@ -352,14 +448,13 @@ if ($active == 1) {
 	                        $msg = "<b>" . $txt_error_pw_needed[$lang] . "</b><br><br>";
 	                        $msg .= "<ul>";
 				$msg .= "<ul><li><a href=\"\" onClick=\"history.back();\">" . $txt_back[$lang]  .  "</a>\n";
-	                        $msg .= "<li><a href=\"$script?A=menu\" onClick=\"return gO(this,true,true)\">" . 
-	                                $txt_menu[$lang]  .  "</a>\n";
+	                        $msg .= "<li><a href=\"$script?A=menu\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 				$msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";
 	                        html_titlebar($txt_error[$lang], "$msg",0);
 	                        html_end();
 	                        exit();
 	                } 
-        
+
 	                
 	                // create empty list of forwarders if necessary
 
@@ -434,6 +529,21 @@ if ($active == 1) {
 	       // "responder"
 
 	        if ($action == "responder") {
+
+
+			// if autoresp support is off, show error
+
+			if ($quota_on && !$quota_data["autoresp_support"]) {
+
+				$msg = $txt_error_not_allowed[$lang];
+		                $msg .= "<ul><li><a href=\"$script?A=menu\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+		                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
+				html_head("oMail Administration");	
+	        	        html_titlebar($txt_error[$lang], $msg ,0);
+		                html_end();
+				exit();
+			}				
+
         
 	                // check args format....
 
@@ -452,6 +562,8 @@ if ($active == 1) {
 	        }
 
 
+
+
 	}
 
 
@@ -464,7 +576,7 @@ if ($active == 1) {
 		$active = 0;
 		session_destroy();
 
-	        $msg = $txt_logout[$lang];
+	        $msg = $txt_goodbye[$lang];
 	        $msg .= "<ul><li><a href=\"$script_url?A=login\">" . $txt_login_again[$lang]  .  "</a>\n";
 		$msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";
 	        html_titlebar($txt_logout[$lang], $msg ,0);

@@ -2,7 +2,7 @@
 Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----
 
-$Id: INSTALL,v 1.5 2000/08/11 13:15:28 swix Exp $
+$Id: INSTALL,v 1.6 2000/08/12 22:53:13 swix Exp $
 $Source: /cvsroot/omail/admin2/INSTALL,v $
 
 
@@ -33,21 +33,25 @@ oMail - INSTALL
 
 
 
-* Installation  (draft)
+* Installation  (draft : if you feel there is anything missing, please contact me!)
   ------------
 
   1. install qmail, autorespond and vmailmgr
 
   2. make sure vmailmgrd (the vmailmgr daemon) is running. Don't forget it needs uscpi-unix to work.
-     (  /usr/local/bin/unixserver -v -- /tmp/.vmailmgrd /usr/local/sbin/vmailmgrd -V  )
+     ( for example:  /usr/local/bin/unixserver -v -- /tmp/.vmailmgrd /usr/local/sbin/vmailmgrd -V  )
 
   3. check config.php  (optional)
 
   4. make sure you have installed the autoresponder correctely (look at the
      vautoresponder file in the qmail-autoresponder distribution...)
 
-  5. Well, then it should work out of the box.
+  5. make sure you have "magic_quotes_gpc = Off" in your php.ini  (usually in /usr/local/lib/)
+     (just important if there are "'` in the autoresponder message)
 
+  6. if necessary, setup quotas (look next section in INSTALL file)
+
+  7. Well, then it should work out of the box.
 
 
   If you make it work on your server, I would be glad to hear from you! 
@@ -55,5 +59,16 @@ oMail - INSTALL
   it to another language, please do send me the updated strings.php file!
 
 
---Olivier, 06.aug.2k
+
+* Quotas
+  ------
+  check the vmailmgrquota file, and copy it in /var/qmail/control or /etc/vmailmgr
+  more doc to come later about that.
+
+  You can use the quota's configuation file to disallow the use of autoresponders :
+  just activate the "default" configuration, and set "0" in the last field...
+
+
+
+--Olivier, 13.aug.2k
 

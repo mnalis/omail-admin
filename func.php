@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: func.php,v 1.9 2000/08/11 13:15:28 swix Exp $
+        $Id: func.php,v 1.10 2000/08/12 22:53:13 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -94,6 +94,8 @@ function authenticate($arg_login, $arg_passwd, $arg_ip) {
 			$expire = time() + $expire_after*60;	
 			$ip = $arg_ip;
 
+			load_quota_info($domain);
+
 			return 1;
 
 		} else {
@@ -113,6 +115,8 @@ function authenticate($arg_login, $arg_passwd, $arg_ip) {
 			$expire = time() + $expire_after*60;	
 			$ip = $arg_ip;
 
+			load_quota_info($domain);
+
 			return 1;
 
 		} else {
@@ -130,6 +134,64 @@ function authenticate($arg_login, $arg_passwd, $arg_ip) {
 }
 
 
+function load_quota_info($domain) {
+
+	global $vmailmgrquota_file, $quota_on, $quota_data;
+	$quota_on = 0; 
+
+	if (file_exists($vmailmgrquota_file)) {
+
+		$fp = fopen($vmailmgrquota_file, "r");	
+		while (!feof($fp)) {
+			$buffer = trim(fgets($fp, 4096));
+			if (substr($buffer, 1) != "#" && substr($buffer, 1) != "\n" && substr($buffer, 1) != "")
+			{
+				$entry = explode("|",$buffer);
+
+				// catch current domain (also if quota_on is set : could happen if default domain definied at start)
+
+				if ($entry[0] == $domain) {
+					$quota_on = 1;
+					$quota_data["nb_users"] = 0;			// current number of users
+					$quota_data["nb_alias"] = 0;			// and aliases (will be set later)
+					$quota_data["max_users"] = $entry[1];
+					$quota_data["max_alias"] = $entry[2];
+					$quota_data["users_support"] = $entry[3];
+					$quota_data["alias_support"] = $entry[4];
+					$quota_data["user_login_allowed"] = $entry[5];
+					$quota_data["autoresp_support"] = $entry[6];
+
+				
+					// dirty hack, but should be ok for the moment :]  (index.php will be updated soon)
+					if (!$quota_data["max_users"]) { $quota_data["max_users"] = 99999999; } 
+					if (!$quota_data["max_alias"]) { $quota_data["max_alias"] = 99999999; } 
+				}					
+
+				// catch default domain, but only if quota_on not yet set.
+
+				if (!$quota_on && ($entry[0] == "*" || $entry[0] == "+" || $entry[0] == "default")) {
+
+					$quota_on = 1;
+					$quota_data["nb_users"] = 0;			// current number of users
+					$quota_data["nb_alias"] = 0;			// and aliases (will be set later)
+					$quota_data["max_users"] = $entry[1];
+					$quota_data["max_alias"] = $entry[2];
+					$quota_data["users_support"] = $entry[3];
+					$quota_data["alias_support"] = $entry[4];
+					$quota_data["user_login_allowed"] = $entry[5];
+					$quota_data["autoresp_support"] = $entry[6];
+
+				
+					// dirty hack, but should be ok for the moment :]  (index.php will be updated soon)
+					if (!$quota_data["max_users"]) { $quota_data["max_users"] = 99999999; } 
+					if (!$quota_data["max_alias"]) { $quota_data["max_alias"] = 99999999; } 
+				}					
+			}
+		}
+		fclose ($fp);
+	}
+}
+
 
 function get_accounts_sort_by_name($a, $b) {
 
@@ -142,13 +204,19 @@ function get_accounts_sort_by_name($a, $b) {
 
 function get_accounts($arg_action, $arg_username = "") {
 
-	global $type, $domain, $passwd;
+	global $quota_on, $quota_data, $type, $domain, $passwd;
 	$new_list = array ();
 
 	if ($arg_action) {
 
 		$list = listdomain($domain, base64_decode($passwd));
 		$j = 0;
+
+		if ($quota_on) { 
+			if ($arg_action == 1) { $quota_data["nb_users"] = 0; } 
+			if ($arg_action == 2) { $quota_data["nb_alias"] = 0; } 
+		}
+
 
 	        for ($i = 0; $i <  sizeof($list); $i++) {
 
@@ -160,8 +228,16 @@ function get_accounts($arg_action, $arg_username = "") {
 
 	                $list[$i] = array($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp);
 			
-			if ($mbox && ($arg_action == 1)) { $new_list[$j++] = $list[$i];  }	
-			if (!$mbox && ($arg_action == 2)) { $new_list[$j++] = $list[$i]; }	
+			if ($mbox && ($arg_action == 1)) { 
+				$new_list[$j++] = $list[$i];  
+				if ($quota_on) { $quota_data["nb_users"]++; }
+			}	
+
+			if (!$mbox && ($arg_action == 2)) { 
+				$new_list[$j++] = $list[$i]; 
+				if ($quota_on) { $quota_data["nb_alias"]++; }
+			}
+	
 			if (($username == $arg_username) && ($action == 0)) { $new_list[$j++] = $list[$i]; }	
 
 		}

@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.7 2000/08/11 13:15:28 swix Exp $ 
+	$Id: config.php,v 1.8 2000/08/12 22:53:13 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -45,6 +45,13 @@ $sysadmin_mail = "sysadmin@notdefined.yet";
 $default_language = "en";
 
 
+// vmailmgrquota file location
+// ---------------------------
+
+$vmailmgrquota_file = "/var/qmail/control/vmailmgrquotas";
+//$vmailmgrquota_file = "/etc/vmailmgr/vmailmgrquotas";
+
+
 
 /* END OF USER CONFIGURATION */
 
@@ -64,8 +71,8 @@ $default_language = "en";
 
 // version
 
-$version = "0.91";
-$cvs_version = '$Id: config.php,v 1.7 2000/08/11 13:15:28 swix Exp $';
+$version = "0.92";
+$cvs_version = '$Id: config.php,v 1.8 2000/08/12 22:53:13 swix Exp $';
 
 // script URL
 
@@ -76,6 +83,7 @@ $script = $script_url;
 
 if ($cookie_omail_lang && !$default_lang) { $default_lang = htmlentities($cookie_omail_lang); }
 if (!$default_lang) { $default_lang = $default_language; }       // default language
+
 
 
 ?>
