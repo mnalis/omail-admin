@@ -2,11 +2,13 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: ChangeLog,v 1.38 2000/11/17 16:55:45 swix Exp $ 
+$Id: ChangeLog,v 1.39 2000/11/17 17:14:37 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
 
 2000-11-17  Olivier Mueller  <om@omnis.ch>
+
+	* released oMail-admin version 0.96pre8
 
 	* htmlstuff.php: Bugfix : user login is working again. Thx to Daniel for reporting the bug.
 	* htmlstuff.php: Bugfix : catchall setup not displayed anymore on user login.
