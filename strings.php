@@ -6,7 +6,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.53 2001/11/17 12:16:15 swix Exp $
+        $Id: strings.php,v 1.54 2001/11/17 12:18:11 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
         strings.php
@@ -77,7 +77,7 @@ $txt_charset=array(     "ru"=>"KOI8-R",
                         "it"=>"",
                          "ro"=>"",
                         "sv"=>"",
-			"lt"=>"iso-8859-13"
+			"lt"=>"iso-8859-13",
                         "id"=>"");
 
 $txt_login=array(        "ru"=>"ìÏÇÉÎ",
@@ -402,7 +402,7 @@ $txt_alias=array(        "ru"=>"áÌÉÁÓ",
                         "it"=>"Alias",
                         "ro"=>"Alias",
                         "sv"=>"Alias",
-			"lt"=>"Nuoroda"
+			"lt"=>"Nuoroda",
                         "id"=>"Alias");
 
 $txt_fwd=array(                "ru"=>"Fwd",
@@ -1064,7 +1064,7 @@ $txt_delete = array(
  "it"=>"Elimina",
  "ro"=>"Sterge",
  "sv"=>"Ta bort",
- "lt"=>"Iðtrinti"
+ "lt"=>"Iðtrinti",
  "id"=>"Hapus");
 
 
