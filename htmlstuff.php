@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.48 2000/11/17 16:31:11 swix Exp $
+        $Id: htmlstuff.php,v 1.49 2000/11/17 16:44:53 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -745,7 +745,7 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 	}
 
 	
-	if ($show_how_many_accounts && $all_hidden != 2) {
+	if (($show_how_many_accounts && $all_hidden != 2) || !$arg_action) {   // !$arg_action  -> type=user login
 		$template_name = "templates/display_$listtype.temp";
 	} else {
 		$template_name = "templates/display_" . $listtype . "_nolimit.temp";
