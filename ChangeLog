@@ -2,14 +2,15 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: ChangeLog,v 1.56 2001/02/25 10:24:28 swix Exp $ 
+$Id: ChangeLog,v 1.57 2001/02/25 18:01:36 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
 2001-02-25  Olivier Mueller  <om@omnis.ch>
 
+	* official release of version 0.97
 	* updated danish translation [kg]
 	* now display 3 random-chosen omail-admin users on admin screen,
-	  based on splash-screen feedback :)
+	  based on splash-screen feedback :) List is located in USERS.
 	* added translation to Czech [ls]
 
 2001-02-24  Olivier Mueller  <om@omnis.ch>
