@@ -1,0 +1,26 @@
+-----------
+oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
+-----------
+
+$Id: README.antispam,v 1.1 2003/01/29 21:33:25 swix Exp $ 
+$Source: /cvsroot/omail/admin2/README.antispam,v $
+
+
+
+To be completed... It uses the same SQL DB as spamassassin in SQL mode:
+
+
+CREATE TABLE userpref (
+  username varchar(50) NOT NULL default '',
+  preference varchar(30) NOT NULL default '',
+  value varchar(100) NOT NULL default '',
+  id int(11) NOT NULL auto_increment,
+  PRIMARY KEY  (id),
+  KEY username (username)
+) TYPE=MyISAM;
+
+
+And a patched version of qmail-scanner.
+
+
+

@@ -1,19 +1,35 @@
  <form action="%script%?%SID%" method="post"> 
  <table border=0> 
- <tr><th align=right>  %txt_username% &nbsp;</th> 
+ <tr><th align=right>  %txt_username%:&nbsp;</th> 
  <td bgcolor="#DDDDDD" align=left>%userinfo0%@%domain%&nbsp;</td></tr> 
  <input type="hidden" name="U" value="%userinfo0%"> 
         
- <tr><th align=right>%txt_scan_for_spam%&nbsp;</th> 
+ <tr><th align=right><font color="red">%txt_scan_for_spam%:&nbsp;</font></th> 
  <td bgcolor="#CCCCCC" align=left> 
 
  <select name="spam_status"> 
  <option value="1" %spam_checked_yes%>%txt_activated%</option> 
  <option value="0" %spam_checked_no%>%txt_inactived%</option> 
- </select></td></tr> 
+ </select>
+&nbsp;&nbsp;
+<font color="red"><b>(%txt_master_switch%)</b></font></td></tr> 
 
 
- <tr><th align=right>%txt_auto_delete_spams%&nbsp;</th> 
+ <tr><th align=right>%txt_required_hits%:&nbsp;</th> 
+ <td bgcolor="#CCCCCC" align=left> 
+<input type="text" name="required_hits" value="%required_hits%" size="3">&nbsp;
+(%txt_standard_value% = 5)&nbsp;</td></tr> 
+
+
+ <tr><th align=right>
+<b><font color="blue">Massnahmen / Action:</font></b>
+&nbsp;
+</th>  <td bgcolor="#CCCCCC" align=left> 
+&nbsp;
+</td></tr> 
+
+
+ <tr><th align=right>%txt_auto_delete_spams%:&nbsp;</th> 
  <td bgcolor="#DDDDDD" align=left> 
 
  <select name="spam_delete"> 
@@ -22,20 +38,40 @@
  </select></td></tr> 
 
 
- <tr><th align=right>%txt_fwd_spams_to%&nbsp;</th> 
+ <tr><th align=right>%txt_fwd_spams_to%:&nbsp;</th> 
  <td bgcolor="#CCCCCC" align=left> 
+<input type="text" name="from" value="%spam_target%" size="35">&nbsp;</td></tr> 
 
- <select name="spam_redirect"> 
- <option value="1" %spam_redirect_checked_yes%>%txt_activated%</option> 
- <option value="0" %spam_redirect_checked_no%>%txt_inactived%</option> 
- </select></td></tr> 
 
- <tr><th align=right>%txt_fwd%&nbsp;</th> 
- <td bgcolor="DDDDDD" align=left><input type="text" name="from" value="%spam_target%" size="35">&nbsp;</td></tr> 
+ <tr><th align=right>
+<b><font color="blue">Berechtigungen / Authorizations:</font></b>
+&nbsp;
+</th>  <td bgcolor="#CCCCCC" align=left> 
+&nbsp;
+</td></tr> 
+
+
+<tr><th align=right>%txt_white_list%:&nbsp;</th>
+<td bgcolor="#DDDDDD" align=left><textarea cols="35" wrap="virtual" rows="5" name="whitelist">%whitelist%
+</textarea>&nbsp;
+<br><font size="-1">%txt_one_per_line%</font>
+</td></tr>
+
+
+
+
+<tr><th align=right>%txt_black_list%:&nbsp;</th>
+<td bgcolor="#CCCCCC" align=left><textarea cols="35" wrap="virtual" rows="5" name="blacklist">%blacklist%
+</textarea>&nbsp;
+<br><font size="-1">%txt_one_per_line%</font>
+</td></tr>
+
+
+
 
  <tr><th align=right>%txt_submit%&nbsp;</th> 
 
- <td bgcolor="#CCCCCC" align=left> 
+ <td bgcolor="#DDDDDD" align=left> 
  <input type="hidden" name="A" value="parse"> 
        <input type="hidden" name="action" value="spam"> 
  <input type="submit" value="%txt_submit%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 

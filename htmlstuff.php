@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.68 2002/02/09 01:47:39 swix Exp $
+        $Id: htmlstuff.php,v 1.69 2003/01/29 21:33:26 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -207,22 +207,14 @@ function html_userform($userinfo, $action, $mboxlist) {
 	include("strings.php");
 	$fwd = 0;
 
-	// cleanup userinfo field, if containing SPAM settings
-	if (ereg("\|SPAM\|", $userinfo[4])) {
-		$tmp_spam_array = explode("|SPAM|", $userinfo[4]);
-		$userinfo[4] = $tmp_spam_array[0];
-		$templdata["spamsettings"] = $tmp_spam_array[1];
-	} else {
-		$templdata["spamsettings"] = "";
-	}
-
+	$templdata["spamsettings"] = "";
         $templdata["script"]=$script;
         $templdata["SID"]=SID;
         $templdata["txt_username"]=$txt_username[$lang];
         $templdata["userinfo0"]=$userinfo[0];
         $templdata["domain"]=$domain;
         $templdata["txt_details"]=$txt_details[$lang];
-        $templdata["userinfo4"]=$userinfo[4];
+        $templdata["userinfo4"]=htmlentities($userinfo[4]);
         $templdata["txt_date_of_creation"]=$txt_date_of_creation[$lang];
 	$templdata["txt_firstname"]=$txt_firstname[$lang];
 	$templdata["txt_lastname"]=$txt_lastname[$lang];
@@ -245,6 +237,7 @@ function html_userform($userinfo, $action, $mboxlist) {
 		$templdata["usernamefield"] = "<input type=\"text\" name=\"U\" value=\"" . $userinfo[0]. "\" size=\"15\">";
 	}
 
+	$userinfo[4] = htmlentities($userinfo[4]);
 	if ($type == "user") {
 	    $templdata["userdetailfield"] = $userinfo[4];
 	    if ($use_ldap) {
@@ -334,21 +327,14 @@ function html_quotaform($userinfo, $action) {
 
 
 	// cleanup userinfo field, if containing SPAM settings
-	if (ereg("\|SPAM\|", $userinfo[4])) {
-		$tmp_spam_array = explode("|SPAM|", $userinfo[4]);
-		$userinfo[4] = $tmp_spam_array[0];
-		$templdata["spamsettings"] = $tmp_spam_array[1];
-	} else {
-		$templdata["spamsettings"] = "";
-	}
-
+	$templdata["spamsettings"] = "";
         $templdata["script"]=$script;
         $templdata["SID"]=SID;
         $templdata["txt_username"]=$txt_username[$lang];
         $templdata["userinfo0"]=$userinfo[0];
         $templdata["domain"]=$domain;
         $templdata["txt_details"]=$txt_details[$lang];
-        $templdata["userinfo4"]=$userinfo[4];
+        $templdata["userinfo4"]=htmlentities($userinfo[4]);
         $templdata["txt_date_of_creation"]=$txt_date_of_creation[$lang];
         $templdata["CreationTime"]=date("d.m.Y H\hi",$CreationTime);
         $templdata["txt_status"]=$txt_status[$lang];
@@ -451,9 +437,6 @@ function html_spamform($userinfo, $spamsetup) {
 	if ($spamsetup["delete"] == 1) { $templdata["spam_delete_checked_yes"] = "SELECTED"; $templdata["spam_delete_checked_no"] = ""; }
 		else { $templdata["spam_delete_checked_no"] = "SELECTED"; $templdata["spam_delete_checked_yes"] = ""; }
 
-	if ($spamsetup["redirect"] == 1) { $templdata["spam_redirect_checked_yes"] = "SELECTED"; $templdata["spam_redirect_checked_no"] = ""; }
-		else { $templdata["spam_redirect_checked_no"] = "SELECTED"; $templdata["spam_redirect_checked_yes"] = ""; }
-
         $templdata["txt_submit"]=$txt_submit[$lang];
         $templdata["txt_cancel"]=$txt_cancel[$lang];
         $templdata["txt_fwd"]=$txt_fwd[$lang];
@@ -461,13 +444,22 @@ function html_spamform($userinfo, $spamsetup) {
         $templdata["txt_spamsettings"]=$txt_spamsettings[$lang];
         $templdata["txt_activated"]=$txt_activated[$lang];
         $templdata["txt_inactived"]=$txt_inactived[$lang];
+	$templdata["txt_one_per_line"]=$txt_one_per_line[$lang];
+	$templdata["txt_white_list"]=$txt_white_list[$lang];
+	$templdata["txt_black_list"]=$txt_black_list[$lang];
 
         $templdata["txt_scan_for_spam"]=$txt_scan_for_spam[$lang];
         $templdata["txt_spam_notes"]=$txt_spam_notes[$lang];
         $templdata["txt_auto_delete_spams"]=$txt_auto_delete_spams[$lang];
         $templdata["txt_fwd_spams_to"]=$txt_fwd_spams_to[$lang];
+        $templdata["txt_required_hits"]=$txt_required_hits[$lang];
+        $templdata["txt_standard_value"]=$txt_standard_value[$lang];
+        $templdata["txt_master_switch"]=$txt_master_switch[$lang];
 
         $templdata["spam_target"]=$spamsetup["spam_target"];
+        $templdata["required_hits"]=$spamsetup["required_hits"];
+        $templdata["blacklist"]=$spamsetup["blacklist"];
+        $templdata["whitelist"]=$spamsetup["whitelist"];
 
         print parseTemplate($templdata, "templates/spamform.temp");
 
@@ -624,7 +616,6 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 	$templdata["txt_any"] = $txt_any[$lang];
 	$templdata["txt_local_delivery"] = $txt_local_delivery[$lang];
 	
-
 	if ( $mb_letter ) {
 	    $templdata["mb_letter"] = $mb_letter;
 	} else {
@@ -782,13 +773,6 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 		}
 		
 		$templdata[obj][$ii]["username"] = $username;
-
-
-		// cleanup userinfo field, if containing SPAM settings
-		if (ereg("\|SPAM\|", $PersonalInfo)) {
-			$tmp_spam_array = explode("|SPAM|", $PersonalInfo);
-			$PersonalInfo = $tmp_spam_array[0];
-		}
 		$templdata[obj][$ii]["PersonalInfo"] = $PersonalInfo;
 
 		if (in_array($username, $readonly_accounts_list)) {

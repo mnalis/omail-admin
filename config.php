@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.63 2002/02/09 01:47:39 swix Exp $ 
+	$Id: config.php,v 1.64 2003/01/29 21:33:26 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -52,7 +52,7 @@ $show_how_many_accounts = 20;
 // will be displayed on screens with error messages
 // must be set to something else than the default value
 
-$sysadmin_mail = "sysadmin@notdefined.yetx";
+$sysadmin_mail = "sysadmin@notdefined.yet";
 
 
 // default language
@@ -133,14 +133,6 @@ $config_use_settings_with_quota = 0;
 
 $hide_about_button = 0;
 
-
-
-// use SpamAssassin
-// ----------------
-// check the doc in the README & INSTALL files
-
-$use_spamassassin = 1;
-$spamassassin_default_status = 1;	// 0 = turned off by default on new user creation
 
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -242,6 +234,27 @@ $ldap_manager = "cn=manager";
 
 $ldap_passwd = "SECRET";
 
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+
+// MYSQL/SPAMASSASSIN
+
+// use SpamAssassin
+// ----------------
+// check the doc in the README & INSTALL files
+
+$use_spamassassin = 0;
+$spamassassin_default_status = 1;	// 0 = turned off by default on new user creation
+
+
+// access data for the database (mysql-based for the moment):
+
+$db_server   = "localhost";
+$db_login    = "omail";
+$db_passwd   = "********";
+$db_database = "omail";
+$tb_userpref = "userpref";
+
 
 /* END OF USER CONFIGURATION */
 
@@ -260,8 +273,8 @@ $ldap_passwd = "SECRET";
 /* you shouldn't have to change the following lines */
 
 // version
-$version = "0.99";
-$cvs_version = '$Id: config.php,v 1.63 2002/02/09 01:47:39 swix Exp $';
+$version = "1.0-alpha";
+$cvs_version = '$Id: config.php,v 1.64 2003/01/29 21:33:26 swix Exp $';
 
 // script URL
 

@@ -1,5 +1,8 @@
 <?
 
+#$globar[debug] = 1;
+#$debug = 1;
+
 /*
         -----------
         oMail-admin  -  A PHP4 based Vmailmgrd Web interface
@@ -7,7 +10,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.51 2002/02/09 01:47:39 swix Exp $
+        $Id: index.php,v 1.52 2003/01/29 21:33:27 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -29,13 +32,13 @@
 
 */
 
-
 /*****************************************************************************/ 
 require("./vmail.inc");
 include("config.php");
 include("func.php");
 include("strings.php");
 include("htmlstuff.php");
+require("./mysql.inc");
 /*****************************************************************************/ 
 
 session_start();
@@ -44,6 +47,23 @@ session_register("quota_on","quota_data","catchall_active", "sort_order");
 session_register("mb_start","al_start");
 session_register("mb_letter","al_letter");
 session_register("vm_tcphost","vm_tcphost_port");   // for vmailmgrd-tcp
+
+// clean input values (because of magic quotes...)
+
+if (count($HTTP_GET_VARS)) {
+        foreach ($HTTP_GET_VARS as $key => $value) {
+                if (!is_array($$key)) {
+                        $$key = stripslashes($value);
+                }
+        }
+}
+if (count($HTTP_POST_VARS)) {
+        foreach ($HTTP_POST_VARS as $key => $value) {
+                if (!is_array($$key)) {
+                        $$key = stripslashes($value);
+                }
+        }
+}
 
 
 if (!$lang) { 
@@ -639,18 +659,47 @@ if ($active == 1) {    // active=1 -> user logged in
 
 			$spamsetup["status"] = "0";
 			$spamsetup["delete"] = "0";
-			$spamsetup["redirect"] = "0";
+			$spamsetup["required_hits"] = "5";
 			$spamsetup["spam_target"] = "";
+			$spamsetup["whitelist"] = "";
+			$spamsetup["blacklist"] = "";
 
-			// get spam setup from userdetails field, if any
+			// get spaminfo from the sql database, if any
 
-			$userdetails = $userinfo[4];
-			if (ereg("\|SPAM\|", $userdetails)) {
+			$data = new table($db_database, $tb_userpref, $db_server, $db_login, $db_passwd);
+			$data->query("preference,value", "username LIKE '$userinfo[0]@$domain'");
+			if ($data->countQueryRows()) {
+				for ($i=0; $i<$data->countQueryRows(); $i++) {
+					$tmprow = $data->getQueryRow();
 
-				$tmp_spam_array = explode("|SPAM|", $userdetails);
-				list($spamsetup["status"],$spamsetup["delete"],$spamsetup["redirect"],$spamsetup["spam_target"]) = explode("|", $tmp_spam_array[1]);
+					if ($tmprow["preference"] == "spam_enabled") { 
+						$spamsetup["status"] = $tmprow["value"];
+					}
+
+					if ($tmprow["preference"] == "spam_trash") { 
+						$spamsetup["delete"] = $tmprow["value"];
+					}
+
+					if ($tmprow["preference"] == "required_hits") { 
+						$spamsetup["required_hits"] = $tmprow["value"];
+					}
+
+					if ($tmprow["preference"] == "spam_fwd") { 
+						$spamsetup["spam_target"] = $tmprow["value"];
+					}
+
+					if ($tmprow["preference"] == "whitelist_from") { 
+						$spamsetup["whitelist"] .= $tmprow["value"] . "\n";
+					}
+
+					if ($tmprow["preference"] == "blacklist_from") { 
+						$spamsetup["blacklist"] .= $tmprow["value"] . "\n";
+					}
+
+					$data->moveNext();
+				}
 			}
-	
+
 		        html_spamform($userinfo, $spamsetup);
 		        html_end();
 		        exit();
@@ -809,10 +858,6 @@ if ($active == 1) {    // active=1 -> user logged in
 			    $userdetail = trim($lastname.", ".$firstname);
 			}
 
-			if ($spamsettings) {
-				$userdetail .= "|SPAM|" . $spamsettings;
-			}
-
 			if ($type == "domain") {
                         	$results .= "<br>" . update_userdetail($U, $userdetail);
 			}
@@ -929,9 +974,6 @@ if ($active == 1) {    // active=1 -> user logged in
  					$userdetail=$lastname.", ".$firstname;
  				    }
 				    if (strpos($results,"ok")) {
-					    if ($use_spamassassin && !$quota_data["spamassassin_use_forbidden"] && ($quota_data["spamassassin_default_status"] || $spamassassin_default_status)) {
-						$userdetail .= "|SPAM|1|0|0||";
-					    }
 					    update_userdetail($U, $userdetail);
 				    }
 				}
@@ -950,9 +992,6 @@ if ($active == 1) {    // active=1 -> user logged in
  					$userdetail=$lastname.", ".$firstname;
  				    }
 				    if (strpos($results,"ok")) {
-					    if ($use_spamassassin && !$quota_data["spamassassin_use_forbidden"] && ($quota_data["spamassassin_default_status"] || $spamassassin_default_status)) {
-						$userdetail .= "|SPAM|1|0|0||";
-					    }
 					    update_userdetail($U, $userdetail);
 				    }
 				}
@@ -1003,9 +1042,20 @@ if ($active == 1) {    // active=1 -> user logged in
 	                // check args format... addslashed everywhere, etc...
 	                // update forwarders
                 
+			if ($use_spamassassin && !$quota_data["spamassassin_use_forbidden"]) {
+				$userinfotmp = get_accounts(0,$U);
+				$userinfo = $userinfotmp[0];
+				$mailadr = $userinfo[0] . "@" . $domain;
+
+				$data = new table($db_database, $tb_userpref, $db_server, $db_login, $db_passwd);
+				$data->query("*", "username LIKE '$mailadr' AND (preference LIKE 'spam_enabled' OR preference LIKE 'spam_trash' OR preference LIKE 'required_hits' OR preference LIKE 'spam_fwd' OR preference LIKE 'blacklist_from' OR preference LIKE 'whitelist_from')");
+				$data->deleteRows();
+				$results1 = "Spam Settings removed for &lt;$mailadr&gt;<br>";
+			}
+
 	                // let vwrap copy the current resp file to a temp file, readable by all
 	
-	                $results1 = delete_account($U); 
+	                $results1 .= delete_account($U); 
 
 			// check if we deleted the account on which the checkall (+) account was pointing on.
 			// if yes, also remove the "+" 
@@ -1015,6 +1065,7 @@ if ($active == 1) {    // active=1 -> user logged in
 			}
 
 			get_catchall_account();
+
 
         	        html_head("$program_name Administration");
         	        $msg = "<b>" . $results1 . "</b><br>";
@@ -1110,28 +1161,73 @@ if ($active == 1) {    // active=1 -> user logged in
 			// remove blanks
 
 			$from = trim($from);
-	
-
+			
 			// remove any spam infos from userdetail, keep actual infos...
 
 			$userinfotmp = get_accounts(0,$U);
 			$userinfo = $userinfotmp[0];
-			$userdetail = $userinfo[4];
-			if (ereg("\|SPAM\|", $userdetail)) {
-				$tmp_spam_array = explode("|SPAM|", $userdetail);
-				$userdetail = $tmp_spam_array[0];
-			}
+			$mailadr = $userinfo[0] . "@" . $domain;
+
+			$data = new table($db_database, $tb_userpref, $db_server, $db_login, $db_passwd);
+			$data->query("*", "username LIKE '$mailadr' AND (preference LIKE 'spam_enabled' OR preference LIKE 'spam_trash' OR preference LIKE 'required_hits' OR preference LIKE 'spam_fwd' OR preference LIKE 'blacklist_from' OR preference LIKE 'whitelist_from')");
+			$data->deleteRows();
 			
-			$userdetail .= "|SPAM|" . $spam_status . "|" . $spam_delete . "|" . $spam_redirect . "|" . $from . "|";
+			$data->newRow();
+			$data->setQueryField("username", $mailadr);
+			$data->setQueryField("preference", "spam_fwd");
+			$data->setQueryField("value", $from);
 
-	                // update status in db
-				
-	                $results = update_userdetail($U, $userdetail) . "   <!-- $userdetail -->    ";
+			$data->newRow();
+			$data->setQueryField("username", $mailadr);
+			$data->setQueryField("preference", "spam_enabled");
+			$data->setQueryField("value", $spam_status);
 
+			$data->newRow();
+			$data->setQueryField("username", $mailadr);
+			$data->setQueryField("preference", "spam_trash");
+			$data->setQueryField("value", $spam_delete);
+
+			if ($required_hits) {
+				$data->newRow();
+				$data->setQueryField("username", $mailadr);
+				$data->setQueryField("preference", "required_hits");
+				$data->setQueryField("value", $required_hits);
+			}
+
+
+			if ($whitelist) {
+				$newarray = explode("\n", $whitelist);
+				while(list ($null, $tmpadr) = each($newarray)) {
+					$tmpadr = trim($tmpadr);
+					if ($tmpadr) {
+						$data->newRow();
+						$data->setQueryField("username", $mailadr);
+						$data->setQueryField("preference", "whitelist_from");
+						$data->setQueryField("value", $tmpadr);
+					}
+				}		
+			}
+
+			if ($blacklist) {
+				$newarray = explode("\n", $blacklist);
+				while(list ($null, $tmpadr) = each($newarray)) {
+					$tmpadr = trim($tmpadr);
+					if ($tmpadr) {
+						$data->newRow();
+						$data->setQueryField("username", $mailadr);
+						$data->setQueryField("preference", "blacklist_from");
+						$data->setQueryField("value", $tmpadr);
+					}
+				}		
+			}
+
+
+
+	
 			// ......
 
 	                html_head("$program_name Administration");
-	                $msg = "<b>" . $results . "</b><br><br>";
+	                $msg = "<b>Anti-Spam setup saved!</b><br><br>";
 	                $msg .= "<ul>";
 	                $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$lang]  .  "</a>\n";
 	                html_titlebar($txt_spamsettings[$lang], "$msg",0);

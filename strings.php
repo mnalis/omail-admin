@@ -6,7 +6,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.55 2002/02/09 01:38:00 swix Exp $
+        $Id: strings.php,v 1.56 2003/01/29 21:33:28 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
         strings.php
@@ -3673,7 +3673,7 @@ $txt_current_catchall_not_defined = array(
   "ja" => "fixme_and_update_cvs",
   "tc" => "fixme_and_update_cvs",
   "fr" => "Détecter les Spams",
-  "de" => "Spams rausfinden",
+  "de" => "Spams-Erkennung",
   "da" => "fixme_and_update_cvs",
   "es" => "fixme_and_update_cvs",
   "pt-br" => "fixme_and_update_cvs",
@@ -3692,7 +3692,7 @@ $txt_current_catchall_not_defined = array(
   "ja" => "fixme_and_update_cvs",
   "tc" => "fixme_and_update_cvs",
   "fr" => "Efface automatiquement les mails considérés comme Spams",
-  "de" => "Löscht direkt alle Mails die als Spam erkannt worden sind",
+  "de" => "Löscht direkt alle Mails die als Spam eingestufft wurden",
   "da" => "fixme_and_update_cvs",
   "es" => "fixme_and_update_cvs",
   "pt-br" => "fixme_and_update_cvs",
@@ -3722,7 +3722,6 @@ $txt_current_catchall_not_defined = array(
   "lt" => "fixme_and_update_cvs",
   "id" => "fixme_and_update_cvs");
 
-
  $txt_spam_notes = array(
   "ru" => "fixme_and_update_cvs",
   "en" => "Notes:<br>1. Spamassassin will review incoming email, and prefix the subject line of suspected messages with the word: \"spam:\" Email will not be deleted.<br>2.  Warning: There is a 1% chance non-spam may be deleted if you choose \"Delete spam\" Deleted email cannot be recovered. Use this option with caution.<br>3. Email will be redirected to this internal or external email address.",
@@ -3740,6 +3739,98 @@ $txt_current_catchall_not_defined = array(
   "sv" => "fixme_and_update_cvs",
   "lt" => "fixme_and_update_cvs",
   "id" => "fixme_and_update_cvs");
+
+ $txt_white_list = array(
+  "ru" => "fixme_and_update_cvs",
+  "en" => "White List",
+  "cz" => "fixme_and_update_cvs",
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "Liste Blanche",
+  "de" => "Weisse Liste: <br>E-Mails von folgenden Absendern<br>werden nie als Spam eingestuft",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "pt-br" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs",
+  "lt" => "fixme_and_update_cvs",
+  "id" => "fixme_and_update_cvs");
+
+ $txt_black_list = array(
+  "ru" => "fixme_and_update_cvs",
+  "en" => "Black List",
+  "cz" => "fixme_and_update_cvs",
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "Liste Noire",
+  "de" => "Schwarze Liste: <br>E-Mails von folgenden Absendern<br>werden immer als Spam eingestuft",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "pt-br" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs",
+  "lt" => "fixme_and_update_cvs",
+  "id" => "fixme_and_update_cvs");
+
+
+ $txt_required_hits = array(
+  "ru" => "fixme_and_update_cvs",
+  "en" => "Required 'Spam' Hits",
+  "cz" => "fixme_and_update_cvs",
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "Nombre de points 'spam' nécessaires",
+  "de" => "Anzahl benötigte Spam-Punkte",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "pt-br" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs",
+  "lt" => "fixme_and_update_cvs",
+  "id" => "fixme_and_update_cvs");
+
+ $txt_standard_value = array(
+  "ru" => "fixme_and_update_cvs",
+  "en" => "Default Setting",
+  "cz" => "fixme_and_update_cvs",
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "Valeur par défaut",
+  "de" => "Standardwert",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "pt-br" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs",
+  "lt" => "fixme_and_update_cvs",
+  "id" => "fixme_and_update_cvs");
+
+ $txt_master_switch = array(
+  "ru" => "fixme_and_update_cvs",
+  "en" => "Master Switch",
+  "cz" => "fixme_and_update_cvs",
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "Interrupteur principal",
+  "de" => "Hauptschalter",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "pt-br" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs",
+  "lt" => "fixme_and_update_cvs",
+  "id" => "fixme_and_update_cvs");
+
 
 
 // empty array - please also update with new languages :)
