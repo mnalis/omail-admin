@@ -4,7 +4,7 @@
 <ul>
 <li>oMail-admin %version% is a PHP4-based Web-administration solution for mail servers based on<br>
 Dan Bernstein's <a href="http://www.qmail.org" target="_new">qmail</a> and Bruce Guenter's 
-<a href="http://www.em.ca/~bruceg/vmailmgr/" target="_new">vmailmgr</a> (version 0.96.8 and higher).<br><br></li>
+<a href="http://www.vmailmgr.org/" target="_new">vmailmgr</a> (version 0.96.8 and higher).<br><br></li>
 
 <li>Features:
 <ul>
@@ -20,6 +20,7 @@ Dan Bernstein's <a href="http://www.qmail.org" target="_new">qmail</a> and Bruce
 <li>Lynx-browser support (and other cookie-free browsers)</li>
 <li>templates support, for easy customisation</li>
 <li>LDAP support</li>
+<li>display mailbox size</li>
 </ul>
 <br></li>
                  

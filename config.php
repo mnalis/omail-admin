@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2004  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.68 2004/02/15 18:05:43 swix Exp $ 
+	$Id: config.php,v 1.69 2004/02/15 18:15:44 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -37,14 +37,14 @@ $domains_list = array();   // empty : login for all.
 // -------------------- 
 // automatic logout after N minutes of inactivity
 
-$expire_after = "25"; // minutes
+$expire_after = "40"; // minutes
 
 
 // show how many accounts at a time
 // --------------------------------
 // ignore = 0
 
-$show_how_many_accounts = 20;
+$show_how_many_accounts = 50;
 
 
 // sysadmin mail
@@ -52,7 +52,7 @@ $show_how_many_accounts = 20;
 // will be displayed on screens with error messages
 // must be set to something else than the default value
 
-$sysadmin_mail = "admin@omnis.ch";
+$sysadmin_mail = "sysadmin@notdefined.yet";
 
 
 // default language
@@ -140,7 +140,8 @@ $hide_about_button = 0;
 // to allow display of domain / maildir disk usage information
 // (empty by default, to activate it, replace by directory name)
 
-$vmailstats_directory = "/var/vmailstats";
+//$vmailstats_directory = "/var/vmailstats";
+$vmailstats_directory = "";
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -252,14 +253,14 @@ $ldap_passwd = "SECRET";
 // ----------------
 // check the doc in the README & INSTALL files
 
-$use_spamassassin = 1;
+$use_spamassassin = 0;
 $spamassassin_default_status = 0;
 
 // access data for the database (mysql-based for the moment):
 
 $db_server   = "localhost";
 $db_login    = "nospam";
-$db_passwd   = "nospam0608";
+$db_passwd   = "*******";
 $db_database = "nospam";
 $tb_userpref = "userpref";
 
@@ -295,7 +296,7 @@ $tb_userpref = "userpref";
 
 // version
 $version = "1.2RC1";
-$cvs_version = '$Id: config.php,v 1.68 2004/02/15 18:05:43 swix Exp $';
+$cvs_version = '$Id: config.php,v 1.69 2004/02/15 18:15:44 swix Exp $';
 
 // script URL
 
