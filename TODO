@@ -5,7 +5,7 @@ Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Muell
 
 oMail-admin TODO
 ================
-$Id: TODO,v 1.22 2000/11/13 20:20:07 swix Exp $ 
+$Id: TODO,v 1.23 2000/11/14 00:01:28 swix Exp $ 
 $Source: /cvsroot/omail/admin2/TODO,v $ 
 
 
@@ -45,6 +45,7 @@ Low priority
 [X] replace "Omail" by "oMail-admin" in every file
 [ ] eventually secure the query strings with an md5 checksum
 [ ] accounting stuff ($i++ somewhere on account creation, for a billing system for example)
+[ ] sort by login or real name
 
 --------------------------------------------------------------------------
 [ ]  Todo       [X]  Done      [.]  On the way/currently thinking about it

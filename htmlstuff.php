@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.46 2000/11/13 20:20:07 swix Exp $
+        $Id: htmlstuff.php,v 1.47 2000/11/14 00:01:28 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -538,7 +538,7 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 		$templdata["txt_last_off"] = ">>>>";
 	
 		$templdata["url_first"] = $script . "?A=menu&new_" . $cur_letter . "_start=1&" . SID; 
-		$templdata["url_prev"] = $script . "?A=menu&new_" . $cur_etter . "_start=$cur_prev&" . SID;
+		$templdata["url_prev"] = $script . "?A=menu&new_" . $cur_letter . "_start=$cur_prev&" . SID;
 		$templdata["url_next"] = $script . "?A=menu&new_" . $cur_letter . "_start=$cur_next&" . SID;
 		$templdata["url_last"] = $script . "?A=menu&new_" . $cur_letter . "_start=$cur_last&" . SID;
 
