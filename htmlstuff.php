@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.35 2000/09/24 14:51:11 swix Exp $
+        $Id: htmlstuff.php,v 1.36 2000/09/24 18:14:31 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -363,17 +363,26 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 
 	switch ($arg_action) {
 		case 1:
-			print "<h1>" . $txt_mailboxes_title[$lang] . "</h1>";
+			$listtype = "mailboxes";
+			$templdata["title"]=$txt_mailboxes_title[$lang];
 			break;
 		case 2:
-			print "<h1>" . $txt_aliases_title[$lang] . "</h1>";
+			$listtype = "aliases";
+			$templdata["title"]=$txt_aliases_title[$lang];
 			break;
+
 		case 0:
-			print "<h1>" . $txt_user_title[$lang] . "</h1>";
 			$tmp_user = $mboxlist[0];
+			$listtype = "account";
+			$templdata["title"]=$txt_user_title[$lang];
 			if ($tmp_user[2]) { $mtype = "mbox"; } else { $mtype = "alias"; }
 			break;
 	}
+
+
+
+        print parseTemplate($templdata, "templates/display_$listtype.temp");
+
 
 	print "<table border=0><TR><TH>N°</TH>";
 	print "<TH>" . $txt_email[$lang] . "</TH>" .
