@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.49 2000/11/17 16:44:53 swix Exp $
+        $Id: htmlstuff.php,v 1.50 2000/11/17 16:47:59 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -662,6 +662,8 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 		}
 
 		    
+		if ($arg_action) {
+
 			if ($quota_data["catchall_use_allowed"]) {
 
 			    // check status : catchall or not ?
@@ -676,7 +678,6 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 			}
 
 
-		if ($arg_action) {
 			$templdata[obj][$ii]["actions"] .=  "&nbsp;&nbsp;<A HREF=\"$script?A=delete&U=" . $username . "&" . SID . "\" onClick=\"oW(this,'pop')\">"  . 
 				$txt_delete[$lang]  . "</a>&nbsp;"; // action
 
