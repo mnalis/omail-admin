@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.42 2001/03/06 17:30:45 swix Exp $
+        $Id: index.php,v 1.43 2001/03/18 11:03:13 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -961,6 +961,17 @@ if ($active == 1) {    // active=1 -> user logged in
                            $subject = stripslashes($subject);
                            $from = stripslashes($from); 
 	                }
+
+			// strip ^M from body text
+
+			$tmpbody = explode("\n",$body);
+			$body = "";
+
+			for ( $i = 0 ; $i < count($tmpbody)-1 ; $i++ ) {
+			    $body .= chop($tmpbody[$i]) . "\n";
+			}
+			$body .= $tmpbody[$i];
+			$tpmbody = "";
 
 	                // update responder. 
 

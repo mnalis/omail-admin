@@ -2,9 +2,26 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: ChangeLog,v 1.60 2001/03/06 17:30:45 swix Exp $ 
+$Id: ChangeLog,v 1.61 2001/03/18 11:03:13 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
+
+2001-03-18  Olivier Mueller  <om@omnis.ch>
+	
+	* ldap/bugfix patch set from Ray [ri] :
+	> - Whenever you safe your auto response message a newline (\n) will be added
+	> to the file causing the message to grow with one line every time you save
+	> it.
+	> - When saving the message body with the form it somehow gets send as a DOS
+	> format text, with CRLF ending each line. Omail than puts a LF after each of
+	> these lines. This will not show up in omail but qmail-autoresponder 0.93
+	> will doublespace each line in the autoreply send to the sender.
+	> - When you choose to only show mailboxes starting with a certain letter only
+	> those mailboxes will be shown in both pulldown boxes for the forwarders and
+	> catchall selection.
+	  (strings.php not patched yet)
+
+	
 2001-03-06  Olivier Mueller  <om@omnis.ch>
 
 	* release of version 0.97.2	

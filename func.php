@@ -8,7 +8,7 @@
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 	* Copyright (C) 2000  Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 
-        $Id: func.php,v 1.31 2001/03/03 21:23:29 swix Exp $
+        $Id: func.php,v 1.32 2001/03/18 11:03:13 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -288,7 +288,7 @@ function get_accounts($arg_action, $arg_username = "") {
 			// findout autoresp status (only lookup for mailboxes)
 			if ($mbox && $action != 3) { $resp = load_resp_status($username); }  else { $resp = 0; }
 
-                        if (($arg_action == 1 || $arg_action == 3) && $mb_letter && !eregi("^[$mb_letter]",$username)) {
+                        if (($arg_action == 1) && $mb_letter && !eregi("^[$mb_letter]",$username)) {
                                if ($mbox) {
                                    if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
                                            $quota_data["nb_users"]++;
@@ -492,7 +492,7 @@ function parse_resp_file($arg_text) {
 	$subject = "";
 	$body = "";	
 
-	for ($i = 0; $i < count($text); $i++) {
+	for ($i = 0; $i < count($text)-1; $i++) {
 
 		if (preg_match("/^From: (.*)$/i", $text[$i], $parts)) {
 			$from = $parts[1];
@@ -502,6 +502,7 @@ function parse_resp_file($arg_text) {
 			$body .= $text[$i] . "\n";
 		}
 	}
+	$body .= $text[$i];
 
         return array($from,$subject,$body);
 
@@ -812,7 +813,7 @@ function get_ou ($domain)
     $tld = $tld[$tld_last-1];
 
     // Now strip it of the domainname
-    return (substr("$domain",0,-strlen($tld)-1 ));
+    return (str_replace( "X", "", substr("$domain",0,-strlen($tld)-1 )));
 }
 
 

@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.53 2001/03/06 17:38:47 swix Exp $ 
+	$Id: config.php,v 1.54 2001/03/18 11:03:13 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -108,7 +108,7 @@ $config_use_settings_with_quota = 0;
 // -----------------
 // to hide the about-screen button : I think it is fair to keep it zero.
 
-$hide_about_button = 0;
+$hide_about_button = 1;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -182,7 +182,7 @@ $use_ldap = 0;
 // ---------
 // the ip address or hostname of the ldap server to use.
 
-$ldap_host = "xxx.xx.xx.xxx";
+$ldap_host = "10.2.3.161";
 
 // ldap_base and ldap_manager
 // --------------------------
@@ -193,7 +193,7 @@ $ldap_host = "xxx.xx.xx.xxx";
 // that domain. In that case only the ldap_base needs to be set and the manager
 // part will be something like "cn=manager, ou=$domain"
 
-$ldap_base = "o=ORGANISATION, c=COUNTRY";
+$ldap_base = "o=travel-net, c=nl";
 $ldap_manager = "cn=manager";
 
 
@@ -209,7 +209,7 @@ $ldap_manager = "cn=manager";
 // chmod 640 config.php
 // so that normal users can't read what's in this file.
 
-$ldap_passwd = "very_secret";
+$ldap_passwd = "SECRET";
 
 
 /* END OF USER CONFIGURATION */
@@ -229,8 +229,8 @@ $ldap_passwd = "very_secret";
 /* you shouldn't have to change the following lines */
 
 // version
-$version = "0.97.2";
-$cvs_version = '$Id: config.php,v 1.53 2001/03/06 17:38:47 swix Exp $';
+$version = "0.97.3";
+$cvs_version = '$Id: config.php,v 1.54 2001/03/18 11:03:13 swix Exp $';
 
 // script URL
 
