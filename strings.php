@@ -7,6 +7,9 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
+        $Id: strings.php,v 1.2 2000/08/01 22:15:39 swix Exp $
+        $Source: /cvsroot/omail/admin2/strings.php,v $
+
 	strings.php
 	-----------
 	Strings file, to make translations in other languages easier.

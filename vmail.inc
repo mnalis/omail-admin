@@ -1,5 +1,8 @@
 <?
 // Copyright (C) 2000 Mike Bell <mike@mikebell.org>
+// 
+//      $Id: vmail.inc,v 1.2 2000/08/01 22:15:39 swix Exp $
+//      $Source: /cvsroot/omail/admin2/vmail.inc,v $
 //
 // Examples available at http://mailtest.mikebell.org/
 // Latest version will be included in each vmailmgr release

@@ -1,5 +1,23 @@
 <?
 
+/*
+        -----
+        Omail  -  A PHP/Perl based Vmailmgrd Web interface
+        -----
+
+        * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
+
+        $Id: func.php,v 1.2 2000/08/01 22:15:39 swix Exp $
+        $Source: /cvsroot/omail/admin2/func.php,v $
+
+        func.php
+        --------
+
+        16.jan.2k   om   First version
+        01.aug.2k   om   Rewrite for PHP4
+
+*/
+
 function check_session($arg_ip) {
 
 	global $type, $domain, $username, $passwd, $lang, $expire, $active, $expire_after, $ip;

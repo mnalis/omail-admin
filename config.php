@@ -7,6 +7,9 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
+	$Id: config.php,v 1.2 2000/08/01 22:15:39 swix Exp $ 
+	$Source: /cvsroot/omail/admin2/config.php,v $
+
 	config.php
 	----------
 	Config file for sql, web and other stuff.
@@ -19,10 +22,11 @@
 // version
 
 $version = "0.8";
+$cvs_version = '$Id: config.php,v 1.2 2000/08/01 22:15:39 swix Exp $';
 
 // script URL
 
-$script_url = "http://192.168.0.76/omail/index.php";
+$script_url = "http://192.168.0.76/admin2/index.php";
 $script = $script_url;
 
 // temp directory (to save temporary files)
