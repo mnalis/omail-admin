@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.38 2000/10/12 20:35:44 swix Exp $
+        $Id: htmlstuff.php,v 1.39 2000/10/13 11:15:40 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -51,11 +51,15 @@ function html_login() {
         reset($txt_langname);
         while(list ($id,$tmplang) = each ($txt_langname) ) {
                 if ($id != $lang) {
+			$templdata[bla][$ii][id] = $id;
 			$templdata[bla][$ii][url] = $script . "?setlang=$id&" . SID;
 			$templdata[bla][$ii][txt] = $tmplang;
+			$templdata[bla][$ii][sel] = "";
                 } else {
+			$templdata[bla][$ii][id] = $id;
 			$templdata[bla][$ii][url] = $script . "?setlang=$id&" . SID;
 			$templdata[bla][$ii][txt] = "<font color=\"red\">$tmplang</font>";
+			$templdata[bla][$ii][sel] = "SELECTEd";
                 }
 		$ii++;
         }

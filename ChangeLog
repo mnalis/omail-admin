@@ -2,9 +2,16 @@
 Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----
 
-$Id: ChangeLog,v 1.23 2000/10/12 22:17:47 swix Exp $ 
+$Id: ChangeLog,v 1.24 2000/10/13 11:15:40 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
+
+2000-10-13  Olivier Mueller  <om@omnis.ch>
+	
+	* templates/login.temp: language selection is now done using a <SELECT> menu
+	  (too many languages to keep the old design :)
+	* htmlstuff.php: fixes to allow select-based language setup
+	* TRANSLATION: added information about new translations
 
 2000-10-12  Olivier Mueller  <om@omnis.ch>
 

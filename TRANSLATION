@@ -1,0 +1,52 @@
+-----
+Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
+-----
+
+$Id: TRANSLATION,v 1.1 2000/10/13 11:15:40 swix Exp $ 
+$Source: /cvsroot/omail/admin2/TRANSLATION,v $
+
+
+A few words about translations:
+-------------------------------
+
+If you plan to translate omail-admin for your language (great idea!),
+please get the newest strings.php file from the actual CVS :
+http://cvs.sourceforge.net/cgi-bin/cvsweb.cgi/admin2/?cvsroot=oMail
+and click on the "1.xx" in the front of "strings.php".
+
+
+Then, there are entries looking like that:
+
+$txt_firstname=array(   "ru"=>"éÍÑ",
+                        "fr"=>"Prénom",
+                        "de"=>"Vorname",
+                        "da"=>"Fornavn",
+                        "en"=>"Firstname",
+                        "es"=>"Nombre",
+                        "it"=>"Nome");
+
+I would use a search-replace function, and replace 
+"it"
+by
+"xx"=>"",\n                        "it"
+
+
+Result:
+
+$txt_firstname=array(   "ru"=>"éÍÑ",
+                        "fr"=>"Prénom",
+                        "de"=>"Vorname",
+                        "da"=>"Fornavn",
+                        "en"=>"Firstname",
+                        "es"=>"Nombre",
+                        "xx"=>"",
+                        "it"=>"Nome");
+
+
+And then, add your text. Please use the official 2-letters language name.
+
+After testing the file, please send it me directely by email (omail@omnis.ch),
+and I will merge it to the CVS.
+
+
+-- om, 13oct2k

@@ -1,20 +1,36 @@
-<FORM METHOD="post" ACTION="%script%?%SID%">
 <CENTER>
 <TABLE CELLPADDING=0 CELLSPACING=0 BORDER=0 BGCOLOR="#EEEEEE">
 <TR VALIGN="TOP">
 <TD COLSPAN=3>
-<TABLE WIDTH="100%" CELLPADDING=10 CELLSPACING=0 BORDER=0>
+<TABLE WIDTH="100%" CELLPADDING=5 CELLSPACING=0 BORDER=0>
 <TR ALIGN="LEFT">
 <TD VALIGN="MIDDLE" BGCOLOR="#CCCCCC">
 <b>%txt_dom_ident%</b>
 </TD>
+
+<script language="JavaScript1.2">
+<!--
+function selectLang() {
+    var lang_page = "%script%?%SID%&setlang=" + document.login.setlang[document.login.setlang.selectedIndex].value;
+    self.location = lang_page;
+}
+//-->
+</script>
+
+
+<FORM METHOD="post" ACTION="%script%?%SID%" NAME="login">
 <TD VALIGN="MIDDLE" ALIGN="RIGHT" BGCOLOR="#CCCCCC">
-
+<SELECT NAME="setlang" onchange="selectLang()">
 <bla>
-<nobr>[ <A HREF="%url%">%txt%</A> ]</nobr>
+<OPTION VALUE="%id%" %sel%>%txt%</OPTION>
 </bla>
+</SELECT>
+<INPUT TYPE="SUBMIT" VALUE="Ok">
 </TD></TR></TABLE></TD>
+<INPUT TYPE="hidden" name="A" value="login">
+</FORM>
 
+<FORM METHOD="post" ACTION="%script%?%SID%">
 <TD ROWSPAN="4" width=8 bgcolor="#ffffff">
 <IMG SRC="images/srs.gif" width=16 height=250 alt=""></TD></TR>  
 <TR><TD ALIGN="RIGHT">%txt_domain_or_email% &nbsp;</TD>
