@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.36 2000/11/13 20:20:07 swix Exp $ 
+	$Id: config.php,v 1.37 2000/11/13 20:30:21 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -42,14 +42,14 @@ $expire_after = "20"; // minutes
 // -------------------- 
 // ignore = 0
 
-$show_how_many_accounts = 5;
+$show_how_many_accounts = 10;
 
 
 // sysadmin mail
 // -------------
 // will be displayed on screens with error messages
 
-$sysadmin_mail = "sysadmin@notdefined.yext";
+$sysadmin_mail = "sysadmin@notdefined.yet";
 
 
 // default language
@@ -127,8 +127,8 @@ $hide_about_button = 0;
 
 // version
 
-$version = "0.96pre5";
-$cvs_version = '$Id: config.php,v 1.36 2000/11/13 20:20:07 swix Exp $';
+$version = "0.96pre7";
+$cvs_version = '$Id: config.php,v 1.37 2000/11/13 20:30:21 swix Exp $';
 
 // script URL
 
@@ -143,6 +143,6 @@ if (!$default_lang) { $default_lang = $default_language; }       // default lang
 
 // yes, it's here:  Thanks for using oMail-admin! Enjoy :)
 
-$splash_screen = 0;
+$splash_screen = 1;
 
 ?>
