@@ -2,7 +2,7 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: CREDITS,v 1.9 2000/10/15 21:43:44 swix Exp $ 
+$Id: CREDITS,v 1.10 2000/10/18 22:06:09 swix Exp $ 
 $Source: /cvsroot/omail/admin2/CREDITS,v $
 
 CREDITS, in chronological order
@@ -39,3 +39,6 @@ CREDITS, in chronological order
 [kg] - Keld Graugaard <keld@inet.dk>
 	* translation to danish
 
+[hn] - Harald Nikolaus <harald@homunculus.net>
+	* translation to romanian
+	* improved German translation 

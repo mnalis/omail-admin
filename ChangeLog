@@ -2,9 +2,13 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: ChangeLog,v 1.30 2000/10/18 08:25:00 swix Exp $ 
+$Id: ChangeLog,v 1.31 2000/10/18 22:06:09 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
+
+2000-10-19  Olivier Mueller  <om@omnis.ch>
+	
+	* translation to romanian (thx Harald!)
 
 2000-10-18  Olivier Mueller  <om@omnis.ch>
 
