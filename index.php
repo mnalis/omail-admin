@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.7 2000/08/02 15:04:53 swix Exp $
+        $Id: index.php,v 1.8 2000/08/02 23:07:45 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -236,7 +236,8 @@ if ($active == 1) {
 	if ($A == "resp") {
                 
 	        html_titlebar($txt_edit_account[$lang], $txt,1);
-	        $userinfo = get_accounts(0,$U);
+	        $user = get_accounts(0, $U);
+		$userinfo = $user[0];
 
 	        $respinfo = load_resp_file($U, $userinfo[11]);  // userinfo[11] = responder yes/no  
 
@@ -250,7 +251,7 @@ if ($active == 1) {
 			$respinfo["body"] = $txt_autoresp_body[$lang];
 		}	
 
-	        html_respform($userinfo[0], $respinfo);
+	        html_respform($userinfo, $respinfo, $userinfo[11]);
 	        html_end();
 	        exit();
 	}

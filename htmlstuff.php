@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.7 2000/08/02 15:04:53 swix Exp $
+        $Id: htmlstuff.php,v 1.8 2000/08/02 23:07:45 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -300,11 +300,10 @@ function html_listmailbox($result) {
 
 
 
-function html_respform($userinfo, $respinfo) {
+function html_respform($userinfo, $respinfo, $status) {
 
 	global $session, $script, $lang, $domain;
 	include("strings.php");
-
 
 	print "<form action=\"" . $script . "\" method=\"post\">";
 	print "<table border=0>";	
@@ -316,7 +315,7 @@ function html_respform($userinfo, $respinfo) {
 	print "<tr><th align=right>" . $txt_responder[$lang] . "&nbsp;</th>";	
 	print "<td bgcolor=\"#CCCCCC\" align=left>";
 	
-	if ($respinfo[0] == 0) { $checked_yes = "SELECTED"; $checked_no = ""; }
+	if ($status == 1) { $checked_yes = "SELECTED"; $checked_no = ""; }
 		else { $checked_yes = ""; $checked_no = "SELECTED"; }
 
 	print "<select name=\"responder\">";
@@ -565,7 +564,7 @@ highly recommended. -->
 </ul>
 </td></tr></table>
 <br></li>
-<li>CVS Version: $Id: htmlstuff.php,v 1.7 2000/08/02 15:04:53 swix Exp $ <br><br></li>
+<li>CVS Version: $Id: htmlstuff.php,v 1.8 2000/08/02 23:07:45 swix Exp $ <br><br></li>
 
 <li>
 Feel free to use this form for your suggestions, requests and bugfixes:
@@ -574,7 +573,7 @@ Feel free to use this form for your suggestions, requests and bugfixes:
 <input type="hidden" name="subject" value="oMail-admin $version comment form">
 <input type="hidden" name="redirect" value="http://$ENV{'HTTP_HOST'}$ENV{'REQUEST_URI'}">
 <input type="hidden" name="sender" value="$ENV{'REMOTE_ADDR'}">
-<input type="hidden" name="sender" value="Version: $Id: htmlstuff.php,v 1.7 2000/08/02 15:04:53 swix Exp $ ">
+<input type="hidden" name="sender" value="Version: $Id: htmlstuff.php,v 1.8 2000/08/02 23:07:45 swix Exp $ ">
 <table border="0">
 <tr><td align="right">Email</td><td><small>
 <input type="text" size="30" name="from_email"></small></td></tr>

@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: func.php,v 1.6 2000/08/02 13:48:18 swix Exp $
+        $Id: func.php,v 1.7 2000/08/02 23:07:45 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -156,7 +156,7 @@ function get_accounts($arg_action, $arg_username = "") {
 	
 
 			// findout autoresp status
-			
+
 			$tmp_autoresp = load_resp_file($username);
 			if ($tmp_autoresp[0] == 2) {
 				$resp = 0;
@@ -301,7 +301,7 @@ function load_resp_file($arg_username, $arg_status = -1) {
 
 	// turn back to current status 
 	
-	if (!$arg_status && $arg_status != -1) {
+	if ($arg_status != -1 && !$arg_status) {
 		vdisableautoresponse($domain, base64_decode($passwd), $arg_username);
 	}
 	
@@ -335,7 +335,13 @@ function parse_resp_file($arg_text) {
 function save_resp_file($arg_username, $arg_resptext, $arg_status) {
 
         global $type, $domain, $passwd;
-	
+
+	// activate autoresponder (needed to be able to write to the file...)
+
+	venableautoresponse($domain, base64_decode($passwd), $arg_username);
+
+	// write text	
+
 	$result = vwriteautoresponse($domain, base64_decode($passwd), $arg_username, $arg_resptext);
 
         if (!$result[0]) { $return_msg = "AUTORESP_TXT ok :  " . $result[1] . "<br>"; }
