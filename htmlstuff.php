@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.15 2000/08/12 23:00:20 swix Exp $
+        $Id: htmlstuff.php,v 1.16 2000/08/13 19:57:19 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -273,6 +273,78 @@ function html_userform($userinfo, $action) {
 
 
 
+function html_quotaform($userinfo, $action) {
+
+	global $quota_on, $quota_data, $session, $script, $lang, $domain, $type;
+	include("strings.php");
+
+	list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp)= $userinfo;
+
+	print "<form action=\"" . $script . "?";
+	?><?=SID?><?php   // ugly, but well... another solution ?
+	print "\" method=\"post\">";
+	print "<table border=0>";	
+
+	print "<tr><th align=right>" . $txt_username[$lang] . "&nbsp;</th>";	
+	print "<td bgcolor=\"#DDDDDD\" align=left>$userinfo[0]@$domain&nbsp;</td></tr>";
+	print "<tr><th align=right>" . $txt_details[$lang] . "&nbsp;</th>";	
+	print "<td bgcolor=\"#CCCCCC\" align=left>" . $userinfo[4]. "&nbsp;</td></tr>";
+
+	print "<tr><th align=right>" . $txt_date_of_creation[$lang] . "&nbsp;</th>";	
+	print "<td bgcolor=\"#DDDDDD\" align=left>" . date("d.m.Y H\hi",$CreationTime) . "&nbsp;</td></tr>";
+
+/* not yet supported by vmail.inc/daemon
+
+	print "<tr><th align=right>" . $txt_status[$lang] . "&nbsp;</th>";	
+	print "<td bgcolor=\"#CCCCCC\" align=left>";
+	if ($Enabled == 1) { $checked_yes = "SELECTED"; $checked_no = ""; }
+		else { $checked_yes = ""; $checked_no = "SELECTED"; }
+	print "<select name=\"form_enabled\">";
+	print "<option value=\"1\" $checked_yes>" . $txt_activated[$lang] . "</option>";	
+	print "<option value=\"0\" $checked_no>" . $txt_inactived[$lang] . "</option>";	
+	print "</select></td></tr>";
+*/
+
+	print "<tr><th align=right>" . $txt_hardquota[$lang] . "&nbsp;</th>";	
+	print "<td bgcolor=\"#DDDDDD\" align=left><input type=\"text\" name=\"form_hardquota\" value=\"$HardQuota\" size=\"8\">";
+	print " kB &nbsp;</td></tr>";
+
+	print "<tr><th align=right>" . $txt_softquota[$lang] . "&nbsp;</th>";	
+	print "<td bgcolor=\"#CCCCCC\" align=left><input type=\"text\" name=\"form_softquota\" value=\"$SoftQuota\" size=\"8\">";
+	print " kB &nbsp;</td></tr>";
+
+	print "<tr><th align=right>" . $txt_msgcount[$lang] . "&nbsp;</th>";	
+	print "<td bgcolor=\"#DDDDDD\" align=left><input type=\"text\" name=\"form_msgcount\" value=\"$CountLimit\" size=\"8\">";
+	print " kB &nbsp;</td></tr>";
+
+	print "<tr><th align=right>" . $txt_msgsize[$lang] . "&nbsp;</th>";	
+	print "<td bgcolor=\"#CCCCCC\" align=left><input type=\"text\" name=\"form_msgsize\" value=\"$SizeLimit\" size=\"8\">";
+	print " kB &nbsp;</td></tr>";
+
+	print "<tr><th align=right>" . $txt_expiry[$lang] . "&nbsp;</th>";	
+	print "<td bgcolor=\"#DDDDDD\" align=left>";
+	if ($ExpiryTime && $ExpiryTime != "-") { print date("d.m.Y H\hi",$ExpiryTime) . "<br>"; }
+
+	print "<input type=\"text\" name=\"form_expiry\" value=\"$ExpiryTime\" size=\"10\">";
+	print " &nbsp;</td></tr>";
+
+	print "<tr><th align=right>" . $txt_submit[$lang] . "&nbsp;</th>";	
+
+	if ($i/2 == floor($i/2)) { print "<td bgcolor=\"#DDDDDD\" align=left>"; }
+					else { print "<td bgcolor=\"#CCCCCC\" align=left>"; }
+
+	print "<input type=\"hidden\" name=\"A\" value=\"parse\">";
+	print "<input type=\"hidden\" name=\"action\" value=\"quota\">";
+	print "<input type=\"hidden\" name=\"U\" value=\"$username\">";
+	print "<input type=\"submit\" value=\"" . $txt_submit[$lang]. "\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+	print "<input type=\"reset\" value=\"" . $txt_cancel[$lang]. "\" onClick=\"return gO(this,true,true)\">&nbsp;</td></tr>";
+	
+	print "</table>";	
+	print "</form>";	
+}
+
+
+
 function html_listmailbox($result) {
 
 	global $quota_on, $quota_data, $session, $script, $lang, $domain;
@@ -441,13 +513,7 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 		print "<TH>" . $txt_responder[$lang] . "?</TH>";
 	}
 
-	if ($arg_action && $arg_action != 2 && !($quota_on && !$quota_data["autoresp_support"])) {
-		print "<TH COLSPAN=3>" . $txt_action[$lang] . "</TH></TR>";
-	} elseif ($arg_action == 2 || (!$arg_action && $mtype == "mbox") || ($quota_on && !$quota_data["autoresp_support"])) {
-		print "<TH COLSPAN=2>" . $txt_action[$lang] . "</TH></TR>";
-	} else {
-		print "<TH>" . $txt_action[$lang] . "</TH></TR>";
-	}
+	print "<TH>" . $txt_action[$lang] . "</TH></TR>";
 			
 	$yes = "<font color=\"green\">" . $txt_yes[$lang] . "</font>";
 	$no = "<font color=\"red\">" . $txt_no[$lang] . "</font>";
@@ -491,19 +557,28 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 
 		$username = urlencode($username);
 
-		print "<TD><A HREF=\"$script?A=edit&U=" . $username . "\" onClick=\"oW(this,'pop')\">"  . 
-			$txt_edit[$lang]  . "</a>&nbsp;</TD>"; // action
+		// actions
+	
+		print "<TD align=\"center\">";
+		
+		print "&nbsp;&nbsp;<A HREF=\"$script?A=edit&U=" . $username . "\" onClick=\"oW(this,'pop')\">"  . 
+			$txt_edit[$lang]  . "</a>&nbsp;"; // action
 
 		if ($arg_action != 2 && !(!$arg_action && $mtype == "alias") && !($quota_on && !$quota_data["autoresp_support"])) {
-			print "<TD><A HREF=\"$script?A=resp&U=" . $username . "\" onClick=\"oW2(this,'pop')\">"  . 
-				$txt_responder[$lang] . "</a>&nbsp;</TD>"; // action
+			print "&nbsp;&nbsp;<A HREF=\"$script?A=resp&U=" . $username . "\" onClick=\"oW2(this,'pop')\">"  . 
+				$txt_responder[$lang] . "</a>&nbsp;"; // action
+		}	
+
+		if ($arg_action == 1 && !($quota_on && !$quota_data["user_quota_support"])) {
+			print "&nbsp;&nbsp;<A HREF=\"$script?A=quota&U=" . $username . "\" onClick=\"oW2(this,'pop')\">"  . 
+				$txt_quota[$lang] . "</a>&nbsp;"; // action
 		}	
 
 		if ($arg_action) {
-			print "<TD><A HREF=\"$script?A=delete&U=" . $username . "\" onClick=\"oW(this,'pop')\">"  . 
-				$txt_delete[$lang]  . "</a>&nbsp;</TD>"; // action
+			print "&nbsp;&nbsp;<A HREF=\"$script?A=delete&U=" . $username . "\" onClick=\"oW(this,'pop')\">"  . 
+				$txt_delete[$lang]  . "</a>&nbsp;"; // action
 		}
-		print "</TR>";
+		print "</TD></TR>";
 
 	}
 			
@@ -521,13 +596,45 @@ function html_display_mailboxes($mboxlist, $arg_action) {
 
 
 	if ($arg_action != 0) {
+
+		// prepare quota string
+	
+		$quota_string = "";
+
+		if ($quota_on) {
+
+			if ($arg_action == 1) {			
+				if ($quota_data["max_users"] && $quota_data["max_users"] != 99999999) {
+					$percent = round((100*$quota_data["nb_users"])/$quota_data["max_users"]);
+					if ($percent == 100) { 	
+						$percent = '<font color="red">' . $percent . '%</font>';
+					} else {
+						$percent = '<font color="green">' . $percent . '%</font>';
+					}
+					$quota_string = $txt_quota[$lang] . ": " . $txt_maximum[$lang] . " = " . $quota_data["max_users"] . " " . $txt_smallmailboxes[$lang] . " &nbsp; &nbsp; ($percent " . $txt_used[$lang] . ")" ;
+				}
+			}
+			if ($arg_action == 2) {			
+				if ($quota_data["max_alias"] && $quota_data["max_alias"] != 99999999) {
+					$percent = round((100*$quota_data["nb_alias"])/$quota_data["max_alias"]);
+					if ($percent == 100) { 	
+						$percent = '<font color="red">' . $percent . '%</font>';
+					} else {
+						$percent = '<font color="green">' . $percent . '%</font>';
+					}
+					$quota_string = $txt_quota[$lang] . ": " . $txt_maximum[$lang] . " = " . $quota_data["max_alias"] . " " . $txt_smallaliases[$lang] . " &nbsp; &nbsp; ($percent " . $txt_used[$lang] . ")" ;
+				
+				}
+			}
+
+		} // if quota_on
 	
 		if ($arg_action != 2 && !($quota_on && !$quota_data["autoresp_support"])) {
-			print "<tr><th COLSPAN=8 ALIGN=right>&nbsp;&nbsp;</th>";
-			print "<TH COLSPAN=3 ALIGN=center>";
+			print "<tr><th COLSPAN=8 ALIGN=left><font size=-1>&nbsp;$quota_string &nbsp;</font></th>";
+			print "<TH ALIGN=center>";
 		} else { 
-			print "<tr><th COLSPAN=7 ALIGN=right>&nbsp;&nbsp;</th>";
-			print "<TH COLSPAN=2 ALIGN=center>";
+			print "<tr><th COLSPAN=7 ALIGN=left><font size=-1>&nbsp;$quota_string &nbsp;</font></th>";
+			print "<TH ALIGN=center>";
 		}
 	
 		print "<A HREF=\"$script?A=$tmp_action\" onClick=\"oW(this,'pop')\">"  . $tmp_label  . "</a>&nbsp;</TH></TR>";
@@ -562,6 +669,7 @@ Dan Bernstein's <a href="http://www.qmail.org">qmail</a> and Bruce Guenter's <a 
 <li>can be used by non unix-gurus users</li>
 <li>session expiration after N minutes for security</li>
 <li>domain name based quotas (how many mailboxes/aliases, autoresponder y/n, etc.)
+<li>user based quotas (hard/soft disk quota, message size, expiry)
 </ul>
 <br></li>
 
@@ -597,7 +705,7 @@ and of course the <a href="CREDITS">Credits</a></li>
 </ul>
 </td></tr></table>
 <br></li>
-<li>CVS Version: $Id: htmlstuff.php,v 1.15 2000/08/12 23:00:20 swix Exp $ <br><br></li>
+<li>CVS Version: $Id: htmlstuff.php,v 1.16 2000/08/13 19:57:19 swix Exp $ <br><br></li>
 
 <li>
 Feel free to use this form for your suggestions, requests and bugfixes:
@@ -606,7 +714,7 @@ Feel free to use this form for your suggestions, requests and bugfixes:
 <input type="hidden" name="subject" value="oMail-admin <?php echo($version); ?> comment form">
 <input type="hidden" name="redirect" value="http://<?php echo($HTTP_HOST); ?><?php echo($REQUEST_URI); ?>">
 <input type="hidden" name="sender" value="<?php echo($REMOTE_ADDR); ?>">
-<input type="hidden" name="sender" value="Version: $Id: htmlstuff.php,v 1.15 2000/08/12 23:00:20 swix Exp $ ">
+<input type="hidden" name="sender" value="Version: $Id: htmlstuff.php,v 1.16 2000/08/13 19:57:19 swix Exp $ ">
 <table border="0">
 <tr><td align="right">Email</td><td><small>
 <input type="text" size="30" name="from_email"></small></td></tr>

@@ -2,9 +2,17 @@
 Omail  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2000  Olivier Mueller <om@omnis.ch>
 -----
 
-$Id: ChangeLog,v 1.9 2000/08/12 22:53:13 swix Exp $ 
+$Id: ChangeLog,v 1.10 2000/08/13 19:57:19 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
 
+
+2000-08-13  Olivier Mueller  <om@omnis.ch>
+
+	* released oMail-admin version 0.93
+	* display current domain quota on lowest table row
+	* support for vmailmgr internal user quotas [also added one variable to vmailmgrquota config file]
+	* preparation to allow the domain admin to enable or disable an account (chattr -E)
+          (needs changes in vmail.inc ?)
 
 2000-08-13  Olivier Mueller  <om@omnis.ch>
 

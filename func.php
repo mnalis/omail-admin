@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: func.php,v 1.10 2000/08/12 22:53:13 swix Exp $
+        $Id: func.php,v 1.11 2000/08/13 19:57:19 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -160,6 +160,7 @@ function load_quota_info($domain) {
 					$quota_data["alias_support"] = $entry[4];
 					$quota_data["user_login_allowed"] = $entry[5];
 					$quota_data["autoresp_support"] = $entry[6];
+					$quota_data["user_quota_support"] = $entry[7];
 
 				
 					// dirty hack, but should be ok for the moment :]  (index.php will be updated soon)
@@ -180,9 +181,10 @@ function load_quota_info($domain) {
 					$quota_data["alias_support"] = $entry[4];
 					$quota_data["user_login_allowed"] = $entry[5];
 					$quota_data["autoresp_support"] = $entry[6];
+					$quota_data["user_quota_support"] = $entry[7];
 
 				
-					// dirty hack, but should be ok for the moment :]  (index.php will be updated soon)
+					// dirty hack, but should be ok for the moment :]  (index.php will be updated later)
 					if (!$quota_data["max_users"]) { $quota_data["max_users"] = 99999999; } 
 					if (!$quota_data["max_alias"]) { $quota_data["max_alias"] = 99999999; } 
 				}					
@@ -289,8 +291,25 @@ function update_userdetail($arg_username, $arg_detail) {
 
         if (!$result[0]) { return "USERINFO ok : " . $result[1] ; }
                 else { return "USERINFO error : " . $result[1] ; }
-
 }
+
+
+function update_userquota($arg_username, $arg_softquota, $arg_hardquota, $arg_expiry, $arg_msgcount, $arg_msgsize, $arg_enabled) {
+
+        global $type, $domain, $passwd;
+
+	$result1 = vchattr($domain, base64_decode($passwd), $arg_username, "HARDQUOTA", $arg_hardquota);
+	$result2 = vchattr($domain, base64_decode($passwd), $arg_username, "SOFTQUOTA", $arg_softquota);
+	$result3 = vchattr($domain, base64_decode($passwd), $arg_username, "MSGSIZE", $arg_msgsize);
+	$result4 = vchattr($domain, base64_decode($passwd), $arg_username, "MSGCOUNT", $arg_msgcount);
+	$result5 = vchattr($domain, base64_decode($passwd), $arg_username, "EXPIRY", $arg_expiry);
+	$result6 = vchattr($domain, base64_decode($passwd), $arg_username, "MAILBOX_ENABLED", $arg_enabled);
+
+        if (!$result1[0] && !$result2[0] && !$result3[0] && !$result4[0] && !$result5[0] && !$result6[0]) { return "QUOTA ok : " . $result[1] ; }
+                else { return "QUOTA error : " . $result[1] ; }
+}
+
+
 
 function update_account($arg_username, $arg_fwd) {
 

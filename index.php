@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.12 2000/08/12 22:53:13 swix Exp $
+        $Id: index.php,v 1.13 2000/08/13 19:57:19 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -333,6 +333,37 @@ if ($active == 1) {
 
 
 
+	//
+	// QUOTAS EDIT
+	//
+
+	if ($A == "quota") {
+                
+		if (!$quota_on || ($quota_on && $quota_data["user_quota_support"]) || ($type != "domain")) {
+	
+		        html_titlebar($txt_edit_account[$lang], $txt,1);
+
+		        $userinfo = get_accounts(0,$U);
+		        html_quotaform($userinfo[0], "edit");
+		        html_end();
+		        exit();
+
+
+		} else {
+			$msg = $txt_error_not_allowed[$lang];
+	                $msg .= "<ul><li><a href=\"$script?A=menu\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+	                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
+			html_head("oMail Administration");	
+        	        html_titlebar($txt_error[$lang], $msg ,0);
+	                html_end();
+			exit();
+		}				
+
+	}
+
+
+
+
 
 	//
 	// PARSE ACTION
@@ -551,6 +582,42 @@ if ($active == 1) {
 
 	                $results = save_resp_file($U, "Subject: $subject\nFrom: $from\n\n$body", $responder);
 
+
+	                html_head("oMail Administration");
+	                $msg = "<b>" . $results . "</b><br><br>";
+	                $msg .= "<ul>";
+	                $msg .= "<li><a href=\"$script?A=menu\" onClick=\"return gO(this,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+	                html_titlebar($txt_delete[$lang], "$msg",0);
+	                html_end();
+	                exit();
+	        }
+
+
+	       // "quota"
+
+	        if ($action == "quota") {
+
+
+			// if quota support is off, show error
+
+			if ($quota_on && !$quota_data["user_quota_support"]) {
+
+				$msg = $txt_error_not_allowed[$lang];
+		                $msg .= "<ul><li><a href=\"$script?A=menu\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
+		                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";	
+				html_head("oMail Administration");	
+	        	        html_titlebar($txt_error[$lang], $msg ,0);
+		                html_end();
+				exit();
+			}				
+
+        
+	                // check args format....
+
+	                // update quotas
+
+
+	                $results = update_userquota($U, $form_softquota, $form_hardquota, $form_expiry, $form_msgcount, $form_msgsize, $form_enabled);
 
 	                html_head("oMail Administration");
 	                $msg = "<b>" . $results . "</b><br><br>";

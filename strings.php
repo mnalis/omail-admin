@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.12 2000/08/12 22:53:13 swix Exp $
+        $Id: strings.php,v 1.13 2000/08/13 19:57:19 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
 	strings.php
@@ -778,11 +778,25 @@ $txt_mailboxes = array(
  "es" => "Casillas",
  "it"=>"");
 
+$txt_smallmailboxes = array( 
+ "en" => "mailboxes",
+ "fr" => "boites aux lettres",
+ "de" => "Accounts",
+ "es" => "casillas",
+ "it"=>"");
+
 $txt_aliases = array( 
  "en" => "Aliases",
  "fr" => "Aliases",
  "de" => "Liste aller Alias",
  "es" => "Aliases",
+ "it"=>"");
+
+$txt_smallaliases = array( 
+ "en" => "aliases",
+ "fr" => "aliases",
+ "de" => "alias",
+ "es" => "aliases",
  "it"=>"");
 
 $txt_back_to_begining = array( 
@@ -855,7 +869,7 @@ $txt_directory=array(	"fr"=>"Repertoire",
 
 $txt_newalias = array( 
  "en" => "New Mail Alias",
- "fr" => "Nouvel Adresse de Redirection",
+ "fr" => "Nouvelle Adresse de Redirection",
  "de" => "Neue Weiterleitungsadresse",
  "es" => "Nuevo Alias",
  "it"=>"");
@@ -1140,32 +1154,88 @@ $txt_error_not_allowed = array(
  "es" => "Sorry, you are not allowed to do that",
  "it"=>"");
 
-$txt_ = array( 
- "en" => "",
- "fr" => "",
- "de" => "",
- "es" => "",
- "it"=>"");
+$txt_quota = array( 
+ "en" => "Quota",
+ "fr" => "Quota",
+ "de" => "Quota",
+ "es" => "Quota",
+ "it" =>"");
+
+$txt_maximum = array( 
+ "en" => "maximum",
+ "fr" => "maximum",
+ "de" => "maximal",
+ "es" => "maximum",
+ "it" =>"");
+
+$txt_current = array( 
+ "en" => "current",
+ "fr" => "actuellement",
+ "de" => "zur Zeit",
+ "es" => "current",
+ "it" =>"");
+
+$txt_used = array( 
+ "en" => "used",
+ "fr" => "utilis&eacute;",
+ "de" => "belegt",
+ "es" => "used",
+ "it" =>"");
+
+$txt_hardquota = array( 
+ "en" => "Hard quota",
+ "fr" => "Limitation dure",
+ "de" => "Hartes Quota",
+ "es" => "Hard quota",
+ "it" =>"");
+
+$txt_softquota = array( 
+ "en" => "Soft quota",
+ "fr" => "Limitation legere",
+ "de" => "Leichtes Quota",
+ "es" => "Soft quota",
+ "it" =>"");
+
+$txt_msgsize = array( 
+ "en" => "Message size",
+ "fr" => "Taille de message",
+ "de" => "Mailgroesse",
+ "es" => "Message size",
+ "it" =>"");
+
+$txt_msgcount = array( 
+ "en" => "Message count",
+ "fr" => "Nombre de messages",
+ "de" => "Anzahl E-Mails",
+ "es" => "Message count",
+ "it" =>"");
+
+$txt_expiry = array( 
+ "en" => "Expiry",
+ "fr" => "Expiration",
+ "de" => "Enddatum",
+ "es" => "Expiry",
+ "it" =>"");
 
 $txt_ = array( 
  "en" => "",
  "fr" => "",
  "de" => "",
  "es" => "",
- "it"=>"");
+ "it" =>"");
 
 $txt_ = array( 
  "en" => "",
  "fr" => "",
  "de" => "",
  "es" => "",
- "it"=>"");
+ "it" =>"");
 
 $txt_ = array( 
  "en" => "",
  "fr" => "",
  "de" => "",
  "es" => "",
- "it"=>"");
+ "it" =>"");
 
 ?>
