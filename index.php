@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.50 2002/02/09 01:38:00 swix Exp $
+        $Id: index.php,v 1.51 2002/02/09 01:47:39 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -71,7 +71,7 @@ if (!$lang) {
 
 if (!$active) {
 
-	if ((($sysadmin_mail == "sysadmin@notdefined.yet" || $splash_screen == 1) && $A != "about") || $A == "splash") {
+	if ((($sysadmin_mail == "sysadmin@notdefined.yet") && $A != "about") || $A == "splash") {
 	
 		html_head("$program_name Administration - Welcome!");
 		html_titlebar($txt_welcome[$lang], "", "");

@@ -6,12 +6,10 @@
 
 <li><font color="blue"><b>Welcome to oMail-admin %version% ! </b><br><br></font></li>
 
-<li>This is a kind of "splash screen". To turn it off, 2 little simple things : <br><br>
+<li>This is a kind of "splash screen". To turn it off, a little simple thing : <br><br>
 <ul>
 <li>Make sure that the <b>$sysadmin_mail</b> variable in config.php is set to something else
-than <i>sysadmin@notdefined.yet</i> : %smail%</li>
-<li>And simply set the <b>$splash_screen</b> variable to <i>0</i> (at the very end of config.php) : %splash%.
-</li>
+than <i>sysadmin@notdefined.yet</i> (it's better your karma :-) : %smail%</li>
 </ul><br><br></li>
 
 <li>
@@ -42,10 +40,6 @@ to remove it please simply read the two steps a few lines higher. Merci :)
 
 <tr><td align="right">City, Country:</td><td><small>
 <input type="text" size="40" name="country">  (must be filled with anything)</small></td></tr>
-
-<tr><td align="right">Splash screen:</td><td><small>
-<select name="splashScreen"><option>I find this splash screen ok, no problem</option>
-<option>Yuk, please remove this annoying splash screen from the next versions!</option></select></small></td></tr>
 
 <tr><td align="right">May I list you on the omail-admin homepage?</td><td><small>
 <select name="listCompanyUrl"><option>No, please don't</option>
@@ -125,4 +119,3 @@ to remove it please simply read the two steps a few lines higher. Merci :)
 
 <br>
 </td></tr></table>
-

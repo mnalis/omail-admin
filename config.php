@@ -7,7 +7,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-	$Id: config.php,v 1.62 2002/02/09 01:38:00 swix Exp $ 
+	$Id: config.php,v 1.63 2002/02/09 01:47:39 swix Exp $ 
 	$Source: /cvsroot/omail/admin2/config.php,v $
 
 	config.php
@@ -261,7 +261,7 @@ $ldap_passwd = "SECRET";
 
 // version
 $version = "0.99";
-$cvs_version = '$Id: config.php,v 1.62 2002/02/09 01:38:00 swix Exp $';
+$cvs_version = '$Id: config.php,v 1.63 2002/02/09 01:47:39 swix Exp $';
 
 // script URL
 
@@ -272,10 +272,5 @@ $script = $script_url;
 
 if ($cookie_omail_lang && !$default_lang) { $default_lang = htmlentities($cookie_omail_lang); }
 if (!$default_lang) { $default_lang = $default_language; }       // default language
-
-
-// yes, it's here:  Sorry for the extra effort...  Thanks for using oMail-admin! & Enjoy :)
-
-$splash_screen = 0;
 
 ?>

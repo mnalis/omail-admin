@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.67 2002/02/09 01:38:00 swix Exp $
+        $Id: htmlstuff.php,v 1.68 2002/02/09 01:47:39 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -1036,14 +1036,9 @@ function html_help() {
 
 function html_splash() {
 
-	global $A, $domain, $cvs_version, $version, $lang, $sysadmin_mail, $splash_screen, $splash_ok, $HTTP_HOST, $REQUEST_URI, $REMOTE_ADDR, $HTTP_ACCEPT_LANGUAGE;
+	global $A, $domain, $cvs_version, $version, $lang, $sysadmin_mail, $splash_ok, $HTTP_HOST, $REQUEST_URI, $REMOTE_ADDR, $HTTP_ACCEPT_LANGUAGE;
 	include("strings.php");
 
-	if ($splash_screen) { 
-		$templdata["splash"] = '<font color="red">nok</font>'; 
-	} else { 
-		$templdata["splash"] = '<font color="green">ok</font>'; 
-	}
 	if ($sysadmin_mail == "sysadmin@notdefined.yet") { 
 		$templdata["smail"] = '<font color="red">nok</font>'; } else { $templdata["smail"] = '<font color="green">ok</font>'; 
 	}
