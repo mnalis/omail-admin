@@ -7,7 +7,7 @@
 
         * Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: func.php,v 1.12 2000/08/14 19:40:24 swix Exp $
+        $Id: func.php,v 1.13 2000/08/15 11:31:39 swix Exp $
         $Source: /cvsroot/omail/admin2/func.php,v $
 
         func.php
@@ -319,8 +319,8 @@ function update_userquota($arg_username, $arg_softquota, $arg_hardquota, $arg_ex
 	$result5 = vchattr($domain, base64_decode($passwd), $arg_username, "EXPIRY", $arg_expiry);
 	$result6 = vchattr($domain, base64_decode($passwd), $arg_username, "MAILBOX_ENABLED", $arg_enabled);
 
-        if (!$result1[0] && !$result2[0] && !$result3[0] && !$result4[0] && !$result5[0] && !$result6[0]) { return "QUOTA ok : " . $result[1] ; }
-                else { return "QUOTA error : " . $result[1] ; }
+        if (!$result1[0] && !$result2[0] && !$result3[0] && !$result4[0] && !$result5[0] && !$result6[0]) { return "QUOTA ok : " . $result6[1] ; }
+                else { return "QUOTA error : " . $result6[1] ; }
 }
 
 

@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2000  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.17 2000/08/14 19:40:24 swix Exp $
+        $Id: htmlstuff.php,v 1.18 2000/08/15 11:31:39 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -326,7 +326,7 @@ function html_quotaform($userinfo, $action) {
 
 	print "<tr><th align=right>" . $txt_msgcount[$lang] . "&nbsp;</th>";	
 	print "<td bgcolor=\"#DDDDDD\" align=left><input type=\"text\" name=\"form_msgcount\" value=\"$CountLimit\" size=\"8\">";
-	print " kB &nbsp;</td></tr>";
+	print " &nbsp;</td></tr>";
 
 	print "<tr><th align=right>" . $txt_msgsize[$lang] . "&nbsp;</th>";	
 	print "<td bgcolor=\"#CCCCCC\" align=left><input type=\"text\" name=\"form_msgsize\" value=\"$SizeLimit\" size=\"8\">";
@@ -719,7 +719,7 @@ and of course the <a href="CREDITS">Credits</a></li>
 </ul>
 </td></tr></table>
 <br></li>
-<li>CVS Version: $Id: htmlstuff.php,v 1.17 2000/08/14 19:40:24 swix Exp $ <br><br></li>
+<li>CVS Version: $Id: htmlstuff.php,v 1.18 2000/08/15 11:31:39 swix Exp $ <br><br></li>
 
 <li>
 Feel free to use this form for your suggestions, requests and bugfixes:
@@ -728,7 +728,7 @@ Feel free to use this form for your suggestions, requests and bugfixes:
 <input type="hidden" name="subject" value="oMail-admin <?php echo($version); ?> comment form">
 <input type="hidden" name="redirect" value="http://<?php echo($HTTP_HOST); ?><?php echo($REQUEST_URI); ?>">
 <input type="hidden" name="sender" value="<?php echo($REMOTE_ADDR); ?>">
-<input type="hidden" name="sender" value="Version: $Id: htmlstuff.php,v 1.17 2000/08/14 19:40:24 swix Exp $ ">
+<input type="hidden" name="sender" value="Version: $Id: htmlstuff.php,v 1.18 2000/08/15 11:31:39 swix Exp $ ">
 <table border="0">
 <tr><td align="right">Email</td><td><small>
 <input type="text" size="30" name="from_email"></small></td></tr>
