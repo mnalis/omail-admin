@@ -6,7 +6,7 @@
 
 	* Copyright (C) 2004  Olivier Mueller <om@omnis.ch>
 
-        $Id: htmlstuff.php,v 1.73 2004/02/15 18:05:43 swix Exp $
+        $Id: htmlstuff.php,v 1.74 2005/10/31 22:34:18 swix Exp $
         $Source: /cvsroot/omail/admin2/htmlstuff.php,v $
 
 	htmlstuff.php
@@ -446,6 +446,10 @@ function html_spamform($userinfo, $spamsetup) {
 
 	if ($spamsetup["delete"] == 1) { $templdata["spam_delete_checked_yes"] = "SELECTED"; $templdata["spam_delete_checked_no"] = ""; }
 		else { $templdata["spam_delete_checked_no"] = "SELECTED"; $templdata["spam_delete_checked_yes"] = ""; }
+	
+	if ($spamsetup["report_safe"] == 1) { $templdata["spam_report_safe_checked_yes"] = "SELECTED"; $templdata["spam_report_safe_checked_no"] = ""; }
+		else { $templdata["spam_report_safe_checked_no"] = "SELECTED"; $templdata["spam_report_safe_checked_yes"] = ""; }
+
 
         $templdata["txt_submit"]=$txt_submit[$lang];
         $templdata["txt_cancel"]=$txt_cancel[$lang];
@@ -465,6 +469,7 @@ function html_spamform($userinfo, $spamsetup) {
         $templdata["txt_required_hits"]=$txt_required_hits[$lang];
         $templdata["txt_standard_value"]=$txt_standard_value[$lang];
         $templdata["txt_master_switch"]=$txt_master_switch[$lang];
+	$templdata["txt_report_safe"]=$txt_report_safe[$lang];
 
         $templdata["txt_spam_sensibility"]=$txt_spam_sensibility[$lang];
         $templdata["txt_high"]=$txt_high[$lang];
@@ -479,6 +484,7 @@ function html_spamform($userinfo, $spamsetup) {
         $templdata["required_hits"]=$spamsetup["required_hits"];
         $templdata["blacklist"]=$spamsetup["blacklist"];
         $templdata["whitelist"]=$spamsetup["whitelist"];
+        $templdata["report_safe"]=$spamsetup["report_safe"];
 
 	if (!$templdata["required_hits"]) { $templdata["required_hits"] = "5"; }
 	$templdata["required_hits_txt"] = "-";

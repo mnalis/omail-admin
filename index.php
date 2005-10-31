@@ -10,7 +10,7 @@
 
         * Copyright (C) 2004  Olivier Mueller <om@omnis.ch>
 
-        $Id: index.php,v 1.55 2004/02/15 18:05:43 swix Exp $
+        $Id: index.php,v 1.56 2005/10/31 22:34:19 swix Exp $
         $Source: /cvsroot/omail/admin2/index.php,v $
 
         index.php
@@ -738,6 +738,7 @@ if ($active == 1) {    // active=1 -> user logged in
 			$spamsetup["spam_target"] = "";
 			$spamsetup["whitelist"] = "";
 			$spamsetup["blacklist"] = "";
+			$spamsetup["report_safe"] = "1";
 
 			// get spaminfo from the sql database, if any
 
@@ -769,6 +770,10 @@ if ($active == 1) {    // active=1 -> user logged in
 
 					if ($tmprow["preference"] == "blacklist_from") {
 						$spamsetup["blacklist"] .= $tmprow["value"] . "\n";
+					}
+					
+					if ($tmprow["preference"] == "report_safe") { 
+						$spamsetup["report_safe"] = $tmprow["value"];
 					}
 
 					$data->moveNext();
@@ -1235,7 +1240,7 @@ if ($active == 1) {    // active=1 -> user logged in
 			$mailadr = $userinfo[0] . "@" . $domain;
 
 			$data = new table($db_database, $tb_userpref, $db_server, $db_login, $db_passwd);
-			$data->query("*", "username LIKE '$mailadr' AND (preference LIKE 'spam_enabled' OR preference LIKE 'spam_trash' OR preference LIKE 'required_hits' OR preference LIKE 'spam_fwd' OR preference LIKE 'blacklist_from' OR preference LIKE 'whitelist_from')");
+			$data->query("*", "username LIKE '$mailadr' AND (preference LIKE 'spam_enabled' OR preference LIKE 'spam_trash' OR preference LIKE 'required_hits' OR preference LIKE 'spam_fwd' OR preference LIKE 'blacklist_from' OR preference LIKE 'whitelist_from' OR preference LIKE 'report_safe')");
 			$data->deleteRows();
 
 			$data->newRow();
@@ -1252,6 +1257,11 @@ if ($active == 1) {    // active=1 -> user logged in
 			$data->setQueryField("username", $mailadr);
 			$data->setQueryField("preference", "spam_trash");
 			$data->setQueryField("value", $spam_delete);
+
+                        $data->newRow();
+                        $data->setQueryField("username", $mailadr);
+                        $data->setQueryField("preference", "report_safe");
+                        $data->setQueryField("value", $report_safe);
 
 			if ($required_hits) {
 				$data->newRow();
