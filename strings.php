@@ -6,7 +6,7 @@
 
         * Copyright (C) 2004  Olivier Mueller <om@omnis.ch>
 
-        $Id: strings.php,v 1.59 2004/02/15 18:05:43 swix Exp $
+        $Id: strings.php,v 1.60 2005/10/31 22:34:19 swix Exp $
         $Source: /cvsroot/omail/admin2/strings.php,v $
 
         strings.php
@@ -4024,6 +4024,26 @@ $txt_current_catchall_not_defined = array(
   "sv" => "fixme_and_update_cvs",
   "lt" => "fixme_and_update_cvs",
   "id" => "fixme_and_update_cvs");
+
+ $txt_report_safe = array(
+  "ru" => "fixme_and_update_cvs",
+  "en" => "Report with detection summary",
+  "cz" => "fixme_and_update_cvs",
+  "ja" => "fixme_and_update_cvs",
+  "tc" => "fixme_and_update_cvs",
+  "fr" => "Report des details de detection",
+  "de" => "Bericht mit Detektionsdetails",
+  "da" => "fixme_and_update_cvs",
+  "es" => "fixme_and_update_cvs",
+  "pl" => "fixme_and_update_cvs",
+  "pt-br" => "fixme_and_update_cvs",
+  "nl" => "fixme_and_update_cvs",
+  "it" => "fixme_and_update_cvs",
+  "ro" => "fixme_and_update_cvs",
+  "sv" => "fixme_and_update_cvs",
+  "lt" => "fixme_and_update_cvs",
+  "id" => "fixme_and_update_cvs");
+
 
  $txt_high = array(
   "ru" => "fixme_and_update_cvs",
