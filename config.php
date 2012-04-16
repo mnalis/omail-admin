@@ -52,7 +52,7 @@ $show_how_many_accounts = 50;
 // will be displayed on screens with error messages
 // must be set to something else than the default value
 
-$sysadmin_mail = "sysadmin@notdefined.yet";
+$sysadmin_mail = "postmaster@tomsoft.hr";
 
 
 // default language
@@ -93,7 +93,7 @@ $program_name = "oMail-admin";
 // setup a forwarder to his account. It's then still possible to turn delivery
 // on afterwards, but most people won't -> good for disk usage :)  
 
-$turn_off_delivery_on_fwd_setup = 0;
+$turn_off_delivery_on_fwd_setup = 1;
 
 
 // powered_by
@@ -106,9 +106,9 @@ $powered_by = 'Powered by <a href="http://omail.omnis.ch/"><font color="#CCCCCC"
 // vmailmgrquota file location
 // ---------------------------
 
-$vmailmgrquota_file = "vmailmgrquotas";  // in current directory
+//$vmailmgrquota_file = "vmailmgrquotas";  // in current directory
 //$vmailmgrquota_file = "/var/qmail/control/vmailmgrquotas";
-//$vmailmgrquota_file = "/etc/vmailmgr/vmailmgrquotas";
+$vmailmgrquota_file = "/etc/vmailmgr/vmailmgrquotas";
 
 
 // template name
@@ -154,7 +154,7 @@ $vmailstats_directory = "";
 // is also a way to access the vmailmgrd via tcp : to use this feature, set
 // the variable to 1, and set the host(s).
 
-$use_vmailmgrd_tcp = 0;
+$use_vmailmgrd_tcp = 1;
 
 // vmailmgrd_tcp_host
 // ------------------
@@ -171,7 +171,7 @@ $vmailmgrd_tcp_host = "127.0.0.1";
 //	1 : use the vmailmgrd_tcp_hosts_list method
 //	2 : use the vmailmgrd_tcp_hosts_dir method
 
-$vmailmgrd_tcp_host_method = 1;
+$vmailmgrd_tcp_host_method = 0;
 
 
 // vmailmgrd_tcp_hosts_list  [1]
