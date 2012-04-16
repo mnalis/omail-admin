@@ -90,6 +90,8 @@ function authenticate($arg_login, $arg_passwd, $arg_ip, $tcphostname) {
 
 	}
 
+//	print "authenticate  /mn/ username=$username, domain=$domain, passwd=$passwd, type=$type";
+
 	// 2. check format of arguments (lenght, regexp)
 
 

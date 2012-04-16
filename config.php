@@ -299,12 +299,13 @@ $tb_userpref = "userpref";
 /* you shouldn't have to change the following lines */
 
 // version
-$version = "1.2RC1";
+$version = "1.2ts1";
 $cvs_version = '$Id: config.php,v 1.69 2004/02/15 18:15:44 swix Exp $';
 
 // script URL
 
-$script_url = "$SCRIPT_URL";
+//$script_url = $_SERVER["REQUEST_URI"];	// /mn/ hmmm
+$script_url = "/support2/omail-admin/";
 $script = $script_url;
 
 // default lang

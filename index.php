@@ -60,15 +60,15 @@ $vm_resp_status = array();
 
 // clean input values (because of magic quotes...)
 
-if (count($HTTP_GET_VARS)) {
-        foreach ($HTTP_GET_VARS as $key => $value) {
+if (count($_GET)) {
+        foreach ($_GET as $key => $value) {
                 if (!is_array($$key)) {
                         $$key = stripslashes($value);
                 }
         }
 }
-if (count($HTTP_POST_VARS)) {
-        foreach ($HTTP_POST_VARS as $key => $value) {
+if (count($_POST)) {
+        foreach ($_POST as $key => $value) {
                 if (!is_array($$key)) {
                         $$key = stripslashes($value);
                 }
