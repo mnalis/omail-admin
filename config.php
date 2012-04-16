@@ -61,6 +61,9 @@ $sysadmin_mail = "postmaster@tomsoft.hr";
 
 $default_language = "en";
 
+// virtualdomains file location (/mn/)
+// ----------------------------
+$virtualdomains_file = "/var/qmail/control/virtualdomains";
 
 // system accounts
 // ---------------
@@ -162,6 +165,7 @@ $use_vmailmgrd_tcp = 1;
 // 322 comming for the webserver where omail-admin is running.
 
 $vmailmgrd_tcp_host = "127.0.0.1";
+$vm_tcphost_port = "944";
 
 
 // vmailmgrd_tcp_host_method

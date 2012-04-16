@@ -333,6 +333,7 @@ if ($active == 1) {    // active=1 -> user logged in
 			if ($form_sort == "info") { $sort_order = "info"; } 
 			if ($form_sort == "username") { $sort_order = "username"; }
 
+			if ($quota_data["catchall_use_allowed"]) {
 			if ($catchall_active) {
 			    $txt_menu_add = "<br>" . $txt_current_catchall_account_is[$lang] . ": <b>$catchall_active@$domain</b>";
 			    $txt_menu_add .= ' [ <a href="' . $script_url . '?A=create_catchall&" onClick="oW(this,\'pop\')">' . $txt_edit[$lang] . '</a> ]';
@@ -342,6 +343,7 @@ if ($active == 1) {    // active=1 -> user logged in
 			    $txt_menu_add = "<br>" . $txt_current_catchall_not_defined[$lang] ;
 			    $txt_menu_add .= ' [ <a href="'. $script_url . '?A=create_catchall&U=" onClick="oW(this,\'pop\')">' . $txt_edit[$lang] . '</a> ]';
 			}	
+			}
 
 
 			if ($vmailstats["active"]) { 
@@ -593,7 +595,7 @@ if ($active == 1) {    // active=1 -> user logged in
 	if ($A == "catchall" || $A == "remove_catchall" || $A == "create_catchall") {
 
 
-	    if ((in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) && $U != "") {
+	    if (((in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) && $U != "") || $quota_data["catchall_use_allowed"] == 0) {
 
 		$msg = $txt_error_not_allowed[$lang];
                 $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
