@@ -44,13 +44,13 @@ $show_how_many_accounts = 50;
 // -------------
 // will be displayed on screens with error messages
 // must be set to something else than the default value
-$sysadmin_mail = "root@cldns.de";
+$sysadmin_mail = "postmaster@tomsoft.hr";
 
 
 // default language
 // ----------------
 // look in strings.php for available languages
-$default_language = "de";
+$default_language = "en";
 
 
 // system accounts
@@ -82,8 +82,8 @@ $program_name = "oMail-admin";
 // ------------------------------
 // if set to '1', the local delivery will be turned off by default when a user
 // setup a forwarder to his account. It's then still possible to turn delivery
-// on afterwards, but most people won't -> good for disk usage :)
-$turn_off_delivery_on_fwd_setup = 0;
+// on afterwards, but most people won't -> good for disk usage :)  
+$turn_off_delivery_on_fwd_setup = 1;
 
 // powered_by
 // ----------
@@ -93,9 +93,9 @@ $powered_by = 'Powered by <a href="http://omail.omnis.ch/"><font color="#CCCCCC"
 
 // vmailmgrquota file location
 // ---------------------------
-$vmailmgrquota_file = "vmailmgrquotas";  // in current directory
+//$vmailmgrquota_file = "vmailmgrquotas";  // in current directory
 //$vmailmgrquota_file = "/var/qmail/control/vmailmgrquotas";
-//$vmailmgrquota_file = "/etc/vmailmgr/vmailmgrquotas";
+$vmailmgrquota_file = "/etc/vmailmgr/vmailmgrquotas";
 
 // template name
 // -------------
@@ -134,7 +134,7 @@ $vmailstats_directory = "";
 // as the omail-admin scripts, and access it via an unix socket. Now there
 // is also a way to access the vmailmgrd via tcp : to use this feature, set
 // the variable to 1, and set the host(s).
-$use_vmailmgrd_tcp = 0;
+$use_vmailmgrd_tcp = 1;
 
 // vmailmgrd_tcp_host
 // ------------------
@@ -149,7 +149,7 @@ $vm_tcphost_port = "944";
 //	0 : use default host set in $vmailmgrd_tcp_host
 //	1 : use the vmailmgrd_tcp_hosts_list method
 //	2 : use the vmailmgrd_tcp_hosts_dir method
-$vmailmgrd_tcp_host_method = 1;
+$vmailmgrd_tcp_host_method = 0;
 
 // vmailmgrd_tcp_hosts_list  [1]
 // ------------------------
