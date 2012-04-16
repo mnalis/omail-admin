@@ -1,0 +1,5 @@
+<alias1>
+<tr><th align=right>%txt_fwd%&nbsp;</th>
+<td bgcolor="%fwdcolor%" align=left><input type="text" name="fwd[]" value="%aliases%" size="35">&nbsp;
+</td></tr>
+</alias1>
