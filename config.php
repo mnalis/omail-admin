@@ -304,8 +304,7 @@ $cvs_version = '$Id: config.php,v 1.69 2004/02/15 18:15:44 swix Exp $';
 
 // script URL
 
-//$script_url = $_SERVER["REQUEST_URI"];	// /mn/ hmmm
-$script_url = "/support2/omail-admin/";
+$script_url = $_SERVER["SCRIPT_NAME"];
 $script = $script_url;
 
 // default lang
