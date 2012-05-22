@@ -83,7 +83,7 @@ $program_name = "oMail-admin";
 // if set to '1', the local delivery will be turned off by default when a user
 // setup a forwarder to his account. It's then still possible to turn delivery
 // on afterwards, but most people won't -> good for disk usage :)  
-$turn_off_delivery_on_fwd_setup = 1;
+$turn_off_delivery_on_fwd_setup = 0;
 
 // powered_by
 // ----------
