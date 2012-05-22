@@ -96,7 +96,7 @@ $program_name = "oMail-admin";
 // setup a forwarder to his account. It's then still possible to turn delivery
 // on afterwards, but most people won't -> good for disk usage :)  
 
-$turn_off_delivery_on_fwd_setup = 1;
+$turn_off_delivery_on_fwd_setup = 0;
 
 
 // powered_by
