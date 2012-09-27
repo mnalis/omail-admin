@@ -54,15 +54,15 @@ function html_login() {
         reset($txt_langname);
         while(list ($id,$tmplang) = each ($txt_langname) ) {
                 if ($id != $lang) {
-			$templdata[bla][$ii][id] = $id;
-			$templdata[bla][$ii][url] = $script . "?setlang=$id&" . SID;
-			$templdata[bla][$ii][txt] = $tmplang;
-			$templdata[bla][$ii][sel] = "";
+			$templdata["bla"][$ii]["id"] = $id;
+			$templdata["bla"][$ii]["url"] = $script . "?setlang=$id&" . SID;
+			$templdata["bla"][$ii]["txt"] = $tmplang;
+			$templdata["bla"][$ii]["sel"] = "";
                 } else {
-			$templdata[bla][$ii][id] = $id;
-			$templdata[bla][$ii][url] = $script . "?setlang=$id&" . SID;
-			$templdata[bla][$ii][txt] = "<font color=\"red\">$tmplang</font>";
-			$templdata[bla][$ii][sel] = "SELECTEd";
+			$templdata["bla"][$ii]["id"] = $id;
+			$templdata["bla"][$ii]["url"] = $script . "?setlang=$id&" . SID;
+			$templdata["bla"][$ii]["txt"] = "<font color=\"red\">$tmplang</font>";
+			$templdata["bla"][$ii]["sel"] = "SELECTEd";
                 }
 		$ii++;
         }
