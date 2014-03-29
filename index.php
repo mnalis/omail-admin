@@ -92,6 +92,15 @@ function fix_session_register(){
 }
 if (!function_exists('session_register')) fix_session_register(); 
 
+// third part of the kludge for session_register and register_globals, /mn/ 20140329
+function session2global() {
+    foreach($_SESSION as $key => $value)
+    {
+        global $$key;
+        $$key = $value;
+    }
+}
+                                                                            
                                                                             
 
 /*****************************************************************************/ 
@@ -104,6 +113,7 @@ require("./mysql.inc");
 /*****************************************************************************/ 
 
 session_start();
+session2global();
 session_register("username","domain","passwd","type","ip","expire","lang","active");
 session_register("quota_on","quota_data","catchall_active", "sort_order");
 session_register("mb_start","al_start");
@@ -112,6 +122,7 @@ session_register("vm_tcphost","vm_tcphost_port");   // for vmailmgrd-tcp
 session_register("vmailstats");
 
 
+/*
 print "bla start\n<br><pre>";
 print "SESS domain=" . $_SESSION['domain'] . " GET U=" . $_GET['U'] . "\n<br>";
 print "GLOBAL domain=" . $domain . " GLOBAL U=" . $U . "\n<br>";
@@ -120,6 +131,7 @@ print "session="; var_dump($_SESSION); print "\n<br>";
 print "serverr="; var_dump($_SERVER); print "\n<br>";
 print "</pre>";
 exit();
+*/
 
 // try to improve speed
 
