@@ -299,7 +299,7 @@ $tb_userpref = "userpref";
 /* you shouldn't have to change the following lines */
 
 // version
-$version = "1.2ts1";
+$version = "1.2ts2";
 $cvs_version = '$Id: config.php,v 1.69 2004/02/15 18:15:44 swix Exp $';
 
 // script URL
