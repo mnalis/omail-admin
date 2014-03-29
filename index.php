@@ -32,13 +32,55 @@
 
 */
 
+
+// register_globals kludge for PHP 5.4 from http://www.php.net/manual/en/security.globals.php
+/**
+ * function to emulate the register_globals setting in PHP
+ * for all of those diehard fans of possibly harmful PHP settings :-)
+ * @author Ruquay K Calloway
+ * @param string $order order in which to register the globals, e.g. 'egpcs' for default
+ */
+function register_globals($order = 'egpcs')
+{
+    // define a subroutine
+    if(!function_exists('register_global_array'))
+    {
+        function register_global_array(array $superglobal)
+        {
+            foreach($superglobal as $varname => $value)
+            {
+                global $$varname;
+                $$varname = $value;
+            }
+        }
+    }
+   
+    $order = explode("\r\n", trim(chunk_split($order, 1)));
+    foreach($order as $k)
+    {
+        switch(strtolower($k))
+        {
+            case 'e':    register_global_array($_ENV);        break;
+            case 'g':    register_global_array($_GET);        break;
+            case 'p':    register_global_array($_POST);        break;
+            case 'c':    register_global_array($_COOKIE);    break;
+            case 's':    register_global_array($_SERVER);    break;
+        }
+    }
+}
+register_globals();
+
+
+
 // session_register kludge for PHP 5.4 from http://www.php.net/manual/en/function.session-register.php
 // Fix for removed Session functions 
 function fix_session_register(){
     function session_register(){
         $args = func_get_args();
         foreach ($args as $key){
+          if (!isset($_SESSION[$key])) {
             $_SESSION[$key]=$GLOBALS[$key];
+          }
         }
     }
     function session_is_registered($key){
@@ -49,6 +91,7 @@ function fix_session_register(){
     }
 }
 if (!function_exists('session_register')) fix_session_register(); 
+
                                                                             
 
 /*****************************************************************************/ 
@@ -69,6 +112,14 @@ session_register("vm_tcphost","vm_tcphost_port");   // for vmailmgrd-tcp
 session_register("vmailstats");
 
 
+print "bla start\n<br><pre>";
+print "SESS domain=" . $_SESSION['domain'] . " GET U=" . $_GET['U'] . "\n<br>";
+print "GLOBAL domain=" . $domain . " GLOBAL U=" . $U . "\n<br>";
+print "get="; var_dump($_GET); print "\n<br>";
+print "session="; var_dump($_SESSION); print "\n<br>";
+print "serverr="; var_dump($_SERVER); print "\n<br>";
+print "</pre>";
+exit();
 
 // try to improve speed
 

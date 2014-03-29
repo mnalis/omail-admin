@@ -198,6 +198,17 @@ function html_end() {
 	$templdata["powered_by"]= $powered_by;
 	print parseTemplate($templdata, "templates/html_end.temp");
 
+	// /mn/ 20140329 kludge try to emulate register_session() and register_globals=on
+ $session_vars = array("username","domain","passwd","type","ip","expire","lang","active",
+ "quota_on","quota_data","catchall_active", "sort_order",
+ "mb_start","al_start",
+ "mb_letter","al_letter",
+ "vm_tcphost","vm_tcphost_port",
+ "vmailstats");
+        foreach ($session_vars as $key){
+            $_SESSION[$key]=$GLOBALS[$key];
+        }
+
 }
 
 
