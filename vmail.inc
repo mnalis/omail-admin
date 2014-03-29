@@ -51,7 +51,7 @@ function vm_daemon_raw($arg)
 		if ($socketfile != "")
 			$vmailfile = $socketfile;
 
-		$vmailsock = fsockopen ($vmailfile, 0, $errno, $errstr, 4);
+		$vmailsock = fsockopen ("unix://$vmailfile", 0, $errno, $errstr, 4);
 		if (!$vmailsock) die("Failed to open unix socket file at '$vmailfile', is daemon running? <br>\n Error: $errno - $errstr");
 	}
 
