@@ -1,4 +1,4 @@
-<?
+<?php
 // Copyright (C) 2000 Mike Bell <mike@mikebell.org>
 // 
 //      $Id: vmail.inc,v 1.8 2001/02/24 20:30:11 swix Exp $

@@ -1,4 +1,4 @@
-<?
+<?php
 
 /* 	-----------
 	oMail-admin  -  A PHP4 based Vmailmgrd Web interface
