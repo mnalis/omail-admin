@@ -498,42 +498,40 @@ function html_delete_confirm($userinfo) {
 	global $session, $script_url;
 	include("strings.php");
 
-        $templdata["script"]=$script_url;
-        $templdata["SID"]=SID;
-        $templdata["txt_username"]=$txt_username[$_SESSION["lang"]];
-        $templdata["userinfo0"]=$userinfo[0];
-        $templdata["domain"]=$_SESSION["domain"];
+    $templdata["script"] = $script_url;
+    $templdata["SID"] = SID;
+    $templdata["txt_username"] = $txt_username[$_SESSION["lang"]];
+    $templdata["userinfo0"] = $userinfo[0];
+    $templdata["domain"] = $_SESSION["domain"];
 
-        $templdata["txt_submit"]=$txt_submit[$_SESSION["lang"]];
-        $templdata["txt_cancel"]=$txt_cancel[$_SESSION["lang"]];
-        $templdata["txt_action"]=$txt_action[$_SESSION["lang"]];
-        $templdata["txt_delete"]=$txt_delete[$_SESSION["lang"]];
+    $templdata["txt_submit"] = $txt_submit[$_SESSION["lang"]];
+    $templdata["txt_cancel"] = $txt_cancel[$_SESSION["lang"]];
+    $templdata["txt_action"] = $txt_action[$_SESSION["lang"]];
+    $templdata["txt_delete"] = $txt_delete[$_SESSION["lang"]];
 
-        print parseTemplate($templdata, "templates/delete_confirm.temp");
+    print parseTemplate($templdata, "templates/delete_confirm.temp");
 }
 
 
 
 function html_catchall_confirm($userinfo, $msg) {
-
 	global $session, $script_url;
 	include("strings.php");
 
-        $templdata["script"]=$script_url;
-        $templdata["SID"]=SID;
-        $templdata["txt_username"]=$txt_username[$_SESSION["lang"]];
-        $templdata["userinfo0"]=$userinfo[0];
-        $templdata["domain"]=$_SESSION["domain"];
+    $templdata["script"] = $script_url;
+    $templdata["SID"] = SID;
+    $templdata["txt_username"] = $txt_username[$_SESSION["lang"]];
+    $templdata["userinfo0"] = $userinfo[0];
+    $templdata["domain"] = $_SESSION["domain"];
 
-        $templdata["txt_submit"]=$txt_submit[$_SESSION["lang"]];
-        $templdata["txt_cancel"]=$txt_cancel[$_SESSION["lang"]];
-        $templdata["txt_action"]=$txt_action[$_SESSION["lang"]];
-        $templdata["txt_catchall"]=$txt_catchall[$_SESSION["lang"]];
-        $templdata["txt_setup_catchall"]=$txt_setup_catchall[$_SESSION["lang"]];
+    $templdata["txt_submit"] = $txt_submit[$_SESSION["lang"]];
+    $templdata["txt_cancel"] = $txt_cancel[$_SESSION["lang"]];
+    $templdata["txt_action"] = $txt_action[$_SESSION["lang"]];
+    $templdata["txt_catchall"] = $txt_catchall[$_SESSION["lang"]];
+    $templdata["txt_setup_catchall"] = $txt_setup_catchall[$_SESSION["lang"]];
 
-        $templdata["msg"]=$msg;
-
-        print parseTemplate($templdata, "templates/catchall_confirm.temp");
+    $templdata["msg"] = $msg;
+    print parseTemplate($templdata, "templates/catchall_confirm.temp");
 }
 
 
@@ -542,7 +540,7 @@ function html_catchall_create($msg, $mboxlist) {
 	global $session, $script_url;
 	include("strings.php");
 
-    for ($i=0; $i<sizeof($mboxlist);$i++) {
+    for ($i = 0; $i < sizeof($mboxlist); $i++) {
         $tmp_account = $mboxlist[$i];
         if ($tmp_account[0] != "+") {
             $templdata["select_account_contents"] = '<option>' . $tmp_account[0] . '</option>';
@@ -552,7 +550,7 @@ function html_catchall_create($msg, $mboxlist) {
     $templdata["script"] = $script_url;
     $templdata["SID"] = SID;
     $templdata["txt_username"] = $txt_username[$_SESSION["lang"]];
-    //$templdata["userinfo0"] = $userinfo[0];
+    $templdata["userinfo0"] = $userinfo[0];
     $templdata["domain"] = $_SESSION["domain"];
 
     $templdata["txt_submit"] = $txt_submit[$_SESSION["lang"]];
@@ -567,32 +565,31 @@ function html_catchall_create($msg, $mboxlist) {
     print parseTemplate($templdata, "templates/catchall_create.temp");
 }
 
-
 function html_catchall_remove_confirm($msg) {
 
 	global $session, $script_url;
 	include("strings.php");
 
-    $templdata["script"]=$script_url;
-    $templdata["SID"]=SID;
-    $templdata["txt_username"]=$txt_username[$_SESSION["lang"]];
-    $templdata["domain"]=$_SESSION["domain"];
+    $templdata["script"] = $script_url;
+    $templdata["SID"] = SID;
+    $templdata["txt_username"] = $txt_username[$_SESSION["lang"]];
+    $templdata["domain"] = $_SESSION["domain"];
 
-    $templdata["txt_domain"]=$txt_domain[$_SESSION["lang"]];
-    $templdata["txt_submit"]=$txt_submit[$_SESSION["lang"]];
-    $templdata["txt_cancel"]=$txt_cancel[$_SESSION["lang"]];
-    $templdata["txt_action"]=$txt_action[$_SESSION["lang"]];
-    $templdata["txt_remove_catchall"]=$txt_remove_catchall[$_SESSION["lang"]];
+    $templdata["txt_domain"] = $txt_domain[$_SESSION["lang"]];
+    $templdata["txt_submit"] = $txt_submit[$_SESSION["lang"]];
+    $templdata["txt_cancel"] = $txt_cancel[$_SESSION["lang"]];
+    $templdata["txt_action"] = $txt_action[$_SESSION["lang"]];
+    $templdata["txt_remove_catchall"] = $txt_remove_catchall[$_SESSION["lang"]];
 
-    $templdata["msg"]=$msg;
+    $templdata["msg"] = $msg;
 
     print parseTemplate($templdata, "templates/catchall_remove_confirm.temp");
 }
 
 function html_error($title, $msg) {
 
-        global $script_url;
-        include("strings.php");
+    global $script_url;
+    include("strings.php");
 
 }
 
