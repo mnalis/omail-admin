@@ -258,7 +258,7 @@ function get_accounts($arg_action, $arg_username = "") {
 	if ($arg_action) {
 
 		if (!$vm_list_loaded) {
-			$vm_list = listdomain($domain, base64_decode($passwd));
+			$vm_list = listdomain($_SESSION["domain"], base64_decode($_SESSION["passwd"]));
 			$vm_list_loaded = 1;
 		}
 
@@ -280,7 +280,11 @@ function get_accounts($arg_action, $arg_username = "") {
 			if ($username == "+") { $Visible = 0; } else { $Visible = 1; }
 
 			// get enabled/disabled status
-			if (ord($data11[8]) == 49) { $Enabled = 1; } else { $Enabled = 0; }
+			if ((sizeof($data11) >= 9) && (ord($data11[8]) == 49)) {
+                $Enabled = 1;
+            } else {
+                $Enabled = 0;
+            }
 
 			// findout autoresp status (only lookup for mailboxes)
 
@@ -827,7 +831,7 @@ function ldap_entry ($action, $username, $firstname, $lastname) {
     $info["ou"] = $ou;
     $info["sn"] = $lastname;
     $info["givenname"] = $firstname;
-    $info["mail"] = $username."@".$domain;
+    $info["mail"] = $username."@".$_SESSION["domain"];
     $info["uid"] = $username;
 
     switch ($action) {

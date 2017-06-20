@@ -320,7 +320,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 			    $txt_menu_add .= ' [ <a href="'. $script_url . '?A=create_catchall&U=" onClick="oW(this,\'pop\')">' . $txt_edit[$_SESSION["lang"]] . '</a> ]';
 			}
 
-			if ($_SESSION["vmailstats"]["active"]) {
+			if (isset($_SESSION["vmailstats"]["active"]) && $_SESSION["vmailstats"]["active"]) {
 				$txt_menu_add .= "<br>" . $txt_total_size[$_SESSION["lang"]] . ": ";
 				if ($_SESSION["vmailstats"]["global_size"] < 1024) {
 					$txt_menu_add .= "<b>" . $_SESSION["vmailstats"]["global_size"] . " kB</b>.";
@@ -1385,7 +1385,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 	        $msg .= "<ul><li><a href=\"$script_url?A=login&setlang=" . $_SESSION["lang"] . "&" . SID . "\">" . $txt_login_again[$_SESSION["lang"]]  .  "</a>\n";
 		$msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
 
-		$active = 0;
+		$_SESSION["active"] = 0;
 		session_destroy();
 
 		html_head("$program_name Administration - Logout");
