@@ -53,29 +53,21 @@ function check_session($arg_ip) {
 	// 1. expired ?  auto session expiration after N minutes
 
 	if ($_SESSION["expire"] > time()) {
-
 		// ok, we update actual expire time
 		$_SESSION["expire"] = time() + $expire_after*60;
-
 	} else {
-
 		// exit
 		return 0;
 	}
 
 	// 2. ip ?   check if the host is the same (in case of url spoofing...)
-
 	if ($arg_ip != $_SESSION["ip"]) {
-
 		// ip doesn't match -> exit
 		return 0;
-
 	}
 
 	// if we are here, everything is alright : we can continue
-
 	return 1;
-
 }
 
 function authenticate($arg_login, $arg_passwd, $arg_ip, $tcphostname) {
@@ -83,21 +75,16 @@ function authenticate($arg_login, $arg_passwd, $arg_ip, $tcphostname) {
 	global $expire_after;
 
 	// 1. admin or user login ?
-
 	if (preg_match("/(.*)\@(.*)/", $arg_login, $parts)) {
-
 		$_SESSION["username"] = $parts[1];
 		$_SESSION["domain"] = $parts[2];
 		$_SESSION["passwd"] = base64_encode($arg_passwd);
 		$_SESSION["type"] = "user";
-
 	} else {
-
 		$_SESSION["username"] = "";
 		$_SESSION["domain"] = $arg_login;
 		$_SESSION["passwd"] = base64_encode($arg_passwd);
 		$_SESSION["type"] = "domain";
-
 	}
 
 	// 2. check format of arguments (lenght, regexp)
@@ -106,18 +93,14 @@ function authenticate($arg_login, $arg_passwd, $arg_ip, $tcphostname) {
 
 
 	// 4. initalize some variables
-
 	$_SESSION["mb_start"] = 0;
 	$_SESSION["al_start"] = 0;
 
 	// 5. authenticate
-
 	if ($_SESSION["type"] == "domain") {
-
 		$test = listdomain($_SESSION["domain"], base64_decode($_SESSION["passwd"]));
 
 		if (is_array($test[0]) || ($test[0] != 2)) {
-
 			SetCookie("cookie_omail_last_login","", Time()+993600);
 			SetCookie("cookie_omail_last_domain", $_SESSION["domain"], Time()+993600);
 			if ($tcphostname) {
@@ -131,21 +114,15 @@ function authenticate($arg_login, $arg_passwd, $arg_ip, $tcphostname) {
 			get_catchall_account();
 
 			return 1;
-
 		} else {
-
 			return 0;
 		}
-
 	} elseif ($type == "user") {
-
 		$test = vchattr($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $_SESSION["username"], "PASS", base64_decode($_SESSION["passwd"]));
 
 		if ($test[0] == 0) {
-
 			SetCookie("cookie_omail_last_login", $_SESSION["username"], Time()+993600);
 			SetCookie("cookie_omail_last_domain", $_SESSION["domain"], Time()+993600);
-
 			SetCookie("cookie_omail_lang", $_SESSION["lang"], Time()+993600);
 			$_SESSION["expire"] = time() + $expire_after*60;
 			$_SESSION["ip"] = $arg_ip;
@@ -154,21 +131,13 @@ function authenticate($arg_login, $arg_passwd, $arg_ip, $tcphostname) {
 			get_catchall_account();
 
 			return 1;
-
-		} else {
-
+        } else {
 			return 0;
-
 		}
-
 	} else {
-
 		return 0;
-
 	}
-
 }
-
 
 function load_quota_info($domain) {
 
@@ -245,7 +214,7 @@ function get_accounts($arg_action, $arg_username = "") {
 	global $readonly_accounts_list, $system_accounts_list;
 	global $vm_list, $vm_list_loaded, $vm_resp_status;
 
-	$new_list = array ();
+	$new_list = array();
 
 	// action = 0 : only one mailbox (user mode)
 	// action = 1 : all mailboxes, with resp (admin mode) but not "+" if created by omail-admin
@@ -268,7 +237,7 @@ function get_accounts($arg_action, $arg_username = "") {
 			if ($arg_action == 2 || $arg_action == 3) { $_SESSION["quota_data"]["nb_alias"] = 0; }
 		}
 
-        for ($i = 0; $i <  sizeof($list); $i++) {
+        for ($i = 0; $i < sizeof($list); $i++) {
 
             list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $data11) = $list[$i];
 
@@ -300,43 +269,43 @@ function get_accounts($arg_action, $arg_username = "") {
 			}  else {
 				$resp = 0;
 			}
-                if (($arg_action == 1) && $_SESSION["mb_letter"] && !preg_match("/^[".$_SESSION["mb_letter"]."]/i", $username)) {
-                    if ($mbox) {
-                        if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
-                            $_SESSION["quota_data"]["nb_users"]++;
-                        }
-                    }
-                    continue;
-                }
-
-                if ($arg_action == 2 && $_SESSION["al_letter"] && !preg_match("/^[".$_SESSION["al_letter"]."]/i", $username)) {
-                    if (!$mbox) {
-                        if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
-                            $_SESSION["quota_data"]["nb_alias"]++;
-                        }
-                    }
-                    continue;
-                }
-
-                $list[$i] = array($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible);
-
-                if ($mbox && ($arg_action == 1 || $arg_action == 3)) {
-                    $new_list[$j++] = $list[$i];
+            if (($arg_action == 1) && $_SESSION["mb_letter"] && !preg_match("/^[".$_SESSION["mb_letter"]."]/i", $username)) {
+                if ($mbox) {
                     if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
                         $_SESSION["quota_data"]["nb_users"]++;
                     }
                 }
+                continue;
+            }
 
-                if (!$mbox && ($arg_action == 2 || $arg_action == 3)) {
-                    $new_list[$j++] = $list[$i];
+            if ($arg_action == 2 && $_SESSION["al_letter"] && !preg_match("/^[".$_SESSION["al_letter"]."]/i", $username)) {
+                if (!$mbox) {
                     if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
                         $_SESSION["quota_data"]["nb_alias"]++;
                     }
                 }
+                continue;
+            }
 
-                if (($username == $arg_username) && ($arg_action == 0)) {
-                    $new_list[$j++] = $list[$i];
+            $list[$i] = array($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible);
+
+            if ($mbox && ($arg_action == 1 || $arg_action == 3)) {
+                $new_list[$j++] = $list[$i];
+                if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
+                    $_SESSION["quota_data"]["nb_users"]++;
                 }
+            }
+
+            if (!$mbox && ($arg_action == 2 || $arg_action == 3)) {
+                $new_list[$j++] = $list[$i];
+                if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
+                    $_SESSION["quota_data"]["nb_alias"]++;
+                }
+            }
+
+            if (($username == $arg_username) && ($arg_action == 0)) {
+                $new_list[$j++] = $list[$i];
+            }
         }
 
 		// try to sort on username
@@ -372,7 +341,6 @@ function get_accounts($arg_action, $arg_username = "") {
 	}
 
 	return $new_list;
-
 }
 
 
@@ -439,7 +407,6 @@ function update_userquota($arg_username, $arg_softquota, $arg_hardquota, $arg_ex
 
 
 function update_userstatus($arg_username, $arg_enabled) {
-
 	$result = vchattr($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, "MAILBOX_ENABLED", $arg_enabled);
 
     if (!$result[0]) {
@@ -452,14 +419,12 @@ function update_userstatus($arg_username, $arg_enabled) {
 
 
 function update_account($arg_username, $arg_fwd) {
-
 	// check forwarders
-
 	$nb_fwd = count($arg_fwd);
-        $new_fwd = array ();
-        $j = 0;
-        if ($nb_fwd) {
-		for($i = 0; $i<$nb_fwd; $i++) {
+    $new_fwd = array ();
+    $j = 0;
+    if ($nb_fwd) {
+        for($i = 0; $i<$nb_fwd; $i++) {
 			if ($arg_fwd[$i]) {
 				$new_fwd[$j++] = trim($arg_fwd[$i]);
 			}
@@ -476,7 +441,6 @@ function update_account($arg_username, $arg_fwd) {
 }
 
 function create_account($arg_username, $arg_passwd, $arg_fwd) {
-
 	$result = vadduser($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, $arg_passwd, $arg_fwd);
 
     if (!$result[0]) {
@@ -487,7 +451,6 @@ function create_account($arg_username, $arg_passwd, $arg_fwd) {
 }
 
 function create_alias($arg_username, $arg_passwd, $arg_fwd) {
-
 	$result = vaddalias($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, $arg_passwd, $arg_fwd);
 
     if (!$result[0]) {
@@ -498,7 +461,6 @@ function create_alias($arg_username, $arg_passwd, $arg_fwd) {
 }
 
 function delete_account($arg_username) {
-
 	$result = vdeluser($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username);
 
     if (!$result[0]) {
@@ -509,14 +471,12 @@ function delete_account($arg_username) {
 }
 
 function load_resp_file($arg_username) {
-
 	$return_data = vreadautoresponse($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username);
 
 	return $return_data;
 }
 
 function load_resp_status($arg_username) {
-
 	$data = vautoresponsestatus($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username);
 	$status = $data[1];
 
@@ -535,7 +495,6 @@ function parse_resp_file($arg_text) {
 	$body = "";
 
 	for ($i = 0; $i < count($text)-1; $i++) {
-
 		if (preg_match("/^From: (.*)$/i", $text[$i], $parts)) {
 			$from = $parts[1];
 		} elseif (preg_match("/^Subject: (.*)$/i", $text[$i], $parts)) {
@@ -598,8 +557,7 @@ function get_catchall_account() {
 
 	    $catchallinfo = $tmpinfo[$i];
 
-	    if ($catchallinfo[0] == "+") {
-
+	    if (isset($catchallinfo[0]) && ($catchallinfo[0] == "+")) {
             if (!($catchallinfo[2])) {
                 $aliases = $catchallinfo[3];
                 $nb_fwd = count($aliases);
@@ -714,11 +672,11 @@ function getContentStrings($content, $tag) {
 
 function complexHelper($tagContent, $parseSet, $encoding) {
     $parseString = "";
-    for ($i = 1; $i <= count($parseSet); $i++) {
-	    $ar = array();
-        if (!isset($parseSet[$i])) {
-            echo("<b>".$parseSet[$i - 1]."</b>");
+    for ($i = 0; $i <= count($parseSet); $i++) {
+        if (!isset($parseSet[$i]) {
+            continue;
         }
+	    $ar = array();
         $parseArray = $parseSet[$i];
         if (is_array($parseArray)) {
 		    while (list($key, $val) = each($parseArray)) {
