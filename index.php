@@ -326,7 +326,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 			}
 
 			if ($_SESSION["vmailstats"]["active"]) {
-				$txt_menu_add .= "<br>" . $txt_total_size[$_SESSION["lang"] . ": ";
+				$txt_menu_add .= "<br>" . $txt_total_size[$_SESSION["lang"]] . ": ";
 				if ($_SESSION["vmailstats"]["global_size"] < 1024) {
 					$txt_menu_add .= "<b>" . $_SESSION["vmailstats"]["global_size"] . " kB</b>.";
 				} else {
