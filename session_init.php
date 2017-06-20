@@ -75,7 +75,7 @@ if (!isset($_SESSION["vmailstats"])) {
     $_SESSION["vmailstats"] = array();
 }
 
-if (isset($_SESSION["lang"] && isset($setlang)) {
+if (isset($_SESSION["lang"]) && isset($setlang)) {
     if ($setlang != $_SESSION["lang"]) {
         $_SESSION["lang"] = $setlang;
     }
