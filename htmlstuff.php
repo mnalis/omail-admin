@@ -592,7 +592,7 @@ function html_catchall_remove_confirm($msg) {
 
 function html_error($title, $msg) {
 
-        global $script_url
+        global $script_url;
         include("strings.php");
 
 }
