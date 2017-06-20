@@ -230,7 +230,7 @@ function get_accounts($arg_action, $arg_username = "") {
 
 		$list = $vm_list;
 
-		$j = -1;
+		$j = 0;
 
 		if ($_SESSION["quota_on"]) {
 			if ($arg_action == 1 || $arg_action == 3) { $_SESSION["quota_data"]["nb_users"] = 0; }
@@ -290,21 +290,24 @@ function get_accounts($arg_action, $arg_username = "") {
             $list[$i] = array($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible);
 
             if ($mbox && ($arg_action == 1 || $arg_action == 3)) {
-                $new_list[$j++] = $list[$i];
+                $new_list[$j] = $list[$i];
+                $j++;
                 if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
                     $_SESSION["quota_data"]["nb_users"]++;
                 }
             }
 
             if (!$mbox && ($arg_action == 2 || $arg_action == 3)) {
-                $new_list[$j++] = $list[$i];
+                $new_list[$j] = $list[$i];
+                $j++;
                 if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
                     $_SESSION["quota_data"]["nb_alias"]++;
                 }
             }
 
             if (($username == $arg_username) && ($arg_action == 0)) {
-                $new_list[$j++] = $list[$i];
+                $new_list[$j] = $list[$i];
+                $j++;
             }
         }
 
@@ -320,7 +323,6 @@ function get_accounts($arg_action, $arg_username = "") {
 
 		$lookup_data = lookup($_SESSION["domain"], $arg_username, base64_decode($_SESSION["passwd"]));
 		$alias = array();
-		$i = -1;
 
 		list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $data11)=$lookup_data;
 
@@ -672,7 +674,7 @@ function getContentStrings($content, $tag) {
 
 function complexHelper($tagContent, $parseSet, $encoding) {
     $parseString = "";
-    for ($i = 0; $i <= count($parseSet); $i++) {
+    for ($i = 0; $i < count($parseSet); $i++) {
         //if (!isset($parseSet[$i])) {
         //    continue;
         //}
