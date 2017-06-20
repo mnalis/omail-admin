@@ -59,7 +59,6 @@ $vm_list = array();
 $vm_list_loaded = 0;
 $vm_resp_status = array();
 
-
 if (!isset($setlang)) {
 
 	// if no language defined yet (cookie or session):
@@ -73,7 +72,7 @@ if (!isset($setlang)) {
             if (isset($txt_langname[$tmplang])) {   // if the whole string matchs ("de-CH", or "en", etc)
                 $setlang = $tmplang;
                 break;
-            } elseif (isset($txt_langname[$tmplang2])) { // then try only the 2 first chars ("de", "fr"...)
+            } elseif ($txt_langname[$tmplang2]) { // then try only the 2 first chars ("de", "fr"...)
                 $setlang = $tmplang2;
                 break;
             }
