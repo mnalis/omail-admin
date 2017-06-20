@@ -714,7 +714,7 @@ function getContentStrings($content, $tag) {
 
 function complexHelper($tagContent, $parseSet, $encoding) {
     $parseString = "";
-    for ($i = 0; $i < count($parseSet); $i++) {
+    for ($i = 1; $i <= count($parseSet); $i++) {
 	    $ar = array();
         $parseArray = $parseSet[$i];
         if (is_array($parseArray)) {
