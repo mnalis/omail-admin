@@ -534,23 +534,23 @@ function html_catchall_confirm($userinfo, $msg) {
     print parseTemplate($templdata, "templates/catchall_confirm.temp");
 }
 
-
 function html_catchall_create($msg, $mboxlist) {
 
 	global $session, $script_url;
 	include("strings.php");
 
+    $templdata["select_account_contents"] = "";
+
     for ($i = 0; $i < sizeof($mboxlist); $i++) {
         $tmp_account = $mboxlist[$i];
         if ($tmp_account[0] != "+") {
-            $templdata["select_account_contents"] = '<option>' . $tmp_account[0] . '</option>';
+            $templdata["select_account_contents"] .= '<option>' . $tmp_account[0] . '</option>';
         }
     }
 
     $templdata["script"] = $script_url;
     $templdata["SID"] = SID;
     $templdata["txt_username"] = $txt_username[$_SESSION["lang"]];
-    $templdata["userinfo0"] = $userinfo[0];
     $templdata["domain"] = $_SESSION["domain"];
 
     $templdata["txt_submit"] = $txt_submit[$_SESSION["lang"]];

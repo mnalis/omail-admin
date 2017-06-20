@@ -586,12 +586,11 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 
 	    $tmpsize = count($tmpinfo);
 
-	    for ($i=0; $i < $tmpsize; $i++) {
+	    for ($i = 0; $i < $tmpsize; $i++) {
 	        $catchallinfo = $tmpinfo[$i];
 	        if ($catchallinfo[0] == "+") {
                 $aliases = $catchallinfo[3];
                 $nb_fwd = count($aliases);
-
                 $msg = "";
 
 	    	    if (!($catchallinfo[2])) {
