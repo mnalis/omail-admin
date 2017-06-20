@@ -716,6 +716,9 @@ function complexHelper($tagContent, $parseSet, $encoding) {
     $parseString = "";
     for ($i = 1; $i <= count($parseSet); $i++) {
 	    $ar = array();
+        if (!isset($parseSet[$i]) {
+            echo("<b>".$parseSet[$i - 1]."</b>");
+        }
         $parseArray = $parseSet[$i];
         if (is_array($parseArray)) {
 		    while (list($key, $val) = each($parseArray)) {
