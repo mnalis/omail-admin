@@ -35,24 +35,24 @@
 
 function html_login() {
 
-	global $script_url, $A, $lang, $version, $cookie_omail_last_login, $cookie_omail_last_domain, $domains_list;
+	global $script_url, $A, $version, $cookie_omail_last_login, $cookie_omail_last_domain, $domains_list;
 	global $use_vmailmgrd_tcp, $vmailmgrd_tcp_host_method, $vmailmgrd_tcp_hosts_list;
 	global $cookie_omail_last_server;
 	include("strings.php");
 
         $templdata["script"]=$script_url;
         $templdata["SID"]=SID;
-	$templdata["txt_dom_ident"]=$txt_dom_ident[$lang];
-	$templdata["txt_domain_or_email"]=$txt_domain_or_email[$lang];
-	$templdata["txt_password_str"]=$txt_password_str[$lang];
-	$templdata["txt_mailhost_str"]=$txt_mailhost_str[$lang];
-	$templdata["txt_login"]=$txt_login[$lang];
-	$templdata["lang"]=$lang;
+	$templdata["txt_dom_ident"]=$txt_dom_ident[$_SESSION["lang"]];
+	$templdata["txt_domain_or_email"]=$txt_domain_or_email[$_SESSION["lang"]];
+	$templdata["txt_password_str"]=$txt_password_str[$_SESSION["lang"]];
+	$templdata["txt_mailhost_str"]=$txt_mailhost_str[$_SESSION["lang"]];
+	$templdata["txt_login"]=$txt_login[$_SESSION["lang"]];
+	$templdata["lang"]=$_SESSION["lang"];
 
 	$ii = 0;
         reset($txt_langname);
-        while(list ($id,$tmplang) = each ($txt_langname) ) {
-                if ($id != $lang) {
+        while(list ($id, $tmplang) = each ($txt_langname) ) {
+                if ($id != $_SESSION["lang"]) {
 			$templdata[bla][$ii][id] = $id;
 			$templdata[bla][$ii][url] = $script_url . "?setlang=$id&" . SID;
 			$templdata[bla][$ii][txt] = $tmplang;
@@ -117,19 +117,19 @@ function html_login() {
 
 function html_head($title) {
 
-	global $quota_on, $quota_data, $A, $domain, $cvs_version, $version, $lang, $setlang;
+	global $A, $cvs_version, $version;
 	include("strings.php");
 
 	// needed for 'ru' (at least with no-russian browsers)
-	if ($txt_charset[$lang]) {
-		Header("Content-Type: text/html; charset=" . $txt_charset[$lang] . "\n");
+	if ($txt_charset[$_SESSION["lang"]]) {
+		Header("Content-Type: text/html; charset=" . $txt_charset[$_SESSION["lang"]] . "\n");
 	} elseif ($txt_charset[$setlang]) {
 		Header("Content-Type: text/html; charset=" . $txt_charset[$setlang] . "\n");
 	}
 
 	$templdata["version"]=$version;
 	$templdata["cvs_version"]=$cvs_version;
-	$templdata["lang"]=$lang;
+	$templdata["lang"]=$_SESSION["lang"];
 	$templdata["title"]=$title;
 
 	print parseTemplate($templdata, "templates/html_header_standard.temp");
@@ -138,7 +138,7 @@ function html_head($title) {
 
 function html_titlebar($title,$msg,$popup) {
 
-	global $quota_on, $quota_data, $script_url, $A, $lang, $version, $hide_about_button, $program_name;
+	global $script_url, $A, $version, $hide_about_button, $program_name;
 	include("strings.php");
 
 	$array["program_name"] = $program_name;
@@ -148,39 +148,39 @@ function html_titlebar($title,$msg,$popup) {
 
 	if ($popup) {
 		$array[buttonlabels][0][url] = $script_url . "?" . SID;
-		$array[buttonlabels][0][txt] = $txt_close[$lang];
+		$array[buttonlabels][0][txt] = $txt_close[$_SESSION["lang"]];
 		$array[buttonlabels][0][onClick] = 'onClick="return gO(this,true,true)"';
 		$array[buttonlabels][1][url] = $script_url . "?A=logout&" . SID;
-		$array[buttonlabels][1][txt] = $txt_logout[$lang];
+		$array[buttonlabels][1][txt] = $txt_logout[$_SESSION["lang"]];
 		$array[buttonlabels][1][onClick] = 'onClick="return gO(this,true)"';
 		$array[buttonlabels][2][url] = $script_url . "?A=help&" . SID;
-		$array[buttonlabels][2][txt] = $txt_help[$lang];
+		$array[buttonlabels][2][txt] = $txt_help[$_SESSION["lang"]];
 		$array[buttonlabels][2][onClick] = "onClick=\"oW(this,'pop2')\"";
 	} elseif ($A == "menu") {
 		$array[buttonlabels][0][url] = $script_url . "?" . SID;
-		$array[buttonlabels][0][txt] = $txt_refresh_menu[$lang];
+		$array[buttonlabels][0][txt] = $txt_refresh_menu[$_SESSION["lang"]];
 		$array[buttonlabels][0][onClick] = '';
 		$array[buttonlabels][1][url] = $script_url . "?A=logout&" . SID;
-		$array[buttonlabels][1][txt] = $txt_logout[$lang];
+		$array[buttonlabels][1][txt] = $txt_logout[$_SESSION["lang"]];
 		$array[buttonlabels][1][onClick] = '';
 		$array[buttonlabels][2][url] = $script_url . "?A=help&" . SID;
-		$array[buttonlabels][2][txt] = $txt_help[$lang];
+		$array[buttonlabels][2][txt] = $txt_help[$_SESSION["lang"]];
 		$array[buttonlabels][2][onClick] = "onClick=\"oW(this,'pop2')\"";
 		if (!$hide_about_button) {
 			$array[buttonlabels][3][url] = $script_url . "?A=about&" . SID;
-			$array[buttonlabels][3][txt] = $txt_about[$lang];
+			$array[buttonlabels][3][txt] = $txt_about[$_SESSION["lang"]];
 			$array[buttonlabels][3][onClick] = "onClick=\"oW3(this,'pop2')\"";
 		}
 	} elseif (($A == "login" || $A == "" || $A == "splash") && !$hide_about_button) {
 		$array[buttonlabels][0][url] = $script_url . "?A=about&" . SID;
-		$array[buttonlabels][0][txt] = $txt_about[$lang];
+		$array[buttonlabels][0][txt] = $txt_about[$_SESSION["lang"]];
 		$array[buttonlabels][0][onClick] = "onClick=\"oW3(this,'pop2')\"";
 		$array[buttonlabels][1][url] = $script_url . "?A=help&" . SID;
-		$array[buttonlabels][1][txt] = $txt_help[$lang];
+		$array[buttonlabels][1][txt] = $txt_help[$_SESSION["lang"]];
 		$array[buttonlabels][1][onClick] = "onClick=\"oW(this,'pop2')\"";
 	} elseif ($A == "about" || $A == "help") {
 		$array[buttonlabels][0][url] = $script_url . "?" . SID;
-		$array[buttonlabels][0][txt] = $txt_close[$lang];
+		$array[buttonlabels][0][txt] = $txt_close[$_SESSION["lang"]];
 		$array[buttonlabels][0][onClick] = 'onClick="return gO(this,true,true)"';
 	} else {
 		$array[buttonlabels][0]='';
@@ -202,21 +202,21 @@ function html_end() {
 
 function html_userform($userinfo, $action, $mboxlist) {
 
-	global $use_ldap, $quota_on, $quota_data, $session, $script_url, $lang, $domain, $type, $vmailstats;
+	global $use_ldap, $session, $script_url;
 	include("strings.php");
 	$fwd = 0;
 
         $templdata["script"]=$script_url;
         $templdata["SID"]=SID;
-        $templdata["txt_username"]=$txt_username[$lang];
+        $templdata["txt_username"]=$txt_username[$_SESSION["lang"]];
         $templdata["userinfo0"]=$userinfo[0];
-        $templdata["domain"]=$domain;
-        $templdata["txt_details"]=$txt_details[$lang];
+        $templdata["domain"]=$_SESSION["domain"];
+        $templdata["txt_details"]=$txt_details[$_SESSION["lang"]];
         $templdata["userinfo4"]=htmlentities($userinfo[4]);
-        $templdata["txt_date_of_creation"]=$txt_date_of_creation[$lang];
-	$templdata["txt_firstname"]=$txt_firstname[$lang];
-	$templdata["txt_lastname"]=$txt_lastname[$lang];
-	$templdata["txt_one_per_line"]=$txt_one_per_line[$lang];
+        $templdata["txt_date_of_creation"]=$txt_date_of_creation[$_SESSION["lang"]];
+	$templdata["txt_firstname"]=$txt_firstname[$_SESSION["lang"]];
+	$templdata["txt_lastname"]=$txt_lastname[$_SESSION["lang"]];
+	$templdata["txt_one_per_line"]=$txt_one_per_line[$_SESSION["lang"]];
 
 	if ($action == "edit") {
 		// find how many forwarders there are
@@ -236,7 +236,7 @@ function html_userform($userinfo, $action, $mboxlist) {
 	}
 
 	$userinfo[4] = htmlentities($userinfo[4]);
-	if ($type == "user") {
+	if ($_SESSION["type"] == "user") {
 	    $templdata["userdetailfield"] = $userinfo[4];
 	    if ($use_ldap) {
 		$templdata["firstname"] = $ldap_entry["firstname"];
@@ -251,13 +251,13 @@ function html_userform($userinfo, $action, $mboxlist) {
 	}
 
 
-	if ($vmailstats["active"] && $vmailstats[$userinfo[0]]["size"]) {
+	if ($_SESSION["vmailstats"]["active"] && $_SESSION["vmailstats"][$userinfo[0]]["size"]) {
 
 		if ($templdata["userdetailfield"]) { $templdata["userdetailfield"] .= "<br><br>"; }
 
-		$templdata["userdetailfield"] .= $txt_mailbox_size[$lang] . ": ". $vmailstats[$userinfo[0]]["size"] . " kB <br>";
-		$templdata["userdetailfield"] .= $txt_unread_mails[$lang] . ": ". $vmailstats[$userinfo[0]]["newsize"] . " kB (" . $vmailstats[$userinfo[0]]["newfiles"] . ")<br>";
-		$templdata["userdetailfield"] .= $txt_read_mails[$lang] . ": ". $vmailstats[$userinfo[0]]["cursize"] . " kB (" . $vmailstats[$userinfo[0]]["curfiles"] . ")";
+		$templdata["userdetailfield"] .= $txt_mailbox_size[$_SESSION["lang"]] . ": ". $_SESSION["vmailstats"][$userinfo[0]]["size"] . " kB <br>";
+		$templdata["userdetailfield"] .= $txt_unread_mails[$_SESSION["lang"]] . ": ". $_SESSION["vmailstats"][$userinfo[0]]["newsize"] . " kB (" . $_SESSION["vmailstats"][$userinfo[0]]["newfiles"] . ")<br>";
+		$templdata["userdetailfield"] .= $txt_read_mails[$_SESSION["lang"]] . ": ". $_SESSION["vmailstats"][$userinfo[0]]["cursize"] . " kB (" . $_SESSION["vmailstats"][$userinfo[0]]["curfiles"] . ")";
 	}
 
 
@@ -266,18 +266,18 @@ function html_userform($userinfo, $action, $mboxlist) {
         $templdata["userinfo2"]=$userinfo[2]; if (!($templdata["userinfo2"])) { $templdata["userinfo2"]= "-"; }
         $templdata["userinfo0"]=$userinfo[0];
 
-        $templdata["txt_directory"]=$txt_directory[$lang];
-        $templdata["txt_passwd"]=$txt_passwd[$lang];
+        $templdata["txt_directory"]=$txt_directory[$_SESSION["lang"]];
+        $templdata["txt_passwd"]=$txt_passwd[$_SESSION["lang"]];
 
-	if ($action == "newalias") { $templdata["txt_facultatif"]= " (" . $txt_facultatif[$lang] . ") "; }
+	if ($action == "newalias") { $templdata["txt_facultatif"]= " (" . $txt_facultatif[$_SESSION["lang"]] . ") "; }
 	else {  $templdata["txt_facultatif"] = " "; }
 
 	for ($i = 0; $i < ($nb_fwd); $i++) {
 
-		if ($type == "user") {
-			$templdata[alias1][$i][txt_fwd] = $txt_fwd[$lang] . " " . ($i + 1);   // no select list...
+		if ($_SESSION["type"] == "user") {
+			$templdata[alias1][$i][txt_fwd] = $txt_fwd[$_SESSION["lang"]] . " " . ($i + 1);   // no select list...
 		} else {
-			$templdata[alias1][$i][txt_fwd] = $txt_fwd[$lang] . " " . ($i + 2);
+			$templdata[alias1][$i][txt_fwd] = $txt_fwd[$_SESSION["lang"]] . " " . ($i + 2);
 		}
 
 		$templdata[alias1][$i][aliases] = $aliases[$i];
@@ -293,14 +293,14 @@ function html_userform($userinfo, $action, $mboxlist) {
 		$templdata["fwd_part"] = "";
 	}
 
-        $templdata["txt_submit"]=$txt_submit[$lang];
-        $templdata["txt_cancel"]=$txt_cancel[$lang];
+        $templdata["txt_submit"]=$txt_submit[$_SESSION["lang"]];
+        $templdata["txt_cancel"]=$txt_cancel[$_SESSION["lang"]];
         $templdata["action"]=$action;
 
 	if ($i/2 == floor($i/2)) { $templdata["sub_color"]="#DDDDDD"; }
 		else { $templdata["sub_color"]="#CCCCCC"; }
 
-	$templdata["txt_fwd1"] =  $txt_fwd[$lang];
+	$templdata["txt_fwd1"] =  $txt_fwd[$_SESSION["lang"]];
 	$templdata["select_account_contents"] = '<option value=""> - </option>';
 
 	for ($i=0; $i<sizeof($mboxlist);$i++) {
@@ -311,13 +311,13 @@ function html_userform($userinfo, $action, $mboxlist) {
 	}
 
 	if ($use_ldap) {
-	    if ($type == "user") {
+	    if ($_SESSION["type"] == "user") {
 		    print parseTemplate($templdata, "templates/userform_userlogin_ldap.temp");
 	    } else {
 		    print parseTemplate($templdata, "templates/userform_ldap.temp");
 	    }
 	} else {
-	    if ($type == "user") {
+	    if ($_SESSION["type"] == "user") {
 		    print parseTemplate($templdata, "templates/userform_userlogin.temp");
 	    } else {
 		    print parseTemplate($templdata, "templates/userform.temp");
@@ -329,7 +329,7 @@ function html_userform($userinfo, $action, $mboxlist) {
 
 function html_quotaform($userinfo, $action) {
 
-	global $quota_on, $quota_data, $session, $script_url, $lang, $domain, $type;
+	global $session, $script_url;
 	include("strings.php");
 
 	list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible)= $userinfo;
@@ -340,32 +340,32 @@ function html_quotaform($userinfo, $action) {
 	// cleanup userinfo field, if containing SPAM settings
         $templdata["script"]=$script_url;
         $templdata["SID"]=SID;
-        $templdata["txt_username"]=$txt_username[$lang];
+        $templdata["txt_username"]=$txt_username[$_SESSION["lang"]];
         $templdata["userinfo0"]=$userinfo[0];
-        $templdata["domain"]=$domain;
-        $templdata["txt_details"]=$txt_details[$lang];
+        $templdata["domain"]=$_SESSION["domain"];
+        $templdata["txt_details"]=$txt_details[$_SESSION["lang"]];
         $templdata["userinfo4"]=htmlentities($userinfo[4]);
-        $templdata["txt_date_of_creation"]=$txt_date_of_creation[$lang];
+        $templdata["txt_date_of_creation"]=$txt_date_of_creation[$_SESSION["lang"]];
         $templdata["CreationTime"]=date("d.m.Y H\hi",$CreationTime);
-        $templdata["txt_status"]=$txt_status[$lang];
+        $templdata["txt_status"]=$txt_status[$_SESSION["lang"]];
 
 	if ($Enabled == 1) { $templdata["checked_yes"] = "SELECTED"; $templdata["checked_no"] = ""; }
 		else { $templdata["checked_no"] = "SELECTED"; $templdata["checked_yes"] = ""; }
 
-        $templdata["txt_activated"]=$txt_activated[$lang];
-        $templdata["txt_inactived"]=$txt_inactived[$lang];
-        $templdata["txt_hardquota"]=$txt_hardquota[$lang];
+        $templdata["txt_activated"]=$txt_activated[$_SESSION["lang"]];
+        $templdata["txt_inactived"]=$txt_inactived[$_SESSION["lang"]];
+        $templdata["txt_hardquota"]=$txt_hardquota[$_SESSION["lang"]];
 	if ( $HardQuota == '-' ) { $templdata["HardQuota"]=$HardQuota; }
 		else { $templdata["HardQuota"]=$HardQuota/1024; }
-        $templdata["txt_softquota"]=$txt_softquota[$lang];
+        $templdata["txt_softquota"]=$txt_softquota[$_SESSION["lang"]];
 	if ( $SoftQuota == '-' ) { $templdata["SoftQuota"]=$SoftQuota; }
 		else { $templdata["SoftQuota"]=$SoftQuota/1024; }
-        $templdata["txt_msgcount"]=$txt_msgcount[$lang];
+        $templdata["txt_msgcount"]=$txt_msgcount[$_SESSION["lang"]];
         $templdata["CountLimit"]=$CountLimit;
-        $templdata["txt_msgsize"]=$txt_msgsize[$lang];
+        $templdata["txt_msgsize"]=$txt_msgsize[$_SESSION["lang"]];
 	if ($SizeLimit == '-') { $templdata["SizeLimit"]=$SizeLimit; }
 		else { $templdata["SizeLimit"]=$SizeLimit/1024; }
-        $templdata["txt_expiry"]=$txt_expiry[$lang];
+        $templdata["txt_expiry"]=$txt_expiry[$_SESSION["lang"]];
         $templdata["ExpiryTimeString"]="";
 
 	$templdata["yearx"]="";
@@ -383,10 +383,10 @@ function html_quotaform($userinfo, $action) {
 	}
 
         $templdata["ExpiryTime"]=$ExpiryTime;
-        $templdata["txt_submit"]=$txt_submit[$lang];
+        $templdata["txt_submit"]=$txt_submit[$_SESSION["lang"]];
         $templdata["username"]=$username;
-        $templdata["txt_submit"]=$txt_submit[$lang];
-        $templdata["txt_cancel"]=$txt_cancel[$lang];
+        $templdata["txt_submit"]=$txt_submit[$_SESSION["lang"]];
+        $templdata["txt_cancel"]=$txt_cancel[$_SESSION["lang"]];
 
         print parseTemplate($templdata, "templates/quotaform.temp");
 
@@ -396,28 +396,28 @@ function html_quotaform($userinfo, $action) {
 
 function html_respform($userinfo, $respinfo, $status) {
 
-	global $session, $script_url, $lang, $domain;
+	global $session, $script_url;
 	include("strings.php");
 
         $templdata["script"]=$script_url;
         $templdata["SID"]=SID;
-        $templdata["txt_username"]=$txt_username[$lang];
+        $templdata["txt_username"]=$txt_username[$_SESSION["lang"]];
         $templdata["userinfo0"]=$userinfo[0];
-        $templdata["domain"]=$domain;
+        $templdata["domain"]=$_SESSION["domain"];
 
 	if ($status == 1) { $templdata["checked_yes"] = "SELECTED"; $templdata["checked_no"] = ""; }
 		else { $templdata["checked_no"] = "SELECTED"; $templdata["checked_yes"] = ""; }
 
-        $templdata["txt_submit"]=$txt_submit[$lang];
-        $templdata["txt_cancel"]=$txt_cancel[$lang];
+        $templdata["txt_submit"]=$txt_submit[$_SESSION["lang"]];
+        $templdata["txt_cancel"]=$txt_cancel[$_SESSION["lang"]];
 
-        $templdata["txt_responder"]=$txt_responder[$lang];
-        $templdata["txt_activated"]=$txt_activated[$lang];
-        $templdata["txt_inactived"]=$txt_inactived[$lang];
-        $templdata["txt_autoanswertext"]=$txt_autoanswertext[$lang];
-        $templdata["txt_from"]=$txt_from[$lang];
-        $templdata["txt_subject"]=$txt_subject[$lang];
-        $templdata["txt_text"]=$txt_text[$lang];
+        $templdata["txt_responder"]=$txt_responder[$_SESSION["lang"]];
+        $templdata["txt_activated"]=$txt_activated[$_SESSION["lang"]];
+        $templdata["txt_inactived"]=$txt_inactived[$_SESSION["lang"]];
+        $templdata["txt_autoanswertext"]=$txt_autoanswertext[$_SESSION["lang"]];
+        $templdata["txt_from"]=$txt_from[$_SESSION["lang"]];
+        $templdata["txt_subject"]=$txt_subject[$_SESSION["lang"]];
+        $templdata["txt_text"]=$txt_text[$_SESSION["lang"]];
 
         $templdata["respinfofrom"]=$respinfo["from"];
         $templdata["respinfosubject"]=$respinfo["subject"];
@@ -432,14 +432,14 @@ function html_respform($userinfo, $respinfo, $status) {
 
 function html_spamform($userinfo, $spamsetup) {
 
-	global $session, $script_url, $lang, $domain;
+	global $session, $script_url;
 	include("strings.php");
 
         $templdata["script"]=$script_url;
         $templdata["SID"]=SID;
-        $templdata["txt_username"]=$txt_username[$lang];
+        $templdata["txt_username"]=$txt_username[$_SESSION["lang"]];
         $templdata["userinfo0"]=$userinfo[0];
-        $templdata["domain"]=$domain;
+        $templdata["domain"]=$_SESSION["domain"];
 
 	if ($spamsetup["status"] == 1) { $templdata["spam_checked_yes"] = "SELECTED"; $templdata["spam_checked_no"] = ""; }
 		else { $templdata["spam_checked_no"] = "SELECTED"; $templdata["spam_checked_yes"] = ""; }
@@ -447,33 +447,33 @@ function html_spamform($userinfo, $spamsetup) {
 	if ($spamsetup["delete"] == 1) { $templdata["spam_delete_checked_yes"] = "SELECTED"; $templdata["spam_delete_checked_no"] = ""; }
 		else { $templdata["spam_delete_checked_no"] = "SELECTED"; $templdata["spam_delete_checked_yes"] = ""; }
 
-        $templdata["txt_submit"]=$txt_submit[$lang];
-        $templdata["txt_cancel"]=$txt_cancel[$lang];
-        $templdata["txt_fwd"]=$txt_fwd[$lang];
+        $templdata["txt_submit"]=$txt_submit[$_SESSION["lang"]];
+        $templdata["txt_cancel"]=$txt_cancel[$_SESSION["lang"]];
+        $templdata["txt_fwd"]=$txt_fwd[$_SESSION["lang"]];
 
-        $templdata["txt_spamsettings"]=$txt_spamsettings[$lang];
-        $templdata["txt_activated"]=$txt_activated[$lang];
-        $templdata["txt_inactived"]=$txt_inactived[$lang];
-	$templdata["txt_one_per_line"]=$txt_one_per_line[$lang];
-	$templdata["txt_white_list"]=$txt_white_list[$lang];
-	$templdata["txt_black_list"]=$txt_black_list[$lang];
+        $templdata["txt_spamsettings"]=$txt_spamsettings[$_SESSION["lang"]];
+        $templdata["txt_activated"]=$txt_activated[$_SESSION["lang"]];
+        $templdata["txt_inactived"]=$txt_inactived[$_SESSION["lang"]];
+	$templdata["txt_one_per_line"]=$txt_one_per_line[$_SESSION["lang"]];
+	$templdata["txt_white_list"]=$txt_white_list[$_SESSION["lang"]];
+	$templdata["txt_black_list"]=$txt_black_list[$_SESSION["lang"]];
 
-        $templdata["txt_scan_for_spam"]=$txt_scan_for_spam[$lang];
-        $templdata["txt_spam_notes"]=$txt_spam_notes[$lang];
-        $templdata["txt_auto_delete_spams"]=$txt_auto_delete_spams[$lang];
-        $templdata["txt_fwd_spams_to"]=$txt_fwd_spams_to[$lang];
-        $templdata["txt_required_hits"]=$txt_required_hits[$lang];
-        $templdata["txt_standard_value"]=$txt_standard_value[$lang];
-        $templdata["txt_master_switch"]=$txt_master_switch[$lang];
+        $templdata["txt_scan_for_spam"]=$txt_scan_for_spam[$_SESSION["lang"]];
+        $templdata["txt_spam_notes"]=$txt_spam_notes[$_SESSION["lang"]];
+        $templdata["txt_auto_delete_spams"]=$txt_auto_delete_spams[$_SESSION["lang"]];
+        $templdata["txt_fwd_spams_to"]=$txt_fwd_spams_to[$_SESSION["lang"]];
+        $templdata["txt_required_hits"]=$txt_required_hits[$_SESSION["lang"]];
+        $templdata["txt_standard_value"]=$txt_standard_value[$_SESSION["lang"]];
+        $templdata["txt_master_switch"]=$txt_master_switch[$_SESSION["lang"]];
 
-        $templdata["txt_spam_sensibility"]=$txt_spam_sensibility[$lang];
-        $templdata["txt_high"]=$txt_high[$lang];
-        $templdata["txt_normal"]=$txt_normal[$lang];
-        $templdata["txt_low"]=$txt_low[$lang];
-        $templdata["txt_current_value"]=$txt_current_value[$lang];
+        $templdata["txt_spam_sensibility"]=$txt_spam_sensibility[$_SESSION["lang"]];
+        $templdata["txt_high"]=$txt_high[$_SESSION["lang"]];
+        $templdata["txt_normal"]=$txt_normal[$_SESSION["lang"]];
+        $templdata["txt_low"]=$txt_low[$_SESSION["lang"]];
+        $templdata["txt_current_value"]=$txt_current_value[$_SESSION["lang"]];
 
-        $templdata["txt_spam_autorizations"]=$txt_spam_autorizations[$lang];
-        $templdata["txt_spam_action"]=$txt_spam_action[$lang];
+        $templdata["txt_spam_autorizations"]=$txt_spam_autorizations[$_SESSION["lang"]];
+        $templdata["txt_spam_action"]=$txt_spam_action[$_SESSION["lang"]];
 
         $templdata["spam_target"]=$spamsetup["spam_target"];
         $templdata["required_hits"]=$spamsetup["required_hits"];
@@ -482,9 +482,9 @@ function html_spamform($userinfo, $spamsetup) {
 
 	if (!$templdata["required_hits"]) { $templdata["required_hits"] = "5"; }
 	$templdata["required_hits_txt"] = "-";
-	if ($templdata["required_hits"] == 4) { $templdata["required_hits_txt"] = $txt_high[$lang]; }
-	if ($templdata["required_hits"] == 5) { $templdata["required_hits_txt"] = $txt_normal[$lang]; }
-	if ($templdata["required_hits"] == 7) { $templdata["required_hits_txt"] = $txt_low[$lang]; }
+	if ($templdata["required_hits"] == 4) { $templdata["required_hits_txt"] = $txt_high[$_SESSION["lang"]]; }
+	if ($templdata["required_hits"] == 5) { $templdata["required_hits_txt"] = $txt_normal[$_SESSION["lang"]]; }
+	if ($templdata["required_hits"] == 7) { $templdata["required_hits_txt"] = $txt_low[$_SESSION["lang"]]; }
 
         print parseTemplate($templdata, "templates/spamform.temp");
 
@@ -495,19 +495,19 @@ function html_spamform($userinfo, $spamsetup) {
 
 function html_delete_confirm($userinfo) {
 
-	global $session, $script_url, $lang, $domain;
+	global $session, $script_url;
 	include("strings.php");
 
         $templdata["script"]=$script_url;
         $templdata["SID"]=SID;
-        $templdata["txt_username"]=$txt_username[$lang];
+        $templdata["txt_username"]=$txt_username[$_SESSION["lang"]];
         $templdata["userinfo0"]=$userinfo[0];
-        $templdata["domain"]=$domain;
+        $templdata["domain"]=$_SESSION["domain"];
 
-        $templdata["txt_submit"]=$txt_submit[$lang];
-        $templdata["txt_cancel"]=$txt_cancel[$lang];
-        $templdata["txt_action"]=$txt_action[$lang];
-        $templdata["txt_delete"]=$txt_delete[$lang];
+        $templdata["txt_submit"]=$txt_submit[$_SESSION["lang"]];
+        $templdata["txt_cancel"]=$txt_cancel[$_SESSION["lang"]];
+        $templdata["txt_action"]=$txt_action[$_SESSION["lang"]];
+        $templdata["txt_delete"]=$txt_delete[$_SESSION["lang"]];
 
         print parseTemplate($templdata, "templates/delete_confirm.temp");
 }
@@ -516,20 +516,20 @@ function html_delete_confirm($userinfo) {
 
 function html_catchall_confirm($userinfo, $msg) {
 
-	global $session, $script_url, $lang, $domain;
+	global $session, $script_url;
 	include("strings.php");
 
         $templdata["script"]=$script_url;
         $templdata["SID"]=SID;
-        $templdata["txt_username"]=$txt_username[$lang];
+        $templdata["txt_username"]=$txt_username[$_SESSION["lang"]];
         $templdata["userinfo0"]=$userinfo[0];
-        $templdata["domain"]=$domain;
+        $templdata["domain"]=$_SESSION["domain"];
 
-        $templdata["txt_submit"]=$txt_submit[$lang];
-        $templdata["txt_cancel"]=$txt_cancel[$lang];
-        $templdata["txt_action"]=$txt_action[$lang];
-        $templdata["txt_catchall"]=$txt_catchall[$lang];
-        $templdata["txt_setup_catchall"]=$txt_setup_catchall[$lang];
+        $templdata["txt_submit"]=$txt_submit[$_SESSION["lang"]];
+        $templdata["txt_cancel"]=$txt_cancel[$_SESSION["lang"]];
+        $templdata["txt_action"]=$txt_action[$_SESSION["lang"]];
+        $templdata["txt_catchall"]=$txt_catchall[$_SESSION["lang"]];
+        $templdata["txt_setup_catchall"]=$txt_setup_catchall[$_SESSION["lang"]];
 
         $templdata["msg"]=$msg;
 
@@ -539,7 +539,7 @@ function html_catchall_confirm($userinfo, $msg) {
 
 function html_catchall_create($msg, $mboxlist) {
 
-	global $session, $script_url, $lang, $domain;
+	global $session, $script_url;
 	include("strings.php");
 
         for ($i=0; $i<sizeof($mboxlist);$i++) {
@@ -551,16 +551,16 @@ function html_catchall_create($msg, $mboxlist) {
 
         $templdata["script"]=$script_url;
         $templdata["SID"]=SID;
-        $templdata["txt_username"]=$txt_username[$lang];
+        $templdata["txt_username"]=$txt_username[$_SESSION["lang"]];
         $templdata["userinfo0"]=$userinfo[0];
-        $templdata["domain"]=$domain;
+        $templdata["domain"]=$_SESSION["domain"];
 
-        $templdata["txt_submit"]=$txt_submit[$lang];
-        $templdata["txt_cancel"]=$txt_cancel[$lang];
-        $templdata["txt_action"]=$txt_action[$lang];
-        $templdata["txt_catchall"]=$txt_catchall[$lang];
-        $templdata["txt_setup_catchall"]=$txt_setup_catchall[$lang];
-        $templdata["txt_remove_catchall"]=$txt_remove_catchall[$lang];
+        $templdata["txt_submit"]=$txt_submit[$_SESSION["lang"]];
+        $templdata["txt_cancel"]=$txt_cancel[$_SESSION["lang"]];
+        $templdata["txt_action"]=$txt_action[$_SESSION["lang"]];
+        $templdata["txt_catchall"]=$txt_catchall[$_SESSION["lang"]];
+        $templdata["txt_setup_catchall"]=$txt_setup_catchall[$_SESSION["lang"]];
+        $templdata["txt_remove_catchall"]=$txt_remove_catchall[$_SESSION["lang"]];
 
         $templdata["msg"]=$msg;
 
@@ -570,19 +570,19 @@ function html_catchall_create($msg, $mboxlist) {
 
 function html_catchall_remove_confirm($msg) {
 
-	global $session, $script_url, $lang, $domain;
+	global $session, $script_url;
 	include("strings.php");
 
         $templdata["script"]=$script_url;
         $templdata["SID"]=SID;
-        $templdata["txt_username"]=$txt_username[$lang];
-        $templdata["domain"]=$domain;
+        $templdata["txt_username"]=$txt_username[$_SESSION["lang"]];
+        $templdata["domain"]=$_SESSION["domain"];
 
-        $templdata["txt_domain"]=$txt_domain[$lang];
-        $templdata["txt_submit"]=$txt_submit[$lang];
-        $templdata["txt_cancel"]=$txt_cancel[$lang];
-        $templdata["txt_action"]=$txt_action[$lang];
-        $templdata["txt_remove_catchall"]=$txt_remove_catchall[$lang];
+        $templdata["txt_domain"]=$txt_domain[$_SESSION["lang"]];
+        $templdata["txt_submit"]=$txt_submit[$_SESSION["lang"]];
+        $templdata["txt_cancel"]=$txt_cancel[$_SESSION["lang"]];
+        $templdata["txt_action"]=$txt_action[$_SESSION["lang"]];
+        $templdata["txt_remove_catchall"]=$txt_remove_catchall[$_SESSION["lang"]];
 
         $templdata["msg"]=$msg;
 
@@ -592,7 +592,7 @@ function html_catchall_remove_confirm($msg) {
 
 function html_error($title, $msg) {
 
-        global $script_url, $lang, $domain;
+        global $script_url
         include("strings.php");
 
 }
@@ -608,54 +608,54 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 
 
 
-	global $quota_on, $quota_data, $session, $script_url, $lang, $domain, $catchall_active, $system_accounts_list, $readonly_accounts_list, $show_how_many_accounts, $mb_start, $al_start;
-	global $mb_letter, $al_letter, $use_spamassassin, $vmailstats;
+	global $session, $script_url, $system_accounts_list, $readonly_accounts_list, $show_how_many_accounts;
+	global $use_spamassassin;
 	include("strings.php");
 
 	switch ($arg_action) {
 		case 1:
 			$listtype = "mailboxes";
-			$templdata["title"]=$txt_mailboxes_title[$lang];
+			$templdata["title"]=$txt_mailboxes_title[$_SESSION["lang"]];
 			break;
 		case 2:
 			$listtype = "aliases";
-			$templdata["title"]=$txt_aliases_title[$lang];
+			$templdata["title"]=$txt_aliases_title[$_SESSION["lang"]];
 			break;
 
 		case 0:
 			$tmp_user = $mboxlist[0];
 			$listtype = "account";
-			$templdata["title"]=$txt_user_title[$lang];
+			$templdata["title"]=$txt_user_title[$_SESSION["lang"]];
 			if ($tmp_user[2]) { $mtype = "mbox"; } else { $mtype = "alias"; }
 			break;
 	}
 
 
-	$templdata["txt_email"] = $txt_email[$lang];
-	$templdata["txt_info"] = $txt_info[$lang];
+	$templdata["txt_email"] = $txt_email[$_SESSION["lang"]];
+	$templdata["txt_info"] = $txt_info[$_SESSION["lang"]];
 
 	if (isset($_SESSION["vmailstats"]["active"]) && $_SESSION["vmailstats"]["active"]) {
-		$templdata["txt_info"] .= " / " . $txt_mailbox_size[$lang];
+		$templdata["txt_info"] .= " / " . $txt_mailbox_size[$_SESSION["lang"]];
 	}
 
-	$templdata["txt_fwd"] = $txt_fwd[$lang];
-	$templdata["txt_responder"] = $txt_responder[$lang];
-	$templdata["txt_spamsettings"] = $txt_spamsettings[$lang];
-	$templdata["txt_more_fwd"] = $txt_more_fwd[$lang];
-	$templdata["txt_action"] = $txt_action[$lang];
-	$templdata["txt_any"] = $txt_any[$lang];
-	$templdata["txt_local_delivery"] = $txt_local_delivery[$lang];
+	$templdata["txt_fwd"] = $txt_fwd[$_SESSION["lang"]];
+	$templdata["txt_responder"] = $txt_responder[$_SESSION["lang"]];
+	$templdata["txt_spamsettings"] = $txt_spamsettings[$_SESSION["lang"]];
+	$templdata["txt_more_fwd"] = $txt_more_fwd[$_SESSION["lang"]];
+	$templdata["txt_action"] = $txt_action[$_SESSION["lang"]];
+	$templdata["txt_any"] = $txt_any[$_SESSION["lang"]];
+	$templdata["txt_local_delivery"] = $txt_local_delivery[$_SESSION["lang"]];
 
-	if ( $mb_letter ) {
-	    $templdata["mb_letter"] = $mb_letter;
+	if ( $_SESSION["mb_letter"] ) {
+	    $templdata["mb_letter"] = $_SESSION["mb_letter"];
 	} else {
-	    $templdata["mb_letter"] = $txt_any[$lang];
+	    $templdata["mb_letter"] = $txt_any[$_SESSION["lang"]];
 	}
 
-	if ( $al_letter ) {
-	    $templdata["al_letter"] = $al_letter;
+	if ( $_SESSION["al_letter"] ) {
+	    $templdata["al_letter"] = $_SESSION["al_letter"];
 	} else {
-	    $templdata["al_letter"] = $txt_any[$lang];
+	    $templdata["al_letter"] = $txt_any[$_SESSION["lang"]];
 	}
 
 	$templdata["url_email"] = $script_url . "?A=menu&form_sort=username&" . SID;
@@ -663,17 +663,17 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 	$templdata["url_show_mb_letter"] = $script_url . "?A=menu&" . SID . "&new_mb_start=1&show_mb_letter=";
 	$templdata["url_show_al_letter"] = $script_url . "?A=menu&" . SID . "&new_al_start=1&show_al_letter=";
 
-	if ($arg_action != 2 && !(!$arg_action && $mtype == "alias")  && !($quota_on && !$quota_data["autoresp_support"])) {
-		$templdata["ifdef_txt_responder"] = "<TH>" . $txt_responder[$lang] . "?</TH>"; 
+	if ($arg_action != 2 && !(!$arg_action && $mtype == "alias")  && !($_SESSION["quota_on"] && !$_SESSION["quota_data"]["autoresp_support"])) {
+		$templdata["ifdef_txt_responder"] = "<TH>" . $txt_responder[$_SESSION["lang"]] . "?</TH>"; 
 	} else {
 		$templdata["ifdef_txt_responder"] = "";
 	}
 
-	$yes = "<font color=\"green\">" . $txt_yes[$lang] . "</font>";
-	$no = "<font color=\"red\">" . $txt_no[$lang] . "</font>";
+	$yes = "<font color=\"green\">" . $txt_yes[$_SESSION["lang"]] . "</font>";
+	$no = "<font color=\"red\">" . $txt_no[$_SESSION["lang"]] . "</font>";
 
-	$activated = "<font color=\"green\">" . $txt_activated[$lang] . "</font>";
-	$inactived = "<font color=\"red\">" . $txt_inactived[$lang] . "</font>";
+	$activated = "<font color=\"green\">" . $txt_activated[$_SESSION["lang"]] . "</font>";
+	$inactived = "<font color=\"red\">" . $txt_inactived[$_SESSION["lang"]] . "</font>";
 
 	$total_size = 0;
 	$hidden = 0;
@@ -702,14 +702,18 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 
 		// define <<<  <-   ->  and >>> links
 
-		if ($mb_start == 0) { $mb_start = 1; }
-		if ($al_start == 0) { $al_start = 1; }
+		if ($_SESSION["mb_start"] == 0) {
+            $_SESSION["mb_start"] = 1;
+        }
+		if ($_SESSION["al_start"] == 0) {
+            $_SESSION["al_start"] = 1;
+        }
 
 		if ($arg_action == 1) {
-			$cur_start = $mb_start;
+			$cur_start = $_SESSION["mb_start"];
 			$cur_letter = "mb";
 		} else {
-			$cur_start = $al_start;
+			$cur_start = $_SESSION["al_start"];
 			$cur_letter = "al";
 		}
 
@@ -720,15 +724,15 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 		if ($cur_next > $cur_last) { $cur_next = $cur_last; }
 		if ($cur_prev <= 0) { $cur_prev = 1; }
 
-                $templdata["txt_first"] = $txt_first[$lang];
-                $templdata["txt_prev"] = $txt_prev[$lang];
-                $templdata["txt_next"] = $txt_next[$lang];
-                $templdata["txt_last"] = $txt_last[$lang];
+                $templdata["txt_first"] = $txt_first[$_SESSION["lang"]];
+                $templdata["txt_prev"] = $txt_prev[$_SESSION["lang"]];
+                $templdata["txt_next"] = $txt_next[$_SESSION["lang"]];
+                $templdata["txt_last"] = $txt_last[$_SESSION["lang"]];
 
-                $templdata["txt_first_off"] = $txt_first_off[$lang];
-                $templdata["txt_prev_off"] = $txt_prev_off[$lang];
-                $templdata["txt_next_off"] = $txt_next_off[$lang];
-                $templdata["txt_last_off"] = $txt_last_off[$lang];
+                $templdata["txt_first_off"] = $txt_first_off[$_SESSION["lang"]];
+                $templdata["txt_prev_off"] = $txt_prev_off[$_SESSION["lang"]];
+                $templdata["txt_next_off"] = $txt_next_off[$_SESSION["lang"]];
+                $templdata["txt_last_off"] = $txt_last_off[$_SESSION["lang"]];
 
                 $templdata["url_first"] = $script_url . "?A=menu&new_" . $cur_letter . "_start=1&" . SID;
                 $templdata["url_prev"] = $script_url . "?A=menu&new_" . $cur_letter . "_start=$cur_prev&" . SID;
@@ -805,7 +809,7 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 		$templdata[obj][$ii]["PersonalInfo"] = $PersonalInfo;
 
 		if (in_array($username, $readonly_accounts_list)) {
-		     $templdata[obj][$ii]["PersonalInfo"] = "<I>" . $txt_system_account[$lang] . "</I>";
+		     $templdata[obj][$ii]["PersonalInfo"] = "<I>" . $txt_system_account[$_SESSION["lang"]] . "</I>";
 			$templdata[obj][$ii]["colorUsername"] = "black";
 		}
 
@@ -817,14 +821,24 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 			}
 		}
 
-		$templdata[obj][$ii]["alias0"] = $alias[0];
-		$templdata[obj][$ii]["alias1"] = $alias[1];
-		$templdata[obj][$ii]["alias2"] = $alias[2];
+        $templdata[obj][$ii]["alias0"] = "";
+        $templdata[obj][$ii]["alias1"] = "";
+        $templdata[obj][$ii]["alias2"] = "";
+
+        if (isset($alias[0])) {
+            $templdata[obj][$ii]["alias0"] = $alias[0];
+        }
+        if (isset($alias[1])) {
+            $templdata[obj][$ii]["alias1"] = $alias[1];
+        }
+        if (isset($alias[2])) {
+            $templdata[obj][$ii]["alias2"] = $alias[2];
+        }
 
 		if (sizeof($alias) > 0) { $templdata[obj][$ii]["more_alias"] = $yes . "  (" . trim(sizeof($alias)) . ")"; }
 		    else { $templdata[obj][$ii]["more_alias"] = $no; }
 
-		if ($arg_action != 2 && !(!$arg_action && $mtype == "alias") && !($quota_on && !$quota_data["autoresp_support"])) {
+		if ($arg_action != 2 && !(!$arg_action && $mtype == "alias") && !($_SESSION["quota_on"] && !$_SESSION["quota_data"]["autoresp_support"])) {
 			$templdata[obj][$ii]["ifdef_autoresponder_status"] = "<TD>";
 			if ($resp) {
 			    $templdata[obj][$ii]["ifdef_autoresponder_status"] .= $activated;
@@ -849,32 +863,32 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 		} else {
 
 		$templdata[obj][$ii]["actions"] .= "&nbsp;&nbsp;<A HREF=\"$script_url?A=edit&U=" . $username . "&" . SID . "\" onClick=\"oW(this,'pop')\">"  .
-				$txt_edit[$lang]  . "</a>&nbsp;"; // action
+				$txt_edit[$_SESSION["lang"]]  . "</a>&nbsp;"; // action
 
-  		if ($arg_action != 2 && !(!$arg_action && $mtype == "alias") && !($quota_on && !$quota_data["autoresp_support"])) {
+  		if ($arg_action != 2 && !(!$arg_action && $mtype == "alias") && !($_SESSION["quota_on"] && !$_SESSION["quota_data"]["autoresp_support"])) {
  			$templdata[obj][$ii][actions] .= "&nbsp;&nbsp;<A HREF=\"$script_url?A=resp&U=" . $username . "&" . SID . "\" onClick=\"oW2(this,'pop')\">"  .
-				$txt_responder[$lang] . "</a>&nbsp;"; // action
+				$txt_responder[$_SESSION["lang"]] . "</a>&nbsp;"; // action
 		}
 
-		if ((($arg_action == 2 && $config_use_settings_with_quota) || $arg_action == 1) && !($quota_on && !$quota_data["user_quota_support"])) {
+		if ((($arg_action == 2 && $config_use_settings_with_quota) || $arg_action == 1) && !($_SESSION["quota_on"] && !$_SESSION["quota_data"]["user_quota_support"])) {
 			$templdata[obj][$ii][actions] .=  "&nbsp;&nbsp;<A HREF=\"$script_url?A=quota&U=" . $username . "&" . SID . "\" onClick=\"oW2(this,'pop')\">"  .
-				$txt_settings[$lang] . "</a>&nbsp;"; // action
+				$txt_settings[$_SESSION["lang"]] . "</a>&nbsp;"; // action
 		}
 
 		if ($arg_action) {
 
 			$templdata[obj][$ii][actions] .=  "&nbsp;&nbsp;<A HREF=\"$script_url?A=delete&U=" . $username . "&" . SID . "\" onClick=\"oW(this,'pop')\">"  .
-				$txt_delete[$lang]  . "</a>&nbsp;"; // action
+				$txt_delete[$_SESSION["lang"]]  . "</a>&nbsp;"; // action
 
 		} else {
 
 		    // user mode - display the enable/disable button
 		    if ($Enabled) {
 			$tmpaction = "user_disable";
-			$tmptxt = $txt_turn_off_delivery[$lang];
+			$tmptxt = $txt_turn_off_delivery[$_SESSION["lang"]];
 		    } else {
 			$tmpaction = "user_enable";
-			$tmptxt = $txt_turn_on_delivery[$lang];
+			$tmptxt = $txt_turn_on_delivery[$_SESSION["lang"]];
 		    }
 
 		    $templdata[obj][$ii][actions] .=  "&nbsp;&nbsp;<A HREF=\"$script_url?A=parse&action=$tmpaction&U=" . $username . "&" . SID . "\" onClick=\"oW(this,'pop')\">"  . 
@@ -882,9 +896,9 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 		}
 
 
-  		if ($use_spamassassin && !$quota_data["spamassassin_use_forbidden"]) {
+  		if ($use_spamassassin && !$_SESSION["quota_data"]["spamassassin_use_forbidden"]) {
  			$templdata[obj][$ii][actions] .= "&nbsp;&nbsp;<A HREF=\"$script_url?A=spam&U=" . $username . "&" . SID . "\" onClick=\"oW2(this,'pop')\">"  . 
-				$txt_spamsettings[$lang] . "</a>&nbsp;"; // action
+				$txt_spamsettings[$_SESSION["lang"]] . "</a>&nbsp;"; // action
 		}
 
 	    }
@@ -894,11 +908,11 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 
 	switch ($arg_action) {
 		case 1:
-			$tmp_label = $txt_newuser[$lang];
+			$tmp_label = $txt_newuser[$_SESSION["lang"]];
 			$tmp_action = "newuser";
 			break;
 		case 2:
-			$tmp_label = $txt_newalias[$lang];
+			$tmp_label = $txt_newalias[$_SESSION["lang"]];
 			$tmp_action = "newalias";
 			break;
 	}
@@ -910,55 +924,65 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 
 		$quota_string = "";
 
-		if ($quota_on) {
+		if ($_SESSION["quota_on"]) {
 
 			if ($arg_action == 1) {
-				if ($quota_data["max_users"] && $quota_data["max_users"] != 99999999) {
-					$percent = round((100*$quota_data["nb_users"])/$quota_data["max_users"]);
+				if ($_SESSION["quota_data"]["max_users"] && $_SESSION["quota_data"]["max_users"] != 99999999) {
+					$percent = round((100 * $_SESSION["quota_data"]["nb_users"]) / $_SESSION["quota_data"]["max_users"]);
 					if ($percent == 100) {
 						$percent = '<font color="red">' . $percent . '%</font>';
 						$tmp_label = $tmp_action = "";	// hide the "new account" button
 					} else {
 						$percent = '<font color="green">' . $percent . '%</font>';
 					}
-					$quota_string = $txt_quota[$lang] . ": " . $txt_maximum[$lang] . " = " . $quota_data["max_users"] . " " . $txt_smallmailboxes[$lang] . " &nbsp; &nbsp; ($percent " . $txt_used[$lang] . ")" ;
+					$quota_string = $txt_quota[$_SESSION["lang"]] . ": " . $txt_maximum[$_SESSION["lang"]] . " = " . $_SESSION["quota_data"]["max_users"] . " " . $txt_smallmailboxes[$_SESSION["lang"]] . " &nbsp; &nbsp; ($percent " . $txt_used[$_SESSION["lang"]] . ")" ;
 				}
 			}
 			if ($arg_action == 2) {
-				if ($quota_data["max_alias"] && $quota_data["max_alias"] != 99999999) {
-					$percent = round((100*$quota_data["nb_alias"])/$quota_data["max_alias"]);
+				if ($_SESSION["quota_data"]["max_alias"] && $_SESSION["quota_data"]["max_alias"] != 99999999) {
+					$percent = round((100 * $_SESSION["quota_data"]["nb_alias"]) / $_SESSION["quota_data"]["max_alias"]);
 					if ($percent == 100) {
 						$percent = '<font color="red">' . $percent . '%</font>';
 						$tmp_label = $tmp_action = "";	// hide the "new account" button
 					} else {
 						$percent = '<font color="green">' . $percent . '%</font>';
 					}
-					$quota_string = $txt_quota[$lang] . ": " . $txt_maximum[$lang] . " = " . $quota_data["max_alias"] . " " . $txt_smallaliases[$lang] . " &nbsp; &nbsp; ($percent " . $txt_used[$lang] . ")" ;
+					$quota_string = $txt_quota[$_SESSION["lang"]] . ": " . $txt_maximum[$_SESSION["lang"]] . " = " . $_SESSION["quota_data"]["max_alias"] . " " . $txt_smallaliases[$_SESSION["lang"]] . " &nbsp; &nbsp; ($percent " . $txt_used[$_SESSION["lang"]] . ")" ;
 
 				}
 			}
 
 		} // if quota_on
 
-		if ($arg_action != 2 && !($quota_on && !$quota_data["autoresp_support"])) {
+        if (!isset($templdata["nbcols"])) {
+            $templdata["nbcols"] = "";
+        }
+        if (!isset($templdata["quota_string"])) {
+            $templdata["quota_string"] = "";
+        }
+        if (!isset($templdata["global_action_and_url"])) {
+            $templdata["global_action_and_url"] = "";
+        }
+
+		if ($arg_action != 2 && !($_SESSION["quota_on"] && !$_SESSION["quota_data"]["autoresp_support"])) {
 			$templdata["nbcols"] .= "5";
 		} else {
 			$templdata["nbcols"] .= "4";
 		}
 
 		$templdata["quota_string"] .= $quota_string;
-		$templdata["global_action_and_url"] .= "<A HREF=\"$script_url?A=$tmp_action&" . SID . "\" onClick=\"oW(this,'pop')\">"  . $tmp_label  . "</a>&nbsp;</TH></TR>";
+		$templdata["global_action_and_url"] .= "<A HREF=\"$script_url?A=$tmp_action&" . SID . "\" onClick=\"oW(this,'pop')\">" . $tmp_label . "</a>&nbsp;</TH></TR>";
 	}
 
 
 	// new_mailbox/alias_forbidden's support
 
-        if ($arg_action == 1 && $quota_data["new_mailbox_forbidden"]) {
+        if ($arg_action == 1 && $_SESSION["quota_data"]["new_mailbox_forbidden"]) {
 		$templdata["quota_string"] = "&nbsp;";
 		$templdata["global_action_and_url"] = "&nbsp;";
 	}
 
-        if ($arg_action == 2 && $quota_data["new_alias_forbidden"]) {
+        if ($arg_action == 2 && $_SESSION["quota_data"]["new_alias_forbidden"]) {
 		$templdata["quota_string"] = "&nbsp;";
 		$templdata["global_action_and_url"] = "&nbsp;";
 	}
@@ -976,7 +1000,7 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 
 function html_about() {
 
-	global $A, $domain, $cvs_version, $version, $lang;
+	global $A, $cvs_version, $version;
 	include("strings.php");
 
 	$templdata["version"]=$version;
@@ -1028,17 +1052,17 @@ function html_about() {
 	$templdata["REQUEST_URI"]=$_SERVER["REQUEST_URI"];
 	$templdata["REMOTE_ADDR"]=$_SERVER["REMOTE_ADDR"];
 	$templdata["HTTP_ACCEPT_LANGUAGE"]=$_SERVER["HTTP_ACCEPT_LANGUAGE"];
-	$templdata["domain"]=$domain;
+	$templdata["domain"]=$_SESSION["domain"];
 
 	print parseTemplate($templdata, "templates/about.temp");
 }
 
 function html_help() {
 
-	global $A, $domain, $cvs_version, $version, $lang;
+	global $A, $cvs_version, $version;
 	include("strings.php");
 
-	$templdata["domain"]=$domain;
+	$templdata["domain"]=$_SESSION["domain"];
 
 	print parseTemplate($templdata, "templates/help.temp");
 }
@@ -1047,7 +1071,7 @@ function html_help() {
 
 function html_splash() {
 
-	global $A, $domain, $cvs_version, $version, $lang, $sysadmin_mail, $splash_ok;
+	global $A, $cvs_version, $version, $sysadmin_mail, $splash_ok;
 	include("strings.php");
 
 	if ($sysadmin_mail == "sysadmin@notdefined.yet") {
@@ -1064,8 +1088,8 @@ function html_splash() {
 	$templdata["HTTP_HOST"]=$_SERVER["HTTP_HOST"];;
 	$templdata["REQUEST_URI"]=$_SERVER["REQUEST_URI"];;
 	$templdata["REMOTE_ADDR"]=$_SERVER["REMOTE_ADDR"];
-	$templdata["HTTP_ACCEPT_LANGUAGE"]=$_SERVER["HTTP_ACCEPT_LANGUAGE"] . " [ $lang ]";
-	$templdata["domain"]=$domain;
+	$templdata["HTTP_ACCEPT_LANGUAGE"]=$_SERVER["HTTP_ACCEPT_LANGUAGE"] . " [ $_SESSION["lang"] ]";
+	$templdata["domain"]=$_SESSION["domain"];
 
 	if ($splash_ok) {
 		print parseTemplate($templdata, "templates/welcome_screen_thanks.temp");
