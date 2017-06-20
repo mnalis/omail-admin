@@ -622,7 +622,7 @@ function parseContent($parseArray, $content, $encoding = "", $separator = "%") {
         if (is_array($val)) {
             $tagStringArray = getContentStrings($content, $key);
             for ($j = 0; $j < count($tagStringArray); $j++) {
-               $ar[$tagStringArray[$j]] = complexHelper($tagStringArray[$j],$val,$encoding);
+               $ar[$tagStringArray[$j]] = complexHelper($tagStringArray[$j], $val, $encoding);
             }
         } else {
             $ar[$key] = doEncoding($val, $encoding);
@@ -708,7 +708,6 @@ function complexHelper($tagContent, $parseSet, $encoding) {
     $parseString = "";
     for ($i = 0; $i < count($parseSet); $i++) {
 	    $ar = array();
-        $parseArray = $parseSet[$i];
         if (is_array($parseArray)) {
 		    while (list($key, $val) = each($parseArray)) {
 		        if (is_array($val)) {
@@ -728,8 +727,7 @@ function complexHelper($tagContent, $parseSet, $encoding) {
     return $parseString;
 }
 
-function complexParsing($parseArray, $template, $outputFile = "", $encoding = "", $separator = "%")
-{
+function complexParsing($parseArray, $template, $outputFile = "", $encoding = "", $separator = "%") {
     $ar = array();
     while (list($key, $val) = each($parseArray)) {
         if (is_array($val)) {
@@ -738,20 +736,19 @@ function complexParsing($parseArray, $template, $outputFile = "", $encoding = ""
 	           $ar[$tagStringArray[$j]] = complexHelper($tagStringArray[$j], $val, $encoding);
 	        }
         } else {
-            $ar[$key]= doEncoding($val, $encoding);
+            $ar[$key] = doEncoding($val, $encoding);
         }
     }
     return parseT($ar, $template, $outputFile, $encoding, $separator);
 }
 
-function complexContent($parseArray, $content, $encoding = "", $separator = "%")
-{
+function complexContent($parseArray, $content, $encoding = "", $separator = "%") {
     $ar = array();
     while (list($key, $val) = each($parseArray)) {
         if(is_array($val)) {
             $tagStringArray = getContentStrings($content, $key);
             for($j = 0; $j < count($tagStringArray); $j++) {
-               $ar[$tagStringArray[$j]] = complexHelper($tagStringArray[$j], $val);
+               $ar[$tagStringArray[$j]] = complexHelper($tagStringArray[$j], $val, $encoding);
             }
         } else {
             $ar[$key] = $val;

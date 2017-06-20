@@ -589,14 +589,12 @@ function html_catchall_remove_confirm($msg) {
         print parseTemplate($templdata, "templates/catchall_remove_confirm.temp");
 }
 
-
 function html_error($title, $msg) {
 
         global $script_url;
         include("strings.php");
 
 }
-
 
 function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howmany=-1) {
 
@@ -605,7 +603,6 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 	//		0 = user   (no new user line, no delete)
 
 	// if autoresp_support = 0 -> don't show autorespond button... and check if colspan are ok...
-
 	global $session, $script_url, $system_accounts_list, $readonly_accounts_list, $show_how_many_accounts;
 	global $config_use_settings_with_quota, $use_spamassassin;
 	include("strings.php");
@@ -619,15 +616,17 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 			$listtype = "aliases";
 			$templdata["title"]=$txt_aliases_title[$_SESSION["lang"]];
 			break;
-
 		case 0:
 			$tmp_user = $mboxlist[0];
 			$listtype = "account";
 			$templdata["title"]=$txt_user_title[$_SESSION["lang"]];
-			if ($tmp_user[2]) { $mtype = "mbox"; } else { $mtype = "alias"; }
+			if ($tmp_user[2]) {
+                $mtype = "mbox";
+            } else {
+                $mtype = "alias";
+            }
 			break;
 	}
-
 
 	$templdata["txt_email"] = $txt_email[$_SESSION["lang"]];
 	$templdata["txt_info"] = $txt_info[$_SESSION["lang"]];
@@ -697,7 +696,6 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 	}
 
 	if ($show_how_many_accounts) {
-
 		// define <<<  <-   ->  and >>> links
 
 		if ($_SESSION["mb_start"] == 0) {
@@ -721,7 +719,6 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 
 		if ($cur_next > $cur_last) { $cur_next = $cur_last; }
 		if ($cur_prev <= 0) { $cur_prev = 1; }
-
                 $templdata["txt_first"] = $txt_first[$_SESSION["lang"]];
                 $templdata["txt_prev"] = $txt_prev[$_SESSION["lang"]];
                 $templdata["txt_next"] = $txt_next[$_SESSION["lang"]];
@@ -738,7 +735,6 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
                 $templdata["url_last"] = $script_url . "?A=menu&new_" . $cur_letter . "_start=$cur_last&" . SID;
 
 		// hide buttons if necessary
-
 		$all_hidden = 0;
 
 		if ($cur_start == 0 || $cur_start == 1) {
@@ -761,11 +757,8 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 
 	}
 
-
 	// print "Start: $loop_start - End: $loop_end - Offset: $offset <br>\n";   //debug
-
 	for ($i = $loop_start; $i < $loop_end; $i++) {
-
 		list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible) = $mboxlist[$i];
 
 		// print "$i $username<br>";  //debug
@@ -992,8 +985,6 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 
         print parseTemplate($templdata, $template_name);
 }
-
-
 
 function html_about() {
 
