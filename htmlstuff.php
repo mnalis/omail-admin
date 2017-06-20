@@ -175,7 +175,7 @@ function html_titlebar($title,$msg,$popup) {
 		$array[buttonlabels][0][url] = $script_url . "?A=about&" . SID;
 		$array[buttonlabels][0][txt] = $txt_about[$lang];
 		$array[buttonlabels][0][onClick] = "onClick=\"oW3(this,'pop2')\"";
-		$array[buttonlabels][1][url] = $script . "?A=help&" . SID;
+		$array[buttonlabels][1][url] = $script_url . "?A=help&" . SID;
 		$array[buttonlabels][1][txt] = $txt_help[$lang];
 		$array[buttonlabels][1][onClick] = "onClick=\"oW(this,'pop2')\"";
 	} elseif ($A == "about" || $A == "help") {
