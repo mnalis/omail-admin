@@ -1035,8 +1035,8 @@ function html_about() {
 	$nb_cp = count($companies) - 1;
 	srand ((double) microtime() * 1000000);
 	if ($nb_cp > 0) {
-		for ($i = 1; $i<4; $i++) {
-			$random = rand(0,$nb_cp);
+		for ($i = 1; $i < 4; $i++) {
+			$random = rand(0, $nb_cp);
 			$label1 = "user_url" . $i;
 			$label2 = "user_label" . $i;
 			$expl_tmp = explode("\t", $companies[$random]);
@@ -1048,11 +1048,11 @@ function html_about() {
 		}
 	}
 
-	$templdata["HTTP_HOST"]=$_SERVER["HTTP_HOST"];
-	$templdata["REQUEST_URI"]=$_SERVER["REQUEST_URI"];
-	$templdata["REMOTE_ADDR"]=$_SERVER["REMOTE_ADDR"];
-	$templdata["HTTP_ACCEPT_LANGUAGE"]=$_SERVER["HTTP_ACCEPT_LANGUAGE"];
-	$templdata["domain"]=$_SESSION["domain"];
+	$templdata["HTTP_HOST"] = $_SERVER["HTTP_HOST"];
+	$templdata["REQUEST_URI"] = $_SERVER["REQUEST_URI"];
+	$templdata["REMOTE_ADDR"] = $_SERVER["REMOTE_ADDR"];
+	$templdata["HTTP_ACCEPT_LANGUAGE"] = $_SERVER["HTTP_ACCEPT_LANGUAGE"];
+	$templdata["domain"] = $_SESSION["domain"];
 
 	print parseTemplate($templdata, "templates/about.temp");
 }
@@ -1062,7 +1062,7 @@ function html_help() {
 	global $A, $cvs_version, $version;
 	include("strings.php");
 
-	$templdata["domain"]=$_SESSION["domain"];
+	$templdata["domain"] = $_SESSION["domain"];
 
 	print parseTemplate($templdata, "templates/help.temp");
 }
@@ -1085,11 +1085,11 @@ function html_splash() {
 		$templdata["languages"] .= ($tmplang) . " ";
 	}
 
-	$templdata["HTTP_HOST"]=$_SERVER["HTTP_HOST"];;
-	$templdata["REQUEST_URI"]=$_SERVER["REQUEST_URI"];;
-	$templdata["REMOTE_ADDR"]=$_SERVER["REMOTE_ADDR"];
-	$templdata["HTTP_ACCEPT_LANGUAGE"]=$_SERVER["HTTP_ACCEPT_LANGUAGE"] . " [ $_SESSION["lang"] ]";
-	$templdata["domain"]=$_SESSION["domain"];
+	$templdata["HTTP_HOST"] = $_SERVER["HTTP_HOST"];;
+	$templdata["REQUEST_URI"] = $_SERVER["REQUEST_URI"];;
+	$templdata["REMOTE_ADDR"] = $_SERVER["REMOTE_ADDR"];
+	$templdata["HTTP_ACCEPT_LANGUAGE"] = $_SERVER["HTTP_ACCEPT_LANGUAGE"] . " [ " . $_SESSION["lang"] . " ]";
+	$templdata["domain"] = $_SESSION["domain"];
 
 	if ($splash_ok) {
 		print parseTemplate($templdata, "templates/welcome_screen_thanks.temp");
@@ -1097,6 +1097,5 @@ function html_splash() {
 		print parseTemplate($templdata, "templates/welcome_screen.temp");
 	}
 }
-
 
 ?>
