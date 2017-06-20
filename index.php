@@ -257,9 +257,19 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 		$tb_userpref = $spamassassin_remote_conf[$_SESSION["vm_tcphost"]]["tb_userpref"];
 	}
 
-	if (!$A) { $A = "menu"; }  // default action
-	if ($A == "login") { $A = "menu"; }  // we're already logged in! So we show the menu instead.
-	if ($A == "checkin") { $A = "menu"; }  // we're already logged in! So we show the menu instead.
+	if (!$A) {
+        $A = "menu";
+    }  // default action
+	if ($A == "login") {
+        $A = "menu";
+    }  // we're already logged in! So we show the menu instead.
+	if ($A == "checkin") {
+        $A = "menu";
+    }  // we're already logged in! So we show the menu instead.
+
+    if (!isset($form_sort)) {
+        $form_sort = "username";
+    }
 
 	//
 	// ABOUT
@@ -410,7 +420,6 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
             exit();
         }
 	}
-
 
 	//
 	// NEW ALIAS
@@ -1063,95 +1072,86 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
         	exit();
         }
 
-
 	    // "responder"
 
-	        if ($action == "responder") {
+	    if ($action == "responder") {
 
-			// if autoresp support is off, show error
+            // if autoresp support is off, show error
 
-			if ($_SESSION["quota_on"] && !$_SESSION["quota_data"]["autoresp_support"]) {
+            if ($_SESSION["quota_on"] && !$_SESSION["quota_data"]["autoresp_support"]) {
 
-	                	html_head("$program_name Administration - Error");
-				$msg = $txt_error_not_allowed[$_SESSION["lang"]];
-		                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]]  .  "</a>\n";
-		                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
-	        	        html_titlebar($txt_error[$_SESSION["lang"]], $msg ,0);
-		                html_end();
-				exit();
-			}
+                html_head("$program_name Administration - Error");
+                $msg = $txt_error_not_allowed[$_SESSION["lang"]];
+                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
+                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
+                html_titlebar($txt_error[$_SESSION["lang"]], $msg, 0);
+                html_end();
+                exit();
+            }
 
-	                // check args format....
+            // check args format....
+            if (get_magic_quotes_gpc() == 1) {
+                $body = stripslashes($body);
+                $subject = stripslashes($subject);
+                $from = stripslashes($from);
+            }
 
-		        if (get_magic_quotes_gpc() == 1) {
-                           $body = stripslashes($body);
-                           $subject = stripslashes($subject);
-                           $from = stripslashes($from);
-	                }
+            // remove blanks
+            $subject = trim($subject);
+            $from = trim($from);
 
-			// remove blanks
+            // strip ^M from body text
+            $tmpbody = explode("\n",$body);
+            $body = "";
 
-			$subject = trim($subject);
-			$from = trim($from);
+            for ( $i = 0 ; $i < count($tmpbody)-1 ; $i++ ) {
+                $body .= chop($tmpbody[$i]) . "\n";
+            }
+            $body .= $tmpbody[$i];
+            $tpmbody = "";
 
-			// strip ^M from body text
+            // update responder.
+            $results = save_resp_file($U, "Subject: $subject\nFrom: $from\n\n$body", $responder);
 
-			$tmpbody = explode("\n",$body);
-			$body = "";
+            html_head("$program_name Administration");
+            $msg = "<b>" . $results . "</b><br><br>";
+            $msg .= "<ul>";
+            $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
+            html_titlebar($txt_delete[$_SESSION["lang"]], "$msg", 0);
+            html_end();
+            exit();
+        }
 
-			for ( $i = 0 ; $i < count($tmpbody)-1 ; $i++ ) {
-			    $body .= chop($tmpbody[$i]) . "\n";
-			}
-			$body .= $tmpbody[$i];
-			$tpmbody = "";
+	    // "spam"
 
-	                // update responder.
+	    if ($action == "spam") {
 
-	                $results = save_resp_file($U, "Subject: $subject\nFrom: $from\n\n$body", $responder);
-
-	                html_head("$program_name Administration");
-	                $msg = "<b>" . $results . "</b><br><br>";
-	                $msg .= "<ul>";
-	                $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$_SESSION["lang"]]  .  "</a>\n";
-	                html_titlebar($txt_delete[$_SESSION["lang"]], "$msg",0);
-	                html_end();
-	                exit();
-	        }
-
-
-
-	       // "spam"
-
-	        if ($action == "spam") {
-
-			// if spam support is off, show error
-
-			if (!$use_spamassassin && !$_SESSION["quota_data"]["spamassassin_use_forbidden"]) {
-
-	                	html_head("$program_name Administration - Error");
-				$msg = $txt_error_not_allowed[$_SESSION["lang"]];
-		                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]]  .  "</a>\n";
-		                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
-	        	        html_titlebar($txt_error[$_SESSION["lang"]], $msg ,0);
-		                html_end();
-				exit();
-			}
-
-	                // check args format....
-
-		        if (get_magic_quotes_gpc() == 1) {
-                           $from = stripslashes($from);
-	                }
+            // if spam support is off, show error
+    
+            if (!$use_spamassassin && !$_SESSION["quota_data"]["spamassassin_use_forbidden"]) {
+    
+                html_head("$program_name Administration - Error");
+                $msg = $txt_error_not_allowed[$_SESSION["lang"]];
+                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
+                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
+                html_titlebar($txt_error[$_SESSION["lang"]], $msg, 0);
+                html_end();
+                exit();
+            }
+    
+            // check args format....
+   
+            if (get_magic_quotes_gpc() == 1) {
+                $from = stripslashes($from);
+            }
 
 			// remove blanks
-
 			$from = trim($from);
 
 			// remove any spam infos from userdetail, keep actual infos...
-
 			$userinfotmp = get_accounts(0,$U);
 			$userinfo = $userinfotmp[0];
-			$mailadr = $userinfo[0] . "@" . $domain;
+			$mailadr = $userinfo[0] . "@" . $_SESSION["domain"];
 
 			$data = new table($db_database, $tb_userpref, $db_server, $db_login, $db_passwd);
 			$data->query("*", "username LIKE '$mailadr' AND (preference LIKE 'spam_enabled' OR preference LIKE 'spam_trash' OR preference LIKE 'required_hits' OR preference LIKE 'spam_fwd' OR preference LIKE 'blacklist_from' OR preference LIKE 'whitelist_from')");
@@ -1178,7 +1178,6 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 				$data->setQueryField("preference", "required_hits");
 				$data->setQueryField("value", $required_hits);
 			}
-
 
 			if ($whitelist) {
 				$newarray = explode("\n", $whitelist);
@@ -1208,77 +1207,67 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 
 			// ......
 
-	                html_head("$program_name Administration");
-	                $msg = "<b>Anti-Spam setup saved!</b><br><br>";
-	                $msg .= "<ul>";
-	                $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$_SESSION["lang"]]  .  "</a>\n";
-	                html_titlebar($txt_spamsettings[$_SESSION["lang"]], "$msg",0);
-	                html_end();
-	                exit();
-	        }
+            html_head("$program_name Administration");
+            $msg = "<b>Anti-Spam setup saved!</b><br><br>";
+	        $msg .= "<ul>";
+	        $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
+            html_titlebar($txt_spamsettings[$_SESSION["lang"]], "$msg", 0);
+	        html_end();
+	        exit();
+        }
 
+        // "quota"
 
-
-	       // "quota"
-
-	        if ($action == "quota") {
+        if ($action == "quota") {
 
 			// if quota support is off, show error
-
 			if (($_SESSION["quota_on"] && !$_SESSION["quota_data"]["user_quota_support"]) || in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
 
 				$msg = $txt_error_not_allowed[$_SESSION["lang"]];
-		                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]]  .  "</a>\n";
-		                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
+                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
+		        $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
 				html_head("$program_name Administration - Error");
-	        	        html_titlebar($txt_error[$_SESSION["lang"]], $msg ,0);
-		                html_end();
+                html_titlebar($txt_error[$_SESSION["lang"]], $msg, 0);
+                html_end();
 				exit();
 			}
 
-	                // check args format....
-
+	        // check args format....
 			$form_expiry = "-"; // per default
 
 			if ($form_year != "-" && $form_month != "-" && $form_day != "-") {
 				if (checkdate($form_month, $form_day, $form_year)) {
-					$form_expiry =  mktime(0,0,0, $form_month, $form_day, $form_year);
+					$form_expiry =  mktime(0, 0, 0, $form_month, $form_day, $form_year);
 				}
 			}
 
-	                // update quotas
+            // update quotas
+            $results = update_userquota($U, $form_softquota, $form_hardquota, $form_expiry, $form_msgcount, $form_msgsize, $form_enabled);
+            html_head("$program_name Administration");
+            $msg = "<b>" . $results . "</b><br><br>";
+	        $msg .= "<ul>";
+	        $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
+            html_titlebar($txt_delete[$_SESSION["lang"]], "$msg", 0);
+	        html_end();
+	        exit();
+        }
 
+	    // "user_enable/disable"
 
-	                $results = update_userquota($U, $form_softquota, $form_hardquota, $form_expiry, $form_msgcount, $form_msgsize, $form_enabled);
-
-	                html_head("$program_name Administration");
-	                $msg = "<b>" . $results . "</b><br><br>";
-	                $msg .= "<ul>";
-	                $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$_SESSION["lang"]]  .  "</a>\n";
-	                html_titlebar($txt_delete[$_SESSION["lang"]], "$msg",0);
-	                html_end();
-	                exit();
-	        }
-
-
-	       // "user_enable/disable"
-
-	        if ($action == "user_enable" || $action == "user_disable") {
+        if ($action == "user_enable" || $action == "user_disable") {
 
 			// if quota & settings support is off, show error
-
 			if (($_SESSION["quota_on"] && !$_SESSION["quota_data"]["user_quota_support"]) || in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
-
 				$msg = $txt_error_not_allowed[$_SESSION["lang"]];
-		                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]]  .  "</a>\n";
-		                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
+                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
+                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
 				html_head("$program_name Administration - Error");
-	        	        html_titlebar($txt_error[$_SESSION["lang"]], $msg ,0);
-		                html_end();
+                html_titlebar($txt_error[$_SESSION["lang"]], $msg, 0);
+                html_end();
 				exit();
 			}
 
-	                // update settings
+	        // update settings
 
 			if ($action == "user_disable") {
 			    $enabled_status = "0";
@@ -1288,90 +1277,76 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 			    $enabled_msg = $txt_turn_on_delivery_expl[$_SESSION["lang"]];
 			}
 
-	                $results = update_userstatus($U, $enabled_status);
+            $results = update_userstatus($U, $enabled_status);
 
-	                html_head("$program_name Administration");
-	                $msg = "<b>" . $results . "</b><br><br>";
+            html_head("$program_name Administration");
+            $msg = "<b>" . $results . "</b><br><br>";
 			$msg .= "$enabled_msg<br>";
-	                $msg .= "<ul>";
-	                $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$_SESSION["lang"]]  .  "</a>\n";
-	                html_titlebar($txt_delete[$_SESSION["lang"]], "$msg",0);
-	                html_end();
-	                exit();
-	        }
-
+            $msg .= "<ul>";
+            $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
+            html_titlebar($txt_delete[$_SESSION["lang"]], "$msg", 0);
+	        html_end();
+	        exit();
+        }
 
 		// "catchall_ok"
 
-	        if ($action == "catchall_ok") {
+        if ($action == "catchall_ok") {
 
 			if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
-
-    			    $msg = $txt_error_not_allowed[$_SESSION["lang"]];
-            		    $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]]  .  "</a>\n";
-            		    $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
+   			    $msg = $txt_error_not_allowed[$_SESSION["lang"]];
+      		    $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
+                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
 			    html_head("$program_name Administration - Error");
-    	    		    html_titlebar($txt_error[$_SESSION["lang"]], $msg ,0);
-            		    html_end();
+    	    	html_titlebar($txt_error[$_SESSION["lang"]], $msg, 0);
+                html_end();
 			    exit();
-
 			}
 
 			// 1. delete "+" if any, 2. create catchall "+" account
-
-	                $results1 = delete_account("+");              // todo: only if exists!
+            $results1 = delete_account("+");              // todo: only if exists!
 
 			$fwd[0] = $U;
-                        $results2 = create_alias("+", "", $fwd);
-	        	$results3 = update_userdetail("+", "Catchall Alias -> $U");
+            $results2 = create_alias("+", "", $fwd);
+            $results3 = update_userdetail("+", "Catchall Alias -> $U");
 			get_catchall_account();
 
-        	        html_head("$program_name Administration");
-        	        $msg = "<b>" . $results1 . "</b><br>";
-        	        $msg .= "<b>" . $results2 . "</b><br>";
-        	        $msg .= "<b>" . $results3 . "</b><br><br>";
-        	        $msg .= "<ul>";
-        	        $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$_SESSION["lang"]]  .  "</a>\n";
-        	        html_titlebar($txt_catchall[$_SESSION["lang"]], "$msg",0);
-        	        html_end();
-        	        exit();
-	       	}
+            html_head("$program_name Administration");
+        	$msg = "<b>" . $results1 . "</b><br>";
+        	$msg .= "<b>" . $results2 . "</b><br>";
+        	$msg .= "<b>" . $results3 . "</b><br><br>";
+        	$msg .= "<ul>";
+        	$msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
+            html_titlebar($txt_catchall[$_SESSION["lang"]], "$msg", 0);
+            html_end();
+        	exit();
+        }
 
 
-	        // "catchall_remove_ok"
-
-	        if ($action == "catchall_remove_ok") {
+	    // "catchall_remove_ok"
+        if ($action == "catchall_remove_ok") {
 
 			if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
-
-    			    $msg = $txt_error_not_allowed[$_SESSION["lang"]];
-            		    $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]]  .  "</a>\n";
-            		    $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
+   			    $msg = $txt_error_not_allowed[$_SESSION["lang"]];
+                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
+            	$msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
 			    html_head("$program_name Administration - Error");
-    	    		    html_titlebar($txt_error[$_SESSION["lang"]], $msg ,0);
-            		    html_end();
+    	    	html_titlebar($txt_error[$_SESSION["lang"]], $msg, 0);
+                html_end();
 			    exit();
-
 			}
 
-	                // check args format... addslashed everywhere, etc...
-	                // update forwarders
-
-	                // let vwrap copy the current resp file to a temp file, readable by all
-
-	                $results1 = delete_account("+");
+            $results1 = delete_account("+");
 			get_catchall_account();
 
-        	        html_head("$program_name Administration");
-        	        $msg = "<b>" . $results1 . "</b><br>";
-        	        $msg .= "<ul>";
-        	        $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$_SESSION["lang"]]  .  "</a>\n";
-        	        html_titlebar($txt_remove_catchall[$_SESSION["lang"]], "$msg",0);
-        	        html_end();
-        	        exit();
-	       	}
-
-
+   	        html_head("$program_name Administration");
+   	        $msg = "<b>" . $results1 . "</b><br>";
+   	        $msg .= "<ul>";
+   	        $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
+            html_titlebar($txt_remove_catchall[$_SESSION["lang"]], "$msg",0);
+        	html_end();
+            exit();
+        }
 	}
 
 	//
@@ -1379,21 +1354,18 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 	//
 
 	if ($A == "logout") {
-
-
-	        $msg = $txt_goodbye[$_SESSION["lang"]];
-	        $msg .= "<ul><li><a href=\"$script_url?A=login&setlang=" . $_SESSION["lang"] . "&" . SID . "\">" . $txt_login_again[$_SESSION["lang"]]  .  "</a>\n";
+        $msg = $txt_goodbye[$_SESSION["lang"]];
+        $msg .= "<ul><li><a href=\"$script_url?A=login&setlang=" . $_SESSION["lang"] . "&" . SID . "\">" . $txt_login_again[$_SESSION["lang"]] . "</a>\n";
 		$msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
 
 		$_SESSION["active"] = 0;
 		session_destroy();
 
 		html_head("$program_name Administration - Logout");
-	        html_titlebar($txt_logout[$_SESSION["lang"]], $msg ,0);
-	        html_end();
-	        exit();
+	    html_titlebar($txt_logout[$_SESSION["lang"]], $msg ,0);
+	    html_end();
+	    exit();
 	}
-
 
 	// fixme : if we're here, $A seems not to exist : should we show something ?
 
