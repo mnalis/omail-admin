@@ -553,7 +553,7 @@ function get_catchall_account() {
 	$tmpinfo = get_accounts(3);
 	$tmpsize = count($tmpinfo);
 
-	for ($i = 0; $i <= $tmpsize; $i++) {
+	for ($i = 0; $i < $tmpsize; $i++) {
 
 	    $catchallinfo = $tmpinfo[$i];
 
@@ -673,9 +673,9 @@ function getContentStrings($content, $tag) {
 function complexHelper($tagContent, $parseSet, $encoding) {
     $parseString = "";
     for ($i = 0; $i <= count($parseSet); $i++) {
-        if (!isset($parseSet[$i])) {
-            continue;
-        }
+        //if (!isset($parseSet[$i])) {
+        //    continue;
+        //}
 	    $ar = array();
         $parseArray = $parseSet[$i];
         if (is_array($parseArray)) {
