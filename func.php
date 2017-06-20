@@ -78,8 +78,6 @@ function check_session($arg_ip) {
 
 }
 
-
-
 function authenticate($arg_login, $arg_passwd, $arg_ip, $tcphostname) {
 
 	global $expire_after;
@@ -254,7 +252,6 @@ function get_accounts($arg_action, $arg_username = "") {
 	// action = 2 : all aliases, no resp yet (admin mode) but not "+" if created by omail-admin
 	// action = 3 : all accounts, without anything else (admin mode)  [for catchall detection]
 
-
 	if ($arg_action) {
 
 		if (!$vm_list_loaded) {
@@ -264,8 +261,7 @@ function get_accounts($arg_action, $arg_username = "") {
 
 		$list = $vm_list;
 
-
-		$j = 0;
+		$j = -1;
 
 		if ($_SESSION["quota_on"]) {
 			if ($arg_action == 1 || $arg_action == 3) { $_SESSION["quota_data"]["nb_users"] = 0; }
@@ -277,7 +273,11 @@ function get_accounts($arg_action, $arg_username = "") {
             list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $data11) = $list[$i];
 
             // set if visible or not (for catchall or "admin" accounts like postmaster, etc...)
-            if ($username == "+") { $Visible = 0; } else { $Visible = 1; }
+            if ($username == "+") {
+                $Visible = 0;
+            } else {
+                $Visible = 1;
+            }
 
             // get enabled/disabled status
             if (ord($data11[8]) == 49) {
@@ -301,21 +301,21 @@ function get_accounts($arg_action, $arg_username = "") {
 				$resp = 0;
 			}
                 if (($arg_action == 1) && $_SESSION["mb_letter"] && !preg_match("/^[".$_SESSION["mb_letter"]."]/i", $username)) {
-                       if ($mbox) {
-                           if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
-                                   $_SESSION["quota_data"]["nb_users"]++;
-                           }
-                       }
-                        continue;
+                    if ($mbox) {
+                        if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
+                            $_SESSION["quota_data"]["nb_users"]++;
+                        }
+                    }
+                    continue;
                 }
 
                 if ($arg_action == 2 && $_SESSION["al_letter"] && !preg_match("/^[".$_SESSION["al_letter"]."]/i", $username)) {
-                       if (!$mbox) {
-                           if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
-                                   $_SESSION["quota_data"]["nb_alias"]++;
-                           }
-                       }
-                        continue;
+                    if (!$mbox) {
+                        if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
+                            $_SESSION["quota_data"]["nb_alias"]++;
+                        }
+                    }
+                    continue;
                 }
 
                 $list[$i] = array($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible);
@@ -346,7 +346,6 @@ function get_accounts($arg_action, $arg_username = "") {
 		} else {
 			usort($new_list, get_accounts_sort_by_name);
 		}
-
 
 	} else {  // user
 
@@ -595,7 +594,7 @@ function get_catchall_account() {
 	$tmpinfo = get_accounts(3);
 	$tmpsize = count($tmpinfo);
 
-	for ($i=0; $i<=$tmpsize; $i++) {
+	for ($i = 0; $i <= $tmpsize; $i++) {
 
 	    $catchallinfo = $tmpinfo[$i];
 

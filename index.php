@@ -169,13 +169,16 @@ if (!$_SESSION["active"]) {
 			}
 		}
 
+        if (!isset($form_tcphost)) {
+            $form_tcphost = "";
+        }
+
 		if ($form_passwd && $form_login && authenticate($form_login, $form_passwd, $_SERVER["REMOTE_ADDR"], $form_tcphost)) {
 
 			// login and password can't be left empty!
 
 			$_SESSION["active"] = 1;
 			$A = "menu";
-
 
 			// if we have vmailstats, load the data into the session
 
