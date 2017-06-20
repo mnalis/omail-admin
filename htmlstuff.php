@@ -634,7 +634,7 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 	$templdata["txt_email"] = $txt_email[$lang];
 	$templdata["txt_info"] = $txt_info[$lang];
 
-	if ($vmailstats["active"]) {
+	if ($_SESSION["vmailstats"]["active"]) {
 		$templdata["txt_info"] .= " / " . $txt_mailbox_size[$lang];
 	}
 
@@ -809,19 +809,17 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 			$templdata[obj][$ii]["colorUsername"] = "black";
 		}
 
-		if ($vmailstats["active"] && $arg_action != 2) {
-			if ($vmailstats[$username][size]<1024) {
-				$templdata[obj][$ii]["PersonalInfo"] .= " (" . $vmailstats[$username][size] . " kB)";
+		if ($_SESSION["vmailstats"]["active"] && $arg_action != 2) {
+			if ($_SESSION["vmailstats"][$username][size] < 1024) {
+				$templdata[obj][$ii]["PersonalInfo"] .= " (" . $_SESSION["vmailstats"][$username][size] . " kB)";
 			} else {
-				$templdata[obj][$ii]["PersonalInfo"] .= " (" . round($vmailstats[$username][size]/1024,1) . " MB)";
+				$templdata[obj][$ii]["PersonalInfo"] .= " (" . round($_SESSION["vmailstats"][$username][size] / 1024, 1) . " MB)";
 			}
 		}
-
 
 		$templdata[obj][$ii]["alias0"] = $alias[0];
 		$templdata[obj][$ii]["alias1"] = $alias[1];
 		$templdata[obj][$ii]["alias2"] = $alias[2];
-
 
 		if (sizeof($alias) > 0) { $templdata[obj][$ii]["more_alias"] = $yes . "  (" . trim(sizeof($alias)) . ")"; }
 		    else { $templdata[obj][$ii]["more_alias"] = $no; }
