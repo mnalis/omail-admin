@@ -78,7 +78,7 @@ if (count($_POST)) {
 }
 
 
-if ($_SESSION["lang"] == "") {
+if (!isset($setlang)) {
 
 	// if no language defined yet (cookie or session):
 	// try to findout users language by checking it's HTTP_ACCEPT_LANGUAGE variable
@@ -88,20 +88,24 @@ if ($_SESSION["lang"] == "") {
         for ($i = 0; $i < count($langaccept); $i++) {
             $tmplang = trim($langaccept[$i]);
             $tmplang2 = substr($tmplang, 0, 2);
-            if ($txt_langname[$tmplang] && $_SESSION["lang"] == "") {   // if the whole string matchs ("de-CH", or "en", etc)
-                $_SESSION["lang"] = $tmplang;
+            if ($txt_langname[$tmplang]) {   // if the whole string matchs ("de-CH", or "en", etc)
+                $setlang = $tmplang;
                 break;
-            } elseif ($txt_langname[$tmplang2] && $_SESSION["lang"] == "") { // then try only the 2 first chars ("de", "fr"...)
-                $_SESSION["lang"] = $tmplang2;
+            } elseif ($txt_langname[$tmplang2]) { // then try only the 2 first chars ("de", "fr"...)
+                $setlang = $tmplang2;
                 break;
             }
         }
     }
 
-    if ($_SESSION["lang"] == "") {
+    if (!isset($setlang)) {
         // didn't catch any valid lang : we use the default settings
-        $_SESSION["lang"] = $default_lang;
+        $setlang = $default_lang;
     }
+}
+
+if (isset($setlang)) {
+    $_SESSION["lang"] = $setlang;
 }
 
 if (!$_SESSION["active"]) {
@@ -131,8 +135,6 @@ if (!$_SESSION["active"]) {
 		exit();
 
 	} elseif ($A != "checkin") {
-
-		if ($setlang) { $_SESSION["lang"] = $setlang; }
 
 		html_head("$program_name Administration - Login");
 		html_titlebar($txt_login[$_SESSION["lang"]], $txt_please_login[$_SESSION["lang"]], "");
