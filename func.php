@@ -310,8 +310,7 @@ function get_accounts($arg_action, $arg_username = "") {
 			}  else {
 				$resp = 0;
 			}
-
-                        if (($arg_action == 1) && $_SESSION["mb_letter"] && !preg_match("/^[$_SESSION['mb_letter']]/i", $username)) {
+                        if (($arg_action == 1) && $_SESSION["mb_letter"] && !preg_match("/^[".$_SESSION["mb_letter"]."]/i", $username)) {
                                if ($mbox) {
                                    if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
                                            $_SESSION["quota_data"]["nb_users"]++;
@@ -320,7 +319,7 @@ function get_accounts($arg_action, $arg_username = "") {
                                 continue;
                         }
 
-                        if ($arg_action == 2 && $_SESSION["al_letter"] && !preg_match("/^[$_SESSION['al_letter']]/i", $username)) {
+                        if ($arg_action == 2 && $_SESSION["al_letter"] && !preg_match("/^[".$_SESSION["al_letter"]."]/i", $username)) {
                                if (!$mbox) {
                                    if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
                                            $_SESSION["quota_data"]["nb_alias"]++;
