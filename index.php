@@ -88,10 +88,10 @@ if (!isset($setlang)) {
         for ($i = 0; $i < count($langaccept); $i++) {
             $tmplang = trim($langaccept[$i]);
             $tmplang2 = substr($tmplang, 0, 2);
-            if ($txt_langname[$tmplang]) {   // if the whole string matchs ("de-CH", or "en", etc)
+            if (isset($txt_langname[$tmplang])) {   // if the whole string matchs ("de-CH", or "en", etc)
                 $setlang = $tmplang;
                 break;
-            } elseif ($txt_langname[$tmplang2]) { // then try only the 2 first chars ("de", "fr"...)
+            } elseif (isset($txt_langname[$tmplang2])) { // then try only the 2 first chars ("de", "fr"...)
                 $setlang = $tmplang2;
                 break;
             }
@@ -109,6 +109,15 @@ if (isset($setlang)) {
 }
 
 if (!$_SESSION["active"]) {
+
+    if (!isset($A)) {
+        // Login screen
+		html_head("$program_name Administration - Login");
+		html_titlebar($txt_login[$_SESSION["lang"]], $txt_please_login[$_SESSION["lang"]], "");
+		html_login();
+		html_end();
+		exit();
+    }
 
 	if ((($sysadmin_mail == "sysadmin@notdefined.yet") && $A != "about") || $A == "splash") {
 
