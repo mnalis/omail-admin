@@ -272,15 +272,15 @@ function get_accounts($arg_action, $arg_username = "") {
 			if ($arg_action == 2 || $arg_action == 3) { $_SESSION["quota_data"]["nb_alias"] = 0; }
 		}
 
-	        for ($i = 0; $i <  sizeof($list); $i++) {
+        for ($i = 0; $i <  sizeof($list); $i++) {
 
-	                list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $data11) = $list[$i];
+            list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $data11) = $list[$i];
 
-			// set if visible or not (for catchall or "admin" accounts like postmaster, etc...)
-			if ($username == "+") { $Visible = 0; } else { $Visible = 1; }
+            // set if visible or not (for catchall or "admin" accounts like postmaster, etc...)
+            if ($username == "+") { $Visible = 0; } else { $Visible = 1; }
 
-			// get enabled/disabled status
-			if ((sizeof($data11) >= 9) && (ord($data11[8]) == 49)) {
+            // get enabled/disabled status
+            if (ord($data11[8]) == 49) {
                 $Enabled = 1;
             } else {
                 $Enabled = 0;
@@ -300,43 +300,44 @@ function get_accounts($arg_action, $arg_username = "") {
 			}  else {
 				$resp = 0;
 			}
-                        if (($arg_action == 1) && $_SESSION["mb_letter"] && !preg_match("/^[".$_SESSION["mb_letter"]."]/i", $username)) {
-                               if ($mbox) {
-                                   if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
-                                           $_SESSION["quota_data"]["nb_users"]++;
-                                   }
-                               }
-                                continue;
-                        }
+                if (($arg_action == 1) && $_SESSION["mb_letter"] && !preg_match("/^[".$_SESSION["mb_letter"]."]/i", $username)) {
+                       if ($mbox) {
+                           if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
+                                   $_SESSION["quota_data"]["nb_users"]++;
+                           }
+                       }
+                        continue;
+                }
 
-                        if ($arg_action == 2 && $_SESSION["al_letter"] && !preg_match("/^[".$_SESSION["al_letter"]."]/i", $username)) {
-                               if (!$mbox) {
-                                   if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
-                                           $_SESSION["quota_data"]["nb_alias"]++;
-                                   }
-                               }
-                                continue;
-                        }
+                if ($arg_action == 2 && $_SESSION["al_letter"] && !preg_match("/^[".$_SESSION["al_letter"]."]/i", $username)) {
+                       if (!$mbox) {
+                           if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
+                                   $_SESSION["quota_data"]["nb_alias"]++;
+                           }
+                       }
+                        continue;
+                }
 
-	                $list[$i] = array($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible);
+                $list[$i] = array($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible);
 
-			if ($mbox && ($arg_action == 1 || $arg_action == 3)) {
-				$new_list[$j++] = $list[$i];
-				if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
-					$_SESSION["quota_data"]["nb_users"]++;
-				}
-			}
+                if ($mbox && ($arg_action == 1 || $arg_action == 3)) {
+                    $new_list[$j++] = $list[$i];
+                    if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
+                        $_SESSION["quota_data"]["nb_users"]++;
+                    }
+                }
 
-			if (!$mbox && ($arg_action == 2 || $arg_action == 3)) {
-				$new_list[$j++] = $list[$i];
-				if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
-					$_SESSION["quota_data"]["nb_alias"]++;
-				}
-			}
+                if (!$mbox && ($arg_action == 2 || $arg_action == 3)) {
+                    $new_list[$j++] = $list[$i];
+                    if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
+                        $_SESSION["quota_data"]["nb_alias"]++;
+                    }
+                }
 
-			if (($username == $arg_username) && ($arg_action == 0)) { $new_list[$j++] = $list[$i]; }
-
-		}
+                if (($username == $arg_username) && ($arg_action == 0)) {
+                    $new_list[$j++] = $list[$i];
+                }
+        }
 
 		// try to sort on username
 
@@ -356,11 +357,19 @@ function get_accounts($arg_action, $arg_username = "") {
 		list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $data11)=$lookup_data;
 
 		// get enabled/disabled status
-		if (ord($data11[8]) == 49) { $Enabled = 1; } else { $Enabled = 0; }
+		if (ord($data11[8]) == 49) {
+            $Enabled = 1;
+        } else {
+            $Enabled = 0;
+        }
 
-		if ($mbox) { $resp = load_resp_status($username); }  else { $resp = 0; } // only lookup for mailboxes
+		if ($mbox) {
+            $resp = load_resp_status($username);
+        } else {
+            $resp = 0;
+        } // only lookup for mailboxes
 
-                $new_list[0] = array($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, 1);
+        $new_list[0] = array($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, 1);
 	}
 
 	return $new_list;
