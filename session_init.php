@@ -3,14 +3,14 @@
 // Clear up input values (because of magic quotes...)
 if (count($_GET)) {
     foreach ($_GET as $key => $value) {
-        if (!is_array($$key)) {
+        if (isset($$key) && !is_array($$key)) {
             $$key = stripslashes($value);
         }
     }
 }
 if (count($_POST)) {
     foreach ($_POST as $key => $value) {
-        if (!is_array($$key)) {
+        if (isset($$key) && !is_array($$key)) {
             $$key = stripslashes($value);
         }
     }
