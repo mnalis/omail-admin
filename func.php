@@ -674,10 +674,10 @@ function getContentStrings($content, $tag) {
 
 function complexHelper($tagContent, $parseSet, $encoding) {
     $parseString = "";
-    for ($i = 0; $i < count($parseSet); $i++) {
-        //if (!isset($parseSet[$i])) {
-        //    continue;
-        //}
+    for ($i = 0; $i <= count($parseSet); $i++) {
+        if (!isset($parseSet[$i])) {
+            continue;
+        }
 	    $ar = array();
         $parseArray = $parseSet[$i];
         if (is_array($parseArray)) {
