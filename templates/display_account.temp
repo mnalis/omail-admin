@@ -1,0 +1,30 @@
+<h1>%title%</h1>
+<table border=0><TR><TH>N°</TH>
+<TH>%txt_email%</TH>
+<TH>%txt_info%</TH>
+<TH>%txt_fwd% ?</TH>
+
+%ifdef_txt_responder%
+<TH>%txt_local_delivery% ?</TH>
+<TH><nobr>%txt_action%</TH></TR>
+
+
+<obj>
+
+<tr bgcolor=%rowcolor%> 
+<TD> %nb% &nbsp;</TD>
+<TD><B><FONT COLOR=%colorUsername%> %username%  </FONT></B>&nbsp;</TD> 
+
+<TD>%PersonalInfo%&nbsp;</TD> 
+<TD>%more_alias%&nbsp;</TD>
+
+%ifdef_autoresponder_status%
+
+<TD>%local_delivery%&nbsp;</TD>
+<TD align=center><nobr>
+%actions%
+</nobr></TD></TR>
+
+</obj>
+
+</table><br> 
