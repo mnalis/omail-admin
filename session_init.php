@@ -63,7 +63,7 @@ if (!isset($_SESSION["mb_letter"])) {
     $_SESSION["mb_letter"] = "";
 }
 if (!isset($_SESSION["al_letter"])) {
-    $_SESSION[""] = "al_letter";
+    $_SESSION["al_letter"] = "";
 }
 if (!isset($_SESSION["vm_tcphost"])) {
     $_SESSION["vm_tcphost"] = "";
