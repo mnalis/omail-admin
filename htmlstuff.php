@@ -764,19 +764,18 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 
 	// print "Start: $loop_start - End: $loop_end - Offset: $offset <br>\n";   //debug
 
-	for ($i = $loop_start; $i <= $loop_end; $i++) {
+	for ($i = $loop_start; $i < $loop_end; $i++) {
 
-		list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible)=$mboxlist[$i];
+		list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible) = $mboxlist[$i];
 
 		// print "$i $username<br>";  //debug
 
 		while ($username && (!$Visible || in_array($username, $system_accounts_list))) {
-    		    $hidden++;
+            $hidden++;
 		    $i++;
 		    list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible)=$mboxlist[$i];
 
 		//	print "   $i $username<br>"; //debug
-
 		}
 
 		$ii = (($i-$hidden)-$offset)+1;  // neded for the <template>
