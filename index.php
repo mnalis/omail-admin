@@ -78,24 +78,27 @@ if (count($_POST)) {
 }
 
 
-if (!$_SESSION["lang"]) {
+if ($_SESSION["lang"] == "") {
 
 	// if no language defined yet (cookie or session):
 	// try to findout users language by checking it's HTTP_ACCEPT_LANGUAGE variable
 
     if ($_SERVER["HTTP_ACCEPT_LANGUAGE"]) {
-	$langaccept = explode(",", $_SERVER["HTTP_ACCEPT_LANGUAGE"]);
-	for ($i = 0; $i < count($langaccept); $i++) {
-	    $tmplang = trim($langaccept[$i]);  $tmplang2 = substr($tmplang,0,2);
-	    if ($txt_langname[$tmplang] && !$_SESSION["lang"]) {   // if the whole string matchs ("de-CH", or "en", etc)
-		$_SESSION["lang"] = $tmplang;
-	    } elseif ($txt_langname[$tmplang2] && !$_SESSION["lang"]) { // then try only the 2 first chars ("de", "fr"...)
-		$_SESSION["lang"] = $tmplang2;
-	    }
-	}
+        $langaccept = explode(",", $_SERVER["HTTP_ACCEPT_LANGUAGE"]);
+        for ($i = 0; $i < count($langaccept); $i++) {
+            $tmplang = trim($langaccept[$i]);
+            $tmplang2 = substr($tmplang, 0, 2);
+            if ($txt_langname[$tmplang] && $_SESSION["lang"] == "") {   // if the whole string matchs ("de-CH", or "en", etc)
+                $_SESSION["lang"] = $tmplang;
+                break;
+            } elseif ($txt_langname[$tmplang2] && $_SESSION["lang"] == "") { // then try only the 2 first chars ("de", "fr"...)
+                $_SESSION["lang"] = $tmplang2;
+                break;
+            }
+        }
     }
 
-    if (!$_SESSION["lang"]) {
+    if ($_SESSION["lang"] == "") {
         // didn't catch any valid lang : we use the default settings
         $_SESSION["lang"] = $default_lang;
     }
