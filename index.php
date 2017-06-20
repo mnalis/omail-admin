@@ -36,11 +36,12 @@ ob_start();
 
 session_start();
 
-extract($_REQUEST);
+// Initialize _SESSION variables
+require("session_init.php");
 
-if (is_array($_SESSION)) {
-	extract($_SESSION);
-}
+// Workaround for missing register_globals in PHP 5.4+
+extract($_REQUEST);
+extract($_SESSION);
 
 
 /*****************************************************************************/
@@ -51,15 +52,6 @@ include("strings.php");
 include("htmlstuff.php");
 require("./mysql.inc");
 /*****************************************************************************/
-
-session_register("username", "domain", "passwd", "type", "ip", "expire", "lang", "active");
-session_register("quota_on","quota_data","catchall_active", "sort_order");
-session_register("mb_start","al_start");
-session_register("mb_letter","al_letter");
-session_register("vm_tcphost","vm_tcphost_port");   // for vmailmgrd-tcp
-session_register("vmailstats");
-
-extract($_SESSION);
 
 // try to improve speed
 
@@ -86,7 +78,7 @@ if (count($_POST)) {
 }
 
 
-if (!$lang) {
+if (!$_SESSION["lang"]) {
 
 	// if no language defined yet (cookie or session):
 	// try to findout users language by checking it's HTTP_ACCEPT_LANGUAGE variable
@@ -96,25 +88,25 @@ if (!$lang) {
 	for ($i = 0; $i < count($langaccept); $i++) {
 	    $tmplang = trim($langaccept[$i]);  $tmplang2 = substr($tmplang,0,2);
 	    if ($txt_langname[$tmplang] && !$lang) {   // if the whole string matchs ("de-CH", or "en", etc)
-		$lang = $tmplang;
+		$_SESSION["lang"] = $tmplang;
 	    } elseif ($txt_langname[$tmplang2] && !$lang) { // then try only the 2 first chars ("de", "fr"...)
-		$lang = $tmplang2;
+		$_SESSION["lang"] = $tmplang2;
 	    }
 	}
     }
 
-    if (!$lang) {
+    if (!$_SESSION["lang"]) {
         // didn't catch any valid lang : we use the default settings
-	$lang = $default_lang;
+        $_SESSION["lang"] = $default_lang;
     }
 }
 
-if (!$active) {
+if (!$_SESSION["active"]) {
 
 	if ((($sysadmin_mail == "sysadmin@notdefined.yet") && $A != "about") || $A == "splash") {
 
 		html_head("$program_name Administration - Welcome!");
-		html_titlebar($txt_welcome[$lang], "", "");
+		html_titlebar($txt_welcome[$_SESSION["lang"]], "", "");
 		html_splash();
 		html_end();
 		exit();
@@ -122,7 +114,7 @@ if (!$active) {
 	} elseif ($A == "about") {
 
 		html_head("$program_name Administration - about");
-		html_titlebar($txt_about[$lang], "", "");
+		html_titlebar($txt_about[$_SESSION["lang"]], "", "");
 		html_about();
 		html_end();
 		exit();
@@ -130,17 +122,17 @@ if (!$active) {
 	} elseif ($A == "help") {
 
 		html_head("$program_name Administration - Help");
-		html_titlebar($txt_help[$lang], "", "");
+		html_titlebar($txt_help[$_SESSION["lang"]], "", "");
 		html_help();
 		html_end();
 		exit();
 
 	} elseif ($A != "checkin") {
 
-		if ($setlang) { $lang = $setlang; }
+		if ($setlang) { $_SESSION["lang"] = $setlang; }
 
 		html_head("$program_name Administration - Login");
-		html_titlebar($txt_login[$lang], $txt_please_login[$lang], "");
+		html_titlebar($txt_login[$_SESSION["lang"]], $txt_please_login[$_SESSION["lang"]], "");
 		html_login();
 		html_end();
 		exit();
@@ -162,33 +154,31 @@ if (!$active) {
 
 		if ($use_vmailmgrd_tcp) {
 
-			$vm_tcphost = "";
-			$vm_tcphost_port = "";
+			$_SESSION["vm_tcphost"] = "";
+			$_SESSION["vm_tcphost_port"] = "";
 
 			switch ($vmailmgrd_tcp_host_method) {
 
 				case "0":  // one host
-					$vm_tcphost = $vmailmgrd_tcp_host;
+					$_SESSION["vm_tcphost"] = $vmailmgrd_tcp_host;
 					break;
 
 				case "1":  // multi host via select
-
-					$vm_tcphost = $vmailmgrd_tcp_hosts_list[$form_tcphost];
+					$_SESSION["vm_tcphost"] = $vmailmgrd_tcp_hosts_list[$form_tcphost];
 					break;
 
 				case "2":  // multi host with transparent host selection
-					$vm_tcphost = tcp_host_findout($form_login);
+					$_SESSION["vm_tcphost"] = tcp_host_findout($form_login);
 					break;
 
 			}
 		}
 
-
 		if ($form_passwd && $form_login && authenticate($form_login, $form_passwd, $_SERVER["REMOTE_ADDR"], $form_tcphost)) {
 
 			// login and password can't be left empty!
 
-			$active = 1;
+			$_SESSION["active"] = 1;
 			$A = "menu";
 
 
@@ -197,7 +187,7 @@ if (!$active) {
 			if ($vmailstats_directory) {
 
 				if (preg_match("/@/", $form_login)) {
-					list($tmpuser,$tmpdomain) = explode("@", $form_login);
+					list($tmpuser, $tmpdomain) = explode("@", $form_login);
 				} else {
 					$tmpdomain = $form_login;
 				}
@@ -207,33 +197,33 @@ if (!$active) {
 					$firstline = @fgets($vmstats);
 					list($tmp1, $tmp2) = explode("\t", $firstline);
 					if ($tmp1 == "total_dir_size") {
-						$vmailstats["active"] = "1";
-						$vmailstats["global_size"] = $tmp2;
+						$_SESSION["vmailstats"]["active"] = "1";
+						$_SESSION["vmailstats"]["global_size"] = $tmp2;
 						$tmpstat = fstat($vmstats);
-						$vmailstats["date"] = $tmpstat["ctime"];
+						$_SESSION["vmailstats"]["date"] = $tmpstat["ctime"];
 					}
 
 					while($line = fgets($vmstats)) {
 
 						list($tmpuser, $maildirsize, $cursize, $newsize, $curfiles, $newfiles) = explode("\t", $line);
-						$vmailstats[$tmpuser]["size"] = $maildirsize;
-						$vmailstats[$tmpuser]["cursize"] = $cursize;
-						$vmailstats[$tmpuser]["newsize"] = $newsize;
-						$vmailstats[$tmpuser]["curfiles"] = $curfiles;
-						$vmailstats[$tmpuser]["newfiles"] = $newfiles;
+						$_SESSION["vmailstats"][$tmpuser]["size"] = $maildirsize;
+						$_SESSION["vmailstats"][$tmpuser]["cursize"] = $cursize;
+						$_SESSION["vmailstats"][$tmpuser]["newsize"] = $newsize;
+						$_SESSION["vmailstats"][$tmpuser]["curfiles"] = $curfiles;
+						$_SESSION["vmailstats"][$tmpuser]["newfiles"] = $newfiles;
 					}
 				}
 			}
 
 		} else {
 
-			$active = 0;
-	                $msg = $txt_login_failed[$lang];
-	                $msg .= "<ul><li><a href=\"$script_url?A=login&" . SID . "\">" . $txt_login_again[$lang]  .  "</a>\n";
-	                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";
+			$_SESSION["active"] = 0;
+	                $msg = $txt_login_failed[$_SESSION["lang"]];
+	                $msg .= "<ul><li><a href=\"$script_url?A=login&" . SID . "\">" . $txt_login_again[$_SESSION["lang"]] . "</a>\n";
+	                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
 
 			html_head("$program_name Administration");
-        	        html_titlebar($txt_error[$lang], $msg ,0);
+        	        html_titlebar($txt_error[$_SESSION["lang"]], $msg ,0);
 	                html_end();
 			exit();
 		}
@@ -241,41 +231,36 @@ if (!$active) {
 
 }
 
-
-if ($active == 1) {    // active=1 -> user logged in
+if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 
 	if (!check_session($_SERVER["REMOTE_ADDR"])) {
 
 		// session expired or bad ip -> exit
 
-		$active = 0;
+		$_SESSION["active"] = 0;
 		session_destroy();
 
-	        $msg = $txt_session_expired[$lang] . "<br><br>";
-                $msg .= "<ul><li><a href=\"$script_url?A=login&" . SID . "\">" . $txt_login_again[$lang]  .  "</a>\n";
+	        $msg = $txt_session_expired[$_SESSION["lang"]] . "<br><br>";
+                $msg .= "<ul><li><a href=\"$script_url?A=login&" . SID . "\">" . $txt_login_again[$_SESSION["lang"]] . "</a>\n";
                 $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";
 
 		html_head("$program_name Administration");
-	        html_titlebar($txt_error[$lang], "$msg",0);
+	        html_titlebar($txt_error[$_SESSION["lang"]], "$msg",0);
 	        html_end();
 	        exit();
 	}
 
-
-
 	// spamassassin stuff, in case of multiple hosts ($use_vmailmgrd_tcp = 1)
 
-	if ($use_vmailmgrd_tcp && $vm_tcphost) {
+	if ($use_vmailmgrd_tcp && $_SESSION["vm_tcphost"]) {
 
-		$use_spamassassin = $spamassassin_remote_conf[$vm_tcphost]["use_spamassassin"];
-		$db_login = $spamassassin_remote_conf[$vm_tcphost]["db_login"];
-		$db_passwd = $spamassassin_remote_conf[$vm_tcphost]["db_passwd"];
-		$db_database = $spamassassin_remote_conf[$vm_tcphost]["db_database"];
-		$db_server = $spamassassin_remote_conf[$vm_tcphost]["db_server"];
-		$tb_userpref = $spamassassin_remote_conf[$vm_tcphost]["tb_userpref"];
-
+		$use_spamassassin = $spamassassin_remote_conf[$_SESSION["vm_tcphost"]]["use_spamassassin"];
+		$db_login = $spamassassin_remote_conf[$_SESSION["vm_tcphost"]]["db_login"];
+		$db_passwd = $spamassassin_remote_conf[$_SESSION["vm_tcphost"]]["db_passwd"];
+		$db_database = $spamassassin_remote_conf[$_SESSION["vm_tcphost"]]["db_database"];
+		$db_server = $spamassassin_remote_conf[$_SESSION["vm_tcphost"]]["db_server"];
+		$tb_userpref = $spamassassin_remote_conf[$_SESSION["vm_tcphost"]]["tb_userpref"];
 	}
-
 
 	if (!$A) { $A = "menu"; }  // default action
 	if ($A == "login") { $A = "menu"; }  // we're already logged in! So we show the menu instead.
@@ -286,13 +271,11 @@ if ($active == 1) {    // active=1 -> user logged in
 	//
 
 	if ($A == "about") {
-
 		html_head("$program_name Administration - About");
-		html_titlebar($txt_about[$lang], "", "");
+		html_titlebar($txt_about[$_SESSION["lang"]], "", "");
 		html_about();
 		html_end();
 		exit();
-
 	}
 
 
@@ -301,24 +284,20 @@ if ($active == 1) {    // active=1 -> user logged in
 	//
 
 	if ($A == "help") {
-
 		html_head("$program_name Administration - Help");
-		html_titlebar($txt_help[$lang], "", "");
+		html_titlebar($txt_help[$_SESSION["lang"]], "", "");
 		html_help();
 		html_end();
 		exit();
-
 	}
-
 
 	//
 	// SPLASH
 	//
 
 	if ($A == "splash") {
-
 		html_head("$program_name Administration - Welcome!");
-		html_titlebar($txt_welcome[$lang], "", "");
+		html_titlebar($txt_welcome[$_SESSION["lang"]], "", "");
 		html_splash();
 		html_end();
 		exit();
@@ -329,87 +308,84 @@ if ($active == 1) {    // active=1 -> user logged in
 	//
 
 	if ($A == "menu") {
-
-
 		html_head("$program_name Administration - Menu");
+		if ($_SESSION["type"] == "domain") {
+			if ($form_sort == "info") {
+                $_SESSION["sort_order"] = "info";
+            }
+			if ($form_sort == "username") {
+                $_SESSION["sort_order"] = "username";
+            }
 
-		if ($type == "domain") {
-
-			if ($form_sort == "info") { $sort_order = "info"; }
-			if ($form_sort == "username") { $sort_order = "username"; }
-
-			if ($catchall_active) {
-			    $txt_menu_add = "<br>" . $txt_current_catchall_account_is[$lang] . ": <b>$catchall_active@$domain</b>";
-			    $txt_menu_add .= ' [ <a href="' . $script_url . '?A=create_catchall&" onClick="oW(this,\'pop\')">' . $txt_edit[$lang] . '</a> ]';
-			    // $txt_menu_add .= ' [ <a href="' . $script_url . '?A=create_catchall&U='.$catchall_active.'" onClick="oW(this,\'pop\')">' . $txt_edit[$lang] . '</a> ]';
-			    // $txt_menu_add .= ' [ <a href="' . $script_url . '?A=remove_catchall&U='.$catchall_active.'" onClick="oW(this,\'pop\')">' . $txt_delete[$lang] . '</a> ]';
+			if ($_SESSION["catchall_active"]) {
+			    $txt_menu_add = "<br>" . $txt_current_catchall_account_is[$_SESSION["lang"]] . ": <b>" . $_SESSION["catchall_active"] . "@" . $_SESSION["domain"] . "</b>";
+			    $txt_menu_add .= ' [ <a href="' . $script_url . '?A=create_catchall&" onClick="oW(this,\'pop\')">' . $txt_edit[$_SESSION["lang"]] . '</a> ]';
 			} else {
-			    $txt_menu_add = "<br>" . $txt_current_catchall_not_defined[$lang] ;
-			    $txt_menu_add .= ' [ <a href="'. $script_url . '?A=create_catchall&U=" onClick="oW(this,\'pop\')">' . $txt_edit[$lang] . '</a> ]';
+			    $txt_menu_add = "<br>" . $txt_current_catchall_not_defined[$_SESSION["lang"]] ;
+			    $txt_menu_add .= ' [ <a href="'. $script_url . '?A=create_catchall&U=" onClick="oW(this,\'pop\')">' . $txt_edit[$_SESSION["lang"]] . '</a> ]';
 			}
 
-
-			if ($vmailstats["active"]) {
-				$txt_menu_add .= "<br>$txt_total_size[$lang]: ";
-				if ($vmailstats["global_size"]<1024) {
-					$txt_menu_add .= "<b>" . $vmailstats["global_size"] . " kB</b>.";
+			if ($_SESSION["vmailstats"]["active"]) {
+				$txt_menu_add .= "<br>" . $txt_total_size[$_SESSION["lang"] . ": ";
+				if ($_SESSION["vmailstats"]["global_size"] < 1024) {
+					$txt_menu_add .= "<b>" . $_SESSION["vmailstats"]["global_size"] . " kB</b>.";
 				} else {
-					$txt_menu_add .= "<b>" . round($vmailstats["global_size"]/1024,1) . " MB</b>.";
+					$txt_menu_add .= "<b>" . round($_SESSION["vmailstats"]["global_size"] / 1024, 1) . " MB</b>.";
 				}
-				$txt_menu_add .= " (" . date("j.m.y H:i:s", $vmailstats["date"]) . ") ";
+				$txt_menu_add .= " (" . date("j.m.y H:i:s", $_SESSION["vmailstats"]["date"]) . ") ";
 			}
 
-
-			html_titlebar($txt_menu[$lang] . " - $domain", $txt_menu_domain_descr[$lang] . $txt_menu_add, 0);
+			html_titlebar($txt_menu[$_SESSION["lang"]] . " - ". $_SESSION["domain"], $txt_menu_domain_descr[$_SESSION["lang"]] . $txt_menu_add, 0);
 
 			flush();
 
-			if (!$quota_on || ($quota_on && $quota_data["users_support"])) {
-                                if (isset($show_mb_letter)) { $mb_letter = $show_mb_letter; }
+			if (!$_SESSION["quota_on"] || ($_SESSION["quota_on"] && $_SESSION["quota_data"]["users_support"])) {
+                if (isset($show_mb_letter)) { $_SESSION["mb_letter"] = $show_mb_letter; }
 				$mboxes = get_accounts(1);
 
-				if (isset($new_mb_start)) { $mb_start = $new_mb_start; }
+				if (isset($new_mb_start)) {
+                    $_SESSION["mb_start"] = $new_mb_start;
+                }
 
-				if (isset($mb_start) && $show_how_many_accounts) {
-				    html_display_mailboxes($mboxes,1,$mb_start,$show_how_many_accounts);
+				if (isset($_SESSION["mb_start"]) && $show_how_many_accounts) {
+				    html_display_mailboxes($mboxes, 1, $_SESSION["mb_start"], $show_how_many_accounts);
 				} else {
-				    html_display_mailboxes($mboxes,1);
+				    html_display_mailboxes($mboxes, 1);
 				}
 			}
 
-
-			if (!$quota_on || ($quota_on && $quota_data["alias_support"])) {
-                                if (isset($show_al_letter)) { $al_letter = $show_al_letter; }
+			if (!$_SESSION["quota_on"] || ($_SESSION["quota_on"] && $_SESSION["quota_data"]["alias_support"])) {
+                if (isset($show_al_letter)) { $_SESSION["al_letter"] = $show_al_letter; }
 				$aliases = get_accounts(2);
 
-				if (isset($new_al_start)) { $al_start = $new_al_start; }
+				if (isset($new_al_start)) {
+                    $_SESSION["al_start"] = $new_al_start;
+                }
 
-				if (isset($al_start) && $show_how_many_accounts) {
-				    html_display_mailboxes($aliases,2,$al_start,$show_how_many_accounts);
+				if (isset($_SESSION["al_start"]) && $show_how_many_accounts) {
+				    html_display_mailboxes($aliases, 2, $al_start, $show_how_many_accounts);
 				} else {
-				    html_display_mailboxes($aliases,2);
+				    html_display_mailboxes($aliases, 2);
 				}
 			}
 
 		} else {
 
-			if (!$quota_on || ($quota_on && $quota_data["user_login_allowed"])) {
-
-				html_titlebar($txt_menu[$lang] . " - $domain", $txt_menu_account_descr[$lang] . $txt_menu_add, 0);
-				$testuser = get_accounts(0,$username);
-				html_display_mailboxes($testuser,0);
+			if (!$_SESSION["quota_on"] || ($_SESSION["quota_on"] && $_SESSION["quota_data"]["user_login_allowed"])) {
+				html_titlebar($txt_menu[$_SESSION["lang"]] . " - ". $_SESSION["domain"], $txt_menu_account_descr[$_SESSION["lang"]] . $txt_menu_add, 0);
+				$testuser = get_accounts(0, $_SESSION["username"]);
+				html_display_mailboxes($testuser, 0);
 
 			} else {
 
-				// user logged in correctely, but quota/domain info don't allow user login.
-
-	                	$msg = $txt_error_not_allowed[$lang];
-		                $msg .= "<ul><li><a href=\"$script_url?A=login&" . SID . "\">" . $txt_login_again[$lang]  .  "</a>\n";
-		                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";
+				// user logged in correctly, but quota/domain info doesn't allow user login.
+               	$msg = $txt_error_not_allowed[$_SESSION["lang"]];
+                $msg .= "<ul><li><a href=\"$script_url?A=login&" . SID . "\">" . $txt_login_again[$_SESSION["lang"]] . "</a>\n";
+                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
 				html_head("$program_name Administration");
-	        	        html_titlebar($txt_error[$lang], $msg ,0);
-		                html_end();
-				$active = 0;
+	        	html_titlebar($txt_error[$_SESSION["lang"]], $msg ,0);
+                html_end();
+				$_SESSION["active"] = 0;
 				session_destroy();
 				exit();
 			}
@@ -427,20 +403,17 @@ if ($active == 1) {    // active=1 -> user logged in
 
 	if ($A == "spam" || $A == "resp" || $A == "edit" || $A == "read" || $A == "delete" || $A == "parse" || $A == "quota" || $A == "catchall" || $A == "catchall_remove" || $A == "remove_catchall" || $A == "user_enable" || $A == "user_disable") {
 
-	        // check if $U ok
-
+        // check if $U ok
 		$U = trim($U);  // remove blanks at the beginning and end, if any
-
-	        if (!(ereg("^[a-zA-Z0-9\_+\.\-]{0,}$", $U))) {
-
-                        html_head("$program_name Administration - Error");
-                        $msg = "<b>" . $txt_error_invalid_chars_in_username[$lang] . "</b><br><br>";
-                        $msg .= "<ul><li><a href=\"$script?A=menu&" . SID. "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
-			$msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$lang] . "</a>\n</ul>";
-                        html_titlebar($txt_error[$lang], "$msg",0);
-                        html_end();
-                        exit();
-	        }
+        if (!(preg_match("/^[a-zA-Z0-9\_+\.\-]{0,}$/", $U))) {
+            html_head("$program_name Administration - Error");
+            $msg = "<b>" . $txt_error_invalid_chars_in_username[$_SESSION["lang"]] . "</b><br><br>";
+            $msg .= "<ul><li><a href=\"$script?A=menu&" . SID. "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
+            $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
+            html_titlebar($txt_error[$_SESSION["lang"]], "$msg",0);
+            html_end();
+            exit();
+        }
 	}
 
 
@@ -449,7 +422,6 @@ if ($active == 1) {    // active=1 -> user logged in
 	//
 
 	if ($A == "newalias") {
-
 
 		if ($type == "domain" && (!$quota_on || ($quota_on && ($quota_data["alias_support"]  && $quota_data["nb_alias"] < $quota_data["max_alias"]))) && !$quota_data["new_alias_forbidden"]) {
 			html_head("$program_name Administration - New Alias");

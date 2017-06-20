@@ -46,20 +46,6 @@ const sel = "sel";
 const txt = "txt";
 const url = "url";
 
-// Fix for removed Session functions
-function session_register(){
-	$args = func_get_args();
-	foreach ($args as $key){
-		$_SESSION[$key]=$GLOBALS[$key];
-	}
-}
-function session_is_registered($key){
-	return isset($_SESSION[$key]);
-}
-function session_unregister($key){
-	unset($_SESSION[$key]);
-}
-
 function check_session($arg_ip) {
 
 	global $expire_after;
