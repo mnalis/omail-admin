@@ -708,6 +708,7 @@ function complexHelper($tagContent, $parseSet, $encoding) {
     $parseString = "";
     for ($i = 0; $i < count($parseSet); $i++) {
 	    $ar = array();
+        $parseArray = $parseSet[$i];
         if (is_array($parseArray)) {
 		    while (list($key, $val) = each($parseArray)) {
 		        if (is_array($val)) {
@@ -736,7 +737,7 @@ function complexParsing($parseArray, $template, $outputFile = "", $encoding = ""
 	           $ar[$tagStringArray[$j]] = complexHelper($tagStringArray[$j], $val, $encoding);
 	        }
         } else {
-            $ar[$key] = doEncoding($val, $encoding);
+            $ar[$key]= doEncoding($val, $encoding);
         }
     }
     return parseT($ar, $template, $outputFile, $encoding, $separator);
