@@ -606,10 +606,8 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 
 	// if autoresp_support = 0 -> don't show autorespond button... and check if colspan are ok...
 
-
-
 	global $session, $script_url, $system_accounts_list, $readonly_accounts_list, $show_how_many_accounts;
-	global $use_spamassassin;
+	global $config_use_settings_with_quota, $use_spamassassin;
 	include("strings.php");
 
 	switch ($arg_action) {
