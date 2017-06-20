@@ -1,4 +1,21 @@
 <?
+
+// Clear up input values (because of magic quotes...)
+if (count($_GET)) {
+    foreach ($_GET as $key => $value) {
+        if (!is_array($$key)) {
+            $$key = stripslashes($value);
+        }
+    }
+}
+if (count($_POST)) {
+    foreach ($_POST as $key => $value) {
+        if (!is_array($$key)) {
+            $$key = stripslashes($value);
+        }
+    }
+}
+
 // Initialize session variables
 if (!isset($_SESSION["username"])) {
     $_SESSION["username"] = "";
@@ -56,6 +73,12 @@ if (!isset($_SESSION["vm_tcphost_port"])) {
 }
 if (!isset($_SESSION["vmailstats"])) {
     $_SESSION["vmailstats"] = array();
+}
+
+if (isset($_SESSION["lang"] && isset($setlang)) {
+    if ($setlang != $_SESSION["lang"]) {
+        $_SESSION["lang"] = $setlang;
+    }
 }
 
 ?>

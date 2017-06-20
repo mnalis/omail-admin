@@ -60,24 +60,6 @@ $vm_list_loaded = 0;
 $vm_resp_status = array();
 
 
-// clean input values (because of magic quotes...)
-
-if (count($_GET)) {
-        foreach ($_GET as $key => $value) {
-                if (!is_array($$key)) {
-                        $$key = stripslashes($value);
-                }
-        }
-}
-if (count($_POST)) {
-        foreach ($_POST as $key => $value) {
-                if (!is_array($$key)) {
-                        $$key = stripslashes($value);
-                }
-        }
-}
-
-
 if (!isset($setlang)) {
 
 	// if no language defined yet (cookie or session):
