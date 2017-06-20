@@ -117,7 +117,7 @@ function html_login() {
 
 function html_head($title) {
 
-	global $A, $cvs_version, $version;
+	global $A, $cvs_version, $setlang, $version;
 	include("strings.php");
 
 	// needed for 'ru' (at least with no-russian browsers)
