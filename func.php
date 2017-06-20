@@ -227,11 +227,11 @@ function load_quota_info($domain) {
 
 
 					// dirty hack, but should be ok for the moment :]  (index.php will be updated soon)
-					if (!isset($_SESSION["quota_data"]["max_users"]) { $_SESSION["quota_data"]["max_users"] = 99999999; }
-					if (!isset($_SESSION["quota_data"]["max_alias"]) { $_SESSION["quota_data"]["max_alias"] = 99999999; }
-					if (!isset($_SESSION["quota_data"]["softquota"]) { $_SESSION["quota_data"]["softquota"] = '-'; }
-					if (!isset($_SESSION["quota_data"]["hardquota"]) { $_SESSION["quota_data"]["hardquota"] = '-'; }
-					if (!isset($_SESSION["quota_data"]["msgsize"]) { $_SESSION["quota_data"]["msgsize"] = '-'; }
+					if (!isset($_SESSION["quota_data"]["max_users"])) { $_SESSION["quota_data"]["max_users"] = 99999999; }
+					if (!isset($_SESSION["quota_data"]["max_alias"])) { $_SESSION["quota_data"]["max_alias"] = 99999999; }
+					if (!isset($_SESSION["quota_data"]["softquota"])) { $_SESSION["quota_data"]["softquota"] = '-'; }
+					if (!isset($_SESSION["quota_data"]["hardquota"])) { $_SESSION["quota_data"]["hardquota"] = '-'; }
+					if (!isset($_SESSION["quota_data"]["msgsize"])) { $_SESSION["quota_data"]["msgsize"] = '-'; }
 				}
 			}
 		}
@@ -281,14 +281,14 @@ function get_accounts($arg_action, $arg_username = "") {
 
 		$j = 0;
 
-		if ($quota_on) {
-			if ($arg_action == 1 || $arg_action == 3) { $quota_data["nb_users"] = 0; }
-			if ($arg_action == 2 || $arg_action == 3) { $quota_data["nb_alias"] = 0; }
+		if ($_SESSION["quota_on"]) {
+			if ($arg_action == 1 || $arg_action == 3) { $_SESSION["quota_data"]["nb_users"] = 0; }
+			if ($arg_action == 2 || $arg_action == 3) { $_SESSION["quota_data"]["nb_alias"] = 0; }
 		}
 
 	        for ($i = 0; $i <  sizeof($list); $i++) {
 
-	                list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $data11)=$list[$i];
+	                list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $data11) = $list[$i];
 
 			// set if visible or not (for catchall or "admin" accounts like postmaster, etc...)
 			if ($username == "+") { $Visible = 0; } else { $Visible = 1; }
@@ -311,19 +311,19 @@ function get_accounts($arg_action, $arg_username = "") {
 				$resp = 0;
 			}
 
-                        if (($arg_action == 1) && $mb_letter && !eregi("^[$mb_letter]",$username)) {
+                        if (($arg_action == 1) && $_SESSION["mb_letter"] && !preg_match("/^[$_SESSION['mb_letter']]/i", $username)) {
                                if ($mbox) {
                                    if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
-                                           $quota_data["nb_users"]++;
+                                           $_SESSION["quota_data"]["nb_users"]++;
                                    }
                                }
                                 continue;
                         }
 
-                        if ($arg_action == 2 && $al_letter && !eregi("^[$al_letter]",$username)) {
+                        if ($arg_action == 2 && $_SESSION["al_letter"] && !preg_match("/^[$_SESSION['al_letter']]/i", $username)) {
                                if (!$mbox) {
                                    if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
-                                           $quota_data["nb_alias"]++;
+                                           $_SESSION["quota_data"]["nb_alias"]++;
                                    }
                                }
                                 continue;
@@ -334,14 +334,14 @@ function get_accounts($arg_action, $arg_username = "") {
 			if ($mbox && ($arg_action == 1 || $arg_action == 3)) {
 				$new_list[$j++] = $list[$i];
 				if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
-					$quota_data["nb_users"]++;
+					$_SESSION["quota_data"]["nb_users"]++;
 				}
 			}
 
 			if (!$mbox && ($arg_action == 2 || $arg_action == 3)) {
 				$new_list[$j++] = $list[$i];
 				if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
-					$quota_data["nb_alias"]++;
+					$_SESSION["quota_data"]["nb_alias"]++;
 				}
 			}
 
@@ -351,7 +351,7 @@ function get_accounts($arg_action, $arg_username = "") {
 
 		// try to sort on username
 
-		if ($sort_order == "info") {
+		if ($_SESSION["sort_order"] == "info") {
 			usort($new_list, get_accounts_sort_by_info);
 		} else {
 			usort($new_list, get_accounts_sort_by_name);
@@ -360,7 +360,7 @@ function get_accounts($arg_action, $arg_username = "") {
 
 	} else {  // user
 
-		$lookup_data = lookup($domain, $arg_username, base64_decode($passwd));
+		$lookup_data = lookup($_SESSION["domain"], $arg_username, base64_decode($_SESSION["passwd"]));
 		$alias = array();
 		$i = -1;
 
@@ -381,72 +381,80 @@ function get_accounts($arg_action, $arg_username = "") {
 
 function update_passwd($arg_username, $arg_passwd) {
 
-        global $type, $domain, $passwd;
-
-	$result = vchpass($domain, base64_decode($passwd), $arg_username, $arg_passwd);
+	$result = vchpass($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, $arg_passwd);
 
 	// update session password if necessary
-	if ($type == "user") { $passwd = base64_encode($arg_passwd); }
+	if ($_SESSION["type"] == "user") { $_SESSION["passwd"] = base64_encode($arg_passwd); }
 
-        if (!$result[0]) { return "PASSW ok : " . $result[1] ; }
-                else { return "PASSW error : " . $result[1] ; }
-
+    if (!$result[0]) {
+        return "PASSW ok : " . $result[1] ;
+    } else {
+        return "PASSW error : " . $result[1] ;
+    }
 }
 
 function update_userdetail($arg_username, $arg_detail) {
 
-        global $type, $domain, $passwd;
+	$result = vchattr($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, "PERSONAL", $arg_detail);
 
-	$result = vchattr($domain, base64_decode($passwd), $arg_username, "PERSONAL", $arg_detail);
-
-        if (!$result[0]) { return "USERINFO ok : " . $result[1] ; }
-                else { return "USERINFO error : " . $result[1] ; }
+    if (!$result[0]) {
+        return "USERINFO ok : " . $result[1] ;
+    } else {
+        return "USERINFO error : " . $result[1] ;
+    }
 }
 
 
 function update_userquota($arg_username, $arg_softquota, $arg_hardquota, $arg_expiry, $arg_msgcount, $arg_msgsize, $arg_enabled) {
 
-        global $type, $domain, $passwd;
+	if ($arg_softquota == "" || $arg_softquota == "-") {
+        $arg_softquota = "-";
+    } else {
+        $arg_softquota = $arg_softquota * 1024;
+    }
+	if ($arg_hardquota == "" || $arg_hardquota == "-") {
+        $arg_hardquota = "-";
+    } else {
+        $arg_hardquota = $arg_hardquota * 1024;
+    }
+	if ($arg_msgsize == "" || $arg_msgsize == "-" ) {
+        $arg_msgsize = "-";
+    } else {
+        $arg_msgsize = $arg_msgsize * 1024;
+    }
+	if ($arg_msgcount == "") {
+        $arg_msgcount = "-";
+    }
 
-	if ($arg_softquota == "" || $arg_softquota == "-")
-		{ $arg_softquota = "-" ; }
-		else { $arg_softquota = $arg_softquota * 1024; }
-	if ($arg_hardquota == "" || $arg_hardquota == "-")
-		{ $arg_hardquota = "-" ; }
-		else { $arg_hardquota = $arg_hardquota * 1024; }
-	if ($arg_msgsize == "" || $arg_msgsize == "-" )
-		{ $arg_msgsize = "-" ; }
-		else { $arg_msgsize = $arg_msgsize * 1024; }
-	if ($arg_msgcount == "") { $arg_msgcount = "-" ; }
+	$result1 = vchattr($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, "HARDQUOTA", $arg_hardquota);
+	$result2 = vchattr($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, "SOFTQUOTA", $arg_softquota);
+	$result3 = vchattr($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, "MSGSIZE", $arg_msgsize);
+	$result4 = vchattr($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, "MSGCOUNT", $arg_msgcount);
+	$result5 = vchattr($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, "EXPIRY", $arg_expiry);
+	$result6 = vchattr($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, "MAILBOX_ENABLED", $arg_enabled);
 
-	$result1 = vchattr($domain, base64_decode($passwd), $arg_username, "HARDQUOTA", $arg_hardquota);
-	$result2 = vchattr($domain, base64_decode($passwd), $arg_username, "SOFTQUOTA", $arg_softquota);
-	$result3 = vchattr($domain, base64_decode($passwd), $arg_username, "MSGSIZE", $arg_msgsize);
-	$result4 = vchattr($domain, base64_decode($passwd), $arg_username, "MSGCOUNT", $arg_msgcount);
-	$result5 = vchattr($domain, base64_decode($passwd), $arg_username, "EXPIRY", $arg_expiry);
-	$result6 = vchattr($domain, base64_decode($passwd), $arg_username, "MAILBOX_ENABLED", $arg_enabled);
-
-        if (!$result1[0] && !$result2[0] && !$result3[0] && !$result4[0] && !$result5[0] && !$result6[0]) { return "QUOTA ok : " . $result6[1] ; }
-                else { return "QUOTA error : " . $result6[1] ; }
+    if (!$result1[0] && !$result2[0] && !$result3[0] && !$result4[0] && !$result5[0] && !$result6[0]) {
+        return "QUOTA ok : " . $result6[1] ;
+    } else {
+        return "QUOTA error : " . $result6[1] ;
+    }
 }
 
 
 function update_userstatus($arg_username, $arg_enabled) {
 
-        global $type, $domain, $passwd;
+	$result = vchattr($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, "MAILBOX_ENABLED", $arg_enabled);
 
-	$result = vchattr($domain, base64_decode($passwd), $arg_username, "MAILBOX_ENABLED", $arg_enabled);
-
-        if (!$result[0]) { return "SETTINGS ok : " . $result[1] ; }
-                else { return "SETTINGS error : " . $result[1] ; }
-
+    if (!$result[0]) {
+        return "SETTINGS ok : " . $result[1] ;
+    } else {
+        return "SETTINGS error : " . $result[1] ;
+    }
 }
 
 
 
 function update_account($arg_username, $arg_fwd) {
-
-        global $type, $domain, $passwd;
 
 	// check forwarders
 
@@ -461,62 +469,65 @@ function update_account($arg_username, $arg_fwd) {
 		}
 	}
 
-	$result = vchforward($domain, base64_decode($passwd), $arg_username, $new_fwd);
+	$result = vchforward($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, $new_fwd);
 
-        if (!$result[0]) { return "UPDATE ok : " . $result[1] ; }
-                else { return "UPDATE error : " . $result[1] ; }
-
+    if (!$result[0]) {
+        return "UPDATE ok : " . $result[1] ;
+    } else {
+        return "UPDATE error : " . $result[1] ;
+    }
 }
 
 function create_account($arg_username, $arg_passwd, $arg_fwd) {
 
-        global $type, $domain, $passwd;
+	$result = vadduser($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, $arg_passwd, $arg_fwd);
 
-	$result = vadduser($domain, base64_decode($passwd), $arg_username, $arg_passwd, $arg_fwd);
-
-        if (!$result[0]) { return "NEWUSER ok : " . $result[1] ; }
-                else { return "NEWUSER error : " . $result[1] ; }
+    if (!$result[0]) {
+        return "NEWUSER ok : " . $result[1] ;
+    } else {
+        return "NEWUSER error : " . $result[1] ;
+    }
 }
 
 function create_alias($arg_username, $arg_passwd, $arg_fwd) {
 
-        global $type, $domain, $passwd;
+	$result = vaddalias($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, $arg_passwd, $arg_fwd);
 
-	$result = vaddalias($domain, base64_decode($passwd), $arg_username, $arg_passwd, $arg_fwd);
-
-        if (!$result[0]) { return "NEWALIAS ok : " . $result[1] ; }
-                else { return "NEWALIAS error : " . $result[1] ; }
+    if (!$result[0]) {
+        return "NEWALIAS ok : " . $result[1] ;
+    } else {
+        return "NEWALIAS error : " . $result[1] ;
+    }
 }
 
 function delete_account($arg_username) {
 
-        global $type, $domain, $passwd;
+	$result = vdeluser($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username);
 
-	$result = vdeluser($domain, base64_decode($passwd), $arg_username);
-
-        if (!$result[0]) { return "DELETE ok :  " . $result[1] ; }
-                else { return "DELETE error : " . $result[1] ; }
+    if (!$result[0]) {
+        return "DELETE ok :  " . $result[1] ;
+    } else {
+        return "DELETE error : " . $result[1] ;
+    }
 }
-
 
 function load_resp_file($arg_username) {
 
-        global $type, $domain, $passwd;
-
-	$return_data = vreadautoresponse($domain, base64_decode($passwd), $arg_username);
+	$return_data = vreadautoresponse($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username);
 
 	return $return_data;
-
 }
 
 function load_resp_status($arg_username) {
 
-        global $type, $domain, $passwd;
-
-	$data = vautoresponsestatus($domain, base64_decode($passwd), $arg_username);
+	$data = vautoresponsestatus($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username);
 	$status = $data[1];
 
-	if ($status == "enabled") { return 1; } else { return 0; }
+	if ($status == "enabled") {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 function parse_resp_file($arg_text) {
@@ -538,46 +549,45 @@ function parse_resp_file($arg_text) {
 	}
 	$body .= $text[$i];
 
-        return array($from,$subject,$body);
-
+    return array($from, $subject, $body);
 }
-
 
 function save_resp_file($arg_username, $arg_resptext, $arg_status) {
 
-        global $type, $domain, $passwd;
-
 	// activate autoresponder (needed to be able to write to the file...)
 
-	venableautoresponse($domain, base64_decode($passwd), $arg_username);
+	venableautoresponse($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username);
 
 	// write text
 
-	$result = vwriteautoresponse($domain, base64_decode($passwd), $arg_username, $arg_resptext);
+	$result = vwriteautoresponse($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, $arg_resptext);
 
-        if (!$result[0]) { $return_msg = "AUTORESP_TXT ok :  " . $result[1] . "<br>"; }
-                else { $return_msg = "AUTORESP_TXT error : " . $result[1] . "<br>"; }
+    if (!$result[0]) {
+        $return_msg = "AUTORESP_TXT ok :  " . $result[1] . "<br>";
+    } else {
+        $return_msg = "AUTORESP_TXT error : " . $result[1] . "<br>";
+    }
 
 	if ($arg_status) {
 		$stat = "ON";
-		$result2 = venableautoresponse($domain, base64_decode($passwd), $arg_username);
+		$result2 = venableautoresponse($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username);
 	} else {
 		$stat = "OFF";
-		$result2 = vdisableautoresponse($domain, base64_decode($passwd), $arg_username);
+		$result2 = vdisableautoresponse($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username);
 	}
 
-	if (!$result2[0]) { $return_msg .= "AUTORESP $stat ok :  " . $result2[1] ; }
-        else { $return_msg .= "AUTORESP $stat error : " . $result2[1] ; }
+	if (!$result2[0]) {
+        $return_msg .= "AUTORESP $stat ok :  " . $result2[1] ;
+    } else {
+        $return_msg .= "AUTORESP $stat error : " . $result2[1] ;
+    }
 
 	return $return_msg;
-
 }
 
 function get_catchall_account() {
 
-	global $catchall_active;
-
-	$catchall_active = "";   // reset
+	$_SESSION["catchall_active"] = "";   // reset
 
 	// will return the name of the actual catchall account, but only if it is an "official"
 	// one (created by omail-admin, only one forwarder pointing to an existing account)
@@ -593,19 +603,18 @@ function get_catchall_account() {
 
 	    if ($catchallinfo[0] == "+") {
 
-    	        if (!($catchallinfo[2])) {
-		    $aliases = $catchallinfo[3];
-		    $nb_fwd = count($aliases);
+            if (!($catchallinfo[2])) {
+                $aliases = $catchallinfo[3];
+                $nb_fwd = count($aliases);
 
-		    if ($nb_fwd == 1 && $aliases[0] && (!(preg_match("/@/i", $aliases[0]))))  {
-			$catchall_active = $aliases[0];
-			break;
-		    }
-		}
+                if ($nb_fwd == 1 && $aliases[0] && (!(preg_match("/@/i", $aliases[0]))))  {
+                    $_SESSION["catchall_active"] = $aliases[0];
+                    break;
+                }
+            }
 	    }
 	}
 }
-
 
 // ---------------------------------------------------------------------------------
 // Dynamic Token Access
@@ -613,262 +622,200 @@ function get_catchall_account() {
 // Programmiert:	Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 // ---------------------------------------------------------------------------------
 
-function parseTemplate($parseArray, $template, $outputFile = "", $encoding="", $separator="%")
-{
+function parseTemplate($parseArray, $template, $outputFile = "", $encoding="", $separator="%") {
 	return complexParsing($parseArray, $template, $outputFile, $encoding, $separator);
 }
 
 
-function parseContent($parseArray,$content,$encoding="",$separator="%")
-{
+function parseContent($parseArray, $content, $encoding = "", $separator = "%") {
     $ar = array();
-    while (list($key, $val) = each($parseArray))
-    {
-        if(is_array($val))
-        {
-            $tagStringArray = getContentStrings($content,$key);
-            for($j=0;$j<count($tagStringArray);$j++)
-            {
+    while (list($key, $val) = each($parseArray)) {
+        if (is_array($val)) {
+            $tagStringArray = getContentStrings($content, $key);
+            for ($j = 0; $j < count($tagStringArray); $j++) {
                $ar[$tagStringArray[$j]] = complexHelper($tagStringArray[$j],$val,$encoding);
             }
-        }
-        else
-        {
-            $ar[$key]=doEncoding($val,$encoding);
+        } else {
+            $ar[$key] = doEncoding($val, $encoding);
         }
     }
-    return parseC ($ar,$content, $encoding, $separator);
+    return parseC($ar, $content, $encoding, $separator);
 }
 
-
-
-function parseC ($parseArray,$content, $encoding, $separator="%")
-{
-    while (list($key, $val) = @each($parseArray))
-    {
-        if (substr($key,0,1)!="<" || substr($key,-1,1)!=">")
-        {
-                $key = $separator.$key.$separator;
+function parseC($parseArray, $content, $encoding, $separator = "%") {
+    while (list($key, $val) = @each($parseArray)) {
+        if (substr($key, 0, 1) != "<" || substr($key, -1, 1) != ">") {
+            $key = $separator.$key.$separator;
         }
         $content = str_replace($key, $val, $content);
     }
     return $content;
 }
 
-
-function parseT ($parseArray, $template, $outputFile = "",$encoding="", $separator="%")
-{
+function parseT ($parseArray, $template, $outputFile = "",$encoding = "", $separator = "%") {
 	global $template_name;
 
-	$file=substr($template, 0, strlen($template)-5).".$template_name.temp";
-        if (file_exists("$file")) {    // [om] 25sep2k
-    	    $template = "$file";
-        }
-
-
-        if($fp=fopen("$template","r"))
-    {
-        $content=fread( $fp, filesize($template) );
-        fclose($fp);
-        $content = parseC($parseArray,$content,$encoding, $separator);
-        if ($outputFile!="")
-        {
-                if($fp1=fopen("$outputFile","w"))
-                {
-                    if (!fwrite($fp1,$content))
-                    {
-                    echo("Konnte File ".$name." nicht beschreiben!<br> Tipp: &Uuml;berür&uuml;fen Sie die Schreibrechte des entsprechenden Verzeichnisses.");
-                    }
-                }
-                else
-                {
-                echo("Konnte File ".$name." nicht öffnen!<br>Tipp: &Uuml;berür&uuml;fen Sie die Schreibrechte des entsprechenden Verzeichnisses.");
-                }
-                fclose($fp1);
-        }
-    return "\n<!-- --- Template: $template ---- -->\n".$content;
+	$file = substr($template, 0, strlen($template)-5).".$template_name.temp";
+    if (file_exists("$file")) {    // [om] 25sep2k
+        $template = "$file";
     }
-    else
-    {
-    echo("Konnte File ".$HTMLTemplate." nicht öffnen!");
+    if($fp = fopen("$template", "r")) {
+        $content = fread($fp, filesize($template));
+        fclose($fp);
+        $content = parseC($parseArray, $content, $encoding, $separator);
+        if ($outputFile != "") {
+            if($fp1 = fopen("$outputFile", "w")) {
+                if (!fwrite($fp1, $content)) {
+                    echo("Konnte File ".$name." nicht beschreiben!<br> Tipp: &Uuml;berür&uuml;fen Sie die Schreibrechte des entsprechenden Verzeichnisses.");
+                }
+            } else {
+                echo("Konnte File ".$name." nicht öffnen!<br>Tipp: &Uuml;berür&uuml;fen Sie die Schreibrechte des entsprechenden Verzeichnisses.");
+            }
+            fclose($fp1);
+        }
+        return "\n<!-- --- Template: $template ---- -->\n".$content;
+    } else {
+        echo("Konnte File ".$HTMLTemplate." nicht öffnen!");
         return false;
     }
 }
 
 
-
-function getTemplateStrings($template, $tag)
-{
-
-
+function getTemplateStrings($template, $tag) {
     global $template_name;
 
-    $file=substr($template, 0, strlen($template)-5).".$template_name.temp";
+    $file = substr($template, 0, strlen($template) - 5) . ".$template_name.temp";
     if (file_exists("$file")) {    // [om] 25sep2k
-	$template = "$file";
+        $template = "$file";
     }
-
-    if ($fp=fopen("$template","r"))
-    {
-        $content=fread($fp, filesize($template));
+    if ($fp=fopen("$template","r")) {
+        $content = fread($fp, filesize($template));
         fclose($fp);
-        return getContentStrings($content,$tag);
-    }
-    else
-    {
+        return getContentStrings($content, $tag);
+    } else {
         echo "Couldn't open template $template";
         return false;
     }
 }
 
-function getContentStrings($content, $tag)
-{
-        $startTag="<$tag>";
-            $endTag="</$tag>";
-        $pos=0;
-            $i=0;
-        $templateStrings = array();
+function getContentStrings($content, $tag) {
+    $startTag="<$tag>";
+    $endTag="</$tag>";
+    $pos=0;
+    $i=0;
+    $templateStrings = array();
 
-        while (is_int(strpos($content,$startTag, $pos)) && is_int(strpos($content,$endTag, $pos)))
-        {
-            $startPos = strpos($content,$startTag, $pos);
-            $endPos = strpos($content,$endTag, $pos);
-            $pos = $endPos + 1;
-            $templateStrings[$i] = substr($content, $startPos, ($endPos + strlen($endTag) - $startPos));
-            $i++;
-        }
-       return $templateStrings;
+    while (is_int(strpos($content, $startTag, $pos)) && is_int(strpos($content, $endTag, $pos))) {
+        $startPos = strpos($content, $startTag, $pos);
+        $endPos = strpos($content, $endTag, $pos);
+        $pos = $endPos + 1;
+        $templateStrings[$i] = substr($content, $startPos, ($endPos + strlen($endTag) - $startPos));
+        $i++;
+    }
+    return $templateStrings;
 }
 
-
-function complexHelper($tagContent,$parseSet,$encoding)
-{
-    $parseString="";
-    for($i=0;$i<count($parseSet);$i++)
-    {
+function complexHelper($tagContent, $parseSet, $encoding) {
+    $parseString = "";
+    for ($i = 0; $i < count($parseSet); $i++) {
 	    $ar = array();
-    	    $parseArray=$parseSet[$i];
-    	    if (is_array($parseArray))
-    	    {
-		    while (list($key, $val) = each($parseArray))
-		    {
-		        if(is_array($val))
-		        {
-		            $tagStringArray = getContentStrings($tagContent,$key);
-		            for($j=0;$j<count($tagStringArray);$j++)
-		            {
-	 	            	$ar[$tagStringArray[$j]]= complexHelper($tagStringArray[$j],$val,$encoding);
+        $parseArray = $parseSet[$i];
+        if (is_array($parseArray)) {
+		    while (list($key, $val) = each($parseArray)) {
+		        if (is_array($val)) {
+		            $tagStringArray = getContentStrings($tagContent, $key);
+		            for($j = 0; $j < count($tagStringArray); $j++) {
+	 	            	$ar[$tagStringArray[$j]] = complexHelper($tagStringArray[$j], $val, $encoding);
 	 	            }
-		        }
-		        else
-		        {
-				    $ar[$key]=doEncoding($val,$encoding);
+		        } else {
+				    $ar[$key] = doEncoding($val, $encoding);
 		        }
 		    }
+	    } else {
+            $ar[$tagContent] = $parseArray;
 	    }
-	    else
-	    {
-	            $ar[$tagContent]=$parseArray;
-	    }
-	    $parseString .= parseC($ar,$tagContent,$encoding);
+	    $parseString .= parseC($ar, $tagContent, $encoding);
     }
     return $parseString;
 }
 
-
-function complexParsing($parseArray, $template, $outputFile = "",$encoding="", $separator="%")
+function complexParsing($parseArray, $template, $outputFile = "", $encoding = "", $separator = "%")
 {
     $ar = array();
-    while (list($key, $val) = each($parseArray))
-    {
-        if(is_array($val))
-        {
-            $tagStringArray = getTemplateStrings($template,$key);
-	        for($j=0;$j<count($tagStringArray);$j++)
-	        {
-	           $ar[$tagStringArray[$j]] = complexHelper($tagStringArray[$j],$val,$encoding);
+    while (list($key, $val) = each($parseArray)) {
+        if (is_array($val)) {
+            $tagStringArray = getTemplateStrings($template, $key);
+	        for($j = 0; $j < count($tagStringArray); $j++) {
+	           $ar[$tagStringArray[$j]] = complexHelper($tagStringArray[$j], $val, $encoding);
 	        }
-        }
-        else
-        {
-            $ar[$key]= doEncoding($val,$encoding);
+        } else {
+            $ar[$key]= doEncoding($val, $encoding);
         }
     }
-    return parseT ($ar,$template,$outputFile,$encoding,$separator);
-
+    return parseT($ar, $template, $outputFile, $encoding, $separator);
 }
 
-function complexContent($parseArray,$content, $encoding="", $separator="%")
+function complexContent($parseArray, $content, $encoding = "", $separator = "%")
 {
     $ar = array();
-    while (list($key, $val) = each($parseArray))
-    {
-        if(is_array($val))
-        {
-            $tagStringArray = getContentStrings($content,$key);
-            for($j=0;$j<count($tagStringArray);$j++)
-            {
-               $ar[$tagStringArray[$j]] = complexHelper($tagStringArray[$j],$val);
+    while (list($key, $val) = each($parseArray)) {
+        if(is_array($val)) {
+            $tagStringArray = getContentStrings($content, $key);
+            for($j = 0; $j < count($tagStringArray); $j++) {
+               $ar[$tagStringArray[$j]] = complexHelper($tagStringArray[$j], $val);
             }
-        }
-        else
-        {
-            $ar[$key]=$val;
+        } else {
+            $ar[$key] = $val;
         }
     }
-    return parseC ($ar,$content,$encoding,$separator);
+    return parseC($ar, $content, $encoding, $separator);
 }
 
-function doEncoding ($val,$encoding="")
-{
-       switch($encoding)
-       {
-           case "html":
-               $val=htmlentities($val);
-               $val=ereg_replace('&lt;',"<",$val);
-               $val=ereg_replace('&gt;',">",$val);
-               $val=nl2br($val);
-           break;
-           case "html_strictly":
-               $val=htmlentities($val);
-               $val=nl2br($val);
-           break;
-           default:
-       }
-       return $val;
+function doEncoding ($val, $encoding = "") {
+    switch($encoding) {
+        case "html":
+            $val = htmlentities($val);
+            $val = preg_replace('/&lt;/', "<", $val);
+            $val = preg_replace('/&gt;/', ">", $val);
+            $val = nl2br($val);
+            break;
+        case "html_strictly":
+            $val = htmlentities($val);
+            $val = nl2br($val);
+            break;
+        default:
+    }
+    return $val;
 }
 
-function get_ou ($domain)
-{
+function get_ou ($domain) {
     // Determine TLD
-    $tld = explode(".",$domain);
+    $tld = explode(".", $domain);
     $tld_last = count($tld);
     $tld = $tld[$tld_last-1];
 
     // Now strip it of the domainname
-    return (str_replace( "X", "", substr("$domain",0,-strlen($tld)-1 )));
+    return (str_replace( "X", "", substr("$domain", 0, -strlen($tld) - 1)));
 }
 
-
-function ldap_entry ($action, $username, $firstname, $lastname)
-{
+function ldap_entry ($action, $username, $firstname, $lastname) {
     $err=error_reporting();
     error_reporting(0);
 
-    global $domain, $ldap_base, $ldap_manager, $ldap_passwd, $ldap_host ;
+    global $ldap_base, $ldap_manager, $ldap_passwd, $ldap_host ;
 
     // Connect with the server or return error if failed
-    $linkid=ldap_connect($ldap_host);
+    $linkid = ldap_connect($ldap_host);
     if (!$linkid) {
-	error_reporting($err);
-	return "LDAP error : Can't connect to server " . $ldap_host ;
+        error_reporting($err);
+        return "LDAP error : Can't connect to server " . $ldap_host ;
     }
 
     // Bind with directory or return error if failed
-    $bind = ldap_bind($linkid, $ldap_manager.",".$ldap_base ,$ldap_passwd);
+    $bind = ldap_bind($linkid, $ldap_manager.",".$ldap_base, $ldap_passwd);
     if (!$bind) {
-	error_reporting($err);
-	return "LDAP error : Can't bind with ".$ldap_manager.", ".$ldap_base." on server ".$ldap_host;
+        error_reporting($err);
+        return "LDAP error : Can't bind with ".$ldap_manager.", ".$ldap_base." on server ".$ldap_host;
     }
 
     // Setup organizationalunit. OU consists of domainname minus Top Level Domain.
@@ -878,70 +825,68 @@ function ldap_entry ($action, $username, $firstname, $lastname)
     // as it's always possible to have two people sharing the same name.
     // But an e-mail address has to be unique in a domain so it's perfect
     // to use as CN.
-    $ou = get_ou($domain);
+    $ou = get_ou($_SESSION["domain"]);
     $base_dn = "ou=".$ou.", ".$ldap_base;
     $dn = "uid=".$username.", ".$base_dn;
 
     // Fill info with the entries to be added or modified into the directory
     if ( $username == "root" || $username == "postmaster" || $username == "mailer-daemon" ) {
-	$info["cn"]=$username;
+        $info["cn"]=$username;
     } else {
-	$info["cn"]=$firstname." ".$lastname;
+        $info["cn"]=$firstname." ".$lastname;
     }
-    $info["objectclass"][0]="top";
-    $info["objectclass"][1]="person";
-    $info["objectclass"][2]="organizationalPerson";
-    $info["objectclass"][3]="mailrecipient";
-    $info["ou"]=$ou;
-    $info["sn"]=$lastname;
-    $info["givenname"]=$firstname;
-    $info["mail"]=$username."@".$domain;
-    $info["uid"]=$username;
-
+    $info["objectclass"][0] = "top";
+    $info["objectclass"][1] = "person";
+    $info["objectclass"][2] = "organizationalPerson";
+    $info["objectclass"][3] = "mailrecipient";
+    $info["ou"] = $ou;
+    $info["sn"] = $lastname;
+    $info["givenname"] = $firstname;
+    $info["mail"] = $username."@".$domain;
+    $info["uid"] = $username;
 
     switch ($action) {
-    case "add":
-	$add=ldap_add($linkid, $dn, $info );
-	if (!$add) {
-	    error_reporting($err);
-	    return "LDAP error : Can't add user entry";
-	}
-	break;
-    case "mod":
-	$result=ldap_modify($linkid, $dn, $info );
-	if (!$result) {
-	    error_reporting($err);
-	    return "LDAP error : Can't change user entry";
-	}
-	break;
-    case "del":
-	$result=ldap_delete($linkid, $dn);
-	if (!$result) {
-	    error_reporting($err);
-	    return "LDAP error : Can't delete user entry";
-	}
-	break;
-    case "search":
-	$filter = "uid=$username";
-	$attr = array("sn","givenname");
-	$search = ldap_search($linkid, $base_dn, $filter, $attr );
-	$entry = ldap_get_entries($linkid, $search);
-	if ($entry["count"] <> 1) {
-	    error_reporting($err);
-	    return "LDAP error : Search action failed";
-	}
-	$firstname = $entry[0]["givenname"][0];
-	$lastname = $entry[0]["sn"][0];
-	error_reporting($err);
-	return array($firstname, $lastname);
-	break;
-    default:
-	error_reporting($err);
-	return "LDAP error : no action given"; 
+        case "add":
+            $add=ldap_add($linkid, $dn, $info);
+            if (!$add) {
+                error_reporting($err);
+                return "LDAP error : Can't add user entry";
+            }
+            break;
+        case "mod":
+            $result=ldap_modify($linkid, $dn, $info );
+            if (!$result) {
+                error_reporting($err);
+                return "LDAP error : Can't change user entry";
+            }
+            break;
+        case "del":
+            $result=ldap_delete($linkid, $dn);
+            if (!$result) {
+                error_reporting($err);
+                return "LDAP error : Can't delete user entry";
+            }
+            break;
+        case "search":
+            $filter = "uid=$username";
+            $attr = array("sn", "givenname");
+            $search = ldap_search($linkid, $base_dn, $filter, $attr);
+            $entry = ldap_get_entries($linkid, $search);
+            if ($entry["count"] <> 1) {
+                error_reporting($err);
+                return "LDAP error : Search action failed";
+            }
+            $firstname = $entry[0]["givenname"][0];
+            $lastname = $entry[0]["sn"][0];
+            error_reporting($err);
+            return array($firstname, $lastname);
+            break;
+        default:
+            error_reporting($err);
+            return "LDAP error : no action given"; 
     }
     ldap_close($linkid);
 }
-
 
 
 // tcp_host_findout
@@ -965,7 +910,7 @@ function tcp_host_findout($domain) {
 
 		$tmp_dir = opendir($vmailmgrd_tcp_hosts_dir);
 
-		while (false!==($file = readdir($tmp_dir))) {
+		while (false !== ($file = readdir($tmp_dir))) {
 			if ($file != "." && $file != ".." && $file != "CVS") {
 
 				// 2. parse each file and look for domain
@@ -973,9 +918,9 @@ function tcp_host_findout($domain) {
 				$fp = fopen("$vmailmgrd_tcp_hosts_dir/$file", "r");
 				if ($fp) {
 					while (!feof ($fp)) {
-						$line = trim(fgets ($fp, 1024));
+						$line = trim(fgets($fp, 1024));
 
-						if (ereg(":", $line)) {
+						if (preg_match("/:/", $line)) {
 							// in case we have virtualdomains-like files
 							// (domainname.ext:username)
 							$tmp_split_arr = split(":", $line);
@@ -991,7 +936,7 @@ function tcp_host_findout($domain) {
 					}
 					fclose($fp);
 				}
-     			}
+            }
  		}
 
 		closedir($tmp_dir);
@@ -1000,7 +945,6 @@ function tcp_host_findout($domain) {
 	} else {
 		return "";		// $vmailmgrd_tcp_hosts_dir not a directory
 	}
-
 }
 
 ?>
