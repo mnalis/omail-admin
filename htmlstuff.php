@@ -634,7 +634,7 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 	$templdata["txt_email"] = $txt_email[$lang];
 	$templdata["txt_info"] = $txt_info[$lang];
 
-	if ($_SESSION["vmailstats"]["active"]) {
+	if (isset($_SESSION["vmailstats"]["active"]) && $_SESSION["vmailstats"]["active"]) {
 		$templdata["txt_info"] .= " / " . $txt_mailbox_size[$lang];
 	}
 
@@ -809,7 +809,7 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 			$templdata[obj][$ii]["colorUsername"] = "black";
 		}
 
-		if ($_SESSION["vmailstats"]["active"] && $arg_action != 2) {
+		if (isset($_SESSION["vmailstats"]["active"]) && $_SESSION["vmailstats"]["active"] && ($arg_action != 2)) {
 			if ($_SESSION["vmailstats"][$username][size] < 1024) {
 				$templdata[obj][$ii]["PersonalInfo"] .= " (" . $_SESSION["vmailstats"][$username][size] . " kB)";
 			} else {
@@ -839,6 +839,8 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 		// convert the username to an html escaped string (because of user "+")
 
 		$username = urlencode($username);
+
+        $templdata[obj][$ii]["actions"] = "";
 
 		if (in_array($username, $readonly_accounts_list)) {
 
