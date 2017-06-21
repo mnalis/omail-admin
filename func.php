@@ -237,7 +237,7 @@ function get_accounts($arg_action, $arg_username = "") {
             }
 
             // get enabled/disabled status
-            if (!isset($data11[8]) && (ord($data11[8]) == 49)) {
+            if (isset($data11[8]) && (ord($data11[8]) == 49)) {
                 $Enabled = 1;
             } else {
                 $Enabled = 0;
