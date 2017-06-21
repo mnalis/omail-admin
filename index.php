@@ -911,10 +911,13 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
                 ($_SESSION["quota_on"] && $action == "newuser" && (!$_SESSION["quota_data"]["users_support"] || ($_SESSION["quota_data"]["nb_users"] >= $_SESSION["quota_data"]["max_users"]))) ||
                 ($_SESSION["quota_on"] && $action == "newalias" && (!$_SESSION["quota_data"]["alias_support"] || ($_SESSION["quota_data"]["nb_alias"] >= $_SESSION["quota_data"]["max_alias"])))) {
 
+                $msg = "Forbidden: " . $_SESSION["quota_data"]["new_alias_forbidden"] . " Support: " . $_SESSION["quota_data"]["alias_support"];
                 if ($_SESSION["type"] != "domain") {
-                    $msg = $txt_error_not_allowed[$_SESSION["lang"]];
+                    echo (1);
+                    $msg .= $txt_error_not_allowed[$_SESSION["lang"]];
                 } else {
-                    $msg = $txt_error_quota_expired[$_SESSION["lang"]] . "Forbidden: " . $_SESSION["quota_data"]["new_alias_forbidden"] . " Support: " . $_SESSION["quota_data"]["alias_support"];
+                    echo (2);
+                    $msg .= $txt_error_quota_expired[$_SESSION["lang"]];
                 }
                 $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
                 $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
@@ -983,7 +986,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 				} else {
 				    unset ($results) ;
 				}
- 				if (!$results) {
+ 				if (!isset($results)) {
 				    $results = create_alias($U, $passwd1, $fwd);
  				    if ( $userdetail == "" && ($firstname != "" && $lastname != "")) {
                         $userdetail = $lastname . ", " . $firstname;
@@ -1077,7 +1080,6 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
             // if autoresp support is off, show error
 
             if ($_SESSION["quota_on"] && !$_SESSION["quota_data"]["autoresp_support"]) {
-
                 html_head("$program_name Administration - Error");
                 $msg = $txt_error_not_allowed[$_SESSION["lang"]];
                 $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
@@ -1121,12 +1123,10 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
         }
 
 	    // "spam"
-
 	    if ($action == "spam") {
 
             // if spam support is off, show error
-    
-            if (!$use_spamassassin && !$_SESSION["quota_data"]["spamassassin_use_forbidden"]) {
+                if (!$use_spamassassin && !$_SESSION["quota_data"]["spamassassin_use_forbidden"]) {
     
                 html_head("$program_name Administration - Error");
                 $msg = $txt_error_not_allowed[$_SESSION["lang"]];
@@ -1288,7 +1288,6 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
         }
 
 		// "catchall_ok"
-
         if ($action == "catchall_ok") {
 
 			if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
@@ -1301,7 +1300,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 			    exit();
 			}
 
-			// 1. delete "+" if any, 2. create catchall "+" account
+			// delete "+" if any, 2. create catchall "+" account
             $results1 = delete_account("+");              // todo: only if exists!
 
 			$fwd[0] = $U;
@@ -1323,7 +1322,6 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 
 	    // "catchall_remove_ok"
         if ($action == "catchall_remove_ok") {
-
 			if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
    			    $msg = $txt_error_not_allowed[$_SESSION["lang"]];
                 $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
@@ -1350,7 +1348,6 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 	//
 	// LOGOUT
 	//
-
 	if ($A == "logout") {
         $msg = $txt_goodbye[$_SESSION["lang"]];
         $msg .= "<ul><li><a href=\"$script_url?A=login&setlang=" . $_SESSION["lang"] . "&" . SID . "\">" . $txt_login_again[$_SESSION["lang"]] . "</a>\n";
