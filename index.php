@@ -1131,11 +1131,15 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
                 exit();
             }
 
+            $body = $_REQUEST["body"];
+            $subject = $_REQUEST["subject"];
+            $from = $_REQUEST["from"];
+
             // check args format....
             if (get_magic_quotes_gpc() == 1) {
-                $body = stripslashes($_REQUEST["body"]);
-                $subject = stripslashes($_REQUEST["subject"]);
-                $from = stripslashes($_REQUEST["from"]);
+                $body = stripslashes($body);
+                $subject = stripslashes($subject);
+                $from = stripslashes($from);
             }
 
             // remove blanks
@@ -1177,10 +1181,12 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
                 html_end();
                 exit();
             }
-    
+
+            $from = $_REQUEST["from"];
+
             // check args format....
             if (get_magic_quotes_gpc() == 1) {
-                $from = stripslashes($_REQUEST["from"]);
+                $from = stripslashes($from);
             }
 
 			// remove blanks
