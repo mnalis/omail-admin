@@ -808,7 +808,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 
 		// add new forwareders to $fwd[] if any
         if (isset($_REQUEST["newfwd"])) {
-            $newfwd = trim($_REQUEST["newfwd"]));
+            $newfwd = trim($_REQUEST["newfwd"]);
         } else {
             $newfwd = "";
         }
