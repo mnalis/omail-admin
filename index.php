@@ -914,7 +914,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
                 if ($_SESSION["type"] != "domain") {
                     $msg = $txt_error_not_allowed[$_SESSION["lang"]];
                 } else {
-                    $msg = $txt_error_quota_expired[$_SESSION["lang"]];
+                    $msg = $txt_error_quota_expired[$_SESSION["lang"]] . "Forbidden: " . $_SESSION["quota_data"]["new_alias_forbidden"] . " Support: " . $_SESSION["quota_data"]["alias_support"];
                 }
                 $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
                 $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
