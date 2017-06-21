@@ -887,7 +887,8 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
             // update forwarders
             $results .= "<br>" . update_account($_REQUEST["U"], $fwd);
 
-			if (!$fwd[0] && !$fwd[1] && !$fwd[2] && !$fwd[3] && !$fwd[4] && !$fwd[5]) {
+			if (!isset($fwd[0]) && !isset($fwd[1]) && !isset($fwd[2]) && !isset($fwd[3]) && !isset($fwd[4]) && !isset($fwd[5])
+                && !$fwd[0] && !$fwd[1] && !$fwd[2] && !$fwd[3] && !$fwd[4] && !$fwd[5]) {
                 // no forwarders ? check if the account is active, or warn
 				$userinfo = get_accounts(0, $_REQUEST["U"]);
 				if (!$userinfo[0][12]) {
