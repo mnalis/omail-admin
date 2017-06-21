@@ -540,7 +540,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 	    }
 
         html_head("$program_name Administration - Edit");
-    	html_titlebar($txt_edit_account[$_SESSION["lang"]], $txt, 1);
+    	html_titlebar($txt_edit_account[$_SESSION["lang"]], $txt_edit_account[$_SESSION["lang"]], 1);
 	    $userinfo = get_accounts(0, $_REQUEST["U"]);
 	    if (isset($_REQUEST["show_mb_letter"])) {
             $_SESSION["mb_letter"] = $_REQUEST["show_mb_letter"];

@@ -238,7 +238,7 @@ function html_userform($userinfo, $action, $mboxlist) {
 	    }
 	}
 
-	if ($_SESSION["vmailstats"]["active"] && $_SESSION["vmailstats"][$userinfo[0]]["size"]) {
+	if (isset($_SESSION["vmailstats"]["active"]) && $_SESSION["vmailstats"]["active"] && $_SESSION["vmailstats"][$userinfo[0]]["size"]) {
         if (!isset($templdata["userdetailfield"])) {
             $templdata["userdetailfield"] = "";
         }
