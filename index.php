@@ -807,7 +807,12 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
         }
 
 		// add new forwarders to $fwd[] if any
-        $fwd = array();
+        if (isset($_REQUEST["fwd"])) {
+            $fwd = $_REQUEST["fwd"];
+        } else {
+            $fwd = array();
+        }
+
         if (isset($_REQUEST["newfwd"])) {
             $newfwd = trim($_REQUEST["newfwd"]);
         } else {
