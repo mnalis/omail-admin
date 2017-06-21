@@ -398,7 +398,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 		} else {
 
 			if (!$_SESSION["quota_on"] || ($_SESSION["quota_on"] && $_SESSION["quota_data"]["user_login_allowed"])) {
-				html_titlebar($txt_menu[$_SESSION["lang"]] . " - ". $_SESSION["domain"], $txt_menu_account_descr[$_SESSION["lang"]] . $txt_menu_add[$_SESSION["lang"]], 0);
+				html_titlebar($txt_menu[$_SESSION["lang"]] . " - ". $_SESSION["domain"], $txt_menu_account_descr[$_SESSION["lang"]], 0);
 				$testuser = get_accounts(0, $_SESSION["username"]);
 				html_display_mailboxes($testuser, 0);
 
