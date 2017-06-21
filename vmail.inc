@@ -248,7 +248,7 @@ if ($domain=="") return array(1, "Empty domain");
 if ($password=="") return array(1, "Empty domain password");
 if ($username=="") return array(1, "Empty username");
 if ($newpass=="") return array(1, "Empty new password");
-	$command=array("chattr", $domain, $username, $password, "1", $newpass);
+$command=array("chattr", $domain, $username, $password, "1", $newpass);
 return vm_daemon_raw($command);
 }
 
