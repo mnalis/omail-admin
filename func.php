@@ -308,7 +308,7 @@ function get_accounts($arg_action, $arg_username = "") {
 		$lookup_data = lookup($_SESSION["domain"], $arg_username, base64_decode($_SESSION["passwd"]));
 		$alias = array();
 
-		list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $data11)=$lookup_data;
+		list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $data11) = $lookup_data;
 
 		// get enabled/disabled status
 		if (ord($data11[8]) == 49) {

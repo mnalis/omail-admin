@@ -272,7 +272,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 		$tb_userpref = $spamassassin_remote_conf[$_SESSION["vm_tcphost"]]["tb_userpref"];
 	}
 
-	if (!$_REQUEST["A"]) {
+	if (!isset($_REQUEST["A"]) || !($_REQUEST["A"]) {
         $_REQUEST["A"] = "menu";
     }  // default action
 	if ($_REQUEST["A"] == "login") {
