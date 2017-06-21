@@ -178,19 +178,19 @@ function load_quota_info($domain) {
 		fclose ($fp);
 
         // dirty hack, but should be ok for the moment :]  (index.php will be updated soon)
-        if (!isset($_SESSION["quota_data"]["max_users"])) {
+        if (!isset($_SESSION["quota_data"]["max_users"]) || !$_SESSION["quota_data"]["max_users"]) {
             $_SESSION["quota_data"]["max_users"] = 99999999;
         }
-        if (!isset($_SESSION["quota_data"]["max_alias"])) {
+        if (!isset($_SESSION["quota_data"]["max_alias"]) || !$_SESSION["quota_data"]["max_alias"]) {
             $_SESSION["quota_data"]["max_alias"] = 99999999;
         }
-        if (!isset($_SESSION["quota_data"]["softquota"])) {
+        if (!isset($_SESSION["quota_data"]["softquota"]) || !$_SESSION["quota_data"]["softquota"]) {
             $_SESSION["quota_data"]["softquota"] = '-';
         }
-        if (!isset($_SESSION["quota_data"]["hardquota"])) {
+        if (!isset($_SESSION["quota_data"]["hardquota"]) || !$_SESSION["quota_data"]["hardquota"]) {
             $_SESSION["quota_data"]["hardquota"] = '-';
         }
-        if (!isset($_SESSION["quota_data"]["msgsize"])) {
+        if (!isset($_SESSION["quota_data"]["msgsize"]) || !$_SESSION["quota_data"]["msgsize"]) {
             $_SESSION["quota_data"]["msgsize"] = '-';
         }
 	}
