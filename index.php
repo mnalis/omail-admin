@@ -990,7 +990,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 				    unset ($results) ;
 				}
  				if (!$results) {
-				    $results = "<br>" . create_account($_REQUEST["U"], $_REQUEST["passwd1", $fwd);
+				    $results = "<br>" . create_account($_REQUEST["U"], $_REQUEST["passwd1"], $fwd);
  				    if ( $userdetail == "" && ($_REQUEST["firstname"] != "" && $_REQUEST["lastname"] != "")) {
                         $userdetail = $_REQUEST["lastname"] . ", " . $_REQUEST["firstname"];
  				    }
