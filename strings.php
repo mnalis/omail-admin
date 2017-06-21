@@ -2990,7 +2990,7 @@ $txt_login_failed = array(
  "lt" => "Prisijungti nepavyko : patikrinkite vardà ir slaptaþodá",
  "id"=>"login gagal : silahkan cek login dan password");
 
-$txt_facultatif = array(
+$txt_facultativ = array(
  "ru"=>"ÎÅÏÂÑÚÁÔÅÌØÎÏ",
  "en" => "optional",
  "cz" => "Volitelné",
