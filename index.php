@@ -887,16 +887,14 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
         }
 
 
-	    // "newuser"
-	    // "newalias"
+        // "newuser"
+        // "newalias"
 
 	    if ($action == "newuser" || $action == "newalias") {
-
 			// update catchall_account status if necessary
 			get_catchall_account();
 
 			if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
-
                 html_head("$program_name Administration - Error");
     			$msg = $txt_error_not_allowed[$_SESSION["lang"]];
             	$msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
@@ -907,64 +905,60 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 			}
 
 			// check if domain admin is logged in and if quota are ok
-
 			if (($action == "newalias" && $_SESSION["quota_data"]["new_alias_forbidden"]) ||
                 ($action == "newuser" && $_SESSION["quota_data"]["new_mailbox_forbidden"]) ||
                 ($_SESSION["type"] != "domain") ||
                 ($_SESSION["quota_on"] && $action == "newuser" && (!$_SESSION["quota_data"]["users_support"] || ($_SESSION["quota_data"]["nb_users"] >= $_SESSION["quota_data"]["max_users"]))) ||
                 ($_SESSION["quota_on"] && $action == "newalias" && (!$_SESSION["quota_data"]["alias_support"] || ($_SESSION["quota_data"]["nb_alias"] >= $_SESSION["quota_data"]["max_alias"])))) {
 
-				if ($_SESSION["type"] != "domain") {
-					$msg = $txt_error_not_allowed[$_SESSION["lang"]];
-				} else {
+                if ($_SESSION["type"] != "domain") {
+                    $msg = $txt_error_not_allowed[$_SESSION["lang"]];
+                } else {
                     $msg = $txt_error_quota_expired[$_SESSION["lang"]];
-				}
+                }
                 $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
                 $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
-				html_head("$program_name Administration");
-       	        html_titlebar($txt_error[$_SESSION["lang"]], $msg, 0);
+                html_head("$program_name Administration");
+                html_titlebar($txt_error[$_SESSION["lang"]], $msg, 0);
                 html_end();
-				exit();
-			}
+                exit();
+            }
 
             // check args format... addslashed everywhere, etc...
-
             if (!($passwd1 == $passwd2)) {
                 html_head("$program_name Administration - Error");
-	            $msg = "<b>" . $txt_error_pw_not_same[$_SESSION["lang"]] . "</b><br><br>";
+                $msg = "<b>" . $txt_error_pw_not_same[$_SESSION["lang"]] . "</b><br><br>";
                 $msg .= "<ul>";
                 $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
-				$msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
-	            html_titlebar($txt_error[$_SESSION["lang"]], "$msg", 0);
-                html_end();
-	            exit();
-            }
-
-	        if (!$passwd1 && $action == "newuser") {   // mailbox _needs_ a password, alias doesn't.
-                html_head("$program_name Administration - Error");
-	            $msg = "<b>" . $txt_error_pw_needed[$_SESSION["lang"]] . "</b><br><br>";
-	            $msg .= "<ul>";
-	            $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
-				$msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
-	            html_titlebar($txt_error[$_SESSION["lang"]], "$msg", 0);
-	            html_end();
-	            exit();
-            }
-
-	        // create empty list of forwarders if necessary
-
-	        if (!$fwd[0] && !$fwd[1] && $action == "newalias") {  // alias needs at least one fwd
-                html_head("$program_name Administration - Error");
-                $msg = "<b>" . $txt_error_fwd_needed[$_SESSION["lang"]] . "</b><br><br>";
-                $msg .= "<ul>";
-                $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" .
-                $txt_menu[$_SESSION["lang"]]  .  "</a>\n";
-				$msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
+                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
                 html_titlebar($txt_error[$_SESSION["lang"]], "$msg", 0);
                 html_end();
                 exit();
             }
 
+            if (!$passwd1 && $action == "newuser") {   // mailbox _needs_ a password, alias doesn't.
+                html_head("$program_name Administration - Error");
+                $msg = "<b>" . $txt_error_pw_needed[$_SESSION["lang"]] . "</b><br><br>";
+                $msg .= "<ul>";
+                $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
+                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
+                html_titlebar($txt_error[$_SESSION["lang"]], "$msg", 0);
+                html_end();
+                exit();
+            }
+
+            // create empty list of forwarders if necessary
+            if (!$fwd[0] && !$fwd[1] && $action == "newalias") {  // alias needs at least one fwd
+                html_head("$program_name Administration - Error");
+                $msg = "<b>" . $txt_error_fwd_needed[$_SESSION["lang"]] . "</b><br><br>";
+                $msg .= "<ul>";
+                $msg .= "<li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" .
+                $txt_menu[$_SESSION["lang"]]  .  "</a>\n";
+                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
+                html_titlebar($txt_error[$_SESSION["lang"]], "$msg", 0);
+                html_end();
+                exit();
+            }
 
 	        if ($action == "newuser") {
 				if ($use_ldap) {
