@@ -172,18 +172,27 @@ function load_quota_info($domain) {
 					$_SESSION["quota_data"]["new_alias_forbidden"] = $entry[13];
 					$_SESSION["quota_data"]["spamassassin_use_forbidden"] = $entry[14];
 					$_SESSION["quota_data"]["spamassassin_default_status"] = $entry[15];
-
-
-					// dirty hack, but should be ok for the moment :]  (index.php will be updated soon)
-					if (!isset($_SESSION["quota_data"]["max_users"])) { $_SESSION["quota_data"]["max_users"] = 99999999; }
-					if (!isset($_SESSION["quota_data"]["max_alias"])) { $_SESSION["quota_data"]["max_alias"] = 99999999; }
-					if (!isset($_SESSION["quota_data"]["softquota"])) { $_SESSION["quota_data"]["softquota"] = '-'; }
-					if (!isset($_SESSION["quota_data"]["hardquota"])) { $_SESSION["quota_data"]["hardquota"] = '-'; }
-					if (!isset($_SESSION["quota_data"]["msgsize"])) { $_SESSION["quota_data"]["msgsize"] = '-'; }
 				}
 			}
 		}
 		fclose ($fp);
+
+        // dirty hack, but should be ok for the moment :]  (index.php will be updated soon)
+        if (!isset($_SESSION["quota_data"]["max_users"])) {
+            $_SESSION["quota_data"]["max_users"] = 99999999;
+        }
+        if (!isset($_SESSION["quota_data"]["max_alias"])) {
+            $_SESSION["quota_data"]["max_alias"] = 99999999;
+        }
+        if (!isset($_SESSION["quota_data"]["softquota"])) {
+            $_SESSION["quota_data"]["softquota"] = '-';
+        }
+        if (!isset($_SESSION["quota_data"]["hardquota"])) {
+            $_SESSION["quota_data"]["hardquota"] = '-';
+        }
+        if (!isset($_SESSION["quota_data"]["msgsize"])) {
+            $_SESSION["quota_data"]["msgsize"] = '-';
+        }
 	}
 }
 
