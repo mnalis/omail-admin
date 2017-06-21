@@ -340,10 +340,16 @@ function update_passwd($arg_username, $arg_passwd) {
         $result = vchattr($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, "PASS", $arg_passwd);
     }
 
-    if (!isset($result[0]) || (isset($result[0]) && !$result[0])) {
-        return "PASSW ok : " . $result[1] ;
+    if (isset($result[1])) {
+        $retmsg = $result[1];
     } else {
-        return "PASSW error : " . $result[1] ;
+        $retmsg = "";
+    }
+
+    if (!isset($result[0]) || (isset($result[0]) && !$result[0])) {
+        return "PASSW ok: " . $retmsg;
+    } else {
+        return "PASSW error: " . $retmsg;
     }
 }
 
