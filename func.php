@@ -113,7 +113,7 @@ function authenticate($arg_login, $arg_passwd, $arg_ip, $tcphostname) {
 		} else {
 			return 0;
 		}
-	} elseif ($type == "user") {
+	} elseif ($_SESSION["type"] == "user") {
 		$test = vchattr($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $_SESSION["username"], "PASS", base64_decode($_SESSION["passwd"]));
 
 		if ($test[0] == 0) {
