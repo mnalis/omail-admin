@@ -331,11 +331,12 @@ function get_accounts($arg_action, $arg_username = "") {
 
 function update_passwd($arg_username, $arg_passwd) {
 
-	$result = vchpass($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, $arg_passwd);
-
-	// update session password if necessary
 	if ($_SESSION["type"] == "user") {
+        $result = vchpass($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, $arg_passwd);
+        // update session password if necessary
         $_SESSION["passwd"] = base64_encode($arg_passwd);
+    } else {
+        $result = vchattr($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, "PASS", $arg_passwd)
     }
 
     if (!$result[0]) {
