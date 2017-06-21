@@ -839,7 +839,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 			}
 
             // if passwd -> change password
-            if (!($_REQUEST["passwd1"] == _REQUEST["passwd2"])) {
+            if (!($_REQUEST["passwd1"] == $_REQUEST["passwd2"])) {
                 html_head("$program_name Administration - Error");
 	            $msg = "<b>" . $txt_error_pw_not_same[$_SESSION["lang"]] . "</b><br><br>";
 	            $msg .= "<ul>";
