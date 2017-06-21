@@ -659,7 +659,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 		if (!$_SESSION["quota_on"] || ($_SESSION["quota_on"] && $_SESSION["quota_data"]["autoresp_support"]) && !in_array($_REQUEST["U"], $readonly_accounts_list) && !in_array($_REQUEST["U"], $system_accounts_list)) {
 
 			html_head("$program_name Administration - Autoresponder");
-	        html_titlebar($txt_edit_account[$_SESSION["lang"]], $txt,1);
+	        html_titlebar($txt_edit_account[$_SESSION["lang"]], $txt_responder[$_SESSION["lang"]],1);
 	        $user = get_accounts(0, $_REQUEST["U"]);
 			$userinfo = $user[0];
 	        $respinfo = load_resp_file($_REQUEST["U"], $userinfo[11]);  // userinfo[11] = responder yes/no
@@ -696,7 +696,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 		if ($use_spamassassin && !$_SESSION["quota_data"]["spamassassin_use_forbidden"]) {
 
 			html_head("$program_name Administration - SpamAssassin");
-	        html_titlebar($txt_edit_account[$_SESSION["lang"]], $txt, 1);
+	        html_titlebar($txt_edit_account[$_SESSION["lang"]], $txt_spamsettings[$_SESSION["lang"]], 1);
 	        $user = get_accounts(0, $_REQUEST["U"]);
 			$userinfo = $user[0];
 
