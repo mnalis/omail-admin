@@ -1046,7 +1046,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 				    unset ($results) ;
 				}
  				if (!isset($results)) {
-				    $results = create_alias($_REQUEST["U"], $passwd1, $fwd);
+				    $results = create_alias($_REQUEST["U"], $_REQUEST["passwd1"], $fwd);
  				    if (($userdetail == "") && ($firstname != "") && ($lastname != "")) {
                         $userdetail = $lastname . ", " . $firstname;
  				    }
