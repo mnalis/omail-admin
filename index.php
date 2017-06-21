@@ -482,7 +482,10 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 
 	if ($_REQUEST["A"] == "newuser") {
 
-		if ($_SESSION["type"] == "domain" && (!$_SESSION["quota_on"] || ($_SESSION["quota_on"] && ($_SESSION["quota_data"]["users_support"]  && $_SESSION["quota_data"]["nb_users"] < $_SESSION["quota_data"]["max_users"]))) && !$_SESSION["quota_data"]["new_mailbox_forbidden"]) {
+		if ($_SESSION["type"] == "domain" &&
+            (!$_SESSION["quota_on"] ||
+            ($_SESSION["quota_on"] && ($_SESSION["quota_data"]["users_support"]  && $_SESSION["quota_data"]["nb_users"] < $_SESSION["quota_data"]["max_users"])))
+            && !$_SESSION["quota_data"]["new_mailbox_forbidden"]) {
 
 			html_head("$program_name Administration - New User");
             html_titlebar($txt_newuser[$_SESSION["lang"]], $txt, 1);
@@ -499,6 +502,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 			if ($_SESSION["type"] != "domain") {
 				$msg = $txt_error_not_allowed[$_SESSION["lang"]];
 			} else {
+                print_r($_SESSION);
                	$msg = $txt_error_quota_expired[$_SESSION["lang"]];
 			}
             $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]]  .  "</a>\n";
@@ -942,7 +946,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
         // "newuser"
         // "newalias"
 
-	    if ($_REQUEST["action"] == "newuser" || $_REQUEST["action"] == "newalias") {
+	    if (($_REQUEST["action"] == "newuser") || ($_REQUEST["action"] == "newalias")) {
 			// update catchall_account status if necessary
 			get_catchall_account();
 
@@ -963,7 +967,6 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
                 ($_SESSION["quota_on"] && ($_REQUEST["action"] == "newuser") && (!$_SESSION["quota_data"]["users_support"] || ($_SESSION["quota_data"]["nb_users"] >= $_SESSION["quota_data"]["max_users"]))) ||
                 ($_SESSION["quota_on"] && ($_REQUEST["action"] == "newalias") && (!$_SESSION["quota_data"]["alias_support"] || ($_SESSION["quota_data"]["nb_alias"] >= $_SESSION["quota_data"]["max_alias"])))) {
 
-                $msg = "Forbidden: " . $_SESSION["quota_data"]["new_alias_forbidden"] . " Support: " . $_SESSION["quota_data"]["alias_support"];
                 if ($_SESSION["type"] != "domain") {
                     $msg .= $txt_error_not_allowed[$_SESSION["lang"]];
                 } else {
