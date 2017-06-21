@@ -884,6 +884,9 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
                 $results = update_passwd($_REQUEST["U"], $_REQUEST["passwd1"]);
             }
 
+            if (!isset($results)) {
+                $results = "";
+            }
             // update forwarders
             $results .= "<br>" . update_account($_REQUEST["U"], $fwd);
 
