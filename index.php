@@ -1008,8 +1008,9 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
             }
 
             // create empty list of forwarders if necessary
-            if ((!isset($fwd[0]) || !$fwd[0]) && (!isset($fwd[1]) || !$fwd[1]))
-                && ($_REQUEST["action"] == "newalias")) {  // alias needs at least one fwd
+            if (($_REQUEST["action"] == "newalias")
+                & (!isset($fwd[0]) || !$fwd[0]) && (!isset($fwd[1]) || !$fwd[1])) {
+                // alias needs at least one fwd
                 html_head("$program_name Administration - Error");
                 $msg = "<b>" . $txt_error_fwd_needed[$_SESSION["lang"]] . "</b><br><br>";
                 $msg .= "<ul>";
