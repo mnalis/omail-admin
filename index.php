@@ -362,11 +362,13 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 			flush();
 
 			if (!$_SESSION["quota_on"] || ($_SESSION["quota_on"] && $_SESSION["quota_data"]["users_support"])) {
-                if (isset($show_mb_letter)) { $_SESSION["mb_letter"] = $show_mb_letter; }
+                if (isset($_REQUEST["show_mb_letter"])) {
+                    $_SESSION["mb_letter"] = $_REQUEST["show_mb_letter"];
+                }
 				$mboxes = get_accounts(1);
 
-				if (isset($new_mb_start)) {
-                    $_SESSION["mb_start"] = $new_mb_start;
+				if (isset($_REQUEST["new_mb_start"])) {
+                    $_SESSION["mb_start"] = $_REQUEST["new_mb_start"];
                 }
 
 				if (isset($_SESSION["mb_start"]) && $show_how_many_accounts) {
@@ -377,11 +379,13 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 			}
 
 			if (!$_SESSION["quota_on"] || ($_SESSION["quota_on"] && $_SESSION["quota_data"]["alias_support"])) {
-                if (isset($show_al_letter)) { $_SESSION["al_letter"] = $show_al_letter; }
+                if (isset($_REQUEST["show_al_letter"])) {
+                    $_SESSION["al_letter"] = $_REQUEST["show_al_letter"];
+                }
 				$aliases = get_accounts(2);
 
-				if (isset($new_al_start)) {
-                    $_SESSION["al_start"] = $new_al_start;
+				if (isset($_REQUEST["new_al_start"])) {
+                    $_SESSION["al_start"] = $_REQUEST["new_al_start"];
                 }
 
 				if (isset($_SESSION["al_start"]) && $show_how_many_accounts) {
@@ -449,8 +453,8 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
             html_titlebar($txt_newalias[$_SESSION["lang"]], $txt, 1);
 		    $userinfo[2] = "-";
 			$_SESSION["quota_data"]["nb_alias"] = 0;
-            if (isset($show_mb_letter)) {
-                $_SESSION["mb_letter"] = $show_mb_letter;
+            if (isset($_REQUEST["show_mb_letter"])) {
+                $_SESSION["mb_letter"] = $_REQUEST["show_mb_letter"];
             }
 			$mboxlist = get_accounts(3);
             html_userform($userinfo, "newalias", $mboxlist);
@@ -484,8 +488,8 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
             html_titlebar($txt_newuser[$_SESSION["lang"]], $txt, 1);
 	        $userinfo[2] = "-";
 			$_SESSION["quota_data"]["nb_users"] = 0;
-            if (isset($show_mb_letter)) {
-                $_SESSION["mb_letter"] = $show_mb_letter;
+            if (isset($_REQUEST["show_mb_letter"])) {
+                $_SESSION["mb_letter"] = $_REQUEST["show_mb_letter"];
             }
 			$mboxlist = get_accounts(3);
 	        html_userform($userinfo, "newuser", $mboxlist);
@@ -538,7 +542,9 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
         html_head("$program_name Administration - Edit");
     	html_titlebar($txt_edit_account[$_SESSION["lang"]], $txt, 1);
 	    $userinfo = get_accounts(0, $_REQUEST["U"]);
-	    if (isset($show_mb_letter)) { $_SESSION["mb_letter"] = $show_mb_letter; }
+	    if (isset($_REQUEST["show_mb_letter"])) {
+            $_SESSION["mb_letter"] = $_REQUEST["show_mb_letter"];
+        }
 	    $mboxlist = get_accounts(3);
 	    html_userform($userinfo[0], "edit", $mboxlist);
 	    html_end();
