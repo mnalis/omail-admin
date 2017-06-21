@@ -40,6 +40,7 @@ session_start();
 require("session_init.php");
 
 // Workaround for missing register_globals in PHP 5.4+
+print_r($_REQUEST);
 //extract($_REQUEST);
 //extract($_SESSION);
 
