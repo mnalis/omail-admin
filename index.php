@@ -137,13 +137,17 @@ if (!$_SESSION["active"]) {
 		// checkin:
 
 		if (count($domains_list)) {
-			if (!$login_domain) { $form_login = ""; }   // -> failure : we need a domain!
+			if (!$_REQUEST["login_domain"]) {
+                $_REQUEST["form_login"] = "";
+            }   // -> failure : we need a domain!
 
-			if ($form_login) { $form_login .= "@"; }
-			$form_login .= $login_domain;
+			if ($_REQUEST["form_login"]) {
+                $_REQUEST["form_login"] .= "@";
+            }
+			$_REQUEST["form_login"] .= $_REQUEST["login_domain"];
 		}
 
-		$form_login = strtolower(trim($form_login));
+		$form_login = strtolower(trim($_REQUEST["form_login"]));
 
 		// setup tcp host if necessary and if we are using vmailmgrd_tcp
 
@@ -169,8 +173,16 @@ if (!$_SESSION["active"]) {
 			}
 		}
 
-        if (!isset($form_tcphost)) {
+        if (!isset($_REQUEST["form_tcphost"])) {
             $form_tcphost = "";
+        } else {
+            $form_tcphost = $_REQUEST["form_tcphost"];
+        }
+
+        if (!isset($_REQUEST["form_passwd"])) {
+            $form_passwd = "";
+        } else {
+            $form_passwd = $_REQUEST["form_passwd"];
         }
 
 		if ($form_passwd && $form_login && authenticate($form_login, $form_passwd, $_SERVER["REMOTE_ADDR"], $form_tcphost)) {
@@ -270,8 +282,10 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
         $_REQUEST["A"] = "menu";
     }  // we're already logged in! So we show the menu instead.
 
-    if (!isset($form_sort)) {
+    if (!isset($_REQUEST["form_sort"])) {
         $form_sort = "username";
+    } else {
+        $form_sort = $_REQUEST["form_sort"];
     }
 
 	//
