@@ -340,7 +340,7 @@ function update_passwd($arg_username, $arg_passwd) {
         $result = vchattr($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, "PASS", $arg_passwd);
     }
 
-    if (!$result[0]) {
+    if (!isset($result[0]) || (isset($result[0]) && !$result[0])) {
         return "PASSW ok : " . $result[1] ;
     } else {
         return "PASSW error : " . $result[1] ;
