@@ -905,7 +905,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 			}
 
             // update user detail
-			if ($userdetail == "" && $firstname != "" && $lastname != "")) {
+			if (($userdetail == "") && ($firstname != "") && ($lastname != "")) {
 			    $userdetail = trim($lastname . ", " . $firstname);
 			}
 
@@ -1012,7 +1012,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 				}
  				if (!$results) {
 				    $results = "<br>" . create_account($_REQUEST["U"], $_REQUEST["passwd1"], $fwd);
- 				    if ( $userdetail == "" && ($firstname != "" && $lastname != "")) {
+ 				    if (($userdetail == "") && ($firstname != "") && ($lastname != "")) {
                         $userdetail = $lastname . ", " . $firstname;
  				    }
 				    if (strpos($results, "ok")) {
@@ -1029,7 +1029,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 				}
  				if (!isset($results)) {
 				    $results = create_alias($_REQUEST["U"], $passwd1, $fwd);
- 				    if ( $userdetail == "" && ($firstname != "" && $lastname != "")) {
+ 				    if (($userdetail == "") && ($firstname != "") && ($lastname != "")) {
                         $userdetail = $lastname . ", " . $firstname;
  				    }
 				    if (strpos($results,"ok")) {
