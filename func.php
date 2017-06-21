@@ -1,36 +1,36 @@
 <?
 
 /*
-        -----------
-        oMail-admin  -  A PHP4 based Vmailmgrd Web interface
-        -----------
+    -----------
+    oMail-admin  -  A PHP4 based Vmailmgrd Web interface
+    -----------
 
-        * Copyright (C) 2004  Olivier Mueller <om@omnis.ch>
+    * Copyright (C) 2004  Olivier Mueller <om@omnis.ch>
 	* Copyright (C) 2000  Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 
-        $Id: func.php,v 1.38 2004/02/15 18:05:43 swix Exp $
-        $Source: /cvsroot/omail/admin2/func.php,v $
+    $Id: func.php,v 1.38 2004/02/15 18:05:43 swix Exp $
+    $Source: /cvsroot/omail/admin2/func.php,v $
 
-        func.php
-        --------
+    func.php
+    --------
 
-        16.jan.2k   om   First version
-        01.aug.2k   om   Rewrite for PHP4
+    16.jan.2k   om   First version
+    01.aug.2k   om   Rewrite for PHP4
 
 
-        This program is free software; you can redistribute it and/or modify
-        it under the terms of the GNU General Public License as published by
-        the Free Software Foundation; either version 2 of the License, or
-        (at your option) any later version.
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
 
-        This program is distributed in the hope that it will be useful,
-        but WITHOUT ANY WARRANTY; without even the implied warranty of
-        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-        GNU General Public License for more details.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-        You should have received a copy of the GNU General Public License
-        along with this program; if not, write to the Free Software
-        Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 */
 
@@ -47,11 +47,9 @@ const txt = "txt";
 const url = "url";
 
 function check_session($arg_ip) {
-
 	global $expire_after;
 
-	// 1. expired ?  auto session expiration after N minutes
-
+	// expired?  auto session expiration after N minutes
 	if ($_SESSION["expire"] > time()) {
 		// ok, we update actual expire time
 		$_SESSION["expire"] = time() + $expire_after*60;
@@ -60,21 +58,20 @@ function check_session($arg_ip) {
 		return 0;
 	}
 
-	// 2. ip ?   check if the host is the same (in case of url spoofing...)
+	// ip ? check if the host is the same (in case of url spoofing...)
 	if ($arg_ip != $_SESSION["ip"]) {
 		// ip doesn't match -> exit
 		return 0;
 	}
 
 	// if we are here, everything is alright : we can continue
-	return 1;
+    return 1;
 }
 
 function authenticate($arg_login, $arg_passwd, $arg_ip, $tcphostname) {
-
 	global $expire_after;
 
-	// 1. admin or user login ?
+	// admin or user login?
 	if (preg_match("/(.*)\@(.*)/", $arg_login, $parts)) {
 		$_SESSION["username"] = $parts[1];
 		$_SESSION["domain"] = $parts[2];
@@ -87,16 +84,11 @@ function authenticate($arg_login, $arg_passwd, $arg_ip, $tcphostname) {
 		$_SESSION["type"] = "domain";
 	}
 
-	// 2. check format of arguments (lenght, regexp)
-
-	// 3. check if domain exists (in rcpthosts/virtualdomains)
-
-
-	// 4. initalize some variables
+	// initalize some variables
 	$_SESSION["mb_start"] = 0;
 	$_SESSION["al_start"] = 0;
 
-	// 5. authenticate
+	// authenticate
 	if ($_SESSION["type"] == "domain") {
 		$test = listdomain($_SESSION["domain"], base64_decode($_SESSION["passwd"]));
 
@@ -140,9 +132,8 @@ function authenticate($arg_login, $arg_passwd, $arg_ip, $tcphostname) {
 }
 
 function load_quota_info($domain) {
-
 	global $vmailmgrquota_file;
-	$quota_on = 0;
+	$_SESSION["quota_on"] = 0;
 	$domain = strtolower($domain);
 
 	if (file_exists($vmailmgrquota_file)) {
@@ -194,7 +185,6 @@ function load_quota_info($domain) {
 
 
 function get_accounts_sort_by_name($a, $b) {
-
 	list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible)=$a;
 	list($username2, $password2, $mbox2, $alias2, $PersonalInfo2, $HardQuota2, $SoftQuota2, $SizeLimit2, $CountLimit2, $CreationTime2, $ExpiryTime2, $resp2, $Enabled2, $Visible2)=$b;
 	return (strtolower($username) < strtolower($username2)) ? -1 : 1;
@@ -202,7 +192,6 @@ function get_accounts_sort_by_name($a, $b) {
 
 
 function get_accounts_sort_by_info($a, $b) {
-
 	list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible)=$a;
 	list($username2, $password2, $mbox2, $alias2, $PersonalInfo2, $HardQuota2, $SoftQuota2, $SizeLimit2, $CountLimit2, $CreationTime2, $ExpiryTime2, $resp2, $Enabled2, $Visible2)=$b;
 	return (strtolower($PersonalInfo) < strtolower($PersonalInfo2)) ? -1 : 1;
@@ -210,7 +199,6 @@ function get_accounts_sort_by_info($a, $b) {
 
 
 function get_accounts($arg_action, $arg_username = "") {
-
 	global $readonly_accounts_list, $system_accounts_list;
 	global $vm_list, $vm_list_loaded, $vm_resp_status;
 
@@ -222,14 +210,12 @@ function get_accounts($arg_action, $arg_username = "") {
 	// action = 3 : all accounts, without anything else (admin mode)  [for catchall detection]
 
 	if ($arg_action) {
-
 		if (!$vm_list_loaded) {
 			$vm_list = listdomain($_SESSION["domain"], base64_decode($_SESSION["passwd"]));
 			$vm_list_loaded = 1;
 		}
 
 		$list = $vm_list;
-
 		$j = 0;
 
 		if ($_SESSION["quota_on"]) {
@@ -238,9 +224,7 @@ function get_accounts($arg_action, $arg_username = "") {
 		}
 
         for ($i = 0; $i < sizeof($list); $i++) {
-
             list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $data11) = $list[$i];
-
             // set if visible or not (for catchall or "admin" accounts like postmaster, etc...)
             if ($username == "+") {
                 $Visible = 0;
@@ -256,19 +240,17 @@ function get_accounts($arg_action, $arg_username = "") {
             }
 
 			// findout autoresp status (only lookup for mailboxes)
-
 			if ($mbox && $arg_action != 3) {
-
 				if (!isset($vm_resp_status[$username])) {
 					$resp = load_resp_status($username);
 					$vm_resp_status[$username] = $resp;
 				} else {
 					$resp = $vm_resp_status[$username];
 				}
-
 			}  else {
 				$resp = 0;
 			}
+
             if (($arg_action == 1) && $_SESSION["mb_letter"] && !preg_match("/^[".$_SESSION["mb_letter"]."]/i", $username)) {
                 if ($mbox) {
                     if (!(in_array($username, $readonly_accounts_list) || in_array($username, $system_accounts_list))) {
@@ -288,7 +270,6 @@ function get_accounts($arg_action, $arg_username = "") {
             }
 
             $list[$i] = array($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible);
-
             if ($mbox && ($arg_action == 1 || $arg_action == 3)) {
                 $new_list[$j] = $list[$i];
                 $j++;
@@ -311,15 +292,14 @@ function get_accounts($arg_action, $arg_username = "") {
             }
         }
 
-		// try to sort on username
-
 		if ($_SESSION["sort_order"] == "info") {
+            // try to sort on username
 			usort($new_list, get_accounts_sort_by_info);
 		} else {
 			usort($new_list, get_accounts_sort_by_name);
 		}
 
-	} else {  // user
+	} else {  // user login
 
 		$lookup_data = lookup($_SESSION["domain"], $arg_username, base64_decode($_SESSION["passwd"]));
 		$alias = array();
@@ -345,7 +325,6 @@ function get_accounts($arg_action, $arg_username = "") {
 	return $new_list;
 }
 
-
 function update_passwd($arg_username, $arg_passwd) {
 
 	$result = vchpass($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, $arg_passwd);
@@ -370,7 +349,6 @@ function update_userdetail($arg_username, $arg_detail) {
         return "USERINFO error : " . $result[1] ;
     }
 }
-
 
 function update_userquota($arg_username, $arg_softquota, $arg_hardquota, $arg_expiry, $arg_msgcount, $arg_msgsize, $arg_enabled) {
 
@@ -407,7 +385,6 @@ function update_userquota($arg_username, $arg_softquota, $arg_hardquota, $arg_ex
     }
 }
 
-
 function update_userstatus($arg_username, $arg_enabled) {
 	$result = vchattr($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, "MAILBOX_ENABLED", $arg_enabled);
 
@@ -417,8 +394,6 @@ function update_userstatus($arg_username, $arg_enabled) {
         return "SETTINGS error : " . $result[1] ;
     }
 }
-
-
 
 function update_account($arg_username, $arg_fwd) {
 	// check forwarders
@@ -513,11 +488,9 @@ function parse_resp_file($arg_text) {
 function save_resp_file($arg_username, $arg_resptext, $arg_status) {
 
 	// activate autoresponder (needed to be able to write to the file...)
-
 	venableautoresponse($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username);
 
 	// write text
-
 	$result = vwriteautoresponse($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, $arg_resptext);
 
     if (!$result[0]) {
@@ -583,7 +556,6 @@ function parseTemplate($parseArray, $template, $outputFile = "", $encoding="", $
 	return complexParsing($parseArray, $template, $outputFile, $encoding, $separator);
 }
 
-
 function parseContent($parseArray, $content, $encoding = "", $separator = "%") {
     $ar = array();
     while (list($key, $val) = each($parseArray)) {
@@ -637,7 +609,6 @@ function parseT ($parseArray, $template, $outputFile = "",$encoding = "", $separ
     }
 }
 
-
 function getTemplateStrings($template, $tag) {
     global $template_name;
 
@@ -674,6 +645,7 @@ function getContentStrings($content, $tag) {
 
 function complexHelper($tagContent, $parseSet, $encoding) {
     $parseString = "";
+
     for ($i = 0; $i <= count($parseSet); $i++) {
         if (!isset($parseSet[$i])) {
             continue;
@@ -701,6 +673,7 @@ function complexHelper($tagContent, $parseSet, $encoding) {
 
 function complexParsing($parseArray, $template, $outputFile = "", $encoding = "", $separator = "%") {
     $ar = array();
+
     while (list($key, $val) = each($parseArray)) {
         if (is_array($val)) {
             $tagStringArray = getTemplateStrings($template, $key);
@@ -716,6 +689,7 @@ function complexParsing($parseArray, $template, $outputFile = "", $encoding = ""
 
 function complexContent($parseArray, $content, $encoding = "", $separator = "%") {
     $ar = array();
+
     while (list($key, $val) = each($parseArray)) {
         if(is_array($val)) {
             $tagStringArray = getContentStrings($content, $key);
@@ -852,27 +826,22 @@ function ldap_entry ($action, $username, $firstname, $lastname) {
 // used to findout server ip based on domain name.
 
 function tcp_host_findout($domain) {
-
 	global $vmailmgrd_tcp_hosts_dir;
 
-	// 0. reduce to domain
-
+	// reduce to domain
 	if (preg_match("/@/i", $domain)) {
 		$tmp1 = explode("@", $domain);
 		$domain = $tmp1[1];
 	}
 
-	// 1. get listing of files
-
+	// get listing of files
 	if (is_dir($vmailmgrd_tcp_hosts_dir)) {
-
 		$tmp_dir = opendir($vmailmgrd_tcp_hosts_dir);
 
 		while (false !== ($file = readdir($tmp_dir))) {
 			if ($file != "." && $file != ".." && $file != "CVS") {
 
-				// 2. parse each file and look for domain
-
+				// parse each file and look for domain
 				$fp = fopen("$vmailmgrd_tcp_hosts_dir/$file", "r");
 				if ($fp) {
 					while (!feof ($fp)) {
@@ -896,7 +865,6 @@ function tcp_host_findout($domain) {
 				}
             }
  		}
-
 		closedir($tmp_dir);
 		return ""; 		// domain not found
 
