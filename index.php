@@ -453,7 +453,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
             || ($_SESSION["quota_on"] && ($_SESSION["quota_data"]["alias_support"]  && $_SESSION["quota_data"]["nb_alias"] < $_SESSION["quota_data"]["max_alias"])))
             && !$_SESSION["quota_data"]["new_alias_forbidden"]) {
 			html_head("$program_name Administration - New Alias");
-            html_titlebar($txt_newalias[$_SESSION["lang"]], $txt, 1);
+            html_titlebar($txt_newalias[$_SESSION["lang"]], $txt_add_alias[$_SESSION["lang"]], 1);
 		    $userinfo[2] = "-";
 			$_SESSION["quota_data"]["nb_alias"] = 0;
             if (isset($_REQUEST["show_mb_letter"])) {
@@ -492,7 +492,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
             && !$_SESSION["quota_data"]["new_mailbox_forbidden"]) {
 
 			html_head("$program_name Administration - New User");
-            html_titlebar($txt_newuser[$_SESSION["lang"]], $txt, 1);
+            html_titlebar($txt_newuser[$_SESSION["lang"]], $txt_add_user[$_SESSION["lang"]], 1);
 	        $userinfo[2] = "-";
 			$_SESSION["quota_data"]["nb_users"] = 0;
             if (isset($_REQUEST["show_mb_letter"])) {

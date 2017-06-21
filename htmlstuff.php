@@ -194,67 +194,87 @@ function html_userform($userinfo, $action, $mboxlist) {
 
 	$fwd = 0;
 
+    if (isset($userinfo[0])) {
+        $userinfo0 = $userinfo[0];
+    } else {
+        $userinfo0 = "";
+    }
+    if (isset($userinfo[2])) {
+        $userinfo2 = $userinfo[2];
+    } else {
+        $userinfo2 = "-";
+    }
+    if (isset($userinfo[3])) {
+        $userinfo3 = $userinfo[3];
+    } else {
+        $userinfo3 = array();
+    }
+    if (isset($userinfo[4])) {
+        $userinfo4 = htmlentities($userinfo[4]);
+    } else {
+        $userinfo4 = "";
+    }
+
     $templdata["script"] = $script_url;
     $templdata["SID"] = SID;
     $templdata["txt_username"] = $txt_username[$_SESSION["lang"]];
-    $templdata["userinfo0"] = $userinfo[0];
+    $templdata["userinfo0"] = $userinfo0;
     $templdata["domain"] = $_SESSION["domain"];
     $templdata["txt_details"] = $txt_details[$_SESSION["lang"]];
-    $templdata["userinfo4"] = htmlentities($userinfo[4]);
+    $templdata["userinfo4"] = $userinfo4;
     $templdata["txt_date_of_creation"] = $txt_date_of_creation[$_SESSION["lang"]];
 	$templdata["txt_firstname"] = $txt_firstname[$_SESSION["lang"]];
 	$templdata["txt_lastname"] = $txt_lastname[$_SESSION["lang"]];
 	$templdata["txt_one_per_line"] = $txt_one_per_line[$_SESSION["lang"]];
 
+    $nb_fwd = 0;
+
 	if ($action == "edit") {
 		// find how many forwarders there are
-		$aliases = $userinfo[3];
+		$aliases = $userinfo3;
 		$nb_fwd = count($aliases);
 		if ($use_ldap) {
-		    $ldap = ldap_entry("search", $userinfo[0], "", "");
+		    $ldap = ldap_entry("search", $userinfo0, "", "");
 		    $ldap_entry["firstname"] = $ldap[0];
 		    $ldap_entry["lastname"] = $ldap[1];
 		}
 	}
 
 	if ($action == "edit") {
-		$templdata["usernamefield"] = $userinfo[0] . "<input type=\"hidden\" name=\"U\" value=\"" . $userinfo[0] . "\">";
+		$templdata["usernamefield"] = $userinfo0 . "<input type=\"hidden\" name=\"U\" value=\"" . $userinfo0 . "\">";
 	} else {
-		$templdata["usernamefield"] = "<input type=\"text\" name=\"U\" value=\"" . $userinfo[0]. "\" size=\"15\">";
+		$templdata["usernamefield"] = "<input type=\"text\" name=\"U\" value=\"" . $userinfo0 . "\" size=\"15\">";
 	}
 
-	$userinfo[4] = htmlentities($userinfo[4]);
 	if ($_SESSION["type"] == "user") {
-	    $templdata["userdetailfield"] = $userinfo[4];
+	    $templdata["userdetailfield"] = $userinfo4;
 	    if ($use_ldap) {
             $templdata["firstname"] = $ldap_entry["firstname"];
             $templdata["lastname"] = $ldap_entry["lastname"];
 	    }
 	} else {
-	    $templdata["userdetailfield"] = "<input type=\"text\" name=\"userdetail\" value=\"" . $userinfo[4]. "\" size=\"23\">";
+	    $templdata["userdetailfield"] = "<input type=\"text\" name=\"userdetail\" value=\"" . $userinfo4 . "\" size=\"23\">";
 	    if ($use_ldap) {
             $templdata["firstname"] = "<input type=\"text\" name=\"firstname\" value=\"" . $ldap_entry["firstname"] . "\" size= \"23\">";
             $templdata["lastname"] = "<input type=\"text\" name=\"lastname\" value=\"" . $ldap_entry["lastname"] . "\" size= \"23\">";
 	    }
 	}
 
-	if (isset($_SESSION["vmailstats"]["active"]) && $_SESSION["vmailstats"]["active"] && $_SESSION["vmailstats"][$userinfo[0]]["size"]) {
+	if (isset($_SESSION["vmailstats"]["active"]) && $_SESSION["vmailstats"]["active"]
+        && isset($_SESSION["vmailstats"][$userinfo0]["size"]) && $_SESSION["vmailstats"][$userinfo0]["size"]) {
         if (!isset($templdata["userdetailfield"])) {
             $templdata["userdetailfield"] = "";
         }
 		if ($templdata["userdetailfield"]) {
             $templdata["userdetailfield"] .= "<br><br>";
         }
-        $templdata["userdetailfield"] .= $txt_mailbox_size[$_SESSION["lang"]] . ": ". $_SESSION["vmailstats"][$userinfo[0]]["size"] . " kB <br>";
-        $templdata["userdetailfield"] .= $txt_unread_mails[$_SESSION["lang"]] . ": ". $_SESSION["vmailstats"][$userinfo[0]]["newsize"] . " kB (" . $_SESSION["vmailstats"][$userinfo[0]]["newfiles"] . ")<br>";
-        $templdata["userdetailfield"] .= $txt_read_mails[$_SESSION["lang"]] . ": ". $_SESSION["vmailstats"][$userinfo[0]]["cursize"] . " kB (" . $_SESSION["vmailstats"][$userinfo[0]]["curfiles"] . ")";
+        $templdata["userdetailfield"] .= $txt_mailbox_size[$_SESSION["lang"]] . ": ". $_SESSION["vmailstats"][$userinfo0]["size"] . " kB <br>";
+        $templdata["userdetailfield"] .= $txt_unread_mails[$_SESSION["lang"]] . ": ". $_SESSION["vmailstats"][$userinfo0]["newsize"] . " kB (" . $_SESSION["vmailstats"][$userinfo0]["newfiles"] . ")<br>";
+        $templdata["userdetailfield"] .= $txt_read_mails[$_SESSION["lang"]] . ": ". $_SESSION["vmailstats"][$userinfo0]["cursize"] . " kB (" . $_SESSION["vmailstats"][$userinfo0]["curfiles"] . ")";
 	}
 
-    $templdata["userinfo2"] = $userinfo[2];
-    if (!($templdata["userinfo2"])) {
-        $templdata["userinfo2"] = "-";
-    }
-    $templdata["userinfo0"] = $userinfo[0];
+    $templdata["userinfo2"] = $userinfo2;
+    $templdata["userinfo0"] = $userinfo0;
 
     $templdata["txt_directory"] = $txt_directory[$_SESSION["lang"]];
     $templdata["txt_passwd"] = $txt_passwd[$_SESSION["lang"]];
@@ -291,7 +311,7 @@ function html_userform($userinfo, $action, $mboxlist) {
     $templdata["txt_cancel"] = $txt_cancel[$_SESSION["lang"]];
     $templdata["action"] = $action;
 
-	if ($i/2 == floor($i/2)) {
+	if ($i / 2 == floor($i / 2)) {
         $templdata["sub_color"] = "#DDDDDD";
     } else {
         $templdata["sub_color"] = "#CCCCCC";
@@ -300,9 +320,9 @@ function html_userform($userinfo, $action, $mboxlist) {
 	$templdata["txt_fwd1"] = $txt_fwd[$_SESSION["lang"]];
 	$templdata["select_account_contents"] = '<option value=""> - </option>';
 
-	for ($i=0; $i<sizeof($mboxlist);$i++) {
+	for ($i=0; $i < sizeof($mboxlist); $i++) {
         $tmp_account = $mboxlist[$i];
-		if ($tmp_account[0] != "+" && $tmp_account[0] != $userinfo[0]) {
+		if ($tmp_account[0] != "+" && $tmp_account[0] != $userinfo0) {
             $templdata["select_account_contents"] .= '<option>' . $tmp_account[0] . '</option>';
 		}
 	}
