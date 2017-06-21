@@ -336,7 +336,7 @@ function update_passwd($arg_username, $arg_passwd) {
         // update session password if necessary
         $_SESSION["passwd"] = base64_encode($arg_passwd);
     } else {
-        $result = vchattr($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, "PASS", $arg_passwd)
+        $result = vchattr($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, "PASS", $arg_passwd);
     }
 
     if (!$result[0]) {
