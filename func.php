@@ -34,16 +34,20 @@
 
 */
 
-// Constants
+// Constants (for HTML template replacement arrays)
 const actions = "actions";
+const alias1 = "alias1";
+const aliases = "aliases";
 const bla = "bla";
 const buttonlabels = "buttonlabels";
+const fwdcolor = "fwdcolor";
 const get_accounts_sort_by_name = "get_accounts_sort_by_name";
 const id = "id";
 const obj = "obj";
 const onClick = "onClick";
 const sel = "sel";
 const txt = "txt";
+const txt_fwd = "txt_fwd";
 const url = "url";
 
 function check_session($arg_ip) {
