@@ -863,7 +863,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 			}
 
             if ($_REQUEST["passwd1"] != "" && ($_REQUEST["passwd1"] == $_REQUEST["passwd2"])) {
-                $results = update_passwd($_REQUEST["U"], $_REQUEST["passwd1");
+                $results = update_passwd($_REQUEST["U"], $_REQUEST["passwd1"]);
             }
 
             // update forwarders
