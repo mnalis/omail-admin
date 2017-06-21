@@ -806,7 +806,8 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 	        exit();
         }
 
-		// add new forwareders to $fwd[] if any
+		// add new forwarders to $fwd[] if any
+        $fwd = array();
         if (isset($_REQUEST["newfwd"])) {
             $newfwd = trim($_REQUEST["newfwd"]);
         } else {
@@ -822,6 +823,23 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 				}
 			}
 		}
+
+        // Extract name information
+        if (isset($_REQUEST["firstname"])) {
+            $firstname = $_REQUEST["firstname"];
+        } else {
+            $firstname = "";
+        }
+        if (isset($_REQUEST["lastname"])) {
+            $lastname = $_REQUEST["lastname"];
+        } else {
+            $lastname = "";
+        }
+        if (isset($_REQUEST["userdetail"])) {
+            $userdetail = $_REQUEST["userdetail"];
+        } else {
+            $userdetail = "";
+        }
 
         // "edit"
         if ($_REQUEST["action"] == "edit") {
@@ -851,7 +869,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
             }
 
 			if ($use_ldap) {
-			    if ($results=ldap_entry("mod", $_REQUEST["U"], $_REQUEST["firstname"], $_REQUEST["lastname"])) {
+			    if ($results=ldap_entry("mod", $_REQUEST["U"], $firstname, $lastname)) {
                     html_head("$program_name Administration - Error");
                     $msg = "<b>" . $results . "</b><br><br>";
                     $msg .= "<ul>";
@@ -870,7 +888,6 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
             $results .= "<br>" . update_account($_REQUEST["U"], $fwd);
 
 			if (!$fwd[0] && !$fwd[1] && !$fwd[2] && !$fwd[3] && !$fwd[4] && !$fwd[5]) {
-
                 // no forwarders ? check if the account is active, or warn
 				$userinfo = get_accounts(0, $_REQUEST["U"]);
 				if (!$userinfo[0][12]) {
@@ -888,13 +905,17 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 			}
 
             // update user detail
-			if ($userdetail == "" && ($_REQUEST["firstname"] != "" && $_REQUEST["lastname"] != "")) {
-			    $userdetail = trim($_REQUEST["lastname"] . ", " . $_REQUEST["firstname"]);
+			if ($userdetail == "" && $firstname != "" && $lastname != "")) {
+			    $userdetail = trim($lastname . ", " . $firstname);
 			}
 
 			if ($_SESSION["type"] == "domain") {
                 $results .= "<br>" . update_userdetail($_REQUEST["U"], $userdetail);
 			}
+
+            if (!isset($enabled_msg)) {
+                $enabled_msg = "";
+            }
 
 			// update catchall_account status if necessary
 			get_catchall_account();
@@ -985,14 +1006,14 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 
 	        if ($_REQUEST["action"] == "newuser") {
 				if ($use_ldap) {
-				    $results = ldap_entry ("add", $_REQUEST["U"], $_REQUEST["firstname"], $_REQUEST["lastname"]);
+				    $results = ldap_entry ("add", $_REQUEST["U"], $firstname, $lastname);
 				} else {
 				    unset ($results) ;
 				}
  				if (!$results) {
 				    $results = "<br>" . create_account($_REQUEST["U"], $_REQUEST["passwd1"], $fwd);
- 				    if ( $userdetail == "" && ($_REQUEST["firstname"] != "" && $_REQUEST["lastname"] != "")) {
-                        $userdetail = $_REQUEST["lastname"] . ", " . $_REQUEST["firstname"];
+ 				    if ( $userdetail == "" && ($firstname != "" && $lastname != "")) {
+                        $userdetail = $lastname . ", " . $firstname;
  				    }
 				    if (strpos($results, "ok")) {
 					    update_userdetail($_REQUEST["U"], $userdetail);
@@ -1002,14 +1023,14 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 
             if ($_REQUEST["action"] == "newalias") {
                 if ($use_ldap) {
-				    $results = ldap_entry ("add", $_REQUEST["U"], $_REQUEST["firstname"], $_REQUEST["lastname"]);
+				    $results = ldap_entry ("add", $_REQUEST["U"], $firstname, $lastname);
 				} else {
 				    unset ($results) ;
 				}
  				if (!isset($results)) {
 				    $results = create_alias($_REQUEST["U"], $passwd1, $fwd);
  				    if ( $userdetail == "" && ($firstname != "" && $lastname != "")) {
-                        $userdetail = $_REQUEST["lastname"] . ", " . $_REQUEST["firstname"];
+                        $userdetail = $lastname . ", " . $firstname;
  				    }
 				    if (strpos($results,"ok")) {
 					    update_userdetail($_REQUEST["U"], $userdetail);
