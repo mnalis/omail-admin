@@ -92,7 +92,7 @@ if (isset($setlang)) {
 
 if (!$_SESSION["active"]) {
 
-    if (!isset($A)) {
+    if (!isset($_REQUEST["A"])) {
         // Login screen
 		html_head("$program_name Administration - Login");
 		html_titlebar($txt_login[$_SESSION["lang"]], $txt_please_login[$_SESSION["lang"]], "");
@@ -101,7 +101,7 @@ if (!$_SESSION["active"]) {
 		exit();
     }
 
-	if ((($sysadmin_mail == "sysadmin@notdefined.yet") && $A != "about") || $A == "splash") {
+	if ((($sysadmin_mail == "sysadmin@notdefined.yet") && $_REQUEST["A"] != "about") || $_REQUEST["A"] == "splash") {
 
 		html_head("$program_name Administration - Welcome!");
 		html_titlebar($txt_welcome[$_SESSION["lang"]], "", "");
@@ -109,7 +109,7 @@ if (!$_SESSION["active"]) {
 		html_end();
 		exit();
 
-	} elseif ($A == "about") {
+	} elseif ($_REQUEST["A"] == "about") {
 
 		html_head("$program_name Administration - about");
 		html_titlebar($txt_about[$_SESSION["lang"]], "", "");
@@ -117,7 +117,7 @@ if (!$_SESSION["active"]) {
 		html_end();
 		exit();
 
-	} elseif ($A == "help") {
+	} elseif ($_REQUEST["A"] == "help") {
 
 		html_head("$program_name Administration - Help");
 		html_titlebar($txt_help[$_SESSION["lang"]], "", "");
@@ -125,7 +125,7 @@ if (!$_SESSION["active"]) {
 		html_end();
 		exit();
 
-	} elseif ($A != "checkin") {
+	} elseif ($_REQUEST["A"] != "checkin") {
 
 		html_head("$program_name Administration - Login");
 		html_titlebar($txt_login[$_SESSION["lang"]], $txt_please_login[$_SESSION["lang"]], "");
@@ -179,7 +179,7 @@ if (!$_SESSION["active"]) {
 			// login and password can't be left empty!
 
 			$_SESSION["active"] = 1;
-			$A = "menu";
+			$_REQUEST["A"] = "menu";
 
 			// if we have vmailstats, load the data into the session
 
@@ -261,14 +261,14 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 		$tb_userpref = $spamassassin_remote_conf[$_SESSION["vm_tcphost"]]["tb_userpref"];
 	}
 
-	if (!$A) {
-        $A = "menu";
+	if (!$_REQUEST["A"]) {
+        $_REQUEST["A"] = "menu";
     }  // default action
-	if ($A == "login") {
-        $A = "menu";
+	if ($_REQUEST["A"] == "login") {
+        $_REQUEST["A"] = "menu";
     }  // we're already logged in! So we show the menu instead.
-	if ($A == "checkin") {
-        $A = "menu";
+	if ($_REQUEST["A"] == "checkin") {
+        $_REQUEST["A"] = "menu";
     }  // we're already logged in! So we show the menu instead.
 
     if (!isset($form_sort)) {
@@ -279,7 +279,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 	// ABOUT
 	//
 
-	if ($A == "about") {
+	if ($_REQUEST["A"] == "about") {
 		html_head("$program_name Administration - About");
 		html_titlebar($txt_about[$_SESSION["lang"]], "", "");
 		html_about();
@@ -292,7 +292,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 	// HELP
 	//
 
-	if ($A == "help") {
+	if ($_REQUEST["A"] == "help") {
 		html_head("$program_name Administration - Help");
 		html_titlebar($txt_help[$_SESSION["lang"]], "", "");
 		html_help();
@@ -304,7 +304,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 	// SPLASH
 	//
 
-	if ($A == "splash") {
+	if ($_REQUEST["A"] == "splash") {
 		html_head("$program_name Administration - Welcome!");
 		html_titlebar($txt_welcome[$_SESSION["lang"]], "", "");
 		html_splash();
@@ -316,7 +316,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 	// MENU - ACCOUNTS LISTING
 	//
 
-	if ($A == "menu") {
+	if ($_REQUEST["A"] == "menu") {
 		html_head("$program_name Administration - Menu");
 		if ($_SESSION["type"] == "domain") {
 			if ($form_sort == "info") {
@@ -410,11 +410,11 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 	// Check arguments
 	//
 
-	if ($A == "spam" || $A == "resp" || $A == "edit" || $A == "read" || $A == "delete" || $A == "parse" || $A == "quota" || $A == "catchall" || $A == "catchall_remove" || $A == "remove_catchall" || $A == "user_enable" || $A == "user_disable") {
+	if ($_REQUEST["A"] == "spam" || $_REQUEST["A"] == "resp" || $_REQUEST["A"] == "edit" || $_REQUEST["A"] == "read" || $_REQUEST["A"] == "delete" || $_REQUEST["A"] == "parse" || $_REQUEST["A"] == "quota" || $_REQUEST["A"] == "catchall" || $_REQUEST["A"] == "catchall_remove" || $_REQUEST["A"] == "remove_catchall" || $_REQUEST["A"] == "user_enable" || $_REQUEST["A"] == "user_disable") {
 
         // check if $U ok
-		$U = trim($U);  // remove blanks at the beginning and end, if any
-        if (!(preg_match("/^[a-zA-Z0-9\_+\.\-]{0,}$/", $U))) {
+		$_REQUEST["U"] = trim($_REQUEST["U"]);  // remove blanks at the beginning and end, if any
+        if (!(preg_match("/^[a-zA-Z0-9\_+\.\-]{0,}$/", $_REQUEST["U"]))) {
             html_head("$program_name Administration - Error");
             $msg = "<b>" . $txt_error_invalid_chars_in_username[$_SESSION["lang"]] . "</b><br><br>";
             $msg .= "<ul><li><a href=\"$script?A=menu&" . SID. "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
@@ -429,7 +429,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 	// NEW ALIAS
 	//
 
-	if ($A == "newalias") {
+	if ($_REQUEST["A"] == "newalias") {
 
 		if ($_SESSION["type"] == "domain" && (!$_SESSION["quota_on"] || ($_SESSION["quota_on"] && ($_SESSION["quota_data"]["alias_support"]  && $_SESSION["quota_data"]["nb_alias"] < $_SESSION["quota_data"]["max_alias"]))) && !$_SESSION["quota_data"]["new_alias_forbidden"]) {
 			html_head("$program_name Administration - New Alias");
@@ -463,7 +463,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 	// NEW USER
 	//
 
-	if ($A == "newuser") {
+	if ($_REQUEST["A"] == "newuser") {
 
 		if ($_SESSION["type"] == "domain" && (!$_SESSION["quota_on"] || ($_SESSION["quota_on"] && ($_SESSION["quota_data"]["users_support"]  && $_SESSION["quota_data"]["nb_users"] < $_SESSION["quota_data"]["max_users"]))) && !$_SESSION["quota_data"]["new_mailbox_forbidden"]) {
 
@@ -497,9 +497,9 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 	// ACCOUNT EDIT
 	//
 
-	if ($A == "edit") {
+	if ($_REQUEST["A"] == "edit") {
 
-	    if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
+	    if (in_array($_REQUEST["U"], $readonly_accounts_list) || in_array($_REQUEST["U"], $system_accounts_list)) {
 
             html_head("$program_name Administration - Error");
             $msg = $txt_error_not_allowed[$_SESSION["lang"]];
@@ -511,7 +511,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 	    }
 
 	    if ($use_ldap) {
-            if (!is_array($results = ldap_entry("search", $U, "", ""))) {
+            if (!is_array($results = ldap_entry("search", $_REQUEST["U"], "", ""))) {
                 html_head("$program_name Administration - Error");
                 $msg = "<b>" . $results . "</b><br><br>";
                 $msg .= "<ul>";
@@ -524,7 +524,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 
         html_head("$program_name Administration - Edit");
     	html_titlebar($txt_edit_account[$_SESSION["lang"]], $txt, 1);
-	    $userinfo = get_accounts(0, $U);
+	    $userinfo = get_accounts(0, $_REQUEST["U"]);
 	    if (isset($show_mb_letter)) { $_SESSION["mb_letter"] = $show_mb_letter; }
 	    $mboxlist = get_accounts(3);
 	    html_userform($userinfo[0], "edit", $mboxlist);
@@ -536,9 +536,9 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 	// DELETE ACCOUNT   (ask for confirmation)
 	//
 
-	if ($A == "delete") {
+	if ($_REQUEST["A"] == "delete") {
 
-	    if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
+	    if (in_array($_REQUEST["U"], $readonly_accounts_list) || in_array($_REQUEST["U"], $system_accounts_list)) {
 
             $msg = $txt_error_not_allowed[$_SESSION["lang"]];
             $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]]  .  "</a>\n";
@@ -551,7 +551,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 
 	    html_head("$program_name Administration - Delete Account");	
 	    html_titlebar($txt_delete_account[$_SESSION["lang"]], $txt_delete_account_confirm[$_SESSION["lang"]], 1);
-	    $userinfo = get_accounts(0, $U);
+	    $userinfo = get_accounts(0, $_REQUEST["U"]);
 	    html_delete_confirm($userinfo[0]);
 	    html_end();
 	    exit();
@@ -561,9 +561,9 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 	// SETUP/REMOVE CATCHALL ACCOUNT   (ask for confirmation)
 	//
 
-	if ($A == "catchall" || $A == "remove_catchall" || $A == "create_catchall") {
+	if ($_REQUEST["A"] == "catchall" || $_REQUEST["A"] == "remove_catchall" || $_REQUEST["A"] == "create_catchall") {
 
-	    if ((in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) && $U != "") {
+	    if ((in_array($_REQUEST["U"], $readonly_accounts_list) || in_array($_REQUEST["U"], $system_accounts_list)) && $_REQUEST["U"] != "") {
 
             $msg = $txt_error_not_allowed[$_SESSION["lang"]];
             $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]]  .  "</a>\n";
@@ -575,7 +575,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 	    }
 
  	    html_head("$program_name Administration - Catchall");
-	    if ($A == "catchall") {
+	    if ($_REQUEST["A"] == "catchall") {
 	        html_titlebar($txt_catchall[$_SESSION["lang"]], $txt_catchall_confirm[$_SESSION["lang"]], 1);
 	    } else {
 	        html_titlebar($txt_catchall[$_SESSION["lang"]], "", 1);
@@ -618,10 +618,10 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 	        $msg = "There is currently no active Catchall account.";
 	    }
 
-	    if ($A == "catchall") {
-	        $userinfo = get_accounts(0, $U);
+	    if ($_REQUEST["A"] == "catchall") {
+	        $userinfo = get_accounts(0, $_REQUEST["U"]);
    	        html_catchall_confirm($userinfo[0], $msg);
-	    } elseif ($A == "create_catchall") {
+	    } elseif ($_REQUEST["A"] == "create_catchall") {
             html_catchall_create($msg, $tmpinfo);   // tmpinfo = accountslist
 	    } else {
 	        html_catchall_remove_confirm($msg);
@@ -635,20 +635,20 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 	// AUTORESPOND EDIT
 	//
 
-	if ($A == "resp") {
+	if ($_REQUEST["A"] == "resp") {
 
-		if (!$_SESSION["quota_on"] || ($_SESSION["quota_on"] && $_SESSION["quota_data"]["autoresp_support"]) && !in_array($U, $readonly_accounts_list) && !in_array($U, $system_accounts_list)) {
+		if (!$_SESSION["quota_on"] || ($_SESSION["quota_on"] && $_SESSION["quota_data"]["autoresp_support"]) && !in_array($_REQUEST["U"], $readonly_accounts_list) && !in_array($_REQUEST["U"], $system_accounts_list)) {
 
 			html_head("$program_name Administration - Autoresponder");
 	        html_titlebar($txt_edit_account[$_SESSION["lang"]], $txt,1);
-	        $user = get_accounts(0, $U);
+	        $user = get_accounts(0, $_REQUEST["U"]);
 			$userinfo = $user[0];
-	        $respinfo = load_resp_file($U, $userinfo[11]);  // userinfo[11] = responder yes/no
+	        $respinfo = load_resp_file($_REQUEST["U"], $userinfo[11]);  // userinfo[11] = responder yes/no
 
 			if ($userinfo[11] || $respinfo[0] == 0) {
 				list($respinfo["from"], $respinfo["subject"], $respinfo["body"]) = parse_resp_file($respinfo[1]);
 			} else {
-				$respinfo["from"] = $U . "@" . $_SESSION["domain"];
+				$respinfo["from"] = $_REQUEST["U"] . "@" . $_SESSION["domain"];
 				$respinfo["subject"] = $txt_autoresp_subj[$_SESSION["lang"]];
 				$respinfo["body"] = $txt_autoresp_body[$_SESSION["lang"]];
 			}
@@ -672,13 +672,13 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 	// SPAM SETTINGS EDIT
 	//
 
-	if ($A == "spam") {
+	if ($_REQUEST["A"] == "spam") {
 
 		if ($use_spamassassin && !$_SESSION["quota_data"]["spamassassin_use_forbidden"]) {
 
 			html_head("$program_name Administration - SpamAssassin");
 	        html_titlebar($txt_edit_account[$_SESSION["lang"]], $txt, 1);
-	        $user = get_accounts(0, $U);
+	        $user = get_accounts(0, $_REQUEST["U"]);
 			$userinfo = $user[0];
 
 			// default values
@@ -744,13 +744,13 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 	// QUOTAS EDIT
 	//
 
-	if ($A == "quota") {
+	if ($_REQUEST["A"] == "quota") {
 
-		if ((!$_SESSION["quota_on"] || ($_SESSION["quota_on"] && $_SESSION["quota_data"]["user_quota_support"]) || ($_SESSION["type"] != "domain")) && !in_array($U, $readonly_accounts_list) && !in_array($U, $system_accounts_list)) {
+		if ((!$_SESSION["quota_on"] || ($_SESSION["quota_on"] && $_SESSION["quota_data"]["user_quota_support"]) || ($_SESSION["type"] != "domain")) && !in_array($_REQUEST["U"], $readonly_accounts_list) && !in_array($_REQUEST["U"], $system_accounts_list)) {
 
 			html_head("$program_name Administration - Quotas");
 	        html_titlebar($txt_quota_account[$_SESSION["lang"]], $txt, 1);
-	        $userinfo = get_accounts(0,$U);
+	        $userinfo = get_accounts(0,$_REQUEST["U"]);
 	        html_quotaform($userinfo[0], "edit");
             html_end();
 		    exit();
@@ -772,11 +772,11 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 	// PARSE ACTION
 	//
 
-	if ($A == "parse") {
+	if ($_REQUEST["A"] == "parse") {
 
         // before any operation check if username is not empty
 
-        if (!$U) {
+        if (!$_REQUEST["U"]) {
             html_head("$program_name Administration - Error");
 	        $msg = "<b>" . $txt_error_no_username[$_SESSION["lang"]] . "</b><br><br>";
 	        $msg .= "<ul>";
@@ -805,7 +805,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
         if ($action == "edit") {
 
             // check args format... addslashed everywhere, etc...
-			if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
+			if (in_array($_REQUEST["U"], $readonly_accounts_list) || in_array($_REQUEST["U"], $system_accounts_list)) {
 
                 html_head("$program_name Administration - Error");
     			$msg = $txt_error_not_allowed[$_SESSION["lang"]];
@@ -830,7 +830,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
             }
 
 			if ($use_ldap) {
-			    if ($results=ldap_entry("mod", $U, $firstname, $lastname)) {
+			    if ($results=ldap_entry("mod", $_REQUEST["U"], $firstname, $lastname)) {
                     html_head("$program_name Administration - Error");
                     $msg = "<b>" . $results . "</b><br><br>";
                     $msg .= "<ul>";
@@ -842,16 +842,16 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 			}
 
             if ($passwd1 != "" && ($passwd1 == $passwd2)) {
-                $results = update_passwd($U, $passwd1);
+                $results = update_passwd($_REQUEST["U"], $passwd1);
             }
 
             // update forwarders
-            $results .= "<br>" . update_account($U, $fwd);
+            $results .= "<br>" . update_account($_REQUEST["U"], $fwd);
 
 			if (!$fwd[0] && !$fwd[1] && !$fwd[2] && !$fwd[3] && !$fwd[4] && !$fwd[5]) {
 
                 // no forwarders ? check if the account is active, or warn
-				$userinfo = get_accounts(0, $U);
+				$userinfo = get_accounts(0, $_REQUEST["U"]);
 				if (!$userinfo[0][12]) {
 					$results .= "<br><br><b><font color=red>" . $txt_forwarding_off_warning[$_SESSION["lang"]] . "</font></b><br>";
 				}
@@ -862,7 +862,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 				if ($turn_off_delivery_on_fwd_setup) {
 					$enabled_status = "0";
 					$enabled_msg = $txt_turn_off_delivery_expl[$_SESSION["lang"]];
-					$results .= "<br>" . update_userstatus($U, $enabled_status);
+					$results .= "<br>" . update_userstatus($_REQUEST["U"], $enabled_status);
 				}
 			}
 
@@ -872,7 +872,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 			}
 
 			if ($_SESSION["type"] == "domain") {
-                $results .= "<br>" . update_userdetail($U, $userdetail);
+                $results .= "<br>" . update_userdetail($_REQUEST["U"], $userdetail);
 			}
 
 			// update catchall_account status if necessary
@@ -895,7 +895,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 			// update catchall_account status if necessary
 			get_catchall_account();
 
-			if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
+			if (in_array($_REQUEST["U"], $readonly_accounts_list) || in_array($_REQUEST["U"], $system_accounts_list)) {
                 html_head("$program_name Administration - Error");
     			$msg = $txt_error_not_allowed[$_SESSION["lang"]];
             	$msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
@@ -966,34 +966,34 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 
 	        if ($action == "newuser") {
 				if ($use_ldap) {
-				    $results = ldap_entry ("add", $U, $firstname, $lastname);
+				    $results = ldap_entry ("add", $_REQUEST["U"], $firstname, $lastname);
 				} else {
 				    unset ($results) ;
 				}
  				if (!$results) {
-				    $results = "<br>" . create_account($U, $passwd1, $fwd);
+				    $results = "<br>" . create_account($_REQUEST["U"], $passwd1, $fwd);
  				    if ( $userdetail == "" && ($firstname != "" && $lastname != "")) {
                         $userdetail = $lastname . ", " . $firstname;
  				    }
 				    if (strpos($results, "ok")) {
-					    update_userdetail($U, $userdetail);
+					    update_userdetail($_REQUEST["U"], $userdetail);
 				    }
 				}
 			}
 
             if ($action == "newalias") {
                 if ($use_ldap) {
-				    $results = ldap_entry ("add", $U, $firstname, $lastname);
+				    $results = ldap_entry ("add", $_REQUEST["U"], $firstname, $lastname);
 				} else {
 				    unset ($results) ;
 				}
  				if (!isset($results)) {
-				    $results = create_alias($U, $passwd1, $fwd);
+				    $results = create_alias($_REQUEST["U"], $passwd1, $fwd);
  				    if ( $userdetail == "" && ($firstname != "" && $lastname != "")) {
                         $userdetail = $lastname . ", " . $firstname;
  				    }
 				    if (strpos($results,"ok")) {
-					    update_userdetail($U, $userdetail);
+					    update_userdetail($_REQUEST["U"], $userdetail);
 				    }
 				}
 			}
@@ -1015,7 +1015,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 
         if ($action == "delete_ok") {
 
-			if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
+			if (in_array($_REQUEST["U"], $readonly_accounts_list) || in_array($_REQUEST["U"], $system_accounts_list)) {
 
                 html_head("$program_name Administration - Error");
     			$msg = $txt_error_not_allowed[$_SESSION["lang"]];
@@ -1027,7 +1027,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 			}
 
 			if ($use_ldap ) {
-			    if ($results = ldap_entry("del", $U, "", "")) {
+			    if ($results = ldap_entry("del", $_REQUEST["U"], "", "")) {
                     html_head("$program_name Administration - Error");
                     $msg = "<b>" . $results . "</b><br><br>";
                     $msg .= "<ul>";
@@ -1042,7 +1042,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 	        // update forwarders
 
 			if ($use_spamassassin && !$_SESSION["quota_data"]["spamassassin_use_forbidden"]) {
-				$userinfotmp = get_accounts(0,$U);
+				$userinfotmp = get_accounts(0, $_REQUEST["U"]);
 				$userinfo = $userinfotmp[0];
 				$mailadr = $userinfo[0] . "@" . $_SESSION["domain"];
 
@@ -1054,12 +1054,12 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 
             // let vwrap copy the current resp file to a temp file, readable by all
 
-	        $results1 .= delete_account($U);
+	        $results1 .= delete_account($_REQUEST["U"]);
 
 			// check if we deleted the account on which the checkall (+) account was pointing on.
 			// if yes, also remove the "+"
 
-			if ($U == $catchall_active) {
+			if ($_REQUEST["U"] == $catchall_active) {
 			    $results1 .= "<br>" . delete_account("+");
 			}
 
@@ -1112,7 +1112,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
             $tpmbody = "";
 
             // update responder.
-            $results = save_resp_file($U, "Subject: $subject\nFrom: $from\n\n$body", $responder);
+            $results = save_resp_file($_REQUEST["U"], "Subject: $subject\nFrom: $from\n\n$body", $responder);
 
             html_head("$program_name Administration");
             $msg = "<b>" . $results . "</b><br><br>";
@@ -1148,7 +1148,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 			$from = trim($from);
 
 			// remove any spam infos from userdetail, keep actual infos...
-			$userinfotmp = get_accounts(0,$U);
+			$userinfotmp = get_accounts(0, $_REQUEST["U"]);
 			$userinfo = $userinfotmp[0];
 			$mailadr = $userinfo[0] . "@" . $_SESSION["domain"];
 
@@ -1220,7 +1220,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
         if ($action == "quota") {
 
 			// if quota support is off, show error
-			if (($_SESSION["quota_on"] && !$_SESSION["quota_data"]["user_quota_support"]) || in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
+			if (($_SESSION["quota_on"] && !$_SESSION["quota_data"]["user_quota_support"]) || in_array($_REQUEST["U"], $readonly_accounts_list) || in_array($_REQUEST["U"], $system_accounts_list)) {
 
 				$msg = $txt_error_not_allowed[$_SESSION["lang"]];
                 $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
@@ -1241,7 +1241,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 			}
 
             // update quotas
-            $results = update_userquota($U, $form_softquota, $form_hardquota, $form_expiry, $form_msgcount, $form_msgsize, $form_enabled);
+            $results = update_userquota($_REQUEST["U"], $form_softquota, $form_hardquota, $form_expiry, $form_msgcount, $form_msgsize, $form_enabled);
             html_head("$program_name Administration");
             $msg = "<b>" . $results . "</b><br><br>";
 	        $msg .= "<ul>";
@@ -1256,7 +1256,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
         if ($action == "user_enable" || $action == "user_disable") {
 
 			// if quota & settings support is off, show error
-			if (($_SESSION["quota_on"] && !$_SESSION["quota_data"]["user_quota_support"]) || in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
+			if (($_SESSION["quota_on"] && !$_SESSION["quota_data"]["user_quota_support"]) || in_array($_REQUEST["U"], $readonly_accounts_list) || in_array($_REQUEST["U"], $system_accounts_list)) {
 				$msg = $txt_error_not_allowed[$_SESSION["lang"]];
                 $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
                 $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
@@ -1276,7 +1276,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 			    $enabled_msg = $txt_turn_on_delivery_expl[$_SESSION["lang"]];
 			}
 
-            $results = update_userstatus($U, $enabled_status);
+            $results = update_userstatus($_REQUEST["U"], $enabled_status);
 
             html_head("$program_name Administration");
             $msg = "<b>" . $results . "</b><br><br>";
@@ -1291,7 +1291,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 		// "catchall_ok"
         if ($action == "catchall_ok") {
 
-			if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
+			if (in_array($_REQUEST["U"], $readonly_accounts_list) || in_array($_REQUEST["U"], $system_accounts_list)) {
    			    $msg = $txt_error_not_allowed[$_SESSION["lang"]];
       		    $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
                 $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
@@ -1304,9 +1304,9 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 			// delete "+" if any, 2. create catchall "+" account
             $results1 = delete_account("+");              // todo: only if exists!
 
-			$fwd[0] = $U;
+			$fwd[0] = $_REQUEST["U"];
             $results2 = create_alias("+", "", $fwd);
-            $results3 = update_userdetail("+", "Catchall Alias -> $U");
+            $results3 = update_userdetail("+", "Catchall Alias -> $_REQUEST["U"]");
 			get_catchall_account();
 
             html_head("$program_name Administration");
@@ -1323,7 +1323,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 
 	    // "catchall_remove_ok"
         if ($action == "catchall_remove_ok") {
-			if (in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) {
+			if (in_array($_REQUEST["U"], $readonly_accounts_list) || in_array($_REQUEST["U"], $system_accounts_list)) {
    			    $msg = $txt_error_not_allowed[$_SESSION["lang"]];
                 $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
             	$msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
@@ -1349,7 +1349,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 	//
 	// LOGOUT
 	//
-	if ($A == "logout") {
+	if ($_REQUEST["A"] == "logout") {
         $msg = $txt_goodbye[$_SESSION["lang"]];
         $msg .= "<ul><li><a href=\"$script_url?A=login&setlang=" . $_SESSION["lang"] . "&" . SID . "\">" . $txt_login_again[$_SESSION["lang"]] . "</a>\n";
 		$msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
@@ -1363,7 +1363,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 	    exit();
 	}
 
-	// fixme : if we're here, $A seems not to exist : should we show something ?
+	// fixme : if we're here, $_REQUEST["A"] seems not to exist : should we show something ?
 
 } // end active=1
 

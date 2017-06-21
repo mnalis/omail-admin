@@ -128,7 +128,7 @@ function html_head($title) {
 }
 
 function html_titlebar($title,$msg,$popup) {
-	global $script_url, $A, $version, $hide_about_button, $program_name;
+	global $script_url, $version, $hide_about_button, $program_name;
 
 	include("strings.php");
 
@@ -147,7 +147,7 @@ function html_titlebar($title,$msg,$popup) {
 		$array[buttonlabels][2][url] = $script_url . "?A=help&" . SID;
 		$array[buttonlabels][2][txt] = $txt_help[$_SESSION["lang"]];
 		$array[buttonlabels][2][onClick] = "onClick=\"oW(this,'pop2')\"";
-	} elseif ($A == "menu") {
+	} elseif ($_REQUEST["A"] == "menu") {
 		$array[buttonlabels][0][url] = $script_url . "?" . SID;
 		$array[buttonlabels][0][txt] = $txt_refresh_menu[$_SESSION["lang"]];
 		$array[buttonlabels][0][onClick] = '';
@@ -162,14 +162,14 @@ function html_titlebar($title,$msg,$popup) {
 			$array[buttonlabels][3][txt] = $txt_about[$_SESSION["lang"]];
 			$array[buttonlabels][3][onClick] = "onClick=\"oW3(this,'pop2')\"";
 		}
-	} elseif (($A == "login" || $A == "" || $A == "splash") && !$hide_about_button) {
+	} elseif (($_REQUEST["A"] == "login" || $_REQUEST["A"] == "" || $_REQUEST["A"] == "splash") && !$hide_about_button) {
 		$array[buttonlabels][0][url] = $script_url . "?A=about&" . SID;
 		$array[buttonlabels][0][txt] = $txt_about[$_SESSION["lang"]];
 		$array[buttonlabels][0][onClick] = "onClick=\"oW3(this,'pop2')\"";
 		$array[buttonlabels][1][url] = $script_url . "?A=help&" . SID;
 		$array[buttonlabels][1][txt] = $txt_help[$_SESSION["lang"]];
 		$array[buttonlabels][1][onClick] = "onClick=\"oW(this,'pop2')\"";
-	} elseif ($A == "about" || $A == "help") {
+	} elseif ($_REQUEST["A"] == "about" || $_REQUEST["A"] == "help") {
 		$array[buttonlabels][0][url] = $script_url . "?" . SID;
 		$array[buttonlabels][0][txt] = $txt_close[$_SESSION["lang"]];
 		$array[buttonlabels][0][onClick] = 'onClick="return gO(this,true,true)"';
@@ -968,7 +968,7 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 }
 
 function html_about() {
-	global $A, $cvs_version, $version;
+	global $cvs_version, $version;
 
 	include("strings.php");
 
@@ -1027,7 +1027,7 @@ function html_about() {
 }
 
 function html_help() {
-	global $A, $cvs_version, $version;
+	global $cvs_version, $version;
 
 	include("strings.php");
 
@@ -1037,7 +1037,7 @@ function html_help() {
 }
 
 function html_splash() {
-	global $A, $cvs_version, $version, $sysadmin_mail, $splash_ok;
+	global $cvs_version, $version, $sysadmin_mail, $splash_ok;
 
 	include("strings.php");
 
