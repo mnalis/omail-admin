@@ -40,7 +40,6 @@ session_start();
 require("session_init.php");
 
 // Workaround for missing register_globals in PHP 5.4+
-print_r($_REQUEST);
 //extract($_REQUEST);
 //extract($_SESSION);
 
@@ -1306,7 +1305,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 
 			$fwd[0] = $_REQUEST["U"];
             $results2 = create_alias("+", "", $fwd);
-            $results3 = update_userdetail("+", "Catchall Alias -> $_REQUEST["U"]");
+            $results3 = update_userdetail("+", "Catchall Alias -> " . $_REQUEST["U"]);
 			get_catchall_account();
 
             html_head("$program_name Administration");
