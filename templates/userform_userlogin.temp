@@ -10,10 +10,10 @@
 <td bgcolor="#DDDDDD" align=left>%userinfo2%&nbsp;</td></tr>
 
 <tr><th align=right>%txt_passwd%&nbsp;</th>
-<td bgcolor="#CCCCCC" align=left><input type="password" name="passwd1" value="" size="9">&nbsp;%txt_facultativ%&nbsp;</td></tr>
+<td bgcolor="#CCCCCC" align=left><input type="password" name="passwd1" value="" size="9">&nbsp;%txt_optional%&nbsp;</td></tr>
 
 <tr><th align=right>%txt_passwd%&nbsp;</th>
-<td bgcolor="#DDDDDD" align=left><input type="password" name="passwd2" value="" size="9">&nbsp;%txt_facultativ%&nbsp;</td></tr>
+<td bgcolor="#DDDDDD" align=left><input type="password" name="passwd2" value="" size="9">&nbsp;%txt_optional%&nbsp;</td></tr>
 
 %fwd_part%
 

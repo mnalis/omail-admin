@@ -13,7 +13,7 @@
 <td bgcolor="#CCCCCC" align=left>
 <select name="form_enabled">
 <option value="1" %checked_yes%>%txt_activated%</option>
-<option value="0" %checked_no%>%txt_inactived%</option>
+<option value="0" %checked_no%>%txt_deactivated%</option>
 </select></td></tr>
                                         
 <tr><th align=right>%txt_hardquota%&nbsp;</th>

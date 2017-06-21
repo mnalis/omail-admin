@@ -260,9 +260,9 @@ function html_userform($userinfo, $action, $mboxlist) {
     $templdata["txt_passwd"] = $txt_passwd[$_SESSION["lang"]];
 
 	if ($action == "newalias") {
-        $templdata["txt_facultativ"] = " (" . $txt_facultativ[$_SESSION["lang"]] . ") ";
+        $templdata["txt_optional"] = " (" . $txt_optional[$_SESSION["lang"]] . ") ";
     } else {
-        $templdata["txt_facultativ"] = " ";
+        $templdata["txt_optional"] = " ";
     }
 
 	for ($i = 0; $i < ($nb_fwd); $i++) {
@@ -351,7 +351,7 @@ function html_quotaform($userinfo, $action) {
     }
 
     $templdata["txt_activated"] = $txt_activated[$_SESSION["lang"]];
-    $templdata["txt_inactived"] = $txt_inactived[$_SESSION["lang"]];
+    $templdata["txt_deactivated"] = $txt_deactivated[$_SESSION["lang"]];
     $templdata["txt_hardquota"] = $txt_hardquota[$_SESSION["lang"]];
 	if ($HardQuota == '-') {
         $templdata["HardQuota"] = $HardQuota;
@@ -428,7 +428,7 @@ function html_respform($userinfo, $respinfo, $status) {
 
     $templdata["txt_responder"] = $txt_responder[$_SESSION["lang"]];
     $templdata["txt_activated"] = $txt_activated[$_SESSION["lang"]];
-    $templdata["txt_inactived"] = $txt_inactived[$_SESSION["lang"]];
+    $templdata["txt_deactivated"] = $txt_deactivated[$_SESSION["lang"]];
     $templdata["txt_autoanswertext"] = $txt_autoanswertext[$_SESSION["lang"]];
     $templdata["txt_from"] = $txt_from[$_SESSION["lang"]];
     $templdata["txt_subject"] = $txt_subject[$_SESSION["lang"]];
@@ -470,7 +470,7 @@ function html_spamform($userinfo, $spamsetup) {
 
     $templdata["txt_spamsettings"] = $txt_spamsettings[$_SESSION["lang"]];
     $templdata["txt_activated"] = $txt_activated[$_SESSION["lang"]];
-    $templdata["txt_inactived"] = $txt_inactived[$_SESSION["lang"]];
+    $templdata["txt_deactivated"] = $txt_deactivated[$_SESSION["lang"]];
 	$templdata["txt_one_per_line"] = $txt_one_per_line[$_SESSION["lang"]];
 	$templdata["txt_white_list"] = $txt_white_list[$_SESSION["lang"]];
 	$templdata["txt_black_list"] = $txt_black_list[$_SESSION["lang"]];
@@ -682,7 +682,7 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
 	$no = "<font color=\"red\">" . $txt_no[$_SESSION["lang"]] . "</font>";
 
 	$activated = "<font color=\"green\">" . $txt_activated[$_SESSION["lang"]] . "</font>";
-	$inactived = "<font color=\"red\">" . $txt_inactived[$_SESSION["lang"]] . "</font>";
+	$inactived = "<font color=\"red\">" . $txt_deactivated[$_SESSION["lang"]] . "</font>";
 
 	$total_size = 0;
 	$hidden = 0;

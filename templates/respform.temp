@@ -9,7 +9,7 @@
 
  <select name="responder"> 
  <option value="1" %checked_yes%>%txt_activated%</option> 
- <option value="0" %checked_no%>%txt_inactived%</option> 
+ <option value="0" %checked_no%>%txt_deactivated%</option> 
  </select></td></tr> 
  <tr><th>&nbsp;</th><td bgcolor="#DDDDDD"><b>%txt_autoanswertext%:</b>&nbsp;</td></tr> 
 
