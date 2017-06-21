@@ -768,7 +768,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 		if ((!$_SESSION["quota_on"] || ($_SESSION["quota_on"] && $_SESSION["quota_data"]["user_quota_support"]) || ($_SESSION["type"] != "domain")) && !in_array($_REQUEST["U"], $readonly_accounts_list) && !in_array($_REQUEST["U"], $system_accounts_list)) {
 
 			html_head("$program_name Administration - Quotas");
-	        html_titlebar($txt_quota_account[$_SESSION["lang"]], $txt, 1);
+	        html_titlebar($txt_quota_account[$_SESSION["lang"]], $txt_quota[$_SESSION["lang"]], 1);
 	        $userinfo = get_accounts(0,$_REQUEST["U"]);
 	        html_quotaform($userinfo[0], "edit");
             html_end();
@@ -1277,7 +1277,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 			}
 
             // update quotas
-            $results = update_userquota($_REQUEST["U"], $_REQUEST["form_softquota"], $_REQUEST["form_hardquota"], $_REQUEST["form_expiry"], $_REQUEST["form_msgcount"], $_REQUEST["form_msgsize"], $_REQUEST["form_enabled"]);
+            $results = update_userquota($_REQUEST["U"], $_REQUEST["form_softquota"], $_REQUEST["form_hardquota"], $form_expiry, $_REQUEST["form_msgcount"], $_REQUEST["form_msgsize"], $_REQUEST["form_enabled"]);
             html_head("$program_name Administration");
             $msg = "<b>" . $results . "</b><br><br>";
 	        $msg .= "<ul>";

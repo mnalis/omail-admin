@@ -384,7 +384,8 @@ function update_userquota($arg_username, $arg_softquota, $arg_hardquota, $arg_ex
 	$result5 = vchattr($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, "EXPIRY", $arg_expiry);
 	$result6 = vchattr($_SESSION["domain"], base64_decode($_SESSION["passwd"]), $arg_username, "MAILBOX_ENABLED", $arg_enabled);
 
-    if (!$result1[0] && !$result2[0] && !$result3[0] && !$result4[0] && !$result5[0] && !$result6[0]) {
+    if ((!isset($result1[0]) && !isset($result2[0]) && !isset($result3[0]) && !isset($result4[0]) && !isset($result5[0]) && !isset($result6[0]))
+        || (!$result1[0] && !$result2[0] && !$result3[0] && !$result4[0] && !$result5[0] && !$result6[0])) {
         return "QUOTA ok : " . $result6[1] ;
     } else {
         return "QUOTA error : " . $result6[1] ;
