@@ -28,7 +28,7 @@
     17.apr.01   sr      Added Indonesian
     17.apr.01   zs      Added Brazilian Portuguese
     17.nov.01   lt      Added Lithuanian
-	05.may.03   pl      Added Polish
+    05.may.03   pl      Added Polish
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -1193,7 +1193,7 @@ $txt_please_login = array(
                         "sv" => "V.v. logga in med ditt domännamn och lösenord",
                         "lt" => "Praðome autorizuotis, kad galëtumëte pasiekti sàskaitos administravimo meniu",
                         "id" => "Silahkan login untuk mengakses menu utama administrasi account Anda");
-                    
+
 $txt_update_list = array(
                         "ru" => "ïÂÎÏ×ÉÔØ",
                         "en" => "Update_List",
@@ -1303,7 +1303,7 @@ $txt_secu_fail_dname = array(
                         "it" => "Errore: il dominio deve essere della forma dominio.tld",
                         "ro" => "Eroare: numele domeniul trebuie sa fie de forma domeniu.ext",
                         "sv" => "Fel: domännamnet ska skrivas på formen domännamn.nu",
-                        "lt" => "Klaida: domeno vardas paprastai turi savyje taðkà", 
+                        "lt" => "Klaida: domeno vardas paprastai turi savyje taðkà",
                         "id" => "Kesalahan keamanan : nama domain harus berbentuk domain.ext");
 
 $txt_action_menu_title = array(
