@@ -1,2 +1,2 @@
 # omail-admin
-Omail-Admin fixed for PHP 5.5
+Omail-Admin fixed for PHP 5.5+
