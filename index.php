@@ -905,7 +905,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 
             if ((isset($fwd[0]) && $fwd[0]) || (isset($fwd[1]) && $fwd[1])
                 || (isset($fwd[2]) && $fwd[2]) || (isset($fwd[3]) && $fwd[3])
-                || (isset($fwd[4]) && $fwd[4]) || (isset($fwd[5]) && $fwd[5]) {
+                || (isset($fwd[4]) && $fwd[4]) || (isset($fwd[5]) && $fwd[5])) {
                 // yes, we have forwarders!
                 if ($turn_off_delivery_on_fwd_setup) {
                     $enabled_status = "0";
