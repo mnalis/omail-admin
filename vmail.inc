@@ -42,11 +42,12 @@ function vm_daemon_raw($arg) {
     } else {
         // UNIX SOCKET
         $vmailfile = "unix:///tmp/.vmailmgrd";
-        if (file_exists("/etc/vmailmgr/socket-file"))
+        if (file_exists("/etc/vmailmgr/socket-file")) {
             $socketfile = (file ("/etc/vmailmgr/socket-file"));
-        $socketfile = trim($socketfile[0]);
-        if ($socketfile != "")
-            $vmailfile = "unix://".$socketfile;
+            $socketfile = trim($socketfile[0]);
+            if ($socketfile != "")
+                $vmailfile = "unix://".$socketfile;
+        }
 
         $vmailsock = fsockopen ($vmailfile, 0, $errno, $errstr, 4);
         if (!$vmailsock)
