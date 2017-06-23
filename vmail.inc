@@ -41,7 +41,7 @@ function vm_daemon_raw($arg) {
             die("Failed to open tcp socket, is daemon running on host '$vm_tcphost:$vm_tcphost_port'? <br>\nError: $errno - $errstr");
     } else {
         // UNIX SOCKET
-        $vmailfile = "/tmp/.vmailmgrd";
+        $vmailfile = "unix:///tmp/.vmailmgrd";
         if (file_exists("/etc/vmailmgr/socket-file"))
             $socketfile = (file ("/etc/vmailmgr/socket-file"));
         $socketfile = trim($socketfile[0]);
