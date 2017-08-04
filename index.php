@@ -1377,7 +1377,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
         }
 
         // "catchall_remove_ok"
-        if ($action == "catchall_remove_ok") {
+        if ($_REQUEST["action"] == "catchall_remove_ok") {
             if (in_array($_REQUEST["U"], $readonly_accounts_list) || in_array($_REQUEST["U"], $system_accounts_list)) {
                 $msg = $txt_error_not_allowed[$_SESSION["lang"]];
                 $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]] . "</a>\n";
