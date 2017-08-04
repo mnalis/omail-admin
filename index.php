@@ -1358,6 +1358,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
             // delete "+" if any, 2. create catchall "+" account
             $results1 = delete_account("+");              // todo: only if exists!
 
+            print_r ($_REQUEST);
             $fwd[0] = $_REQUEST["U"];
             $results2 = create_alias("+", "", $fwd[0]);
             $results3 = update_userdetail("+", "Catchall Alias -> " . $fwd[0]);
