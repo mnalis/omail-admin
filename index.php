@@ -590,17 +590,18 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 
     if ($_REQUEST["A"] == "catchall" || $_REQUEST["A"] == "remove_catchall" || $_REQUEST["A"] == "create_catchall") {
 
-        if ((in_array($_REQUEST["U"], $readonly_accounts_list) || in_array($_REQUEST["U"], $system_accounts_list)) && $_REQUEST["U"] != "") {
+        if (isdefined($_REQUEST["U"])) {
+            if ((in_array($_REQUEST["U"], $readonly_accounts_list) || in_array($_REQUEST["U"], $system_accounts_list)) && $_REQUEST["U"] != "") {
 
-            $msg = $txt_error_not_allowed[$_SESSION["lang"]];
-            $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]]  .  "</a>\n";
-            $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
-            html_head("$program_name Administration - Error");
-            html_titlebar($txt_error[$_SESSION["lang"]], $msg, 0);
-            html_end();
-            exit();
+                $msg = $txt_error_not_allowed[$_SESSION["lang"]];
+                $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]]  .  "</a>\n";
+                $msg .= "<li><a href=\"mailto:" . $sysadmin_mail. "\">" . $txt_mail_sysadmin[$_SESSION["lang"]] . "</a>\n</ul>";
+                html_head("$program_name Administration - Error");
+                html_titlebar($txt_error[$_SESSION["lang"]], $msg, 0);
+                html_end();
+                exit();
+            }
         }
-
         html_head("$program_name Administration - Catchall");
         if ($_REQUEST["A"] == "catchall") {
             html_titlebar($txt_catchall[$_SESSION["lang"]], $txt_catchall_confirm[$_SESSION["lang"]], 1);
