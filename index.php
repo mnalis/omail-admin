@@ -590,7 +590,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 
     if ($_REQUEST["A"] == "catchall" || $_REQUEST["A"] == "remove_catchall" || $_REQUEST["A"] == "create_catchall") {
 
-        if (isdefined($_REQUEST["U"])) {
+        if (isset($_REQUEST["U"])) {
             if ((in_array($_REQUEST["U"], $readonly_accounts_list) || in_array($_REQUEST["U"], $system_accounts_list)) && $_REQUEST["U"] != "") {
 
                 $msg = $txt_error_not_allowed[$_SESSION["lang"]];
