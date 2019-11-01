@@ -1,0 +1,36 @@
+ <form action="%script%?%SID%" method="post"> 
+ <table border=0> 
+ <tr><th align=right>  %txt_username% &nbsp;</th> 
+ <td bgcolor="#DDDDDD" align=left>%userinfo0%@%domain%&nbsp;</td></tr> 
+ <input type="hidden" name="U" value="%userinfo0%"> 
+        
+ <tr><th align=right>%txt_responder%&nbsp;</th> 
+ <td bgcolor="#CCCCCC" align=left> 
+
+ <select name="responder"> 
+ <option value="1" %checked_yes%>%txt_activated%</option> 
+ <option value="0" %checked_no%>%txt_inactived%</option> 
+ </select></td></tr> 
+ <tr><th>&nbsp;</th><td bgcolor="#DDDDDD"><b>%txt_autoanswertext%:</b>&nbsp;</td></tr> 
+
+ <tr><th align=right>%txt_from%&nbsp;</th> 
+ <td bgcolor="CCCCCC" align=left><input type="text" name="from" value="%respinfofrom%" size="50">&nbsp;</td></tr> 
+
+ <tr><th align=right>%txt_subject%&nbsp;</th> 
+ <td bgcolor="CCCCCC" align=left><input type="text" name="subject" value="%respinfosubject%" size="50">&nbsp;</td></tr> 
+
+ <tr><th align=right>%txt_text%&nbsp;</th> 
+ <td bgcolor="DDDDDD" align=left><font size="-1"><textarea name="body" cols="50" rows="13">%respinfobody%</textarea></font>&nbsp;</td></tr> 
+
+ <tr><th align=right>%txt_submit%&nbsp;</th> 
+
+ <td bgcolor="#CCCCCC" align=left> 
+ <input type="hidden" name="A" value="parse"> 
+       <input type="hidden" name="action" value="responder"> 
+ <input type="submit" value="%txt_submit%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+ <input type="reset" value="%txt_cancel%" onClick="return gO(this,true,true)">&nbsp;</td></tr> 
+               
+ </table> 
+ </form> 
+

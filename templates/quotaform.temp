@@ -1,0 +1,106 @@
+<form action="%script%?%SID%" method="post">
+<table border=0>
+
+<tr><th align=right>%txt_username%&nbsp;</th>
+<td bgcolor="#DDDDDD" align=left>%userinfo0%@%domain%&nbsp;</td></tr>
+<tr><th align=right>%txt_details%&nbsp;</th>
+<td bgcolor="#CCCCCC" align=left>%userinfo4%&nbsp;</td></tr>
+
+<tr><th align=right>%txt_date_of_creation%&nbsp;</th>
+<td bgcolor="#DDDDDD" align=left>%CreationTime%&nbsp;</td></tr>
+
+<tr><th align=right>%txt_status%&nbsp;</th>
+<td bgcolor="#CCCCCC" align=left>
+<select name="form_enabled">
+<option value="1" %checked_yes%>%txt_activated%</option>
+<option value="0" %checked_no%>%txt_inactived%</option>
+</select></td></tr>
+                                        
+<tr><th align=right>%txt_hardquota%&nbsp;</th>
+<td bgcolor="#DDDDDD" align=left><input type="text" name="form_hardquota" value="%HardQuota%" size="8">
+ kB &nbsp;</td></tr>
+
+<tr><th align=right>%txt_softquota%&nbsp;</th>
+<td bgcolor="#CCCCCC" align=left><input type="text" name="form_softquota" value="%SoftQuota%" size="8">
+ kB &nbsp;</td></tr>
+
+<tr><th align=right>%txt_msgcount%&nbsp;</th>
+<td bgcolor="#DDDDDD" align=left><input type="text" name="form_msgcount" value="%CountLimit%" size="8">
+&nbsp;</td></tr>
+
+<tr><th align=right>%txt_msgsize%&nbsp;</th>
+<td bgcolor="#CCCCCC" align=left><input type="text" name="form_msgsize" value="%SizeLimit%" size="8">
+ kB &nbsp;</td></tr>
+
+<tr><th align=right>%txt_expiry%&nbsp;</th>
+<td bgcolor="#DDDDDD" align=left>%ExpiryTimeString%
+<select name="form_year">
+<option value="-"> - </option>   
+<option%year2000%>2000</option>
+<option%year2001%>2001</option>
+<option%year2002%>2002</option>
+<option%year2003%>2003</option>
+<option%year2004%>2004</option>
+<option%year2005%>2005</option> 
+</select><select name="form_month">
+<option value="-"> - </option> 
+<option%month01%>01</option>
+<option%month02%>02</option>
+<option%month03%>03</option>
+<option%month04%>04</option>
+<option%month05%>05</option>
+<option%month06%>06</option>
+<option%month07%>07</option> 
+<option%month08%>08</option> 
+<option%month09%>09</option> 
+<option%month10%>10</option>
+<option%month11%>11</option>
+<option%month12%>12</option>
+</select><select name="form_day">
+<option value="-"> - </option>
+<option%day01%>01</option>    
+<option%day02%>02</option>
+<option%day03%>03</option>  
+<option%day04%>04</option>  
+<option%day05%>05</option>  
+<option%day06%>06</option>  
+<option%day07%>07</option>  
+<option%day08%>08</option>  
+<option%day09%>09</option>  
+<option%day10%>10</option>  
+<option%day11%>11</option>  
+<option%day12%>12</option>  
+<option%day13%>13</option>  
+<option%day14%>14</option>
+<option%day15%>15</option>
+<option%day16%>16</option>
+<option%day17%>17</option>
+<option%day18%>18</option>
+<option%day19%>19</option>
+<option%day20%>20</option>
+<option%day21%>21</option>
+<option%day22%>22</option>
+<option%day23%>23</option>
+<option%day24%>24</option>
+<option%day25%>25</option>
+<option%day26%>26</option>
+<option%day27%>27</option>
+<option%day28%>28</option>
+<option%day29%>29</option>
+<option%day30%>30</option>
+<option%day31%>31</option>
+</select>
+ &nbsp;</td></tr>
+
+<tr><th align=right>%txt_submit%&nbsp;</th>
+<td bgcolor="#CCCCCC" align=left>
+
+<input type="hidden" name="A" value="parse">
+<input type="hidden" name="action" value="quota">
+<input type="hidden" name="U" value="%username%">
+<input type="submit" value="%txt_submit%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="reset" value="%txt_cancel%" onClick="return gO(this,true,true)">&nbsp;</td></tr>
+
+</table>
+</form>
+

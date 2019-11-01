@@ -1,0 +1,121 @@
+<br>
+<table bgcolor="#eeeeee" width="80%">
+<tr><td>
+<br>
+<ul>
+
+<li><font color="blue"><b>Welcome to oMail-admin %version% ! </b><br><br></font></li>
+
+<li>This is a kind of "splash screen". To turn it off, a little simple thing : <br><br>
+<ul>
+<li>Make sure that the <b>$sysadmin_mail</b> variable in config.php is set to something else
+than <i>sysadmin@notdefined.yet</i> (it's better your karma :-) : %smail%</li>
+</ul><br><br></li>
+
+<li>
+I would be glad if you could take a few seconds to fill up this form : it would greatly<br>
+help me improve the scripts, and see how many and which kind of people are using it.<br>
+Thanks in advance for your support!  
+<br><br>All fields are of course completely optional. It's up to you :) I will keep these infos private in any case (no spam).
+
+<br><br>Please don't fill this form again, if you already done that before. <br>
+And if you don't want to fill it, please don't submit it with junk informations :<br>
+to remove it please simply read the two steps a few lines higher. Merci :)
+
+
+<form action="http://www.8304.ch/cgi-bin/formmail.pl" method="post">
+<table border="0">
+
+<tr><td align="right">Name:</td><td><small>
+<input type="text" size="30" name="name"></small></td></tr>
+
+<tr><td align="right">Company:</td><td><small>
+<input type="text" size="30" name="company"></small></td></tr>
+
+<tr><td align="right">Company URL:</td><td><small>
+<input type="text" size="40" name="company_url" value="http://"></small></td></tr>
+ 
+<tr><td align="right">Email:</td><td><small>
+<input type="text" size="40" name="email"></small></td></tr>
+
+<tr><td align="right">City, Country:</td><td><small>
+<input type="text" size="40" name="country">  (must be filled with anything)</small></td></tr>
+
+<tr><td align="right">May I list you on the omail-admin homepage?</td><td><small>
+<select name="listCompanyUrl"><option>No, please don't</option>
+<option>Yes, you can list our company on your homepage as omail-admin user</option></select></small></td></tr>
+
+<tr><td align="right">Announcements (a few times a year):</td><td><small>
+<select name="announcementsML"><option>Yes, please send me a mail on new major release and bugfixes</option>
+<option>No, no announcements please, I know www.freshmeat.net :)</option></select></small></td></tr>
+
+<tr><td align="right">Devel Mailing List (low trafic):</td><td><small>
+<select name="develML"><option>No subscription please.</option>
+<option>Yes, please subscribe me to the devel mailing list</option></select></small></td></tr>
+
+<tr><td align="right">How long are you using omail-admin?</td><td><small>
+<select name="howlong">
+<option value=""> - </option>
+<option>it's my first try</option>
+<option>a few weeks</option>
+<option>a few months</option>
+<option>more than 6 months</option>
+</select>
+</small></td></tr>
+
+<tr><td align="right">Use of omail-admin:</td><td><small>
+<select name="use">
+<option value=""> - </option>
+<option>For a lots of different domains (ISP mail server)</option>
+<option>Just for one or a few domains (Company mail server)</option>
+</select>
+</small></td></tr>
+
+<tr><td align="right">Average nb of users:</td><td><small>
+<select name="nb_of_users">
+<option value=""> - </option>
+<option>Less than 10 mailboxes/alias per domain</option>
+<option>Between 10 and 50 mailboxes/alias per domain</option>
+<option>More than 50 mailboxes/alias per domain</option>
+</select>
+</small></td></tr>
+
+
+<tr><td align="right">Nb of domains on the server:</td><td><small>
+<select name="nb_of_domains">
+<option value=""> - </option>
+<option>Just one</option>
+<option>Between 2 and 10</option>
+<option>Between 10 and 50</option>
+<option>Between 50 and 100</option>
+<option>More than 100</option>
+</select>
+</small></td></tr>
+
+
+<tr><td align="right"><br>Currently supported languages are:</td><td><br><small>%languages%</small></td></tr>
+<tr><td align="right">Which other language would you need?</td><td><small>
+<input type="text" size="30" name="new_language"><select name="newLangHelp">
+<option value=""> - </option>
+<option>I could help!</option>
+<option>Sorry, no time</option>
+</select></small></td></tr>
+
+<tr><td align="right" valign="top"><br>Other comments and feature requests:</td><td>
+<small><textarea name="comment" cols="40" rows="5"></textarea></small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+
+<tr><td colspan="2" align="center"><small><br><input type="submit" value="Submit form! Thanks for your participation!"></small></td></tr>
+</table>
+
+<input type="hidden" name="recipient" value="qmail@orion.8304.ch">
+<input type="hidden" name="subject" value="oMail-admin %version% splash form">
+<input type="hidden" name="referer" value="http://%HTTP_HOST%%REQUEST_URI%">
+<input type="hidden" name="redirect" value="http://%HTTP_HOST%%REQUEST_URI%?&splash_ok=1">
+<input type="hidden" name="sender" value="%REMOTE_ADDR%">
+<input type="hidden" name="language" value="%HTTP_ACCEPT_LANGUAGE%">
+<input type="hidden" name="version" value="%cvs_version%">
+<input type="hidden" name="domain" value="%domain%">
+<input type="hidden" name="required" value="country">
+
+<br>
+</td></tr></table>

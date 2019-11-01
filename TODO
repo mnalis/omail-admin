@@ -1,0 +1,59 @@
+-----------
+oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2004  Olivier Mueller <om@omnis.ch>
+-----------
+
+
+oMail-admin TODO
+================
+$Id: TODO,v 1.27 2005/09/06 21:32:59 swix Exp $ 
+$Source: /cvsroot/omail/admin2/TODO,v $ 
+
+
+High priority
+-------------
+[X] quota support   (om, 13aug2k)
+[X] correct autoresponder support    (om, 03aug2k)
+[X] support for non cookies enabled browsers  (om, 14aug2k)
+[X] remove autoresponder info and button for aliases  (om, 03aug2k)
+[X] make the enabled/disabled feature work (om, 18aug2k)
+[ ] update strings for other languages
+[X] for quantity of mailboxes quota, don't count system or readonly accounts!
+[ ] docs about spamassassin stuff / docs in general
+[ ] display mailbox size 'live', based on vmailmgrd 0.97's 'stat' command
+
+Normal priority
+---------------
+[.] more translations
+[X] display mailbox size : unread mails, saved mails (based on cronjob)
+[X] support for info field           (om, 11aug2k)
+[X] use <select> to setup expiry date on quota edition   (om, 16oct2k)
+[.] add help screen / buttons
+[ ] create a logo for the project
+[X] support for HTML templates        (om, oct2k)
+[X] better support for the + alias    (om, 15oct2k)
+[X] support for specific mail accounts limitation (root, abuse, mailer-daemon, postmaster, etc.)
+    -> hide, read only, or read/write   (om, 18oct2k)
+[ ] case of popup screens & session timeout : close popup on session timeout
+[X] display N accounts per page, better design  (om, 13nov2k)
+[X] add a <select> with list of current mailboxes for forwaders addition  (om, 13nov2k)
+[ ] [Matthias F. Brandstetter] turn on/off autoresponder on a cron basis 
+    -> would require a cron job + some goodies
+[ ] make it work with register_global = off  -> lot of (rewrite)-work necessary :(
+
+Low priority
+------------
+[ ] ability to change quotas for all users at one time
+[ ] webmail support  (would need vmailmgr daemon support)
+[ ] display mailbox contents listing  (also need changes in daemon)
+[X] add "GPL" standard headers in all source files    (om, 14aug2k)
+[ ] analyse error/ok message, and give a translated version
+[X] replace "Omail" by "oMail-admin" in every file
+[ ] eventually secure the query strings with an md5 checksum
+[ ] accounting stuff ($i++ somewhere on account creation, for a billing system for example)
+[X] sort by login or real name
+
+--------------------------------------------------------------------------
+[ ]  Todo       [X]  Done      [.]  On the way/currently thinking about it
+--------------------------------------------------------------------------
+
+

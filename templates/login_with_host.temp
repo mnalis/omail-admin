@@ -1,0 +1,80 @@
+<br><br>
+<CENTER>
+<TABLE CELLPADDING=0 CELLSPACING=0 BORDER=0 BGCOLOR="#EEEEEE"
+<TR VALIGN="TOP">
+<TD COLSPAN="2">
+<TABLE WIDTH="100%" CELLPADDING=5 CELLSPACING=0 BORDER=0>
+<TR ALIGN="LEFT">
+<TD VALIGN="MIDDLE" BGCOLOR="#CCCCCC">
+<b>%txt_dom_ident%</b>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</TD>
+
+<script language="JavaScript1.2">
+<!--
+function selectLang() {
+    var lang_page = "%script%?%SID%&setlang=" + document.login.setlang[document.login.setlang.selectedIndex].value;
+    self.location = lang_page;
+}
+//-->
+</script>
+
+
+<FORM METHOD="post" ACTION="%script%?%SID%" NAME="login">
+<TD VALIGN="MIDDLE" ALIGN="RIGHT" BGCOLOR="#CCCCCC">
+<SELECT NAME="setlang" onchange="selectLang()">
+<bla>
+<OPTION VALUE="%id%" %sel%>%txt%</OPTION>
+</bla>
+</SELECT>
+<INPUT TYPE="SUBMIT" VALUE="Ok">
+</TD></TR></TABLE></TD>
+<INPUT TYPE="hidden" name="A" value="login">
+</FORM>
+
+
+
+<FORM METHOD="post" ACTION="%script%?%SID%">
+</TR>  
+
+<tr><td colspan="2">&nbsp;</td></tr>
+
+<TR><TD ALIGN="RIGHT">%txt_domain_or_email% :&nbsp;</TD>
+<TD><input name="form_login" VALUE="%domain_value%" size="20"> %domain_select%
+</TD>
+</TR>
+
+<tr><td colspan="2">&nbsp;</td></tr>
+
+<TR>
+<TD ALIGN="RIGHT">%txt_password_str% :&nbsp;</TD>
+<TD><input name="form_passwd" type="password" size="20">
+</TD>
+</TR>
+
+<tr><td colspan="2">&nbsp;</td></tr>
+
+<TR>
+<TD ALIGN="RIGHT">%txt_mailhost_str% :&nbsp;</TD>
+<TD>
+<select name="form_tcphost">
+%tcphost_select_list%
+</select>
+</TD>
+</TR>
+
+<tr><td colspan="2">&nbsp;</td></tr>
+
+<TR>
+<TD ALIGN="CENTER" COLSPAN="2" BGCOLOR="#CCCCCC">
+<br>
+<INPUT TYPE="hidden" name="A" value="checkin">
+<INPUT TYPE="hidden" name="setlang" value="%lang%">
+<INPUT TYPE="SUBMIT" VALUE="%txt_login%">
+<br><br>
+</TD></TR>
+
+</TABLE>
+</CENTER>
+</FORM>
+

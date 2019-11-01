@@ -1,0 +1,455 @@
+-----------
+oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2004  Olivier Mueller <om@omnis.ch>
+-----------
+
+$Id: ChangeLog,v 1.80 2005/10/31 22:34:18 swix Exp $ 
+$Source: /cvsroot/omail/admin2/ChangeLog,v $
+
+2005-10-31  Olivier Müller   <om@omnis.ch>
+
+	* applied patch by Greg P. Favre which allows the selective enablation of 
+          SpamAssassin report_safe score reports. 
+
+2004-02-14  Olivier Müller   <om@omnis.ch>
+	
+	* added scripts/vmailstats.pl script: generate system wide vmailmgr mailboxes 
+	  statistics, which can then be displayed by omail-admin
+	* updated omail-admin to display domain/maildir stats if the information is available
+	* overall speed improvements: get information from vmailmgrd only when required,
+	  and cache the data if possible.
+	* func.php: patch from Charlie Garrison to correct broken html comments
+	* added translation for Polish [Piotrek]
+
+2003-05-04  Olivier Mueller  <om@omnis.ch>
+
+	* user-friendly selection of spam required hits
+
+2003-01-29  Olivier Mueller  <om@omnis.ch>
+
+	* tcp_hosts_dir method now also compatible with virtualdomains-like files
+	* func.php: tcp_host_dir method now ok also on single user login (login = mail address)
+
+2003-01-15  Olivier Mueller  <om@omnis.ch>
+
+	* completely changed spamassassin support concept: not using the passwd.cdb
+	  database anymore (would require patching vmailmgr or a new version of
+	  vmailmgr, which didn't happened since 18 months). Now using an SQL database,
+	  the same as documented in http://www.spamassassin.org/dist/sql/README
+	  and a patched qmail-scanner. Look at README.antispam for more details.
+
+2002-02-09  Olivier Mueller  <om@omnis.ch>
+
+	* added support for SpamAssassin ( http://spamassassin.org )
+	  requires a patched qmail-scanner-1.10, and vmailmgr version 0.96.9.
+	  new configuration settings: $use_spamassassin and $spamassassin_default_status
+	* removed splash_screen variable: screen will only be displayed if support mail
+	  address has not been changed since installation.
+
+2001-11-17  Olivier Mueller  <om@omnis.ch>
+
+	* added translation for Lithuanian [tk]
+
+2001-11-15  Olivier Mueller  <om@omnis.ch>
+
+	* updated help file [jw]
+
+2001-11-12  Olivier Mueller  <om@omnis.ch>
+
+	* fixed bug 466528 (trailing space in fwd)
+	* redesigned login screen a little bit
+	* remove trailing blanks at several places just in case 
+	* replaced the input fields with a textfield to add new forwarders
+	* from now, if you remove all forwarders of an account with mail_delivery=disabled
+	  a warning will be shown, telling that the account will ignore all incoming mails
+	* added the $turn_off_delivery_on_fwd_setup configuration variable:
+		if set to '1', the local delivery will be turned off by default when a user
+		setup a forwarder to his account. It's then still possible to turn delivery
+		on afterwards, but most people won't -> good for disk usage :)  
+	* release of version 0.98.1
+
+2001-04-17  Olivier Mueller  <om@omnis.ch>
+
+	* added translation for Indonesian : thanks to Suryanto Rachmat!
+	* added translation for Brazilian Portuguese : thanks to Zeus
+
+2001-04-12  Olivier Mueller  <om@omnis.ch>
+
+	* improved catchall
+	* new_account_forbidden splited to 2 variables:
+	  new_mailbox_forbidden and new_alias_forbidden
+	* added settings in user mode : enables/disables delivery to local
+	  mailbox (but aliases, if any, will still continue to work). 
+	  Beware: if an account is disabled, and there are no aliases 
+	  defined, the mails will delivered to a black hole (aka lost).
+	  [suggested by jw]
+	
+2001-03-20  Olivier Mueller  <om@omnis.ch>
+
+	* updated help file : thanks to Jim! [jw]
+
+2001-03-18  Olivier Mueller  <om@omnis.ch>
+
+	* quota bugfix: thanks to Martin Hetzner and Michael Bauer for pointing
+	  out the missiong strtolower problem.
+	* ldap/bugfix patch set from Ray [ri] :
+	> - Whenever you safe your auto response message a newline (\n) will be added
+	> to the file causing the message to grow with one line every time you save
+	> it.
+	> - When saving the message body with the form it somehow gets send as a DOS
+	> format text, with CRLF ending each line. Omail than puts a LF after each of
+	> these lines. This will not show up in omail but qmail-autoresponder 0.93
+	> will doublespace each line in the autoreply send to the sender.
+	> - When you choose to only show mailboxes starting with a certain letter only
+	> those mailboxes will be shown in both pulldown boxes for the forwarders and
+	> catchall selection.
+	  (strings.php not patched yet)
+
+	
+2001-03-06  Olivier Mueller  <om@omnis.ch>
+
+	* release of version 0.97.2	
+	* updated the catchall-alias choice method : removed
+	  the [ delete ] button, and added the delete button
+	  to the popup window. 
+	* update of the english strings in strings.php [jw]
+	* a few minor bugfixes
+
+2001-03-03  Olivier Mueller  <om@omnis.ch>
+
+	* server name (if using vmailmgrd-tcp & mode = 2) is now also 
+	  saved in a cookie
+	* help & about screen are now opened in a new window
+	* removed one of the html_header template (not needed anymore)
+	* completely redesigned catchall-alias choice
+
+2001-02-25  Olivier Mueller  <om@omnis.ch>
+
+	* official release of version 0.97
+	* updated danish translation [kg]
+	* now display 3 random-chosen omail-admin users on admin screen,
+	  based on splash-screen feedback :) List is located in USERS.
+	* added translation to Czech [ls]
+
+2001-02-24  Olivier Mueller  <om@omnis.ch>
+
+	* released version 0.97 (preview)
+	* added vmailmgrd-tcp support, with 3 different host selection
+	  methods : 1) an unique host, 2) a hosts listing, with selection
+	  on login screen, 3) transparent host selection based on domain
+	  name.
+	* catchall action is now visible by default
+	* documentation updates (line lenght), added an INSTALL.daemon 
+	  file with some example setups
+	* added a variable to vmailmgrquotas : new_account_forbidden,
+	  which will hide the "new mailbox" or "new alias" button.
+
+2001-01-11  Olivier Mueller  <om@omnis.ch>
+
+	* bugfix to the show_mb_letter & page_nb problem [ri]
+
+2001-01-10  Olivier Mueller  <om@omnis.ch>
+
+        * huge patch sent by Rey, to add basic ldap support. As it doesn't seem
+          to break the rest (set ldap = 0 in the configuration), it comes in the
+          main branch. All the LDAP changes and documentation is in the README.LDAP
+	  file.
+	* userquota bugfix [ri]
+
+2001-01-10  Olivier Mueller  <om@omnis.ch>
+
+	* re-released 0.96pre10
+	* fixed a little bug preventing username to be saved on new account
+	  creation (thx Clemens).
+
+2001-01-09  Olivier Mueller  <om@omnis.ch>
+
+	* released version 0.96pre10	
+	* applied patch from Peter, and corrected a few things:
+	 > I've attached a patch that does the following to omail-admin-0.96pre9:
+	 > * Adds the ability to display mailboxes and/or aliases starting with a
+	 >   certain letter.
+	 > * Fixes strings.php to use ``&lt;'' instead of ``<'' where appropriate.
+	 > * Alters the display_{mailboxes,aliases}{,_nolimit} templates to both use
+	 >   the show by letter feature and to clean them up a little. :-)
+
+2001-01-08  Olivier Mueller  <om@omnis.ch>
+
+	* added translation for swedish (tack Thomas!)
+
+2000-12-12  Olivier Mueller  <om@omnis.ch>
+
+	* bugfix: user quotas fixes ("" = "-" != "0")
+	* bugfix: new alias creation working correctely  again 
+
+2000-11-30  Olivier Mueller  <om@omnis.ch>
+
+	* released version 0.96pre9
+	* added correct charset for japanese
+	* index.php: bugfix for newuser/alias [hs]
+	* htmlstuff.php: bugfix in html_head [hs] [om] 
+	* added correct charset for chinese
+	* removed the forwarders from the menu screen (took to much space)
+	* the "create accont" links are shown only if quota are not overridden
+	* removed and added a few html_head() calls in index.php (should solve the Header() bug)
+	* a few cosmetic changes (now looks ok in both NS and IE)
+	
+2000-11-29  Olivier Mueller  <om@omnis.ch>
+
+	* added translation for chinese (thx Ming)
+	* added translation for japanese (thx Hideto)
+	* little bugfix for quotas [hs]
+
+2000-11-17  Olivier Mueller  <om@omnis.ch>
+
+	* released oMail-admin version 0.96pre8
+
+	* htmlstuff.php: Bugfix : user login is working again. Thx to Daniel for reporting the bug.
+	* htmlstuff.php: Bugfix : catchall setup not displayed anymore on user login.
+	* htmlstuff.php: Bugfix : on user login, don't display the select list of available users
+
+	* Big patch sent by Rey [ri]: 
+	* func.php: added support for default soft quota, hard quota and message size when
+	  creating new users. changed behaviour of quotas. Sizes can now be specified in kB instead of
+	  Bytes. if a user specifies a blank or zero for quotas, the quotas will not be set
+	  to zero but to unlimited.
+	* htmlstuff.php: changed behaviour of quotas. Sizes will be shown in kB instead of Bytes.
+	  changed pagers (prev, next, etc) to support language.
+	* index.php: fixed a bug which prevented adding new aliases and users when quota is set
+	  but not reached.
+	* strings.php: added Dutch language support. added txt_quota_account as it showed the 
+	  text for editing when in the settings screen. corrected French and German text in 
+	  txt_error_no_username. added arrays for pager functions.
+	* vmail.inc: added support for default soft quota, hard quota and message size when 
+	  creating new users.
+	* vmailmgrquotas: added support for default soft quota, hard quota and message size when
+	  creating new users.
+
+2000-11-15  Olivier Mueller  <om@omnis.ch>
+
+	* updated it translation (thx NERvOus)
+
+2000-11-13  Olivier Mueller  <om@omnis.ch>
+
+	* released oMail-admin version 0.96pre7
+	* "N accounts per screen" support added, with a new variable in the config file
+          (turned off by default).
+	* show a list of existing accounts when creating/editing an account (forwarders)
+	* fixed some html and design issues
+	* TODO before 0.96-final release: updates translations for the new features, and
+	  verify the hidden/system accounts stuff
+
+2000-10-21  Olivier Mueller  <om@omnis.ch>
+
+	* released oMail-admi version 0.96pre5
+	* started preliminary support for showing N accounts per screen:
+          You can try it by using this kind of url query-string: ?show_start=4&show_howmany=5
+	  Still thinking about how it could be shown on the interface	  
+	* vmail.inc: fixed the $out.=fread($vmailsock, 65535); bug (thx Mike)
+	* fixed sorting choice
+	     
+2000-10-19  Olivier Mueller  <om@omnis.ch>
+	
+	* translation to romanian (thx Harald!)
+
+2000-10-18  Olivier Mueller  <om@omnis.ch>
+
+	* sorting account listing by account name or personal info
+	* help page template (but still empty)
+
+2000-10-17  Olivier Mueller  <om@omnis.ch>
+
+	* released oMail-admin version 0.96pre4
+	* strings.php: a few french fixes by Sebastien Guilbaud
+	* bugfix: user login is working again
+	* templates/quotaform.temp: select menu for account expiration time (menu quota)
+	* addslashes fixes (thx David)
+	
+2000-10-15  Olivier Mueller  <om@omnis.ch>
+
+	* released oMail-admin version 0.96pre3	
+	* Catchall account support ("+") : now working 100%
+	* added catchall support to vmailmgrquotas (user allowed to edit/change the catchall account y/n)
+	* if an account is deleted, and that the "+" alias was pointing on it, the "+" account will also
+	  automaticaly be removed.
+	* templates: removed the "fwd3" column from mailbox listings (to give enough place for the catchall button)
+	* config.php: support for hidding system accounts like root, postmaster, mailmaster, etc.
+	  If set, it will be impossible to see, edit, create and delete accounts with the definied names.
+	  There are system accounts (hidden) and read only accounts (visible, but read only).
+
+2000-10-13  Olivier Mueller  <om@omnis.ch>
+	
+	* templates/login.temp: language selection is now done using a <SELECT> menu
+	  (too many languages to keep the old design :)
+	* htmlstuff.php: fixes to allow select-based language setup (too many languages to be
+	  listed on one line :)
+	* TRANSLATION: added information about new translations
+
+2000-10-12  Olivier Mueller  <om@omnis.ch>
+
+	* released oMail-admin version 0.96pre2
+	* htmlstuff.php: fixed a typo which hid the "settings" action button
+	* strings.php: added translation for danish [kg]
+	* index.php: fixed another "blank screen" bug  ($active == 1 && $A = "checkin")
+
+2000-09-25  Olivier Mueller  <om@omnis.ch>
+
+	* released oMail-admin version 0.96pre1
+    
+2000-09-25  Olivier Mueller  <om@omnis.ch>
+
+	* templates/ : completed all the templates, everything seems to work as usual
+	* index.php: corrected the blank screen shown in case of ($active == 1 && $A = "login")
+	  thanks Jim for rapporting the bug
+	* htmlstuff.php: [logout] button was not acting correctely anymore on popup windows: fixed.
+
+2000-09-24  Olivier Mueller  <om@omnis.ch>
+
+	* templates/ : nearly finished the templates : only the account list is missing 
+	
+2000-09-23  Olivier Mueller  <om@omnis.ch>
+	
+	* templates support now in main cvs. conversion of the htmlstuff -> templates
+	  in progress.
+	* updated cookie stuff (for username/domain/lang)
+	* *.gif: moved .gifs to /images
+	
+2000-09-19  Olivier Mueller  <om@omnis.ch>
+	
+	* strings.php: added russian translation : thanks to Andy Krasilnikov 
+	* htmlstuff.php: added support for different charsets (needs debugging)
+	* index.php, htmlstuff.php: added support an optional limited domains list 
+	  on logon page (idea: Andy, plus some personal changes). 
+
+2000-09-16  Olivier Mueller  <om@omnis.ch>
+
+	* released oMail-admin version 0.95
+	* README: updated mailing list information + corrected cvs tree location
+	* INSTALL: added FAQ section
+	* added "First use" splash-screen for statistic purpose.
+	* Templates support is in progress : should be included in next version
+	* A few fixes (html, typos)
+
+2000-09-13  Olivier Mueller  <om@omnis.ch>
+
+	* started conversion to templates support. Location of files is /templates
+
+2000-08-20  Olivier Mueller  <om@omnis.ch>
+
+	* added italian support in strings.php. Thx to NERvOus :)
+
+2000-08-18  Olivier Mueller  <om@omnis.ch>
+
+	* released oMail-admin version 0.94
+	* support for enabled/disabled user status (chattr -E) - thx to Mike for the suppl. info.
+	* status is displayed by the color of the username : red = disabled, green = enabled
+	* func.php; updated authentication method for single user : now checking by trying
+	  to change the password. (before it was setting MAILBOX_ENABLED to 1, but as we are now
+	  supporting this feature too, it's not quite ideal :)
+	* try to detect user's language by using the HTTP_ACCEPT_LANGUAGE variable
+	* Todo/Question: are quotas/enbled status making sense for aliases ? setting and retriving
+	  status works, but does it have an influence ?  (to test, set $config_use_settings_with_quota
+	  to 1 in config.php)
+
+2000-08-14  Olivier Mueller  <om@omnis.ch>
+
+	* released oMail-admin version 0.93.2
+	* added "resizable=yes" to the javascripts functions (better for IE)
+	* corrected a few ES typos in strings.php
+	* the whole system is now also supports browsers without cookies (=SID everywhere) : it works with lynx	
+
+2000-08-14  Olivier Mueller  <om@omnis.ch>
+
+	* released oMail-admin version 0.93.1
+	* updated spanish translation [jc]
+
+2000-08-13  Olivier Mueller  <om@omnis.ch>
+
+	* released oMail-admin version 0.93
+	* display current domain quota on lowest table row
+	* support for vmailmgr internal user quotas [also added one variable to vmailmgrquota config file]
+	* preparation to allow the domain admin to enable or disable an account (chattr -E)
+          (needs changes in vmail.inc ?)
+
+2000-08-13  Olivier Mueller  <om@omnis.ch>
+
+	* released oMail-admin version 0.92
+	* added domain-based quota support (check end of INSTALL file for more infos)
+          supports :	- use mailboxes y/n
+			- use aliases y/n
+			- maximal number of aliases
+			- maximal number of mailboxes
+			- are the users allowed to login with "username@domain.ext" ?
+			- are the users allowed to use autoresponder ?
+	* added config file for quotas : check the "vmailmgrquotas" file.
+	* improved security : somebody logged in user mode can't create a new account anymore
+
+
+2000-08-11  Olivier Mueller  <om@omnis.ch>
+
+	* released version oMail-admin 0.91
+	* support for (and only) vmailmgr 0.96.8
+	* updated vmail.inc
+	* userinfo field support
+	* added [cancel] buttons on all forms
+	* improved autoresponder support thanks vautorespondstatus
+	* documentation has been updated
+
+2000-08-08  Olivier Mueller  <om@omnis.ch>
+
+	* released version 0.90.3a
+	* translation to spanish added (thanks [jc]!)
+	* some updates in documentation
+
+2000-08-06  Olivier Mueller  <om@omnis.ch>
+
+	* released version 0.90.2a
+	* autoresponder support 100% ok now
+	* a lots of small fixes
+
+2000-08-02  Olivier Mueller  <om@omnis.ch>
+
+	* released version 0.90a
+	* all edit functions are working (passwd change, fwd change)
+	* new user & new alias
+	* delete account
+	* autoresponder support   (still needs debugging)
+	* config file cleanups
+	* about screen
+	* todo
+
+2000-08-01  Olivier Mueller  <om@omnis.ch>
+
+	* complete redesign : no more vwrap suid perl wrapper and mysql need. only require vmailmgr 0.96.7 and PHP4
+	* login is working for both domain admin (login = domain) and single user (login = email address)
+	* display of account information is working
+	* sorting is working
+	* session support with check of remote host and automatic expiration after N minutes
+	* edit account form working again
+	* password change working  (other things in progress)
+
+2000-07-29  Olivier Mueller  <om@omnis.ch>
+
+	* Support for the "+" alias 
+	* Removed bug in the autoresponder function (From: and Subject:)
+	* .qmail-xxxx is also deleted if account with autoresponder is removed
+	* Released version 0.5
+
+2000-02-06  Olivier Mueller  <om@omnis.ch>
+
+	* Added mailbox listing feature
+	* Released version 0.4
+
+2000-02-05  Olivier Mueller  <om@omnis.ch>
+
+	* Added autoresponder feature, based on autorespond by Eric Huss
+	* Installed a live demo
+	* Basic project homepage setup
+	* Released version 0.3
+
+2000-01-23  Olivier Mueller  <om@omnis.ch>
+
+        * Released first public version 0.2
+
+
+
+

@@ -1,0 +1,45 @@
+<form action="%script%?%SID%" method="post">
+<table border=0>
+<tr><th align=right>%txt_username%&nbsp;</th>
+<td bgcolor="#DDDDDD" align=left>%usernamefield%@%domain%&nbsp;</td></tr>
+
+<tr><th align=right>%txt_firstname%&nbsp;</th>
+<td bgcolor="#DDDDDD" align=left>%firstname%&nbsp;</td></tr>
+
+<tr><th align=right>%txt_lastname%&nbsp;</th>
+<td bgcolor="#DDDDDD" align=left>%lastname%&nbsp;</td></tr>
+
+<tr><th align=right>%txt_details%&nbsp;</th>
+<td bgcolor="#CCCCCC" align=left>%userdetailfield%&nbsp;</td></tr>
+
+<tr><th align=right>%txt_directory%&nbsp;</th>
+<td bgcolor="#DDDDDD" align=left>%userinfo2%&nbsp;</td></tr>
+
+<tr><th align=right>%txt_passwd%&nbsp;</th>
+<td bgcolor="#CCCCCC" align=left><input type="password" name="passwd1" value="" size="9">&nbsp;%txt_facultatif%&nbsp;</td></tr>
+
+<tr><th align=right>%txt_passwd%&nbsp;</th>
+<td bgcolor="#DDDDDD" align=left><input type="password" name="passwd2" value="" size="9">&nbsp;%txt_facultatif%&nbsp;</td></tr>
+
+<tr><th align=right>%txt_fwd1%&nbsp;</th>
+<td bgcolor="#CCCCCC" align=left>
+<select name="fwd[]">%select_account_contents%</select>@%domain% &nbsp;
+</td></tr>
+
+%fwd_part%
+
+<tr><th align=right>%txt_fwd1%&nbsp;</th>
+<td bgcolor="#CCCCCC" align=left><textarea cols="35" wrap="virtual" rows="5" name="newfwd"></textarea>&nbsp;
+<br><font size="-1">%txt_one_per_line%</font>
+</td></tr>
+
+<tr><th align=right>%txt_submit%&nbsp;</th>
+<td bgcolor="%sub_color%" align=left>
+
+<input type="hidden" name="A" value="parse">
+<input type="hidden" name="action" value="%action%">
+<input type="submit" value="%txt_submit%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="reset" value="%txt_cancel%" onClick="return gO(this,true,true)">&nbsp;</td></tr>
+</table>
+</form>
+
