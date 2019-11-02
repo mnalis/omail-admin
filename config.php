@@ -255,8 +255,8 @@ $tb_userpref = "userpref";
 /* you shouldn't have to change the following lines */
 
 // version
-$version = "1.2RC1";
-$cvs_version = '$Id: config.php,v 1.69 2004/02/15 18:15:44 swix Exp $';
+$version = "1.2TS4";
+$cvs_version = '$Id: config.php, 20191102 https://github.com/mnalis/omail-admin$';
 
 // script URL
 $script_url = $_SERVER["PHP_SELF"];
