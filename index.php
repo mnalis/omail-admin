@@ -339,12 +339,14 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
                 $_SESSION["sort_order"] = "username";
             }
 
-            if ($_SESSION["catchall_active"]) {
-                $txt_menu_add = "<br>" . $txt_current_catchall_account_is[$_SESSION["lang"]] . ": <b>" . $_SESSION["catchall_active"] . "@" . $_SESSION["domain"] . "</b>";
-                $txt_menu_add .= ' [ <a href="' . $script_url . '?A=create_catchall&" onClick="oW(this,\'pop\')">' . $txt_edit[$_SESSION["lang"]] . '</a> ]';
-            } else {
-                $txt_menu_add = "<br>" . $txt_current_catchall_not_defined[$_SESSION["lang"]] ;
-                $txt_menu_add .= ' [ <a href="'. $script_url . '?A=create_catchall&U=" onClick="oW(this,\'pop\')">' . $txt_edit[$_SESSION["lang"]] . '</a> ]';
+	    if ($_SESSION["quota_data"]["catchall_use_allowed"]) {
+                if ($_SESSION["catchall_active"]) {
+                    $txt_menu_add = "<br>" . $txt_current_catchall_account_is[$_SESSION["lang"]] . ": <b>" . $_SESSION["catchall_active"] . "@" . $_SESSION["domain"] . "</b>";
+                    $txt_menu_add .= ' [ <a href="' . $script_url . '?A=create_catchall&" onClick="oW(this,\'pop\')">' . $txt_edit[$_SESSION["lang"]] . '</a> ]';
+                } else {
+                    $txt_menu_add = "<br>" . $txt_current_catchall_not_defined[$_SESSION["lang"]] ;
+                    $txt_menu_add .= ' [ <a href="'. $script_url . '?A=create_catchall&U=" onClick="oW(this,\'pop\')">' . $txt_edit[$_SESSION["lang"]] . '</a> ]';
+                }
             }
 
             if (isset($_SESSION["vmailstats"]["active"]) && $_SESSION["vmailstats"]["active"]) {
@@ -591,7 +593,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
     if ($_REQUEST["A"] == "catchall" || $_REQUEST["A"] == "remove_catchall" || $_REQUEST["A"] == "create_catchall") {
 
         if (isset($_REQUEST["U"])) {
-            if ((in_array($_REQUEST["U"], $readonly_accounts_list) || in_array($_REQUEST["U"], $system_accounts_list)) && $_REQUEST["U"] != "") {
+            if (((in_array($_REQUEST["U"], $readonly_accounts_list) || in_array($_REQUEST["U"], $system_accounts_list)) && $_REQUEST["U"] != "") || $_SESSION["quota_data"]["catchall_use_allowed"] == 0) {
 
                 $msg = $txt_error_not_allowed[$_SESSION["lang"]];
                 $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$_SESSION["lang"]]  .  "</a>\n";

@@ -88,6 +88,31 @@ function authenticate($arg_login, $arg_passwd, $arg_ip, $tcphostname) {
         $_SESSION["type"] = "domain";
     }
 
+    // check if domain exists (in rcpthosts/virtualdomains)
+    $domainok = 0;
+    if (strstr($_SESSION["domain"],".")) {
+            if (file_exists($virtualdomains_file)) {
+                    if ($fp = fopen($virtualdomains_file, "r")) {
+                            while (!feof($fp)) {
+                                    $buffer = trim(fgets($fp, 4096));
+                                    if (substr($buffer, 1) != "#" && substr($buffer, 1) != "\n" && substr($buffer, 1) != "")
+                                    {
+                                            $entry = explode(":", $buffer);
+                                            if ($entry[0] == $_SESSION["domain"]) {
+                                                    $domainok = 1;
+                                                    $domainuser = $entry[1];
+                                            }
+                                    }
+                            }
+                    } else {
+                            return 0;
+                    }
+                    fclose ($fp);
+            } else {
+                    return 0;
+            }
+    }
+
     // initalize some variables
     $_SESSION["mb_start"] = 0;
     $_SESSION["al_start"] = 0;
@@ -106,7 +131,11 @@ function authenticate($arg_login, $arg_passwd, $arg_ip, $tcphostname) {
             $_SESSION["expire"] = time() + $expire_after*60;
             $_SESSION["ip"] = $arg_ip;
 
-            load_quota_info($_SESSION["domain"]);
+            if ($domainok == 1) {
+                load_quota_info($domainuser);
+            } else {
+                load_quota_info($_SESSION["domain"]);
+            }
             get_catchall_account();
 
             return 1;
@@ -123,7 +152,11 @@ function authenticate($arg_login, $arg_passwd, $arg_ip, $tcphostname) {
             $_SESSION["expire"] = time() + $expire_after*60;
             $_SESSION["ip"] = $arg_ip;
 
-            load_quota_info($_SESSION["domain"]);
+            if ($domainok == 1) {
+                load_quota_info($domainuser);
+            } else {
+                load_quota_info($_SESSION["domain"]);
+            }
             get_catchall_account();
 
             return 1;

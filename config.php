@@ -60,6 +60,9 @@ $default_language = "de";
 $system_accounts_list = array( );
 //$system_accounts_list = array( 'abuse', 'root', 'hostmaster');
 
+// virtualdomains file location (/mn/)
+// ----------------------------
+$virtualdomains_file = "/var/qmail/control/virtualdomains";
 
 // readonly accounts
 // ----------------
@@ -138,6 +141,7 @@ $use_vmailmgrd_tcp = 0;
 // contains ip of target host. This host must accept tcp connections on port
 // 322 comming for the webserver where omail-admin is running.
 $vmailmgrd_tcp_host = "127.0.0.1";
+$vm_tcphost_port = "944";
 
 // vmailmgrd_tcp_host_method
 // -------------------------
