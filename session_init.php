@@ -1,4 +1,4 @@
-<?
+<?php
 
 // Clear up input values (because of magic quotes...)
 if (count($_GET)) {
