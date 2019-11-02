@@ -34,7 +34,7 @@ High priority
 	
 	
 [ ] https://www.php.net/manual/en/migration72.incompatible.php
-	- Deprecated: The each() function is deprecated. This message will be suppressed on further calls in /home/users/tomsoft1/public_html/support2/omail-admin/func.php on line 738, 740
+	+? Deprecated: The each() function is deprecated. This message will be suppressed on further calls in /home/users/tomsoft1/public_html/support2/omail-admin/func.php on line 738, 740
 
 [ ] https://www.php.net/manual/en/migration73.incompatible.php
 	- continue - https://www.php.net/manual/en/migration73.incompatible.php#migration73.incompatible.core.continue-targeting-switch
@@ -42,6 +42,7 @@ High priority
 [ ] PHP 7.x deprecated
 	+? Deprecated: Methods with the same name as their class will not be constructors in a future version of PHP; table has a deprecated constructor in /home/users/tomsoft1/public_html/support2/omail-admin/mysql.inc on line 38
 		https://stackoverflow.com/a/37100413/2600099
+	- changing language doesn't work with for example: https://secure.tomsoft.hr/support2/omail-admin/index.php?&setlang=de
 
 [X] quota support   (om, 13aug2k)
 [X] correct autoresponder support    (om, 03aug2k)

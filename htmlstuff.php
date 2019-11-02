@@ -52,7 +52,7 @@ function html_login() {
     $ii = 0;
 
     reset($txt_langname);
-    while(list ($id, $tmplang) = each ($txt_langname) ) {
+    while(list ($id, $tmplang) = myEach ($txt_langname) ) {
         if ($id != $_SESSION["lang"]) {
             $templdata[bla][$ii][id] = $id;
             $templdata[bla][$ii][url] = $script_url . "?setlang=$id&" . SID;
@@ -80,7 +80,7 @@ function html_login() {
     if (count($domains_list)) {
         $templdata["domain_select"] .= "@ <select name=\"login_domain\">";
         reset($domains_list);
-        while(list ($id,$tmp) = each ($domains_list) ) {
+        while(list ($id,$tmp) = myEach ($domains_list) ) {
             if ($cookie_omail_last_domain == $tmp) {
                 $templdata["domain_select"] .= "<option selected>$tmp</option>";
             } else {
@@ -94,7 +94,7 @@ function html_login() {
         // prepare hosts list
         $templdata["tcphost_select_list"] = "";
         reset($vmailmgrd_tcp_hosts_list);
-        while(list ($id,$tmp) = each ($vmailmgrd_tcp_hosts_list)) {
+        while(list ($id,$tmp) = myEach ($vmailmgrd_tcp_hosts_list)) {
             if ($cookie_omail_last_server == $id) {
                 $templdata["tcphost_select_list"] .= "<option selected>$id</option>";
             } else {
@@ -1004,7 +1004,7 @@ function html_about() {
     $templdata["cvs_version"]=$cvs_version;
 
     reset($txt_langname);
-    while(list ($id,$tmplang) = each ($txt_langname) ) {
+    while(list ($id,$tmplang) = myEach ($txt_langname) ) {
         $templdata["languages"] .= ($tmplang) . " ";
     }
 
@@ -1078,7 +1078,7 @@ function html_splash() {
     $templdata["cvs_version"] = $cvs_version;
 
     reset($txt_langname);
-    while(list ($id, $tmplang) = each ($txt_langname) ) {
+    while(list ($id, $tmplang) = myEach ($txt_langname) ) {
         $templdata["languages"] .= ($tmplang) . " ";
     }
 

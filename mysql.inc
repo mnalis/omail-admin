@@ -253,7 +253,7 @@ class table
      	$newAr[id] = $pkey;
 
      	$setString = "";
-     	while (list($key, $val) = each($newAr))
+     	while (list($key, $val) = myEach($newAr))
      	{
          	if (is_string($val) && $val!="NULL")
             		$val = "'".addslashes($val)."'";
@@ -310,7 +310,7 @@ class table
         		// end check //
 
             unset($newAr[id]);
-            while (list($key,$val) = each($newAr))
+            while (list($key,$val) = myEach($newAr))
             {
             		$fields = $fields . $key . ", ";
                  if (is_string($val) && $val!="NULL")
