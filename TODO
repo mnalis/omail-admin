@@ -11,8 +11,7 @@ $Source: /cvsroot/omail/admin2/TODO,v $
 
 High priority
 -------------
-[ ] forward-ported - check vm_tcphost_port = "944"
-[ ] forward-ported - virtualdomains_file i login sa imenom domene umjesto usernameom
+[X] forward-ported - virtualdomains_file i login sa imenom domene umjesto usernameom
 [ ] forward-ported - catchall_use_allowed
 [?] https://www.php.net/manual/en/migration56.incompatible.php
 [ ] https://www.php.net/manual/en/migration70.incompatible.php
@@ -30,7 +29,7 @@ High priority
 	+?  Notice: Undefined offset: 11 in /home/users/tomsoft1/public_html/support2/omail-admin/func.php on line 205-209
 	  https://stackoverflow.com/a/17456614/2600099
 	+? Notice: Undefined variable: spamassassin_remote_conf in /home/users/tomsoft1/public_html/support2/omail-admin/index.php on line 267-272
-	-  Notice: Undefined variable: txt_menu_add in /home/users/tomsoft1/public_html/support2/omail-admin/index.php on line 362
+	+?  Notice: Undefined variable: txt_menu_add in /home/users/tomsoft1/public_html/support2/omail-admin/index.php on line 362
 	
 	
 [ ] https://www.php.net/manual/en/migration72.incompatible.php
@@ -44,6 +43,15 @@ High priority
 		https://stackoverflow.com/a/37100413/2600099
 	- changing language doesn't work with for example: https://secure.tomsoft.hr/support2/omail-admin/index.php?&setlang=de
 	- clicking on for example letter "o" for displaying mailboxes starting with "o", templating breaks -- instead of returing empty values it returns "%nb%    %username%    %PersonalInfo%   %more_alias%  %actions%:
+	- clicking "About"
+		Notice: Undefined index: languages in /home/users/tomsoft1/public_html/support2/omail-admin/htmlstuff.php on line 1008
+		Warning: Use of undefined constant user_label1 - assumed 'user_label1' (this will throw an Error in a future version of PHP) in /home/users/tomsoft1/public_html/support2/omail-admin/htmlstuff.php on line 1013
+		Warning: Use of undefined constant user_url1 - assumed 'user_url1' (this will throw an Error in a future version of PHP) in /home/users/tomsoft1/public_html/support2/omail-admin/htmlstuff.php on line 1014
+		Warning: Use of undefined constant user_label2 - assumed 'user_label2' (this will throw an Error in a future version of PHP) in /home/users/tomsoft1/public_html/support2/omail-admin/htmlstuff.php on line 1015
+		Warning: Use of undefined constant user_url2 - assumed 'user_url2' (this will throw an Error in a future version of PHP) in /home/users/tomsoft1/public_html/support2/omail-admin/htmlstuff.php on line 1016
+		Warning: Use of undefined constant user_label3 - assumed 'user_label3' (this will throw an Error in a future version of PHP) in /home/users/tomsoft1/public_html/support2/omail-admin/htmlstuff.php on line 1017
+		Warning: Use of undefined constant user_url3 - assumed 'user_url3' (this will throw an Error in a future version of PHP) in /home/users/tomsoft1/public_html/support2/omail-admin/htmlstuff.php on line 1018
+
 
 [X] quota support   (om, 13aug2k)
 [X] correct autoresponder support    (om, 03aug2k)
