@@ -82,3 +82,10 @@ CREDITS, in chronological order
 
 [pi] - Piotrek <laniecp_adm@dka.pl>
 	* translation to polish
+
+[tr] - Torsten Kurbad https://github.com/tkurbad
+	* PHP 5.5+ fixes
+
+[mn] - Matija Nalis <mnalis-github@voyager.hr>
+	* PHP 5-7.3 fixes
+	* merging lastest CVS/GIT 2019
