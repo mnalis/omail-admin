@@ -39,10 +39,11 @@ High priority
 [ ] https://www.php.net/manual/en/migration73.incompatible.php
 	- continue - https://www.php.net/manual/en/migration73.incompatible.php#migration73.incompatible.core.continue-targeting-switch
 
-[ ] PHP 7.x deprecated
+[ ] PHP 7.x misc errors
 	+? Deprecated: Methods with the same name as their class will not be constructors in a future version of PHP; table has a deprecated constructor in /home/users/tomsoft1/public_html/support2/omail-admin/mysql.inc on line 38
 		https://stackoverflow.com/a/37100413/2600099
 	- changing language doesn't work with for example: https://secure.tomsoft.hr/support2/omail-admin/index.php?&setlang=de
+	- clicking on for example letter "o" for displaying mailboxes starting with "o", templating breaks -- instead of returing empty values it returns "%nb%    %username%    %PersonalInfo%   %more_alias%  %actions%:
 
 [X] quota support   (om, 13aug2k)
 [X] correct autoresponder support    (om, 03aug2k)

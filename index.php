@@ -347,6 +347,8 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
                     $txt_menu_add = "<br>" . $txt_current_catchall_not_defined[$_SESSION["lang"]] ;
                     $txt_menu_add .= ' [ <a href="'. $script_url . '?A=create_catchall&U=" onClick="oW(this,\'pop\')">' . $txt_edit[$_SESSION["lang"]] . '</a> ]';
                 }
+            } else {
+                    $txt_menu_add = "";	 // catchall_use_ not allowed, do not show option to user to avoid confusion
             }
 
             if (isset($_SESSION["vmailstats"]["active"]) && $_SESSION["vmailstats"]["active"]) {
