@@ -34,6 +34,15 @@
 </td></tr> 
 
 
+ <tr><th align=right>%txt_report_safe%:&nbsp;</th>
+ <td bgcolor="#DDDDDD" align=left>
+
+ <select name="report_safe">
+ <option value="1" %spam_report_safe_checked_yes%>%txt_activated%</option>
+ <option value="0" %spam_report_safe_checked_no%>%txt_deactivated%</option>
+ </select></td></tr>
+
+
  <tr><th align=right>%txt_auto_delete_spams%:&nbsp;</th> 
  <td bgcolor="#DDDDDD" align=left> 
 
