@@ -90,6 +90,8 @@ function authenticate($arg_login, $arg_passwd, $arg_ip, $tcphostname) {
 
     // check if domain exists (in rcpthosts/virtualdomains)
     $domainok = 0;
+    // virtualdomains file location (/mn/)
+    $virtualdomains_file = "/var/qmail/control/virtualdomains";
     if (strstr($_SESSION["domain"],".")) {
             if (file_exists($virtualdomains_file)) {
                     if ($fp = fopen($virtualdomains_file, "r")) {
