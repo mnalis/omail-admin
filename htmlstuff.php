@@ -1,4 +1,4 @@
-<?
+<?php
 
 /* 	-----------
 	oMail-admin  -  A PHP4 based Vmailmgrd Web interface
@@ -54,15 +54,15 @@ function html_login() {
         reset($txt_langname);
         while(list ($id,$tmplang) = each ($txt_langname) ) {
                 if ($id != $lang) {
-			$templdata[bla][$ii][id] = $id;
-			$templdata[bla][$ii][url] = $script . "?setlang=$id&" . SID;
-			$templdata[bla][$ii][txt] = $tmplang;
-			$templdata[bla][$ii][sel] = "";
+			$templdata["bla"][$ii]["id"] = $id;
+			$templdata["bla"][$ii]["url"] = $script . "?setlang=$id&" . SID;
+			$templdata["bla"][$ii]["txt"] = $tmplang;
+			$templdata["bla"][$ii]["sel"] = "";
                 } else {
-			$templdata[bla][$ii][id] = $id;
-			$templdata[bla][$ii][url] = $script . "?setlang=$id&" . SID;
-			$templdata[bla][$ii][txt] = "<font color=\"red\">$tmplang</font>";
-			$templdata[bla][$ii][sel] = "SELECTEd";
+			$templdata["bla"][$ii]["id"] = $id;
+			$templdata["bla"][$ii]["url"] = $script . "?setlang=$id&" . SID;
+			$templdata["bla"][$ii]["txt"] = "<font color=\"red\">$tmplang</font>";
+			$templdata["bla"][$ii]["sel"] = "SELECTEd";
                 }
 		$ii++;
         }
@@ -197,6 +197,17 @@ function html_end() {
 	global $powered_by;
 	$templdata["powered_by"]= $powered_by;
 	print parseTemplate($templdata, "templates/html_end.temp");
+
+	// /mn/ 20140329 kludge try to emulate register_session() and register_globals=on
+ $session_vars = array("username","domain","passwd","type","ip","expire","lang","active",
+ "quota_on","quota_data","catchall_active", "sort_order",
+ "mb_start","al_start",
+ "mb_letter","al_letter",
+ "vm_tcphost","vm_tcphost_port",
+ "vmailstats");
+        foreach ($session_vars as $key){
+            $_SESSION[$key]=$GLOBALS[$key];
+        }
 
 }
 

@@ -1,4 +1,4 @@
-<?
+<?php
 
 /* 
 	-----------
@@ -52,7 +52,7 @@ $show_how_many_accounts = 50;
 // will be displayed on screens with error messages
 // must be set to something else than the default value
 
-$sysadmin_mail = "sysadmin@notdefined.yet";
+$sysadmin_mail = "postmaster@tomsoft.hr";
 
 
 // default language
@@ -61,6 +61,9 @@ $sysadmin_mail = "sysadmin@notdefined.yet";
 
 $default_language = "en";
 
+// virtualdomains file location (/mn/)
+// ----------------------------
+$virtualdomains_file = "/var/qmail/control/virtualdomains";
 
 // system accounts
 // ---------------
@@ -106,9 +109,9 @@ $powered_by = 'Powered by <a href="http://omail.omnis.ch/"><font color="#CCCCCC"
 // vmailmgrquota file location
 // ---------------------------
 
-$vmailmgrquota_file = "vmailmgrquotas";  // in current directory
+//$vmailmgrquota_file = "vmailmgrquotas";  // in current directory
 //$vmailmgrquota_file = "/var/qmail/control/vmailmgrquotas";
-//$vmailmgrquota_file = "/etc/vmailmgr/vmailmgrquotas";
+$vmailmgrquota_file = "/etc/vmailmgr/vmailmgrquotas";
 
 
 // template name
@@ -154,7 +157,7 @@ $vmailstats_directory = "";
 // is also a way to access the vmailmgrd via tcp : to use this feature, set
 // the variable to 1, and set the host(s).
 
-$use_vmailmgrd_tcp = 0;
+$use_vmailmgrd_tcp = 1;
 
 // vmailmgrd_tcp_host
 // ------------------
@@ -162,6 +165,7 @@ $use_vmailmgrd_tcp = 0;
 // 322 comming for the webserver where omail-admin is running.
 
 $vmailmgrd_tcp_host = "127.0.0.1";
+$vm_tcphost_port = "944";
 
 
 // vmailmgrd_tcp_host_method
@@ -171,7 +175,7 @@ $vmailmgrd_tcp_host = "127.0.0.1";
 //	1 : use the vmailmgrd_tcp_hosts_list method
 //	2 : use the vmailmgrd_tcp_hosts_dir method
 
-$vmailmgrd_tcp_host_method = 1;
+$vmailmgrd_tcp_host_method = 0;
 
 
 // vmailmgrd_tcp_hosts_list  [1]
@@ -295,12 +299,12 @@ $tb_userpref = "userpref";
 /* you shouldn't have to change the following lines */
 
 // version
-$version = "1.2RC1";
+$version = "1.2ts2";
 $cvs_version = '$Id: config.php,v 1.69 2004/02/15 18:15:44 swix Exp $';
 
 // script URL
 
-$script_url = "$SCRIPT_URL";
+$script_url = $_SERVER["SCRIPT_NAME"];
 $script = $script_url;
 
 // default lang

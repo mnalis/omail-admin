@@ -1,4 +1,4 @@
-<?
+<?php
 
 /*
         -----------
@@ -70,7 +70,7 @@ function check_session($arg_ip) {
 
 function authenticate($arg_login, $arg_passwd, $arg_ip, $tcphostname) {
 
-	global $type, $domain, $username, $passwd, $lang, $expire, $ip, $expire_after, $catchall_active, $mb_start, $al_start;
+	global $type, $domain, $username, $passwd, $lang, $expire, $ip, $expire_after, $catchall_active, $mb_start, $al_start, $virtualdomains_file;
 
 	// 1. admin or user login ?
 
@@ -90,11 +90,36 @@ function authenticate($arg_login, $arg_passwd, $arg_ip, $tcphostname) {
 
 	}
 
+//	print "authenticate  /mn/ username=$username, domain=$domain, passwd=$passwd, type=$type";
+
 	// 2. check format of arguments (lenght, regexp)
 
 
 
 	// 3. check if domain exists (in rcpthosts/virtualdomains)
+	$domainok = 0;
+	if (strstr($domain,".")) {
+		if (file_exists($virtualdomains_file)) {
+			if ($fp = fopen($virtualdomains_file, "r")) {
+				while (!feof($fp)) {
+					$buffer = trim(fgets($fp, 4096));
+					if (substr($buffer, 1) != "#" && substr($buffer, 1) != "\n" && substr($buffer, 1) != "")
+					{
+						$entry = explode(":", $buffer);
+						if ($entry[0] == $domain) {
+							$domainok = 1;
+							$domainuser = $entry[1];
+						}
+					}
+				}
+			} else {
+				return 0;
+			}
+			fclose ($fp);
+		} else {
+			return 0;
+		}
+	}
 
 
 	// 4. initalize some variables
@@ -119,7 +144,11 @@ function authenticate($arg_login, $arg_passwd, $arg_ip, $tcphostname) {
 			$expire = time() + $expire_after*60;	
 			$ip = $arg_ip;
 
+			if ($domainok == 1) {
+				load_quota_info($domainuser);
+			} else {
 			load_quota_info($domain);
+			}
 			get_catchall_account();
 
 			return 1;
@@ -142,7 +171,11 @@ function authenticate($arg_login, $arg_passwd, $arg_ip, $tcphostname) {
 			$expire = time() + $expire_after*60;	
 			$ip = $arg_ip;
 
+			if ($domainok == 1) {
+				load_quota_info($domainuser);
+			} else {
 			load_quota_info($domain);
+			}
 			get_catchall_account();
 
 			return 1;

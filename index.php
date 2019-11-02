@@ -1,4 +1,4 @@
-<?
+<?php
 
 #$globar[debug] = 1;
 #$debug = 1;
@@ -32,6 +32,77 @@
 
 */
 
+
+// register_globals kludge for PHP 5.4 from http://www.php.net/manual/en/security.globals.php
+/**
+ * function to emulate the register_globals setting in PHP
+ * for all of those diehard fans of possibly harmful PHP settings :-)
+ * @author Ruquay K Calloway
+ * @param string $order order in which to register the globals, e.g. 'egpcs' for default
+ */
+function register_globals($order = 'egpcs')
+{
+    // define a subroutine
+    if(!function_exists('register_global_array'))
+    {
+        function register_global_array(array $superglobal)
+        {
+            foreach($superglobal as $varname => $value)
+            {
+                global $$varname;
+                $$varname = $value;
+            }
+        }
+    }
+   
+    $order = explode("\r\n", trim(chunk_split($order, 1)));
+    foreach($order as $k)
+    {
+        switch(strtolower($k))
+        {
+            case 'e':    register_global_array($_ENV);        break;
+            case 'g':    register_global_array($_GET);        break;
+            case 'p':    register_global_array($_POST);        break;
+            case 'c':    register_global_array($_COOKIE);    break;
+            case 's':    register_global_array($_SERVER);    break;
+        }
+    }
+}
+register_globals();
+
+
+
+// session_register kludge for PHP 5.4 from http://www.php.net/manual/en/function.session-register.php
+// Fix for removed Session functions 
+function fix_session_register(){
+    function session_register(){
+        $args = func_get_args();
+        foreach ($args as $key){
+          if (!isset($_SESSION[$key])) {
+            $_SESSION[$key]=$GLOBALS[$key];
+          }
+        }
+    }
+    function session_is_registered($key){
+        return isset($_SESSION[$key]);
+    }
+    function session_unregister($key){
+        unset($_SESSION[$key]);
+    }
+}
+if (!function_exists('session_register')) fix_session_register(); 
+
+// third part of the kludge for session_register and register_globals, /mn/ 20140329
+function session2global() {
+    foreach($_SESSION as $key => $value)
+    {
+        global $$key;
+        $$key = $value;
+    }
+}
+                                                                            
+                                                                            
+
 /*****************************************************************************/ 
 require("./vmail.inc");
 include("config.php");
@@ -42,6 +113,7 @@ require("./mysql.inc");
 /*****************************************************************************/ 
 
 session_start();
+session2global();
 session_register("username","domain","passwd","type","ip","expire","lang","active");
 session_register("quota_on","quota_data","catchall_active", "sort_order");
 session_register("mb_start","al_start");
@@ -50,6 +122,16 @@ session_register("vm_tcphost","vm_tcphost_port");   // for vmailmgrd-tcp
 session_register("vmailstats");
 
 
+/*
+print "bla start\n<br><pre>";
+print "SESS domain=" . $_SESSION['domain'] . " GET U=" . $_GET['U'] . "\n<br>";
+print "GLOBAL domain=" . $domain . " GLOBAL U=" . $U . "\n<br>";
+print "get="; var_dump($_GET); print "\n<br>";
+print "session="; var_dump($_SESSION); print "\n<br>";
+print "serverr="; var_dump($_SERVER); print "\n<br>";
+print "</pre>";
+exit();
+*/
 
 // try to improve speed
 
@@ -60,15 +142,15 @@ $vm_resp_status = array();
 
 // clean input values (because of magic quotes...)
 
-if (count($HTTP_GET_VARS)) {
-        foreach ($HTTP_GET_VARS as $key => $value) {
+if (count($_GET)) {
+        foreach ($_GET as $key => $value) {
                 if (!is_array($$key)) {
                         $$key = stripslashes($value);
                 }
         }
 }
-if (count($HTTP_POST_VARS)) {
-        foreach ($HTTP_POST_VARS as $key => $value) {
+if (count($_POST)) {
+        foreach ($_POST as $key => $value) {
                 if (!is_array($$key)) {
                         $$key = stripslashes($value);
                 }
@@ -333,6 +415,7 @@ if ($active == 1) {    // active=1 -> user logged in
 			if ($form_sort == "info") { $sort_order = "info"; } 
 			if ($form_sort == "username") { $sort_order = "username"; }
 
+			if ($quota_data["catchall_use_allowed"]) {
 			if ($catchall_active) {
 			    $txt_menu_add = "<br>" . $txt_current_catchall_account_is[$lang] . ": <b>$catchall_active@$domain</b>";
 			    $txt_menu_add .= ' [ <a href="' . $script_url . '?A=create_catchall&" onClick="oW(this,\'pop\')">' . $txt_edit[$lang] . '</a> ]';
@@ -342,6 +425,7 @@ if ($active == 1) {    // active=1 -> user logged in
 			    $txt_menu_add = "<br>" . $txt_current_catchall_not_defined[$lang] ;
 			    $txt_menu_add .= ' [ <a href="'. $script_url . '?A=create_catchall&U=" onClick="oW(this,\'pop\')">' . $txt_edit[$lang] . '</a> ]';
 			}	
+			}
 
 
 			if ($vmailstats["active"]) { 
@@ -593,7 +677,7 @@ if ($active == 1) {    // active=1 -> user logged in
 	if ($A == "catchall" || $A == "remove_catchall" || $A == "create_catchall") {
 
 
-	    if ((in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) && $U != "") {
+	    if (((in_array($U, $readonly_accounts_list) || in_array($U, $system_accounts_list)) && $U != "") || $quota_data["catchall_use_allowed"] == 0) {
 
 		$msg = $txt_error_not_allowed[$lang];
                 $msg .= "<ul><li><a href=\"$script?A=menu&" . SID . "\" onClick=\"return gO(this,true,true)\">" . $txt_menu[$lang]  .  "</a>\n";
