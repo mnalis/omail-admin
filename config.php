@@ -255,7 +255,7 @@ $tb_userpref = "userpref";
 /* you shouldn't have to change the following lines */
 
 // version
-$version = "1.2TS4";
+$version = "1.2TS5";
 $cvs_version = '$Id: config.php, 20191102 https://github.com/mnalis/omail-admin$';
 
 // script URL
