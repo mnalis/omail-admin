@@ -13,7 +13,7 @@
 <td bgcolor="#CCCCCC" align=left>
 <select name="form_enabled">
 <option value="1" %checked_yes%>%txt_activated%</option>
-<option value="0" %checked_no%>%txt_deactivated%</option>
+<option value="0" %checked_no%>%txt_inactived%</option>
 </select></td></tr>
                                         
 <tr><th align=right>%txt_hardquota%&nbsp;</th>
@@ -36,16 +36,12 @@
 <td bgcolor="#DDDDDD" align=left>%ExpiryTimeString%
 <select name="form_year">
 <option value="-"> - </option>   
-<option%year2010%>2010</option>
-<option%year2011%>2011</option>
-<option%year2012%>2012</option>
-<option%year2013%>2013</option>
-<option%year2014%>2014</option>
-<option%year2015%>2015</option> 
-<option%year2016%>2016</option>
-<option%year2017%>2017</option>
-<option%year2018%>2018</option>
-<option%year2019%>2019</option>
+<option%year2000%>2000</option>
+<option%year2001%>2001</option>
+<option%year2002%>2002</option>
+<option%year2003%>2003</option>
+<option%year2004%>2004</option>
+<option%year2005%>2005</option> 
 </select><select name="form_month">
 <option value="-"> - </option> 
 <option%month01%>01</option>

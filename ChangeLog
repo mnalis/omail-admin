@@ -2,8 +2,13 @@
 oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2004  Olivier Mueller <om@omnis.ch>
 -----------
 
-$Id: ChangeLog,v 1.79 2004/02/15 18:05:43 swix Exp $ 
+$Id: ChangeLog,v 1.80 2005/10/31 22:34:18 swix Exp $ 
 $Source: /cvsroot/omail/admin2/ChangeLog,v $
+
+2005-10-31  Olivier Müller   <om@omnis.ch>
+
+	* applied patch by Greg P. Favre which allows the selective enablation of 
+          SpamAssassin report_safe score reports. 
 
 2004-02-14  Olivier Müller   <om@omnis.ch>
 	
