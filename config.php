@@ -60,9 +60,6 @@ $default_language = "en";
 $system_accounts_list = array( );
 //$system_accounts_list = array( 'abuse', 'root', 'hostmaster');
 
-// virtualdomains file location (/mn/)
-// ----------------------------
-$virtualdomains_file = "/var/qmail/control/virtualdomains";
 
 // readonly accounts
 // ----------------

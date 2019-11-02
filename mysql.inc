@@ -66,7 +66,7 @@ class table
 	/*******************************************************************************/
 
 	// constructor
-	function table($dbName,$tabName,$server,$userName,$dbPassword)
+	function __construct($dbName,$tabName,$server,$userName,$dbPassword)
 	{
          $this->tabName = $tabName;
 		$this->dbName = $dbName;

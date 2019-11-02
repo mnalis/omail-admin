@@ -11,6 +11,31 @@ $Source: /cvsroot/omail/admin2/TODO,v $
 
 High priority
 -------------
+[ ] forward-ported - check vm_tcphost_port = "944"
+[ ] forward-ported - virtualdomains_file i login sa imenom domene umjesto usernameom
+[ ] forward-ported - catchall_use_allowed
+[?] https://www.php.net/manual/en/migration56.incompatible.php
+[ ] https://www.php.net/manual/en/migration70.incompatible.php
+	- session_init.php check: https://www.php.net/manual/en/migration70.incompatible.php#migration70.incompatible.foreach ?
+	-? mysql.inc broken: https://www.php.net/manual/en/migration70.incompatible.php#migration70.incompatible.removed-functions.mysql
+	   (FIXME: disabled for now)
+	- split() was also removed in 7.0, so be sure to check your old code for it as well as the functions listed in this doc
+		https://www.php.net/manual/en/function.split.php
+
+
+[ ] https://www.php.net/manual/en/migration71.incompatible.php
+	- rand() - https://www.php.net/manual/en/migration71.incompatible.php#migration71.incompatible.fixes-to-mt_rand-algorithm
+	
+[ ] https://www.php.net/manual/en/migration72.incompatible.php
+	- Deprecated: The each() function is deprecated. This message will be suppressed on further calls in /home/users/tomsoft1/public_html/support2/omail-admin/func.php on line 738
+
+[ ] https://www.php.net/manual/en/migration73.incompatible.php
+	- continue - https://www.php.net/manual/en/migration73.incompatible.php#migration73.incompatible.core.continue-targeting-switch
+
+[ ] PHP 7.x deprecated
+	+? Deprecated: Methods with the same name as their class will not be constructors in a future version of PHP; table has a deprecated constructor in /home/users/tomsoft1/public_html/support2/omail-admin/mysql.inc on line 38
+		https://stackoverflow.com/a/37100413/2600099
+
 [X] quota support   (om, 13aug2k)
 [X] correct autoresponder support    (om, 03aug2k)
 [X] support for non cookies enabled browsers  (om, 14aug2k)
