@@ -25,9 +25,16 @@ High priority
 
 [ ] https://www.php.net/manual/en/migration71.incompatible.php
 	- rand() - https://www.php.net/manual/en/migration71.incompatible.php#migration71.incompatible.fixes-to-mt_rand-algorithm
+	+? Warning: A non-numeric value encountered in /home/users/tomsoft1/public_html/support2/omail-admin/func.php on line 203, 204, 205
+	  https://stackoverflow.com/a/42044413/2600099
+	+?  Notice: Undefined offset: 11 in /home/users/tomsoft1/public_html/support2/omail-admin/func.php on line 205-209
+	  https://stackoverflow.com/a/17456614/2600099
+	+? Notice: Undefined variable: spamassassin_remote_conf in /home/users/tomsoft1/public_html/support2/omail-admin/index.php on line 267-272
+	-  Notice: Undefined variable: txt_menu_add in /home/users/tomsoft1/public_html/support2/omail-admin/index.php on line 362
+	
 	
 [ ] https://www.php.net/manual/en/migration72.incompatible.php
-	- Deprecated: The each() function is deprecated. This message will be suppressed on further calls in /home/users/tomsoft1/public_html/support2/omail-admin/func.php on line 738
+	- Deprecated: The each() function is deprecated. This message will be suppressed on further calls in /home/users/tomsoft1/public_html/support2/omail-admin/func.php on line 738, 740
 
 [ ] https://www.php.net/manual/en/migration73.incompatible.php
 	- continue - https://www.php.net/manual/en/migration73.incompatible.php#migration73.incompatible.core.continue-targeting-switch
