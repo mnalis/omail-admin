@@ -200,13 +200,13 @@ function load_quota_info($domain) {
                     $_SESSION["quota_data"]["autoresp_support"] = $entry[6];
                     $_SESSION["quota_data"]["user_quota_support"] = $entry[7];
                     $_SESSION["quota_data"]["catchall_use_allowed"] = $entry[8];
-                    $_SESSION["quota_data"]["softquota"] = $entry[9] * 1024;
-                    $_SESSION["quota_data"]["hardquota"] = $entry[10] * 1024;
-                    $_SESSION["quota_data"]["msgsize"] = $entry[11] * 1024;
-                    $_SESSION["quota_data"]["new_mailbox_forbidden"] = $entry[12];
-                    $_SESSION["quota_data"]["new_alias_forbidden"] = $entry[13];
-                    $_SESSION["quota_data"]["spamassassin_use_forbidden"] = $entry[14];
-                    $_SESSION["quota_data"]["spamassassin_default_status"] = $entry[15];
+                    $_SESSION["quota_data"]["softquota"] = (int)$entry[9] * 1024;
+                    $_SESSION["quota_data"]["hardquota"] = (int)$entry[10] * 1024;
+                    $_SESSION["quota_data"]["msgsize"] = isset($entry[11]) ? (int)$entry[11] * 1024 : null;
+                    $_SESSION["quota_data"]["new_mailbox_forbidden"] = isset($entry[12]) ? $entry[12] : null;
+                    $_SESSION["quota_data"]["new_alias_forbidden"] = isset($entry[13]) ? $entry[13] : null;
+                    $_SESSION["quota_data"]["spamassassin_use_forbidden"] = isset($entry[14]) ? $entry[14] : null;
+                    $_SESSION["quota_data"]["spamassassin_default_status"] = isset($entry[15]) ? $entry[15] : null;
                 }
             }
         }

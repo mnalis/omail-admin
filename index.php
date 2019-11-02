@@ -262,7 +262,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 
     // spamassassin stuff, in case of multiple hosts ($use_vmailmgrd_tcp = 1)
 
-    if ($use_vmailmgrd_tcp && $_SESSION["vm_tcphost"]) {
+    if ($use_vmailmgrd_tcp && $vmailmgrd_tcp_host_method > 0 && $_SESSION["vm_tcphost"]) {
 
         $use_spamassassin = $spamassassin_remote_conf[$_SESSION["vm_tcphost"]]["use_spamassassin"];
         $db_login = $spamassassin_remote_conf[$_SESSION["vm_tcphost"]]["db_login"];
