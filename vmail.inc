@@ -36,9 +36,9 @@ function vm_daemon_raw($arg) {
         if (!$_SESSION["vm_tcphost_port"]) {
             $_SESSION["vm_tcphost_port"] = "322";
         }
-        $vmailsock = fsockopen ($vm_tcphost, $vm_tcphost_port, $errno, $errstr, 10);
+        $vmailsock = fsockopen ($_SESSION["vm_tcphost"], $_SESSION["vm_tcphost_port"], $errno, $errstr, 10);
         if (!$vmailsock)
-            die("Failed to open tcp socket, is daemon running on host '$vm_tcphost:$vm_tcphost_port'? <br>\nError: $errno - $errstr");
+            die("Failed to open tcp socket, is daemon running on host '" . $_SESSION["vm_tcphost"] . ":" . $_SESSION["vm_tcphost_port"] . "'? <br>\nError: $errno - $errstr");
     } else {
         // UNIX SOCKET
         $vmailfile = "unix:///tmp/.vmailmgrd";
