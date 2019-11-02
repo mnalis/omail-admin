@@ -50,6 +50,14 @@ const txt = "txt";
 const txt_fwd = "txt_fwd";
 const url = "url";
 
+// each() is deprecated; kludge PHP 7.2 for now - https://stackoverflow.com/a/46493098/2600099
+function myEach(&$arr) {
+    $key = key($arr);
+    $result = ($key === null) ? false : [$key, current($arr), 'key' => $key, 'value' => current($arr)];
+    next($arr);
+    return $result;
+}
+
 function check_session($arg_ip) {
     global $expire_after;
 
@@ -621,7 +629,7 @@ function parseTemplate($parseArray, $template, $outputFile = "", $encoding="", $
 
 function parseContent($parseArray, $content, $encoding = "", $separator = "%") {
     $ar = array();
-    while (list($key, $val) = each($parseArray)) {
+    while (list($key, $val) = myEach($parseArray)) {
         if (is_array($val)) {
             $tagStringArray = getContentStrings($content, $key);
             for ($j = 0; $j < count($tagStringArray); $j++) {
@@ -635,7 +643,7 @@ function parseContent($parseArray, $content, $encoding = "", $separator = "%") {
 }
 
 function parseC($parseArray, $content, $encoding, $separator = "%") {
-    while (list($key, $val) = @each($parseArray)) {
+    while (list($key, $val) = @myEach($parseArray)) {
         if (substr($key, 0, 1) != "<" || substr($key, -1, 1) != ">") {
             $key = $separator.$key.$separator;
         }
@@ -716,7 +724,7 @@ function complexHelper($tagContent, $parseSet, $encoding) {
         $ar = array();
         $parseArray = $parseSet[$i];
         if (is_array($parseArray)) {
-            while (list($key, $val) = each($parseArray)) {
+            while (list($key, $val) = myEach($parseArray)) {
                 if (is_array($val)) {
                     $tagStringArray = getContentStrings($tagContent, $key);
                     for($j = 0; $j < count($tagStringArray); $j++) {
@@ -737,7 +745,7 @@ function complexHelper($tagContent, $parseSet, $encoding) {
 function complexParsing($parseArray, $template, $outputFile = "", $encoding = "", $separator = "%") {
     $ar = array();
 
-    while (list($key, $val) = each($parseArray)) {
+    while (list($key, $val) = myEach($parseArray)) {
         if (is_array($val)) {
             $tagStringArray = getTemplateStrings($template, $key);
             for($j = 0; $j < count($tagStringArray); $j++) {
@@ -753,7 +761,7 @@ function complexParsing($parseArray, $template, $outputFile = "", $encoding = ""
 function complexContent($parseArray, $content, $encoding = "", $separator = "%") {
     $ar = array();
 
-    while (list($key, $val) = each($parseArray)) {
+    while (list($key, $val) = myEach($parseArray)) {
         if(is_array($val)) {
             $tagStringArray = getContentStrings($content, $key);
             for($j = 0; $j < count($tagStringArray); $j++) {

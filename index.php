@@ -838,7 +838,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 
         if ($newfwd) {
             $newarray = explode("\n", $newfwd);
-            while(list ($null, $tmpadr) = each($newarray)) {
+            while(list ($null, $tmpadr) = myEach($newarray)) {
                 $tmpadr = trim($tmpadr);
                 if ($tmpadr) {
                     $fwd[] = $tmpadr;
@@ -1254,7 +1254,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 
             if ($whitelist) {
                 $newarray = explode("\n", $_REQUEST["whitelist"]);
-                while(list ($null, $tmpadr) = each($newarray)) {
+                while(list ($null, $tmpadr) = myEach($newarray)) {
                     $tmpadr = trim($tmpadr);
                     if ($tmpadr) {
                         $data->newRow();
@@ -1267,7 +1267,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
 
             if ($blacklist) {
                 $newarray = explode("\n", $_REQUEST["blacklist"]);
-                while(list ($null, $tmpadr) = each($newarray)) {
+                while(list ($null, $tmpadr) = myEach($newarray)) {
                     $tmpadr = trim($tmpadr);
                     if ($tmpadr) {
                         $data->newRow();
