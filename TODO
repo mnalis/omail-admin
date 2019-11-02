@@ -11,6 +11,24 @@ $Source: /cvsroot/omail/admin2/TODO,v $
 
 High priority
 -------------
+[ ] forward-ported - check vm_tcphost_port = "944"
+[ ] forward-ported - virtualdomains_file i login sa imenom domene umjesto usernameom
+[ ] forward-ported - catchall_use_allowed
+[?] https://www.php.net/manual/en/migration56.incompatible.php
+[ ] https://www.php.net/manual/en/migration70.incompatible.php
+	session_init.php check: https://www.php.net/manual/en/migration70.incompatible.php#migration70.incompatible.foreach ?
+	mysql.inc broken: https://www.php.net/manual/en/migration70.incompatible.php#migration70.incompatible.removed-functions.mysql
+	split() was also removed in 7.0, so be sure to check your old code for it as well as the functions listed in this doc
+		https://www.php.net/manual/en/function.split.php
+
+
+[ ] https://www.php.net/manual/en/migration71.incompatible.php
+	rand() - https://www.php.net/manual/en/migration71.incompatible.php#migration71.incompatible.fixes-to-mt_rand-algorithm
+	
+[?] https://www.php.net/manual/en/migration72.incompatible.php
+[ ] https://www.php.net/manual/en/migration73.incompatible.php
+	continue - https://www.php.net/manual/en/migration73.incompatible.php#migration73.incompatible.core.continue-targeting-switch
+
 [X] quota support   (om, 13aug2k)
 [X] correct autoresponder support    (om, 03aug2k)
 [X] support for non cookies enabled browsers  (om, 14aug2k)
