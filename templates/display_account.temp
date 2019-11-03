@@ -1,5 +1,6 @@
 <h1>%title%</h1>
-<table border=0><TR><TH>N°</TH>
+<table border=0><TR><TH>&numero;</TH>
+<table border=0><TR><TH>&numero;</TH>
 <TH>%txt_email%</TH>
 <TH>%txt_info%</TH>
 <TH>%txt_fwd% ?</TH>

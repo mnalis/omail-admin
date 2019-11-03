@@ -27,7 +27,8 @@
 <a href="%url_show_al_letter%x">x</a> |
 <a href="%url_show_al_letter%y">y</a> |
 <a href="%url_show_al_letter%z">z</a>
-<table border=0><TR><TH>N°</TH>
+<table border=0><TR><TH>&numero;</TH>
+<table border=0><TR><TH>&numero;</TH>
 <TH><A HREF="%url_email%">%txt_email%</A></TH>
 <TH><A HREF="%url_info%">%txt_info%</A></TH>
 <TH>%txt_fwd%?</TH>
