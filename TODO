@@ -5,8 +5,6 @@ oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2004  Olivier
 
 oMail-admin TODO
 ================
-$Id: TODO,v 1.27 2005/09/06 21:32:59 swix Exp $ 
-$Source: /cvsroot/omail/admin2/TODO,v $ 
 
 
 High priority
@@ -16,30 +14,14 @@ High priority
 [ ] https://www.php.net/manual/en/migration70.incompatible.php
 	- mysql.inc BROKEN: https://www.php.net/manual/en/migration70.incompatible.php#migration70.incompatible.removed-functions.mysql
 
-[ ] https://www.php.net/manual/en/migration71.incompatible.php
-	- rand() - https://www.php.net/manual/en/migration71.incompatible.php#migration71.incompatible.fixes-to-mt_rand-algorithm
-	+? Warning: A non-numeric value encountered in /home/users/tomsoft1/public_html/support2/omail-admin/func.php on line 203, 204, 205
-	  https://stackoverflow.com/a/42044413/2600099
-	+?  Notice: Undefined offset: 11 in /home/users/tomsoft1/public_html/support2/omail-admin/func.php on line 205-209
-	  https://stackoverflow.com/a/17456614/2600099
-	+? Notice: Undefined variable: spamassassin_remote_conf in /home/users/tomsoft1/public_html/support2/omail-admin/index.php on line 267-272
-	+?  Notice: Undefined variable: txt_menu_add in /home/users/tomsoft1/public_html/support2/omail-admin/index.php on line 362
-	
-	
-[ ] https://www.php.net/manual/en/migration72.incompatible.php
-	+? Deprecated: The each() function is deprecated. This message will be suppressed on further calls in /home/users/tomsoft1/public_html/support2/omail-admin/func.php on line 738, 740
-
-[ ] https://www.php.net/manual/en/migration73.incompatible.php
-	- continue - https://www.php.net/manual/en/migration73.incompatible.php#migration73.incompatible.core.continue-targeting-switch
+[X] https://www.php.net/manual/en/migration71.incompatible.php
+[X] https://www.php.net/manual/en/migration72.incompatible.php
+[X] https://www.php.net/manual/en/migration73.incompatible.php
 
 [ ] PHP 7.x misc errors
 	- login with username (not domain name) no longer works??
-	+? Deprecated: Methods with the same name as their class will not be constructors in a future version of PHP; table has a deprecated constructor in /home/users/tomsoft1/public_html/support2/omail-admin/mysql.inc on line 38
-		https://stackoverflow.com/a/37100413/2600099
 	- changing language doesn't work with for example: https://secure.tomsoft.hr/support2/omail-admin/index.php?&setlang=de
-	- clicking on for example letter "o" for displaying mailboxes starting with "o", templating breaks -- instead of returing empty values it returns "%nb%    %username%    %PersonalInfo%   %more_alias%  %actions%:
-	- clicking "About"
-		Notice: Undefined index: languages in /home/users/tomsoft1/public_html/support2/omail-admin/htmlstuff.php on line 1008
+	+ clicking on for example letter "o" for displaying mailboxes starting with "o", templating breaks -- instead of returing empty values it returns "%nb%    %username%    %PersonalInfo%   %more_alias%  %actions%:
 
 
 [X] quota support   (om, 13aug2k)

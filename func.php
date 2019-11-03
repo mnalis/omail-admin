@@ -623,25 +623,16 @@ function get_catchall_account() {
 // Programmiert:    Martin Bachmann (bachi@insign.ch) & Ueli Leutwyler (ueli@insign.ch)
 // ---------------------------------------------------------------------------------
 
+//
+// Template description: where there is tag <obj>, all %values% will be from "obj" subarray!
+//
+
 function parseTemplate($parseArray, $template, $outputFile = "", $encoding="", $separator="%") {
     return complexParsing($parseArray, $template, $outputFile, $encoding, $separator);
 }
 
-function parseContent($parseArray, $content, $encoding = "", $separator = "%") {
-    $ar = array();
-    while (list($key, $val) = myEach($parseArray)) {
-        if (is_array($val)) {
-            $tagStringArray = getContentStrings($content, $key);
-            for ($j = 0; $j < count($tagStringArray); $j++) {
-               $ar[$tagStringArray[$j]] = complexHelper($tagStringArray[$j], $val, $encoding);
-            }
-        } else {
-            $ar[$key] = doEncoding($val, $encoding);
-        }
-    }
-    return parseC($ar, $content, $encoding, $separator);
-}
 
+# replaces all %keys% with their values in $content
 function parseC($parseArray, $content, $encoding, $separator = "%") {
     while (list($key, $val) = @myEach($parseArray)) {
         if (substr($key, 0, 1) != "<" || substr($key, -1, 1) != ">") {
@@ -652,6 +643,7 @@ function parseC($parseArray, $content, $encoding, $separator = "%") {
     return $content;
 }
 
+# read in template file, and output/save the result
 function parseT ($parseArray, $template, $outputFile = "",$encoding = "", $separator = "%") {
     global $template_name;
 
@@ -680,6 +672,7 @@ function parseT ($parseArray, $template, $outputFile = "",$encoding = "", $separ
     }
 }
 
+// given template file and repetition <$tag>, returns a string with "%all% %template% %keys%" used in it
 function getTemplateStrings($template, $tag) {
     global $template_name;
 
@@ -697,6 +690,7 @@ function getTemplateStrings($template, $tag) {
     }
 }
 
+// given template $content and repetition <$tag>, returns a string with "%all% %template% %keys%" used in it
 function getContentStrings($content, $tag) {
     $startTag="<$tag>";
     $endTag="</$tag>";
@@ -742,6 +736,7 @@ function complexHelper($tagContent, $parseSet, $encoding) {
     return $parseString;
 }
 
+// main parsing loop
 function complexParsing($parseArray, $template, $outputFile = "", $encoding = "", $separator = "%") {
     $ar = array();
 
@@ -756,22 +751,6 @@ function complexParsing($parseArray, $template, $outputFile = "", $encoding = ""
         }
     }
     return parseT($ar, $template, $outputFile, $encoding, $separator);
-}
-
-function complexContent($parseArray, $content, $encoding = "", $separator = "%") {
-    $ar = array();
-
-    while (list($key, $val) = myEach($parseArray)) {
-        if(is_array($val)) {
-            $tagStringArray = getContentStrings($content, $key);
-            for($j = 0; $j < count($tagStringArray); $j++) {
-               $ar[$tagStringArray[$j]] = complexHelper($tagStringArray[$j], $val, $encoding);
-            }
-        } else {
-            $ar[$key] = $val;
-        }
-    }
-    return parseC($ar, $content, $encoding, $separator);
 }
 
 function doEncoding ($val, $encoding = "") {
