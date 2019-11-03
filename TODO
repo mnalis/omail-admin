@@ -20,7 +20,7 @@ High priority
 
 [ ] PHP 7.x misc errors
 	- login with username (not domain name) no longer works??
-	- changing language doesn't work with for example: https://secure.tomsoft.hr/support2/omail-admin/index.php?&setlang=de
+	+ changing language doesn't work with for example: https://secure.tomsoft.hr/support2/omail-admin/index.php?&setlang=de
 
 
 [X] quota support   (om, 13aug2k)
