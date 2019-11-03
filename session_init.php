@@ -36,9 +36,6 @@ if (!isset($_SESSION["ip"])) {
 if (!isset($_SESSION["expire"])) {
     $_SESSION["expire"] = 0;
 }
-if (!isset($_SESSION["lang"])) {
-    $_SESSION["lang"] = "";
-}
 if (!isset($_SESSION["active"])) {
     $_SESSION["active"] = 0;
 }
@@ -74,12 +71,6 @@ if (!isset($_SESSION["vm_tcphost_port"])) {
 }
 if (!isset($_SESSION["vmailstats"])) {
     $_SESSION["vmailstats"] = array();
-}
-
-if (isset($_SESSION["lang"]) && isset($setlang)) {
-    if ($setlang != $_SESSION["lang"]) {
-        $_SESSION["lang"] = $setlang;
-    }
 }
 
 ?>
