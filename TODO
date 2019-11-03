@@ -5,8 +5,6 @@ oMail-admin  -  A PHP4 based qmail+vmailmgrd Web interface  -  (c) 2004  Olivier
 
 oMail-admin TODO
 ================
-$Id: TODO,v 1.27 2005/09/06 21:32:59 swix Exp $ 
-$Source: /cvsroot/omail/admin2/TODO,v $ 
 
 
 High priority
@@ -23,7 +21,7 @@ High priority
 [ ] PHP 7.x misc errors
 	- login with username (not domain name) no longer works??
 	- changing language doesn't work with for example: https://secure.tomsoft.hr/support2/omail-admin/index.php?&setlang=de
-	- clicking on for example letter "o" for displaying mailboxes starting with "o", templating breaks -- instead of returing empty values it returns "%nb%    %username%    %PersonalInfo%   %more_alias%  %actions%:
+	+ clicking on for example letter "o" for displaying mailboxes starting with "o", templating breaks -- instead of returing empty values it returns "%nb%    %username%    %PersonalInfo%   %more_alias%  %actions%:
 
 
 [X] quota support   (om, 13aug2k)

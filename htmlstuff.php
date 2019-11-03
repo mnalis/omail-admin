@@ -800,6 +800,7 @@ function html_display_mailboxes($mboxlist, $arg_action, $arg_start=-1, $arg_howm
     }
 
     // print "Start: $loop_start - End: $loop_end - Offset: $offset <br>\n";   //debug
+    $templdata[obj] = [];
     for ($i = $loop_start; $i < $loop_end; $i++) {
         list($username, $password, $mbox, $alias, $PersonalInfo, $HardQuota, $SoftQuota, $SizeLimit, $CountLimit, $CreationTime, $ExpiryTime, $resp, $Enabled, $Visible) = $mboxlist[$i];
 
