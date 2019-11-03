@@ -1002,6 +1002,7 @@ function html_about() {
 
     $templdata["version"]=$version;
     $templdata["cvs_version"]=$cvs_version;
+    $templdata["languages"]="";
 
     reset($txt_langname);
     while(list ($id,$tmplang) = myEach ($txt_langname) ) {

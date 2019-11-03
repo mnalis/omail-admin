@@ -38,8 +38,6 @@ High priority
 		https://stackoverflow.com/a/37100413/2600099
 	- changing language doesn't work with for example: https://secure.tomsoft.hr/support2/omail-admin/index.php?&setlang=de
 	- clicking on for example letter "o" for displaying mailboxes starting with "o", templating breaks -- instead of returing empty values it returns "%nb%    %username%    %PersonalInfo%   %more_alias%  %actions%:
-	- clicking "About"
-		Notice: Undefined index: languages in /home/users/tomsoft1/public_html/support2/omail-admin/htmlstuff.php on line 1008
 
 
 [X] quota support   (om, 13aug2k)
