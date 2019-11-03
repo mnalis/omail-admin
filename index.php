@@ -59,7 +59,7 @@ $vm_list = array();
 $vm_list_loaded = 0;
 $vm_resp_status = array();
 
-if (!isset($setlang)) {
+if (!isset($_REQUEST["setlang"])) {
 
     // if no language defined yet (cookie or session):
     // try to findout users language by checking it's HTTP_ACCEPT_LANGUAGE variable
@@ -83,6 +83,8 @@ if (!isset($setlang)) {
         // didn't catch any valid lang : we use the default settings
         $setlang = $default_lang;
     }
+} else {
+    $setlang = $_REQUEST["setlang"];
 }
 
 if (isset($setlang)) {
