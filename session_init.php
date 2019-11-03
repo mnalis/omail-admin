@@ -1,19 +1,20 @@
 <?php
 
 // Clear up input values (because of magic quotes...)
+function stripslashes_deep($value)
+{
+    $value = is_array($value) ?
+                array_map('stripslashes_deep', $value) :
+                stripslashes($value);
+
+    return $value;
+}
+
 if (count($_GET)) {
-    foreach ($_GET as $key => $value) {
-        if (isset($$key) && !is_array($$key)) {
-            $$key = stripslashes($value);
-        }
-    }
+    $_GET = stripslashes_deep ($_GET);
 }
 if (count($_POST)) {
-    foreach ($_POST as $key => $value) {
-        if (isset($$key) && !is_array($$key)) {
-            $$key = stripslashes($value);
-        }
-    }
+    $_POST = stripslashes_deep ($_POST);
 }
 
 // Initialize session variables
