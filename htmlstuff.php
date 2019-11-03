@@ -1010,12 +1010,12 @@ function html_about() {
 
     // get 3 random users of omail-admin
 
-    $templdata[user_label1] = "Omnis Internet Services, Switzerland";
-    $templdata[user_url1] = "http://www.omnis.ch";
-    $templdata[user_label2] = "webstyle gmbh, Switzerland";
-    $templdata[user_url2] = "http://www.webstyle.ch";
-    $templdata[user_label3] = "insign gmbh, Switzerland";
-    $templdata[user_url3] = "http://www.insign.ch";
+    $templdata["user_label1"] = "Omnis Internet Services, Switzerland";
+    $templdata["user_url1"] = "http://www.omnis.ch";
+    $templdata["user_label2"] = "webstyle gmbh, Switzerland";
+    $templdata["user_url2"] = "http://www.webstyle.ch";
+    $templdata["user_label3"] = "insign gmbh, Switzerland";
+    $templdata["user_url3"] = "http://www.insign.ch";
 
     $companies = array();
     $fp = fopen("USERS", "r");
