@@ -87,6 +87,7 @@ CREDITS, in chronological order
 	* PHP 5.5+ fixes
 
 [mn] - Matija Nalis <mnalis-github@voyager.hr>
-	* qmail virtualdomains support
-	* PHP 5-7.3 fixes
+	* /var/qmail/control/virtualdomains support (now redundant)
+	* per-domain catchall_use_allowed
+	* PHP 5.5-7.3 fixes
 	* merging lastest CVS/GIT 2019

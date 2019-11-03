@@ -11,17 +11,10 @@ High priority
 -------------
 [X] forward-ported - virtualdomains_file i login sa imenom domene umjesto usernameom
 [X] forward-ported - catchall_use_allowed
-[ ] https://www.php.net/manual/en/migration70.incompatible.php
-	- mysql.inc BROKEN: https://www.php.net/manual/en/migration70.incompatible.php#migration70.incompatible.removed-functions.mysql
-
+[ ] mysql.inc BROKEN: https://www.php.net/manual/en/migration70.incompatible.php#migration70.incompatible.removed-functions.mysql
 [X] https://www.php.net/manual/en/migration71.incompatible.php
 [X] https://www.php.net/manual/en/migration72.incompatible.php
 [X] https://www.php.net/manual/en/migration73.incompatible.php
-
-[ ] PHP 7.x misc errors
-	- login with username (not domain name) no longer works??
-	+ changing language doesn't work with for example: https://secure.tomsoft.hr/support2/omail-admin/index.php?&setlang=de
-
 
 [X] quota support   (om, 13aug2k)
 [X] correct autoresponder support    (om, 03aug2k)
@@ -50,7 +43,7 @@ Normal priority
 [X] add a <select> with list of current mailboxes for forwaders addition  (om, 13nov2k)
 [ ] [Matthias F. Brandstetter] turn on/off autoresponder on a cron basis 
     -> would require a cron job + some goodies
-[ ] make it work with register_global = off  -> lot of (rewrite)-work necessary :(
+[X] make it work with register_global = off  -> lot of (rewrite)-work necessary :(
 
 Low priority
 ------------
