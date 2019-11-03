@@ -252,7 +252,7 @@ $tb_userpref = "userpref";
 
 // version
 $version = "1.2TS5";
-$cvs_version = '$Id: config.php, 20191102 https://github.com/mnalis/omail-admin$';
+$cvs_version = '$Id: config.php, 20191103 https://github.com/mnalis/omail-admin$';
 
 // script URL
 $script_url = $_SERVER["PHP_SELF"];
