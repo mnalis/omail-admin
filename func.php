@@ -921,7 +921,7 @@ function tcp_host_findout($domain) {
                         if (preg_match("/:/", $line)) {
                             // in case we have virtualdomains-like files
                             // (domainname.ext:username)
-                            $tmp_split_arr = split(":", $line);
+                            $tmp_split_arr = explode(":", $line);
                             $line = $tmp_split_arr[0];
                         }
 
