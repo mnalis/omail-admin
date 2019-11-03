@@ -34,9 +34,8 @@
 */
 
 function html_login() {
-    global $script_url, $version, $cookie_omail_last_login, $cookie_omail_last_domain, $domains_list;
+    global $script_url, $version, $domains_list;
     global $use_vmailmgrd_tcp, $vmailmgrd_tcp_host_method, $vmailmgrd_tcp_hosts_list;
-    global $cookie_omail_last_server;
 
     include("strings.php");
 
@@ -68,12 +67,12 @@ function html_login() {
     }
 
     $templdata["domain_value"]= "";
-    if (!count($domains_list) && $cookie_omail_last_domain && !$cookie_omail_last_login) {
-        $templdata["domain_value"] = htmlentities($cookie_omail_last_domain);
-    } elseif (!count($domains_list) && $cookie_omail_last_login && $cookie_omail_last_domain) {
-            $templdata["domain_value"] = htmlentities($cookie_omail_last_login) . "@" . htmlentities($cookie_omail_last_domain);
-    } elseif (count($domains_list) && $cookie_omail_last_login) {
-        $templdata["domain_value"] = htmlentities($cookie_omail_last_login);
+    if (!count($domains_list) && $_COOKIE["cookie_omail_last_domain"] && !$_COOKIE["cookie_omail_last_login"]) {
+        $templdata["domain_value"] = htmlentities($_COOKIE["cookie_omail_last_domain"]);
+    } elseif (!count($domains_list) && $_COOKIE["cookie_omail_last_login"] && $_COOKIE["cookie_omail_last_domain"]) {
+            $templdata["domain_value"] = htmlentities($_COOKIE["cookie_omail_last_login"]) . "@" . htmlentities($_COOKIE["cookie_omail_last_domain"]);
+    } elseif (count($domains_list) && $_COOKIE["cookie_omail_last_login"]) {
+        $templdata["domain_value"] = htmlentities($_COOKIE["cookie_omail_last_login"]);
     }
 
     $templdata["domain_select"]="";
@@ -81,7 +80,7 @@ function html_login() {
         $templdata["domain_select"] .= "@ <select name=\"login_domain\">";
         reset($domains_list);
         while(list ($id,$tmp) = myEach ($domains_list) ) {
-            if ($cookie_omail_last_domain == $tmp) {
+            if ($_COOKIE["cookie_omail_last_domain"] == $tmp) {
                 $templdata["domain_select"] .= "<option selected>$tmp</option>";
             } else {
                 $templdata["domain_select"] .= "<option>$tmp</option>";
@@ -95,7 +94,7 @@ function html_login() {
         $templdata["tcphost_select_list"] = "";
         reset($vmailmgrd_tcp_hosts_list);
         while(list ($id,$tmp) = myEach ($vmailmgrd_tcp_hosts_list)) {
-            if ($cookie_omail_last_server == $id) {
+            if ($_COOKIE["cookie_omail_last_server"] == $id) {
                 $templdata["tcphost_select_list"] .= "<option selected>$id</option>";
             } else {
                 $templdata["tcphost_select_list"] .= "<option>$id</option>";
