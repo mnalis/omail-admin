@@ -39,10 +39,6 @@ session_start();
 // Initialize _SESSION variables
 require("session_init.php");
 
-// Workaround for missing register_globals in PHP 5.4+
-//extract($_REQUEST);
-//extract($_SESSION);
-
 
 /*****************************************************************************/
 require("./vmail.inc");
@@ -59,37 +55,42 @@ $vm_list = array();
 $vm_list_loaded = 0;
 $vm_resp_status = array();
 
-if (!isset($_REQUEST["setlang"])) {
 
-    // if no language defined yet (cookie or session):
-    // try to findout users language by checking it's HTTP_ACCEPT_LANGUAGE variable
+// 1. if session language is not set, try to get previous one from cookie
+if (!isset($_SESSION["lang"])) {
+    if (isset($_COOKIE["cookie_omail_lang"])) {
+        $_SESSION["lang"] = htmlentities($_COOKIE["cookie_omail_lang"]);
+    }
+}
 
+// 2. if session language is still not set, try to guess from browser settings (HTTP_ACCEPT_LANGUAGE)
+if (!isset($_SESSION["lang"])) {
     if ($_SERVER["HTTP_ACCEPT_LANGUAGE"]) {
         $langaccept = explode(",", $_SERVER["HTTP_ACCEPT_LANGUAGE"]);
         for ($i = 0; $i < count($langaccept); $i++) {
             $tmplang = trim($langaccept[$i]);
             $tmplang2 = substr($tmplang, 0, 2);
             if (isset($txt_langname[$tmplang])) {   // if the whole string matchs ("de-CH", or "en", etc)
-                $setlang = $tmplang;
+                $_SESSION["lang"] = $tmplang;
                 break;
             } elseif (isset($txt_langname[$tmplang2])) { // then try only the 2 first chars ("de", "fr"...)
-                $setlang = $tmplang2;
+                $_SESSION["lang"] = $tmplang2;
                 break;
             }
         }
     }
-
-    if (!isset($setlang)) {
-        // didn't catch any valid lang : we use the default settings
-        $setlang = $default_lang;
-    }
-} else {
-    $setlang = $_REQUEST["setlang"];
 }
 
-if (isset($setlang)) {
-    $_SESSION["lang"] = $setlang;
+// 3. if session language is still not set, give up and use hardcoded default_language from config.php
+if (!isset($_SESSION["lang"])) {
+    $_SESSION["lang"] = $default_language;
 }
+
+// 4. ?setlang=xx specified in URL, override all previous versions!
+if (isset($_REQUEST["setlang"])) {
+    $_SESSION["lang"] = $_REQUEST["setlang"];
+}
+
 
 if (!$_SESSION["active"]) {
 

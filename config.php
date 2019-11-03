@@ -258,12 +258,4 @@ $cvs_version = '$Id: config.php, 20191102 https://github.com/mnalis/omail-admin$
 $script_url = $_SERVER["PHP_SELF"];
 $script = $script_url;
 
-// default lang
-if (isset($cookie_omail_lang) && !$default_lang) {
-    $default_lang = htmlentities($cookie_omail_lang);
-}
-if (!isset($default_lang)) {
-    $default_lang = $default_language;
-}       // default language
-
 ?>

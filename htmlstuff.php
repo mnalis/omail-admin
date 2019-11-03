@@ -108,15 +108,13 @@ function html_login() {
 }
 
 function html_head($title) {
-    global $cvs_version, $setlang, $version;
+    global $cvs_version, $version;
 
     include("strings.php");
 
     // needed for 'ru' (at least with no-russian browsers)
     if ($txt_charset[$_SESSION["lang"]]) {
         Header("Content-Type: text/html; charset=" . $txt_charset[$_SESSION["lang"]] . "\n");
-    } elseif ($txt_charset[$setlang]) {
-        Header("Content-Type: text/html; charset=" . $txt_charset[$setlang] . "\n");
     }
 
     $templdata["version"] = $version;
