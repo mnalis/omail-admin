@@ -65,7 +65,7 @@ if (!isset($_SESSION["lang"])) {
 
 // 2. if session language is still not set, try to guess from browser settings (HTTP_ACCEPT_LANGUAGE)
 if (!isset($_SESSION["lang"])) {
-    if ($_SERVER["HTTP_ACCEPT_LANGUAGE"]) {
+    if (isset($_SERVER["HTTP_ACCEPT_LANGUAGE"])) {
         $langaccept = explode(",", $_SERVER["HTTP_ACCEPT_LANGUAGE"]);
         for ($i = 0; $i < count($langaccept); $i++) {
             $tmplang = trim($langaccept[$i]);
