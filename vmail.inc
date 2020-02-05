@@ -103,7 +103,7 @@ function listdomain_parse_userdata($line, $username){
     //Grab the protocol version
     $ver = ord(substr($line, 0, 1));
     if ($ver != 2)
-        die("Protocol version is $ver, not the 2 as this script expects.");
+        die("Protocol version is $ver, not the 2 as this script expects (line=$line).");
     //Chop off the version
     $line=substr($line, 1);
     //Grab the flags
@@ -235,8 +235,7 @@ function vchpass($domain, $password, $username, $newpass){
     if ($password=="") return array(1, "Empty domain password");
     if ($username=="") return array(1, "Empty username");
     if ($newpass=="") return array(1, "Empty new password");
-    $command = array("chattr", $domain, $username, $password, "PASS", $newpass);
-    return vm_daemon_raw($command);
+    return vchattr($domain, $password, $username, "PASS", $newpass);
 }
 
 /* vchforward, takes domain name, password, username and an array of
