@@ -1165,7 +1165,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
             $from = $_REQUEST["from"];
 
             // check args format....
-            if (get_magic_quotes_gpc() == 1) {
+            if (function_exists("get_magic_quotes_gpc") && (get_magic_quotes_gpc() == 1)) {
                 $body = stripslashes($body);
                 $subject = stripslashes($subject);
                 $from = stripslashes($from);
@@ -1214,7 +1214,7 @@ if ($_SESSION["active"] == 1) {    // active=1 -> user logged in
             $from = $_REQUEST["from"];
 
             // check args format....
-            if (get_magic_quotes_gpc() == 1) {
+            if (function_exists("get_magic_quotes_gpc") && (get_magic_quotes_gpc() == 1)) {
                 $from = stripslashes($from);
             }
 
